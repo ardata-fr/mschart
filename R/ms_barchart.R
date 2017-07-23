@@ -73,9 +73,11 @@ set_labels <- function( x, title = NULL, xlab = NULL, ylab = NULL){
 
 
 #' @importFrom purrr map_chr
-ooml_chart <- function(x, ...){
+ooml_barchart <- function(x, data_file){
 
-  series <- as_series(x)
+  write.xlsx(get_data(x), file = data_file, sheetName = "sheet1")
+
+  series <- as_barchart_series(x)
   str_series_ <- map_chr(series, function(x) x$pml() )
   str_series_ <- paste(str_series_, collapse = "")
 
@@ -110,7 +112,6 @@ ooml_chart <- function(x, ...){
   str_
 }
 
-
 #' @importFrom data.table as.data.table dcast.data.table setorderv
 get_data <- function(x){
   dataset <- as.data.table(x$data)
@@ -119,13 +120,13 @@ get_data <- function(x){
 
   if( !is.null(x$group)){
     form_str <- sprintf("%s ~ %s", x$x, x$group)
-    dataset <- dcast.data.table(dataset, as.formula(form_str), fun.aggregate = I, fill = NA )
+    dataset <- dcast.data.table(dataset, as.formula(form_str), fun.aggregate = function(x) {x}, fill = NA )
   }
   as.data.frame(dataset)
 }
 
 #' @importFrom cellranger cell_limits as.range ra_ref to_string
-as_series <- function(x){
+as_barchart_series <- function(x){
 
   dataset <- get_data(x)
 
@@ -150,7 +151,7 @@ as_series <- function(x){
     serie_values_ <- num_ref$new( serie_value_range, dataset[[val_col]] )
 
 
-    ser <- serie_data$new( idx = length(series),
+    ser <- serie_barchart$new( idx = length(series),
                            order = length(series),
                            tx = serie_name_ref_,
                            cat = serie_cat_, val = serie_values_ )

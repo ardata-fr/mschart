@@ -48,9 +48,9 @@ num_ref <- R6::R6Class(
   )
 
 )
-# serie_data ----
-serie_data <- R6::R6Class(
-  "serie_data",
+# serie_barchart ----
+serie_barchart <- R6::R6Class(
+  "serie_barchart",
   public = list(
 
     initialize = function( idx, order, tx, cat, val ) {
@@ -81,6 +81,43 @@ serie_data <- R6::R6Class(
     invert_if_negative = NULL,
     cat = NULL,
     val = NULL
+  )
+
+)
+
+# serie_scatter ----
+serie_scatter <- R6::R6Class(
+  "serie_scatter",
+  public = list(
+
+    initialize = function( idx, order, tx, val_x, val_y, marker ) {
+      private$idx <- idx
+      private$order <- order
+      private$tx <- tx
+      private$marker <- marker
+      private$val_x <- val_x
+      private$val_y <- val_y
+    },
+    pml = function(){
+      str_ <- paste0("<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx><c:xVal>%s</c:xVal><c:yVal>%s</c:yVal></c:ser>")
+      str_ <- sprintf(str_,
+                      private$idx, private$order,
+                      private$tx$pml(),
+                      #private$marker,
+                      private$val_x$pml(),
+                      private$val_y$pml()
+      )
+      str_
+    }
+
+  ),
+  private = list(
+    idx = NULL,
+    order = NULL,
+    tx = NULL,
+    marker = NULL,
+    val_x = NULL,
+    val_y = NULL
   )
 
 )

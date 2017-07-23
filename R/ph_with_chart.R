@@ -33,10 +33,7 @@ ph_with_chart <- function( x, value, type = "body", index = 1 ){
   rel_str <- sprintf( rel_str, basename(xlsx_file) )
   cat(rel_str, file = rel_filename)
 
-
-  write.xlsx(get_data(value), file = xlsx_file, sheetName = "sheet1")
-
-  xml_elt <- ooml_chart(value)
+  xml_elt <- ooml_chart(value, data_file = xlsx_file)
 
   node <- xml_find_first(xml_doc, "//c:plotArea")
   xml_replace( node, as_xml_document(xml_elt) )
