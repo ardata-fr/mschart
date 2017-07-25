@@ -2,18 +2,21 @@ library(officer)
 library(magrittr)
 library(mschart)
 
+# change _ instead .
+
 x1 <- ms_barchart(data = browser_data, x = "browser", y = "value", group = "serie") %>%
   chart_settings( dir="col", grouping="clustered", gap_width = 50 ) %>%
   set_x_axis(cross_between = 'between', major_tick_mark="out") %>%
-  set_y_axis(cross_between = "midCat", major_tick_mark="in")
+  set_y_axis(cross_between = "midCat", major_tick_mark="in") %>%
+  set_labels(xlab = "David Gohel")
+
 
 
 mytheme <- chart_theme(
   axis.title.x = fp_text(color = "red", font.size = 24, bold = TRUE),
   axis.title.y = fp_text(color = "green", font.size = 12, italic = TRUE),
   grid.major.line.y = fp_border(width = 1, color = "orange"),
-  axis.ticks.y = fp_border(width = 1, color = "orange")
-  )
+  axis.ticks.y = fp_border(width = 1, color = "orange") )
 
 x2 <- ms_barchart(data = browser_data, x = "browser", y = "value") %>%
   chart_settings( dir="col", grouping="clustered" ) %>%
@@ -55,8 +58,10 @@ doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- ph_with_chart(doc, value = x4)
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- ph_with_chart(doc, value = x5)
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_chart(doc, value = x6)
+doc <- add_slide(doc, layout = "Two Content", master = "Office Theme")
+doc <- ph_with_chart(doc, value = x6, type = "body", index = 1)
+doc <- ph_with_chart(doc, value = x6, type = "body", index = 2)
+# doc <- ph_with_chart_at(doc, value = x6, left = 1, top = 1, width = 6, height = 5)
 
 target_ <- tempfile(fileext = ".pptx")
 print(doc, target = target_) %>% browseURL()

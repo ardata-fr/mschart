@@ -60,6 +60,8 @@ ms_linechart <- function(data, x, y, group = NULL){
 
 #' @describeIn mschart barchart function
 #' @export
+#' @examples
+#' @example examples/01_barchart.R
 ms_barchart <- function(data, x, y, group = NULL){
 
   out <- ms_chart(data = data, x = x, y = y, group = group)

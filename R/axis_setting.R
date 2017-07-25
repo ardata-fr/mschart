@@ -1,22 +1,23 @@
-#' @title axis settings
-#' @description Set axis properties.
+#' @title x axis settings
+#' @description Set x axis properties.
 #' @param x chart object
-#' @param orientation axis orientation, expected value is one
-#' of "maxMin" or "minMax".
-#' @param crosses specifies how the axis crosses the perpendicular axis,
-#' expected value should be one of "autoZero", "max" or "min".
-#' @param cross_between specifies how the value axis crosses the category
-#' axis between categories, expected value should be one of "midCat" or "between".
-#' @param major_tick_mark,minor_tick_mark tick marks position, expected value should
-#' be one of 'cross', 'in', 'none' or 'out'.
-#' @param tick_label_pos ticks labels position, expected value should
-#' be one of 'high', 'low', 'nextTo' or 'none'.
-#' @param display should the axis be displayed.
-#' @param num_fmt number formatting. It can be "General", "0.00", "#,##0",
+#' @param orientation `character(1)`: axis orientation,
+#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_orientation)}.
+#' @param crosses `character(1)`: specifies how the axis crosses the perpendicular axis,
+#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_crosses)}.
+#' @param cross_between `character(1)`: specifies how the value axis crosses the category
+#' axis between categories,
+#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_crossbetween)}.
+#' @param major_tick_mark,minor_tick_mark `character(1)`: tick marks position,
+#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_tickmark)}.
+#' @param tick_label_pos `character(1)`: ticks labels position,
+#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_ticklblpos)}.
+#' @param display `logical(1)`: should the axis be displayed.
+#' @param num_fmt `character(1)`: number formatting. It can be "General", "0.00", "#,##0",
 #' "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.
-#' @param rotation rotation angle.
-#' @param second_axis unused
-#' @rdname set_axis
+#' @param rotation `integer(1)`: rotation angle. Value should be between `-360` and `360`.
+#' @param second_axis `logical(1)`: unused
+#' @seealso \code{\link{set_y_axis}}
 #' @export
 set_x_axis <- function( x, orientation, crosses, cross_between,
                             major_tick_mark, minor_tick_mark,
@@ -27,7 +28,10 @@ set_x_axis <- function( x, orientation, crosses, cross_between,
 
 
 #' @export
-#' @rdname set_axis
+#' @title y axis settings
+#' @description Set y axis properties.
+#' @inheritParams set_x_axis
+#' @seealso \code{\link{set_x_axis}}
 set_y_axis <- function( x, orientation, crosses, cross_between,
                             major_tick_mark, minor_tick_mark,
                             tick_label_pos, display,
@@ -37,7 +41,7 @@ set_y_axis <- function( x, orientation, crosses, cross_between,
 
 
 #' @export
-#' @rdname set_axis
+#' @describeIn set_x_axis set_x_axis method for ms_chart objects
 set_x_axis.ms_chart <- function( x, orientation, crosses, cross_between,
                                      major_tick_mark, minor_tick_mark,
                                      tick_label_pos, display,
@@ -58,6 +62,7 @@ set_x_axis.ms_chart <- function( x, orientation, crosses, cross_between,
 }
 
 #' @export
+#' @describeIn set_y_axis set_y_axis method for ms_chart objects
 set_y_axis.ms_chart <- function( x, orientation, crosses, cross_between,
                                  major_tick_mark, minor_tick_mark,
                                  tick_label_pos, display,

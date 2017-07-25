@@ -19,3 +19,5 @@ Imports: stats,
     R6,cellranger,openxlsx,
     xml2 (>= 1.1.0)
 RoxygenNote: 6.0.1.9000
+Remotes: davidgohel/officer
+
