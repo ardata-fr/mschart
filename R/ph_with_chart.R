@@ -1,4 +1,5 @@
 #' @export
+#' @importFrom stats setNames
 #' @importFrom openxlsx write.xlsx
 #' @importFrom xml2 read_xml xml_find_first xml_replace as_xml_document xml_add_child write_xml
 ph_with_chart <- function( x, value, type = "body", index = 1 ){
@@ -33,13 +34,13 @@ ph_with_chart <- function( x, value, type = "body", index = 1 ){
   rel_str <- sprintf( rel_str, basename(xlsx_file) )
   cat(rel_str, file = rel_filename)
 
-  xml_elt <- ooml_chart(value, data_file = xlsx_file)
+  write.xlsx(value$data_series, file = xlsx_file, sheetName = "sheet1")
+  xml_elt <- format(value, id_x = "64451712", id_y = "64453248")
 
   node <- xml_find_first(xml_doc, "//c:plotArea")
   xml_replace( node, as_xml_document(xml_elt) )
 
   write_xml(xml_doc, chart_file)
-
 
   next_id <- slide$relationship()$get_next_id()
   slide$relationship()$add(paste0("rId", next_id),

@@ -17,17 +17,14 @@ data_labels_options <- function(num_fmt = "General", position = "ctr",
 
 }
 
-
-#' @export
 pml_labels_options <- function(x){
-
   str_ <- paste0("<c:dLbls>",
          sprintf("<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>", x$num_fmt),
          sprintf("<c:dLblPos val=\"%s\"/>", x$position),
          sprintf("<c:showLegendKey val=\"%.0f\"/>", x$show_legend_key),
-         sprintf("<c:showVal val=\"%.0f\"/>", x$show_val),
-         sprintf("<c:showCatName val=\"%.0f\"/>", x$show_cat_name),
-         sprintf("<c:showSerName val=\"%.0f\"/>", x$show_serie_name),
+         sprintf("<c:showVal val=\"%.0f\"/>", as.integer(x$show_val)),
+         sprintf("<c:showCatName val=\"%.0f\"/>", as.integer(x$show_cat_name)),
+         sprintf("<c:showSerName val=\"%.0f\"/>", as.integer(x$show_serie_name)),
          sprintf("<c:showPercent val=\"%.0f\"/>", x$show_percent),
          sprintf("<c:showBubbleSize val=\"%.0f\"/>", FALSE),
          sprintf("<c:separator val=\"%s\"/>", x$separator),

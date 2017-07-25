@@ -1,0 +1,93 @@
+# axes ----
+get_axis_tag <- function(x){
+  if( inherits(x, "Date") )
+    axis_tag <- "c:dateAx"
+  else if( is.factor(x) || is.character(x) )
+    axis_tag <- "c:catAx"
+  else if( is.numeric(x) )
+    axis_tag <- "c:valAx"
+  else stop("unknow type of data during x axis analysis")
+  axis_tag
+}
+
+
+axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, rot = 0 ){
+
+  x_title_id <- paste0("axis.title.", ifelse(is_x, "x", "y"))
+
+  if( is.null(lab)) {
+    title_ <- ""
+  } else {
+    title_ <- "<c:title><c:tx><c:rich><a:bodyPr rot=\"%.0f\" vert=\"horz\" anchor=\"ctr\"/><a:lstStyle/><a:p><a:pPr><a:defRPr/></a:pPr><a:r>%s<a:t>%s</a:t></a:r></a:p></c:rich></c:tx><c:layout/><c:overlay val=\"0\"/></c:title>"
+    title_ <- sprintf(title_, rot * 60000 , format(theme[[x_title_id]], type = "pml" ), lab )
+  }
+
+  major_tm <- "<c:majorTickMark val=\"%s\"/>"
+  major_tm <- sprintf(major_tm, x$major_tick_mark)
+
+  minor_tm <- "<c:minorTickMark val=\"%s\"/>"
+  minor_tm <- sprintf(minor_tm, x$minor_tick_mark)
+
+  grid_major_id <- paste0("grid.major.line.", ifelse(is_x, "x", "y"))
+  major_gl <- "<c:majorGridlines><c:spPr>%s</c:spPr></c:majorGridlines>"
+  major_gl <- sprintf(major_gl, format(theme[[grid_major_id]], type = "pml") )
+
+  grid_minor_id <- paste0("grid.minor.line.", ifelse(is_x, "x", "y"))
+  minor_gl <- "<c:minorGridlines><c:spPr>%s</c:spPr></c:minorGridlines>"
+  minor_gl <- sprintf(minor_gl, format(theme[[grid_minor_id]], type = "pml") )
+
+  orientation <- sprintf("<c:scaling><c:orientation val=\"%s\"/></c:scaling>", x$orientation )
+  delete <- sprintf("<c:delete val=\"%.0f\"/>", x$delete )
+  position <- sprintf("<c:axPos val=\"%s\"/>", x$axis_position )
+  crosses <- sprintf("<c:crosses val=\"%s\"/>", x$crosses )
+  num_fmt <- ""
+  if( !is.null(x$num_fmt) ){
+    num_fmt <- sprintf("<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>", x$num_fmt)
+  }
+
+
+  tl_pos <- ""
+  tl_pos <- "<c:tickLblPos val=\"%s\"/>"
+  tl_pos <- sprintf(tl_pos, x$tick_label_pos)
+
+  axis_major_ticks_id <- paste0("axis.ticks.", ifelse(is_x, "x", "y"))
+  axis_ticks <- "<c:spPr>%s</c:spPr>"
+  axis_ticks <- sprintf(axis_ticks, format(theme[[axis_major_ticks_id]], type = "pml") )
+
+
+  labels_text_id <- paste0("axis.text.", ifelse(is_x, "x", "y"))
+  rpr <- format(theme[[labels_text_id]], type = "pml")
+  rpr <- gsub("a:rPr", "a:defRPr", rpr)
+  labels_text_pr <- "<c:txPr><a:bodyPr rot=\"%.0f\" vert=\"horz\"/><a:lstStyle/><a:p><a:pPr>%s</a:pPr></a:p></c:txPr>"
+  labels_text_pr <- sprintf(labels_text_pr, x$rotation * 60000, rpr )
+
+  str_ <- paste0( "<c:axId val=\"%s\"/>",
+                  orientation, delete, position,
+                  major_gl, minor_gl,
+                  title_,
+                  major_tm, minor_tm, tl_pos,
+                  labels_text_pr,
+                  axis_ticks, num_fmt,
+                  "<c:crossAx val=\"%s\"/>", crosses)
+  str_ <- sprintf(str_, id, cross_id)
+  str_
+
+}
+
+
+axes_xml <- function(x, id_x, id_y){
+
+  x_axis_str <- axis_content_xml( x$x_axis, id = id_x, theme = x$theme,
+                                  cross_id = id_y, is_x = TRUE,
+                                  lab = x$labels$x)
+  x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
+
+  y_axis_str <- axis_content_xml( x$y_axis, id = id_y, theme = x$theme,
+                                  cross_id = id_x, is_x = FALSE,
+                                  lab = x$labels$y)
+  y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
+
+  paste0(x_axis_str, y_axis_str)
+}
+
+

@@ -10,6 +10,14 @@ str_ref <- R6::R6Class(
 
     pml = function(){
       pt_ <- "<c:pt idx=\"%.0f\"><c:v>%s</c:v></c:pt>"
+      if( inherits(private$values, "Date") ){
+        pt_ <- "<c:pt idx=\"%.0f\"><c:v>%.1f</c:v></c:pt>"
+        private$values <- as.integer(private$values - as.Date("1900-01-01") - 2)
+      } else if( is.factor(private$values) ){
+        private$values <- as.character(private$values)
+      } else if( is.numeric(private$values) ){
+        private$values <- as.character(private$values)
+      }
       pt_ <- sprintf(pt_, seq_along(private$values)-1, private$values)
       pt_ <- paste0(pt_, collapse = "")
       pml_ <- "<c:strRef><c:f>%s</c:f><c:strCache><c:ptCount val=\"%.0f\"/>%s</c:strCache></c:strRef>"
@@ -21,104 +29,76 @@ str_ref <- R6::R6Class(
     region = NULL,
     values = NULL
   )
-
 )
+
 # num_ref ----
 num_ref <- R6::R6Class(
   "num_ref",
   public = list(
 
-    initialize = function( region, values ) {
+    initialize = function( region, values, num_fmt = NULL ) {
       private$region <- region
       private$values <- values
+      private$num_fmt <- num_fmt
     },
 
     pml = function(){
       pt_ <- "<c:pt idx=\"%.0f\"><c:v>%s</c:v></c:pt>"
+      if( inherits(private$values, "Date") ){
+        private$values <- as.integer(private$values - as.Date("1900-01-01") - 2)
+      }
       pt_ <- sprintf(pt_, seq_along(private$values)-1, private$values)
       pt_ <- paste0(pt_, collapse = "")
-      pml_ <- "<c:numRef><c:f>%s</c:f><c:numCache><c:formatCode>General</c:formatCode><c:ptCount val=\"%.0f\"/>%s</c:numCache></c:numRef>"
-      sprintf(pml_, private$region, length(private$values), pt_)
+      num_fmt <- ""
+      if( !is.null(private$num_fmt) )
+        num_fmt <- sprintf("<c:formatCode>%s</c:formatCode>", private$num_fmt )
+      pml_ <- "<c:numRef><c:f>%s</c:f><c:numCache>%s<c:ptCount val=\"%.0f\"/>%s</c:numCache></c:numRef>"
+      sprintf(pml_, private$region, num_fmt, length(private$values), pt_)
     }
 
   ),
   private = list(
     region = NULL,
-    values = NULL
-  )
-
-)
-# serie_barchart ----
-serie_barchart <- R6::R6Class(
-  "serie_barchart",
-  public = list(
-
-    initialize = function( idx, order, tx, cat, val ) {
-      private$idx <- idx
-      private$order <- order
-      private$tx <- tx
-      private$invert_if_negative <- '0'
-      private$cat <- cat
-      private$val <- val
-    },
-    pml = function(){
-      str_ <- paste0("<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s<c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
-      str_ <- sprintf(str_,
-                      private$idx, private$order,
-                      private$tx$pml(),
-                      "<c:invertIfNegative val=\"0\"/>",
-                      private$cat$pml(),
-                      private$val$pml()
-      )
-      str_
-    }
-
-  ),
-  private = list(
-    idx = NULL,
-    order = NULL,
-    tx = NULL,
-    invert_if_negative = NULL,
-    cat = NULL,
-    val = NULL
+    values = NULL,
+    num_fmt = NULL
   )
 
 )
 
-# serie_scatter ----
-serie_scatter <- R6::R6Class(
-  "serie_scatter",
-  public = list(
 
-    initialize = function( idx, order, tx, val_x, val_y, marker ) {
-      private$idx <- idx
-      private$order <- order
-      private$tx <- tx
-      private$marker <- marker
-      private$val_x <- val_x
-      private$val_y <- val_y
-    },
-    pml = function(){
-      str_ <- paste0("<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx><c:xVal>%s</c:xVal><c:yVal>%s</c:yVal></c:ser>")
-      str_ <- sprintf(str_,
-                      private$idx, private$order,
-                      private$tx$pml(),
-                      #private$marker,
-                      private$val_x$pml(),
-                      private$val_y$pml()
-      )
-      str_
-    }
+# as_series ----
+#' @importFrom cellranger cell_limits as.range ra_ref to_string
+as_series <- function(x, x_class, y_class ){
 
-  ),
-  private = list(
-    idx = NULL,
-    order = NULL,
-    tx = NULL,
-    marker = NULL,
-    val_x = NULL,
-    val_y = NULL
-  )
+  dataset <- x$data_series
 
-)
+  w_x <- which( names(dataset) %in% x$x )
+  x_serie_range <- cell_limits(ul = c(2, w_x),
+                               lr = c(nrow(dataset)+1, w_x),
+                               sheet = "sheet1")
+  x_serie_range <- as.range(x_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
+  x_serie <- x_class$new( x_serie_range, dataset[[x$x]] )
 
+  series <- list()
+
+  w_y_values <- which( names(dataset) %in% setdiff(names(dataset), x$x) )
+
+  for( w_y in w_y_values){
+
+    y_colname <- names(dataset)[w_y]
+
+    serie_name_range <- ra_ref(row_ref = 1, col_ref = w_y, sheet = "sheet1")
+    serie_name_range <- to_string(serie_name_range, fo = "A1")
+    serie_name <- str_ref$new( serie_name_range, y_colname )
+
+    y_serie_range <- cell_limits(ul = c(2, w_y), lr = c(nrow(dataset)+1, w_y),  sheet = "sheet1")
+    y_serie_range <- as.range(y_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
+    y_serie <- y_class$new( y_serie_range, dataset[[y_colname]] )
+
+    ser <- list( idx = length(series), order = length(series),
+                 tx = serie_name,
+                 x = x_serie, y = y_serie )
+    series <- append(series, list(ser) )
+  }
+  series
+}

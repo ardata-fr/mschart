@@ -6,15 +6,16 @@ Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
     person("YouGov", role = "fnd"))
-Description: Create charts for 'Microsoft PowerPoint' documents. 
+Description: Create charts for 'Microsoft PowerPoint' and  'Microsoft Word' documents. 
   Functions are provided to let users create charts, modify and format their content. 
   It extends package 'officer' that does not contain any feature for 'Microsoft' native 
   charts production.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports:
-    purrr,
+Depends: R (>= 2.10)
+Imports: stats,
+    purrr,data.table,officer,
     R6,cellranger,openxlsx,
     xml2 (>= 1.1.0)
 RoxygenNote: 6.0.1.9000

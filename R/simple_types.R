@@ -57,4 +57,3 @@ st_legendpos <- c('b', 'tr', 'l', 'r', 't')
 st_dispblanksas <- c('span', 'gap', 'zero')
 
 st_pagesetuporientation <- c('default', 'portrait', 'landscape')
-
