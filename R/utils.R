@@ -9,6 +9,8 @@ shape_as_series <- function(x){
     dataset <- dcast.data.table(dataset, formula = as.formula(form_str),
                                 fun.aggregate = function(x) {x},
                                 fill = NA, value.var = x$y )
+  } else {
+    dataset <- dataset[, c(x$x, x$y), with = FALSE ]
   }
   as.data.frame(dataset)
 }

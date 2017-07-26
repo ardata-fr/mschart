@@ -81,3 +81,35 @@ chart_settings.ms_linechart <- function( x, vary_colors, grouping, ... ){
   x$options <- options
   x
 }
+
+
+
+
+#' @export
+#' @describeIn chart_settings linechart settings
+chart_settings.ms_areachart <- function( x, vary_colors = FALSE, grouping = "standard", ... ){
+  if( !grouping %in% st_grouping ){
+    stop("grouping should be one of ", paste0(shQuote(st_grouping), collapse = ", " ))
+  }
+  options <- list(vary_colors = vary_colors, grouping = grouping )
+  class(options) <- "areachart_options"
+
+  x$options <- options
+  x
+}
+
+#' @export
+#' @describeIn chart_settings linechart settings
+#' @param scatterstyle The Style for the scatter chart. One
+#' of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_scatterstyle)}
+chart_settings.ms_scatterchart <- function( x, vary_colors = FALSE, scatterstyle = "lineMarker", ... ){
+
+  if( !scatterstyle %in% st_scatterstyle ){
+    stop("scatterstyle should be one of ", paste0(shQuote(st_scatterstyle), collapse = ", " ))
+  }
+  options <- list(vary_colors = vary_colors, scatterstyle = scatterstyle )
+  class(options) <- "scatterchart_options"
+
+  x$options <- options
+  x
+}

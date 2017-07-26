@@ -56,3 +56,50 @@ ooml_code.ms_linechart <- function(x, id_x, id_y){
                   "</c:lineChart>"  )
 }
 
+
+#' @importFrom purrr map_chr
+ooml_code.ms_areachart <- function(x, id_x, id_y){
+
+  series <- as_series(x, num_ref, num_ref)
+
+  str_series_ <- map_chr( series, function(x, template ){
+    sprintf(template, x$idx, x$order, x$tx$pml(), x$x$pml(), x$y$pml() )
+  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx><c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
+  str_series_ <- paste(str_series_, collapse = "")
+
+  x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
+  y_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_y)
+
+  paste0( "<c:areaChart>",
+          sprintf("<c:grouping val=\"%s\"/>", x$options$grouping),
+          sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
+          str_series_,
+          pml_labels_options(x$label_settings),
+          x_ax_id, y_ax_id,
+          "</c:areaChart>"  )
+}
+
+
+#' @importFrom purrr map_chr
+ooml_code.ms_scatterchart <- function(x, id_x, id_y){
+
+  series <- as_series(x, num_ref, num_ref)
+
+  str_series_ <- map_chr( series, function(x, template ){
+    sprintf(template, x$idx, x$order, x$tx$pml(), x$x$pml(), x$y$pml() )
+  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx><c:spPr><a:ln><a:noFill/></a:ln></c:spPr><c:xVal>%s</c:xVal><c:yVal>%s</c:yVal></c:ser>")
+  str_series_ <- paste(str_series_, collapse = "")
+
+  x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
+  y_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_y)
+
+  paste0( "<c:scatterChart>",
+          sprintf("<c:scatterStyle val=\"%s\"/>", x$options$scatterstyle),
+          sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
+          str_series_,
+          pml_labels_options(x$label_settings),
+          x_ax_id, y_ax_id,
+          "</c:scatterChart>"  )
+}
+
+

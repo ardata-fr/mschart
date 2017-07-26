@@ -18,12 +18,13 @@ mschart_theme(axis_title = fp_text(bold = TRUE, font.size = 16),
   grid_major_line_y = grid_major_line, grid_minor_line = fp_border(width =
   0), grid_minor_line_x = grid_minor_line,
   grid_minor_line_y = grid_minor_line, date_fmt = "yyyy/mm/dd",
-  str_fmt = "General", double_fmt = "#,##0.00", integer_fmt = "0")
+  str_fmt = "General", double_fmt = "#,##0.00", integer_fmt = "0",
+  legend_position = "b")
 
 chart_theme(x, axis_title_x, axis_title_y, main_title, axis_text_x, axis_text_y,
   axis_ticks_x, axis_ticks_y, grid_major_line_x, grid_major_line_y,
   grid_minor_line_x, grid_minor_line_y, date_fmt, str_fmt, double_fmt,
-  integer_fmt)
+  integer_fmt, legend_position)
 }
 \arguments{
 \item{x}{chart object.}
@@ -49,6 +50,9 @@ chart_theme(x, axis_title_x, axis_title_y, main_title, axis_text_x, axis_text_y,
 \item{double_fmt}{double format}
 
 \item{integer_fmt}{integer format}
+
+\item{legend_position}{`character(1)`: it specifies the position of the legend. It should be
+one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_legendpos)}}
 }
 \description{
 Modify chart theme with function \code{set_theme}.

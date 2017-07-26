@@ -41,6 +41,8 @@ set_theme <- function( x, value ){
 #' @param str_fmt string or factor format
 #' @param double_fmt double format
 #' @param integer_fmt integer format
+#' @param legend_position `character(1)`: it specifies the position of the legend. It should be
+#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_legendpos)}
 #' @rdname set_theme
 #' @export
 mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axis_title_x = axis_title, axis_title_y = axis_title,
@@ -49,7 +51,7 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
                           axis_ticks = fp_border(color = "#99999999"), axis_ticks_x = axis_ticks, axis_ticks_y = axis_ticks,
                           grid_major_line = fp_border(color = "#99999999", style = "dashed"), grid_major_line_x = grid_major_line, grid_major_line_y = grid_major_line,
                           grid_minor_line = fp_border(width = 0), grid_minor_line_x = grid_minor_line, grid_minor_line_y = grid_minor_line,
-                          date_fmt = "yyyy/mm/dd", str_fmt = "General", double_fmt = "#,##0.00", integer_fmt = "0" ){
+                          date_fmt = "yyyy/mm/dd", str_fmt = "General", double_fmt = "#,##0.00", integer_fmt = "0", legend_position = "b" ){
 
   stopifnot(inherits(main_title, "fp_text"))
   stopifnot(inherits(axis_title, "fp_text"))
@@ -68,12 +70,16 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
   stopifnot(inherits(grid_minor_line_x, "fp_border"))
   stopifnot(inherits(grid_minor_line_y, "fp_border"))
 
+  if( !legend_position %in% st_legendpos ){
+    stop("legend_position should be one of ", paste0(shQuote(st_legendpos), collapse = ", " ))
+  }
 
   out <- list(main_title = main_title, axis_title_x = axis_title_x, axis_title_y = axis_title_y,
               axis_text_x = axis_text_x, axis_text_y = axis_text_y,
               axis_ticks_x = axis_ticks_x, axis_ticks_y = axis_ticks_y,
               grid_major_line_x = grid_major_line_x, grid_major_line_y = grid_major_line_y,
-              grid_minor_line_x = grid_minor_line_x, grid_minor_line_y = grid_minor_line_y )
+              grid_minor_line_x = grid_minor_line_x, grid_minor_line_y = grid_minor_line_y,
+              legend_position = legend_position)
   class(out) <- "mschart_theme"
   out
 }
@@ -86,7 +92,7 @@ chart_theme <- function( x, axis_title_x, axis_title_y, main_title,
                           axis_ticks_x, axis_ticks_y,
                           grid_major_line_x, grid_major_line_y,
                           grid_minor_line_x, grid_minor_line_y,
-                          date_fmt, str_fmt, double_fmt, integer_fmt){
+                          date_fmt, str_fmt, double_fmt, integer_fmt, legend_position){
 
   if(!missing(axis_title_x)){
     if( !all( class( axis_title_x ) %in% class( x$theme$axis_title_x ) ) )
@@ -177,6 +183,13 @@ chart_theme <- function( x, axis_title_x, axis_title_y, main_title,
       stop("integer_fmt should be of class ", class( x$theme$integer_fmt ))
     x$theme$integer_fmt <- integer_fmt
   }
+
+  if(!missing(legend_position)){
+    if( !legend_position %in% st_legendpos ){
+      stop("legend_position should be one of ", paste0(shQuote(st_legendpos), collapse = ", " ))
+    }
+  }
+
   x
 }
 

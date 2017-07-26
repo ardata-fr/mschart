@@ -35,6 +35,7 @@ ms_chart <- function(data, x, y, group = NULL){
   out
 }
 
+#' @importFrom xml2 xml_attr<-
 format.ms_chart  <- function(x, id_x, id_y){
   str_ <- ooml_code(x, id_x = id_x, id_y = id_y)
 
@@ -59,12 +60,22 @@ format.ms_chart  <- function(x, id_x, id_y){
     title_ <- sprintf(title_, ns, format(x$theme[["main_title"]], type = "pml" ), x$labels[["title"]] )
     xml_add_child( chartnode, as_xml_document(title_), .where	= 0 )
   }
+  legend_pos <- xml_find_first(xml_doc, "//c:chart/c:legend/c:legendPos")
+  xml_attr( legend_pos, "val" ) <- x$theme[["legend_position"]]
+
+  x$theme[["main_title"]]
+  if( !is.null( x$labels[["title"]] ) ){
+    chartnode <- xml_find_first(xml_doc, "//c:chart")
+    title_ <- "<c:title %s><c:tx><c:rich><a:bodyPr/><a:lstStyle/><a:p><a:pPr><a:defRPr/></a:pPr><a:r>%s<a:t>%s</a:t></a:r></a:p></c:rich></c:tx><c:layout/><c:overlay val=\"0\"/></c:title>"
+    title_ <- sprintf(title_, ns, format(x$theme[["main_title"]], type = "pml" ), x$labels[["title"]] )
+    xml_add_child( chartnode, as_xml_document(title_), .where	= 0 )
+  }
 
   as.character(xml_doc)
 }
 
 
-#' @describeIn mschart linechart function
+#' @describeIn mschart line plot
 #' @export
 #' @examples
 #' library(officer)
@@ -83,7 +94,7 @@ ms_linechart <- function(data, x, y, group = NULL){
   out
 }
 
-#' @describeIn mschart barchart function
+#' @describeIn mschart bar plot
 #' @export
 #' @examples
 #'
@@ -99,6 +110,44 @@ ms_barchart <- function(data, x, y, group = NULL){
   out <- ms_chart(data = data, x = x, y = y, group = group)
   out$options <- barchart_options()
   class(out) <- c("ms_barchart", "ms_chart")
+  out
+}
+
+#' @describeIn mschart area plot
+#' @export
+#' @examples
+#'
+#'
+#' ##########################
+#' # areacharts example -----
+#' ##########################
+#'
+#'
+#' @example examples/03_areachart.R
+ms_areachart <- function(data, x, y, group = NULL){
+
+  out <- ms_chart(data = data, x = x, y = y, group = group)
+  class(out) <- c("ms_areachart", "ms_chart")
+  out <- chart_settings(out)
+  out
+}
+
+#' @describeIn mschart scatter plot
+#' @export
+#' @examples
+#'
+#'
+#' ##########################
+#' # scattercharts example -----
+#' ##########################
+#'
+#'
+#' @example examples/04_scatterchart.R
+ms_scatterchart <- function(data, x, y){
+
+  out <- ms_chart(data = data, x = x, y = y, group = NULL)
+  class(out) <- c("ms_scatterchart", "ms_chart")
+  out <- chart_settings(out)
   out
 }
 

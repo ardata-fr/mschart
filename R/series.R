@@ -69,7 +69,6 @@ num_ref <- R6::R6Class(
 # as_series ----
 #' @importFrom cellranger cell_limits as.range ra_ref to_string
 as_series <- function(x, x_class, y_class ){
-
   dataset <- x$data_series
 
   w_x <- which( names(dataset) %in% x$x )

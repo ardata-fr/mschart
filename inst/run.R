@@ -8,7 +8,7 @@ mytheme <- mschart_theme(main_title = fp_text(color = "orange", font.size = 40, 
   axis_title_y = fp_text(color = "green", font.size = 12, italic = TRUE),
   grid_major_line_y = fp_border(width = .25, color = "orange", style = "dashed"),
   grid_major_line_x = fp_border(width = 1, color = "orange"),
-  axis_ticks_y = fp_border(width = 1, color = "orange") )
+  axis_ticks_y = fp_border(width = 1, color = "orange"), legend_position = "tr" )
 
 
 x4 <- ms_linechart(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species") %>%
@@ -29,7 +29,7 @@ x6 <- ms_linechart(data = browser_ts, x = "date", y = "freq", group = "browser")
 mytheme <- mschart_theme(
   axis_title = fp_text(color = "red", font.size = 24, bold = TRUE),
   grid_major_line_y = fp_border(width = 1, color = "orange"),
-  axis_ticks_y = fp_border(width = .4, color = "gray") )
+  axis_ticks_y = fp_border(width = .4, color = "gray"), legend_position = "t"  )
 
 
 my_bc <- ms_barchart(data = browser_data, x = "browser",

@@ -4,6 +4,8 @@
 \alias{chart_settings}
 \alias{chart_settings.ms_barchart}
 \alias{chart_settings.ms_linechart}
+\alias{chart_settings.ms_areachart}
+\alias{chart_settings.ms_scatterchart}
 \title{set chart options}
 \usage{
 chart_settings(x, ...)
@@ -12,6 +14,12 @@ chart_settings(x, ...)
   overlap, ...)
 
 \method{chart_settings}{ms_linechart}(x, vary_colors, grouping, ...)
+
+\method{chart_settings}{ms_areachart}(x, vary_colors = FALSE,
+  grouping = "standard", ...)
+
+\method{chart_settings}{ms_scatterchart}(x, vary_colors = FALSE,
+  scatterstyle = "lineMarker", ...)
 }
 \arguments{
 \item{x}{chart object}
@@ -36,6 +44,9 @@ between -100 and 100, representing the percentage of the bar width by
 which to overlap adjacent bars. A setting of -100 creates a gap of a
 full bar width and a setting of 100 causes all the bars in a category
 to be superimposed. The default value is 0.}
+
+\item{scatterstyle}{The Style for the scatter chart. One
+of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_scatterstyle)}}
 }
 \description{
 Set chart properties.
@@ -45,5 +56,9 @@ Set chart properties.
 \item \code{ms_barchart}: barchart settings
 
 \item \code{ms_linechart}: linechart settings
+
+\item \code{ms_areachart}: linechart settings
+
+\item \code{ms_scatterchart}: linechart settings
 }}
 
