@@ -1,23 +1,23 @@
 Package: mschart
 Type: Package
 Title: Chart generation for Microsoft PowerPoint Documents
-Version: 0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
     person("YouGov", role = "fnd"))
-Description: Create charts for 'Microsoft PowerPoint' and  'Microsoft Word' documents. 
-  Functions are provided to let users create charts, modify and format their content. 
-  It extends package 'officer' that does not contain any feature for 'Microsoft' native 
-  charts production.
-License: GPL-3
+Description: Create native charts for 'Microsoft PowerPoint' and  'Microsoft Word' documents. 
+  These can be edited and annotated. Functions are provided to let users create charts, modify 
+  and format their content. The chart's underlying data is automatically saved within the 
+  'Word' document or 'PowerPoint' presentation. It extends package 'officer'  that does 
+  not contain any feature for 'Microsoft' native charts production. 
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
 Imports: stats,
-    purrr,data.table,officer,
+    purrr,data.table,officer (>= 0.1.5),
     R6,cellranger,openxlsx,
     xml2 (>= 1.1.0)
 RoxygenNote: 6.0.1.9000
 Remotes: davidgohel/officer
-

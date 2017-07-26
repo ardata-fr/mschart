@@ -13,7 +13,7 @@ get_axis_tag <- function(x){
 
 axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, rot = 0 ){
 
-  x_title_id <- paste0("axis.title.", ifelse(is_x, "x", "y"))
+  x_title_id <- paste0("axis_title_", ifelse(is_x, "x", "y"))
 
   if( is.null(lab)) {
     title_ <- ""
@@ -28,11 +28,11 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   minor_tm <- "<c:minorTickMark val=\"%s\"/>"
   minor_tm <- sprintf(minor_tm, x$minor_tick_mark)
 
-  grid_major_id <- paste0("grid.major.line.", ifelse(is_x, "x", "y"))
+  grid_major_id <- paste0("grid_major_line_", ifelse(is_x, "x", "y"))
   major_gl <- "<c:majorGridlines><c:spPr>%s</c:spPr></c:majorGridlines>"
   major_gl <- sprintf(major_gl, format(theme[[grid_major_id]], type = "pml") )
 
-  grid_minor_id <- paste0("grid.minor.line.", ifelse(is_x, "x", "y"))
+  grid_minor_id <- paste0("grid_minor_line_", ifelse(is_x, "x", "y"))
   minor_gl <- "<c:minorGridlines><c:spPr>%s</c:spPr></c:minorGridlines>"
   minor_gl <- sprintf(minor_gl, format(theme[[grid_minor_id]], type = "pml") )
 
@@ -50,12 +50,12 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   tl_pos <- "<c:tickLblPos val=\"%s\"/>"
   tl_pos <- sprintf(tl_pos, x$tick_label_pos)
 
-  axis_major_ticks_id <- paste0("axis.ticks.", ifelse(is_x, "x", "y"))
+  axis_major_ticks_id <- paste0("axis_ticks_", ifelse(is_x, "x", "y"))
   axis_ticks <- "<c:spPr>%s</c:spPr>"
   axis_ticks <- sprintf(axis_ticks, format(theme[[axis_major_ticks_id]], type = "pml") )
 
 
-  labels_text_id <- paste0("axis.text.", ifelse(is_x, "x", "y"))
+  labels_text_id <- paste0("axis_text_", ifelse(is_x, "x", "y"))
   rpr <- format(theme[[labels_text_id]], type = "pml")
   rpr <- gsub("a:rPr", "a:defRPr", rpr)
   labels_text_pr <- "<c:txPr><a:bodyPr rot=\"%.0f\" vert=\"horz\"/><a:lstStyle/><a:p><a:pPr>%s</a:pPr></a:p></c:txPr>"

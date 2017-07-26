@@ -2,3 +2,7 @@
 ^\.Rproj\.user$
 ^data-src$
 ^examples$
+^README\.Rmd$
+^README-.*\.png$
+^\.travis\.yml$
+^appveyor\.yml$

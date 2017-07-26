@@ -17,32 +17,32 @@
 #' "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.
 #' @param rotation `integer(1)`: rotation angle. Value should be between `-360` and `360`.
 #' @param second_axis `logical(1)`: unused
-#' @seealso \code{\link{set_y_axis}}
+#' @seealso \code{\link{chart_ax_y}}
 #' @export
-set_x_axis <- function( x, orientation, crosses, cross_between,
+chart_ax_x <- function( x, orientation, crosses, cross_between,
                             major_tick_mark, minor_tick_mark,
                             tick_label_pos, display,
                             num_fmt, rotation, second_axis = FALSE ){
-  UseMethod("set_x_axis")
+  UseMethod("chart_ax_x")
 }
 
 
 #' @export
 #' @title y axis settings
 #' @description Set y axis properties.
-#' @inheritParams set_x_axis
-#' @seealso \code{\link{set_x_axis}}
-set_y_axis <- function( x, orientation, crosses, cross_between,
+#' @inheritParams chart_ax_x
+#' @seealso \code{\link{chart_ax_x}}
+chart_ax_y <- function( x, orientation, crosses, cross_between,
                             major_tick_mark, minor_tick_mark,
                             tick_label_pos, display,
                             num_fmt, rotation, second_axis = FALSE ){
-  UseMethod("set_y_axis")
+  UseMethod("chart_ax_y")
 }
 
 
 #' @export
-#' @describeIn set_x_axis set_x_axis method for ms_chart objects
-set_x_axis.ms_chart <- function( x, orientation, crosses, cross_between,
+#' @describeIn chart_ax_x chart_ax_x method for ms_chart objects
+chart_ax_x.ms_chart <- function( x, orientation, crosses, cross_between,
                                      major_tick_mark, minor_tick_mark,
                                      tick_label_pos, display,
                                      num_fmt, rotation, second_axis = FALSE ){
@@ -62,8 +62,8 @@ set_x_axis.ms_chart <- function( x, orientation, crosses, cross_between,
 }
 
 #' @export
-#' @describeIn set_y_axis set_y_axis method for ms_chart objects
-set_y_axis.ms_chart <- function( x, orientation, crosses, cross_between,
+#' @describeIn chart_ax_y chart_ax_y method for ms_chart objects
+chart_ax_y.ms_chart <- function( x, orientation, crosses, cross_between,
                                  major_tick_mark, minor_tick_mark,
                                  tick_label_pos, display,
                                  num_fmt, rotation, second_axis = FALSE ){

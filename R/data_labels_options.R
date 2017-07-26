@@ -1,8 +1,22 @@
 #' @export
-data_labels_options <- function(num_fmt = "General", position = "ctr",
+#' @title Modify data labels settings
+#' @description Data labels show details about data series.
+#' @param x chart object
+#' @param num_fmt `character(1)`: number formatting specifies number format properties which
+#' indicate how to format and render the numeric values. It can be "General", "0.00", "#,##0",
+#' "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.
+#' @param position `character(1)`: it specifies the position of the data label. It should be
+#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_dlblpos)}
+#' @param show_legend_key `logical(1)`
+#' @param show_val `logical(1)`
+#' @param show_cat_name `logical(1)`
+#' @param show_serie_name `logical(1)`
+#' @param show_percent `logical(1)`
+#' @param separator `character(1)`
+chart_data_labels <- function(x, num_fmt = "General", position = "ctr",
                                 show_legend_key = FALSE, show_val = FALSE,
                                 show_cat_name = FALSE, show_serie_name = FALSE,
-                                show_percent = FALSE, separator = "\n" ){
+                                show_percent = FALSE, separator = ", " ){
 
   if( !position %in% st_dlblpos ){
     stop("position should be one of ", paste0(shQuote(st_dlblpos), collapse = ", " ))
@@ -13,9 +27,10 @@ data_labels_options <- function(num_fmt = "General", position = "ctr",
        show_cat_name = show_cat_name, show_serie_name = show_serie_name,
        show_percent = show_percent, separator = separator )
   class(out) <- "labels_options"
-  out
-
+  x$label_settings <- out
+  x
 }
+
 
 pml_labels_options <- function(x){
   str_ <- paste0("<c:dLbls>",

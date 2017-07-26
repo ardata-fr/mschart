@@ -2,17 +2,14 @@ pml_chart <- function(x, value, id_x, id_y){
 
   charts_dir <- file.path(x$package_dir, "ppt/charts")
   xlsx_dir <- file.path(x$package_dir, "ppt/embeddings")
+
   dir.create(charts_dir, recursive = TRUE, showWarnings = FALSE)
   dir.create(file.path(charts_dir, "_rels"), recursive = TRUE, showWarnings = FALSE)
   dir.create(xlsx_dir, recursive = TRUE, showWarnings = FALSE)
+
   chart_file <- tempfile(tmpdir = charts_dir, pattern = "chart", fileext = ".xml")
   xlsx_file <- tempfile(tmpdir = xlsx_dir, pattern = "data", fileext = ".xlsx")
   rel_filename <- file.path( charts_dir, "_rels", paste0(basename(chart_file), ".rels") )
-
-
-  xml_template <- system.file(package = "officer", "template", "chart.xml")
-  xml_doc <- read_xml(xml_template)
-
 
   rel_str <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
                     "<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/package\" Target=\"../embeddings/%s\"/></Relationships>")
@@ -21,11 +18,7 @@ pml_chart <- function(x, value, id_x, id_y){
 
   write.xlsx(value$data_series, file = xlsx_file, sheetName = "sheet1")
   xml_elt <- format(value, id_x = id_x, id_y = id_y)
-
-  node <- xml_find_first(xml_doc, "//c:plotArea")
-  xml_replace( node, as_xml_document(xml_elt) )
-
-  write_xml(xml_doc, chart_file)
+  cat(xml_elt, file = chart_file)
 
   slide <- x$slide$get_slide(x$cursor)
   next_id <- slide$relationship()$get_next_id()
