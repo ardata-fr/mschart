@@ -93,10 +93,14 @@ as_series <- function(x, x_class, y_class ){
     y_serie_range <- cell_limits(ul = c(2, w_y), lr = c(nrow(dataset)+1, w_y),  sheet = "sheet1")
     y_serie_range <- as.range(y_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
     y_serie <- y_class$new( y_serie_range, dataset[[y_colname]] )
-
     ser <- list( idx = length(series), order = length(series),
                  tx = serie_name,
-                 x = x_serie, y = y_serie )
+                 x = x_serie, y = y_serie,
+                 stroke = x$series_settings$colour[y_colname],
+                 fill = x$series_settings$fill[y_colname],
+                 symbol = x$series_settings$symbol[y_colname],
+                 size = x$series_settings$size[y_colname]
+                 )
     series <- append(series, list(ser) )
   }
   series

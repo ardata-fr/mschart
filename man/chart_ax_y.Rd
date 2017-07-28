@@ -6,12 +6,12 @@
 \title{y axis settings}
 \usage{
 chart_ax_y(x, orientation, crosses, cross_between, major_tick_mark,
-  minor_tick_mark, tick_label_pos, display, num_fmt, rotation,
-  second_axis = FALSE)
+  minor_tick_mark, tick_label_pos, display, num_fmt, rotation, limit_min,
+  limit_max, position, second_axis = FALSE)
 
 \method{chart_ax_y}{ms_chart}(x, orientation, crosses, cross_between,
   major_tick_mark, minor_tick_mark, tick_label_pos, display, num_fmt, rotation,
-  second_axis = FALSE)
+  limit_min, limit_max, position, second_axis = FALSE)
 }
 \arguments{
 \item{x}{chart object}
@@ -41,6 +41,12 @@ one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_ticklb
 "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.}
 
 \item{rotation}{`integer(1)`: rotation angle. Value should be between `-360` and `360`.}
+
+\item{limit_min}{`numeric(1)`: minimum value on the axis.}
+
+\item{limit_max}{`numeric(1)`: maximum value on the axis.}
+
+\item{position}{`numeric(1)`: position value that cross the other axis.}
 
 \item{second_axis}{`logical(1)`: unused}
 }

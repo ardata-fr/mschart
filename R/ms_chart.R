@@ -32,6 +32,19 @@ ms_chart <- function(data, x, y, group = NULL){
   class(out) <- c("ms_chart")
   out <- chart_data_labels(out)
   out$data_series <- shape_as_series(out)
+
+  series_names <- setdiff(colnames( out$data_series ), x )
+  series_fills <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02",
+                    "#A6761D", "#666666")[seq_along(series_names)]
+  series_colours <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33",
+                      "#A65628", "#F781BF")[seq_along(series_names)]
+  series_symbols <- rep("circle", length(series_names) )
+  series_size <- rep(12, length(series_names) )
+  out$series_settings <- list( fill = setNames(series_fills, series_names),
+        colour = setNames(series_colours, series_names),
+        symbol = setNames(series_symbols, series_names),
+        size = setNames(series_size, series_names)
+        )
   out
 }
 
@@ -143,9 +156,9 @@ ms_areachart <- function(data, x, y, group = NULL){
 #'
 #'
 #' @example examples/04_scatterchart.R
-ms_scatterchart <- function(data, x, y){
+ms_scatterchart <- function(data, x, y, group = NULL){
 
-  out <- ms_chart(data = data, x = x, y = y, group = NULL)
+  out <- ms_chart(data = data, x = x, y = y, group = group)
   class(out) <- c("ms_scatterchart", "ms_chart")
   out <- chart_settings(out)
   out

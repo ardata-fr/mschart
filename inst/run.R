@@ -41,7 +41,10 @@ my_bc <- set_theme(my_bc, mytheme)
 
 
 my_bc_2 <- ms_barchart(data = browser_data, x = "browser",
-                       y = "value", group = "serie")
+                       y = "value", group = "serie") %>%
+  chart_data_fill(values = c(serie1 = "red") ) %>%
+  chart_data_stroke(values = c(serie1 = "transparent") )
+
 my_bc_2 <- chart_theme(my_bc_2, grid_major_line_x = fp_border(width = .5, color = "red") ,
                         grid_major_line_y = fp_border(width = .5, color = "cyan") )
 

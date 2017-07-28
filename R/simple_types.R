@@ -10,7 +10,7 @@ st_lblalgn <- c('ctr', 'l', 'r')
 
 st_dlblpos <- c('bestFit', 'b', 'ctr', 'inBase', 'inEnd', 'l', 'outEnd', 'r', 't')
 
-st_markerstyle <- c('circle', 'dash', 'diamond', 'dot', 'none', 'picture', 'plus', 'square', 'star', 'triangle', 'x', 'auto')
+st_markerstyle <- c('circle', 'dash', 'diamond', 'dot', 'none', 'plus', 'square', 'star', 'triangle', 'x', 'auto')
 
 st_trendlinetype <- c('exp', 'linear', 'log', 'movingAvg', 'poly', 'power')
 

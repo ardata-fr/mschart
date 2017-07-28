@@ -36,10 +36,34 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   minor_gl <- "<c:minorGridlines><c:spPr>%s</c:spPr></c:minorGridlines>"
   minor_gl <- sprintf(minor_gl, format(theme[[grid_minor_id]], type = "pml") )
 
-  orientation <- sprintf("<c:scaling><c:orientation val=\"%s\"/></c:scaling>", x$orientation )
+  lim_max <- ""
+  if( !is.null(x$limit_max) )
+    lim_max <- sprintf("<c:max val=\"%.02f\"/>", x$limit_max )
+  lim_min <- ""
+  if( !is.null(x$limit_min) )
+    lim_min <- sprintf("<c:min val=\"%.02f\"/>", x$limit_min )
+  cross_at <- ""
+  if( !is.null(x$position) )
+    cross_at <- sprintf("<c:crossesAt val=\"%.02f\"/>", x$position )
+
+
+  scaling_str <- sprintf("<c:scaling><c:orientation val=\"%s\"/>%s%s</c:scaling>", x$orientation, lim_max, lim_min )
   delete <- sprintf("<c:delete val=\"%.0f\"/>", x$delete )
   position <- sprintf("<c:axPos val=\"%s\"/>", x$axis_position )
   crosses <- sprintf("<c:crosses val=\"%s\"/>", x$crosses )
+
+  lim_max <- ""
+  if( !is.null(x$limit_max) )
+    lim_max <- sprintf("<c:max val=\"%.02f\"/>", x$limit_max )
+  lim_min <- ""
+  if( !is.null(x$limit_min) )
+    lim_min <- sprintf("<c:min val=\"%.02f\"/>", x$limit_min )
+  cross_at <- ""
+  if( !is.null(x$position) ){
+    cross_at <- sprintf("<c:crossesAt val=\"%.02f\"/>", x$position )
+    crosses <- ""
+  }
+
   num_fmt <- ""
   if( !is.null(x$num_fmt) ){
     num_fmt <- sprintf("<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>", x$num_fmt)
@@ -62,13 +86,13 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   labels_text_pr <- sprintf(labels_text_pr, x$rotation * 60000, rpr )
 
   str_ <- paste0( "<c:axId val=\"%s\"/>",
-                  orientation, delete, position,
+                  scaling_str, delete, position,
                   major_gl, minor_gl,
                   title_,
                   major_tm, minor_tm, tl_pos,
                   labels_text_pr,
                   axis_ticks, num_fmt,
-                  "<c:crossAx val=\"%s\"/>", crosses)
+                  "<c:crossAx val=\"%s\"/>", cross_at, crosses)
   str_ <- sprintf(str_, id, cross_id)
   str_
 

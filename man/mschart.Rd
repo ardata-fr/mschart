@@ -14,7 +14,7 @@ ms_barchart(data, x, y, group = NULL)
 
 ms_areachart(data, x, y, group = NULL)
 
-ms_scatterchart(data, x, y)
+ms_scatterchart(data, x, y, group = NULL)
 }
 \arguments{
 \item{data}{a data.frame}
