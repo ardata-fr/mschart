@@ -16,8 +16,8 @@ Add labels to a chart, labels can be specified for
 x axis, y axis and plot.
 }
 \examples{
-mylc <- ms_linechart(data = browser_ts, x = "date",
-  y = "freq", group = "browser")
+mylc <- ms_linechart(data = browser_ts, x = "date", y = "freq",
+  group = "browser")
 mylc <- chart_labels(mylc, title = "my title", xlab = "my x label",
   ylab = "my y label")
 }

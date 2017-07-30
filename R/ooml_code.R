@@ -43,8 +43,11 @@ ooml_code.ms_linechart <- function(x, id_x, id_y){
   series <- as_series(x, num_ref, num_ref)
 
   str_series_ <- map_chr( series, function(x, template ){
-    sprintf(template, x$idx, x$order, x$tx$pml(), x$x$pml(), x$y$pml() )
-  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx><c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
+    marker_str <- get_marker_xml(x$fill, x$stroke, x$symbol, x$size )
+    sppr_str <- get_sppr_xml(x$fill, x$stroke )
+
+    sprintf(template, x$idx, x$order, x$tx$pml(), sppr_str, marker_str, x$x$pml(), x$y$pml() )
+  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s<c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
   str_series_ <- paste(str_series_, collapse = "")
 
   x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
@@ -66,8 +69,10 @@ ooml_code.ms_areachart <- function(x, id_x, id_y){
   series <- as_series(x, num_ref, num_ref)
 
   str_series_ <- map_chr( series, function(x, template ){
-    sprintf(template, x$idx, x$order, x$tx$pml(), x$x$pml(), x$y$pml() )
-  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx><c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
+    marker_str <- get_sppr_xml(x$fill, x$stroke )
+
+    sprintf(template, x$idx, x$order, x$tx$pml(), marker_str, x$x$pml(), x$y$pml() )
+  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s<c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
   str_series_ <- paste(str_series_, collapse = "")
 
   x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)

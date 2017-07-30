@@ -98,12 +98,16 @@ format.ms_chart  <- function(x, id_x, id_y){
 #' # linecharts example -----
 #' ##########################
 #'
-#'
 #' @example examples/02_linechart.R
 ms_linechart <- function(data, x, y, group = NULL){
   out <- ms_chart(data = data, x = x, y = y, group = group)
   out$options <- linechart_options()
   class(out) <- c("ms_linechart", "ms_chart")
+
+  serie_names <- names(out$series_settings$symbol)
+  values <- setNames( rep( "none", length(serie_names)), serie_names )
+  out <- chart_data_symbol(out, values = values)
+
   out
 }
 
@@ -115,7 +119,6 @@ ms_linechart <- function(data, x, y, group = NULL){
 #' ##########################
 #' # barcharts example -----
 #' ##########################
-#'
 #'
 #' @example examples/01_barchart.R
 ms_barchart <- function(data, x, y, group = NULL){
@@ -135,13 +138,17 @@ ms_barchart <- function(data, x, y, group = NULL){
 #' # areacharts example -----
 #' ##########################
 #'
-#'
 #' @example examples/03_areachart.R
 ms_areachart <- function(data, x, y, group = NULL){
 
   out <- ms_chart(data = data, x = x, y = y, group = group)
   class(out) <- c("ms_areachart", "ms_chart")
   out <- chart_settings(out)
+
+  serie_names <- names(out$series_settings$colour)
+  values <- setNames( rep( "transparent", length(serie_names)), serie_names )
+  out <- chart_data_stroke(out, values = values)
+
   out
 }
 
@@ -154,13 +161,15 @@ ms_areachart <- function(data, x, y, group = NULL){
 #' # scattercharts example -----
 #' ##########################
 #'
-#'
 #' @example examples/04_scatterchart.R
 ms_scatterchart <- function(data, x, y, group = NULL){
 
   out <- ms_chart(data = data, x = x, y = y, group = group)
   class(out) <- c("ms_scatterchart", "ms_chart")
+
   out <- chart_settings(out)
+  out <- pretty_num_axes(out)
+
   out
 }
 
@@ -171,8 +180,8 @@ ms_scatterchart <- function(data, x, y, group = NULL){
 #' @param x chart object
 #' @param title,xlab,ylab Text to add
 #' @examples
-#' mylc <- ms_linechart(data = browser_ts, x = "date",
-#'   y = "freq", group = "browser")
+#' mylc <- ms_linechart(data = browser_ts, x = "date", y = "freq",
+#'   group = "browser")
 #' mylc <- chart_labels(mylc, title = "my title", xlab = "my x label",
 #'   ylab = "my y label")
 chart_labels <- function( x, title = NULL, xlab = NULL, ylab = NULL){

@@ -2,7 +2,7 @@
 % Please edit documentation in R/chart_data_color.R
 \name{chart_data_size}
 \alias{chart_data_size}
-\title{Modify symbol}
+\title{Modify symbol size}
 \usage{
 chart_data_size(x, values)
 }
@@ -13,5 +13,20 @@ chart_data_size(x, values)
 It is a named vector, the values will be matched based on the names.}
 }
 \description{
-Modify symbol for series
+Specify mappings from levels in the data to displayed size of symbols.
+}
+\examples{
+my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",
+  y = "Sepal.Width",  group = "Species")
+my_scatter <- chart_data_fill(my_scatter,
+  values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
+my_scatter <- chart_data_stroke(my_scatter,
+  values = c(virginica = "black", versicolor = "black", setosa = "black") )
+my_scatter <- chart_data_symbol(my_scatter,
+  values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
+my_scatter <- chart_data_size(my_scatter,
+  values = c(virginica = 20, versicolor = 16, setosa = 20) )
+}
+\seealso{
+\code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_symbol}}
 }

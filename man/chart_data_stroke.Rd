@@ -13,5 +13,16 @@ chart_data_stroke(x, values)
 It is a named vector, the values will be matched based on the names.}
 }
 \description{
-Modify stroke colour for series
+Specify mappings from levels in the data to displayed stroke colours.
+}
+\examples{
+my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",
+  y = "Sepal.Width",  group = "Species")
+my_scatter <- chart_data_fill(my_scatter,
+  values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
+my_scatter <- chart_data_stroke(my_scatter,
+  values = c(virginica = "black", versicolor = "black", setosa = "black") )
+}
+\seealso{
+\code{\link{chart_data_fill}}, \code{\link{chart_data_symbol}}, \code{\link{chart_data_size}}
 }

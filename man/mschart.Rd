@@ -48,7 +48,6 @@ library(officer)
 # linecharts example -----
 ##########################
 
-
 mytheme <- mschart_theme(
   axis_title_x = fp_text(color = "red", font.size = 24, bold = TRUE),
   axis_title_y = fp_text(color = "green", font.size = 12, italic = TRUE),
@@ -81,7 +80,6 @@ lc_03 <- chart_settings(lc_03, grouping = "percentStacked")
 ##########################
 # barcharts example -----
 ##########################
-
 
 # example my_barchart_01 -------
 
@@ -134,7 +132,6 @@ my_barchart_03 <- chart_data_labels(my_barchart_03, position = "inBase",
 # areacharts example -----
 ##########################
 
-
 mytheme <- mschart_theme(
   axis_title_x = fp_text(color = "red", font.size = 24, bold = TRUE),
   axis_title_y = fp_text(color = "green", font.size = 12, italic = TRUE),
@@ -167,7 +164,6 @@ ac_03 <- chart_settings(ac_03, grouping = "percentStacked")
 ##########################
 # scattercharts example -----
 ##########################
-
 
 # example sc_01 -------
 sc_01 <- ms_scatterchart(data = mtcars, x = "disp",

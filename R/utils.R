@@ -37,3 +37,19 @@ choices_rd <- function(x)
   paste0(collapse = ", ", paste0("\\sQuote{", x, "}"))
 }
 
+
+is_valid_color = function(x) {
+  sapply(x, function( x ) {
+    tryCatch( is.matrix( col2rgb( x ) ), error = function( e ) FALSE )
+  })
+}
+
+pretty_num_axes <- function(x){
+  range_x <- pretty(x$data[[x$x]])
+  range_y <- pretty(x$data[[x$y]])
+  x <- chart_ax_x(x, limit_min = range_x[1], limit_max = range_x[length(range_x)])
+  x <- chart_ax_y(x, limit_min = range_y[1], limit_max = range_y[length(range_y)])
+  x
+}
+
+
