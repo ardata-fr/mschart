@@ -62,7 +62,7 @@ format.ms_chart  <- function(x, id_x, id_y){
   ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">"
   xml_elt <- paste0("<c:plotArea ", ns, "<c:layout/>", str_, axes_str, "</c:plotArea>")
 
-  xml_doc <- read_xml(system.file(package = "officer", "template", "chart.xml"))
+  xml_doc <- read_xml(system.file(package = "mschart", "template", "chart.xml"))
 
   node <- xml_find_first(xml_doc, "//c:plotArea")
   xml_replace( node, as_xml_document(xml_elt) )
