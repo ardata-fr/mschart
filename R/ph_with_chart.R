@@ -68,6 +68,22 @@ pml_chart <- function(x, value, id_x, id_y){
 #' @param index placeholder index (integer). This is to be used when a placeholder type
 #' is not unique in the current slide, e.g. two placeholders with type 'body'.
 #' @importFrom officer ph_from_xml
+#' @examples
+#' my_barchart <- ms_barchart(data = browser_data,
+#'   x = "browser", y = "value", group = "serie")
+#' my_barchart <- chart_settings( x = my_barchart,
+#'   dir="vertical", grouping="clustered", gap_width = 50 )
+#' my_barchart <- chart_ax_x( x= my_barchart,
+#'   cross_between = 'between', major_tick_mark="out")
+#' my_barchart <- chart_ax_y( x= my_barchart,
+#'   cross_between = "midCat", major_tick_mark="in")
+#'
+#' library(officer)
+#' doc <- read_pptx()
+#' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+#' doc <- ph_with_chart(doc, value = my_barchart)
+#'
+#' print(doc, target = "barchart_example.pptx")
 ph_with_chart <- function( x, value, type = "body", index = 1 ){
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_chart(x, value, id_x = "64451712", id_y = "64453248")

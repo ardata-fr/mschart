@@ -85,7 +85,7 @@ lc_03 <- chart_settings(lc_03, grouping = "percentStacked")
 
 my_barchart_01 <- ms_barchart(data = browser_data, x = "browser",
                            y = "value", group = "serie")
-my_barchart_01 <- chart_settings( x = my_barchart_01, dir="col",
+my_barchart_01 <- chart_settings( x = my_barchart_01, dir="vertical",
                                grouping="clustered", gap_width = 50 )
 my_barchart_01 <- chart_ax_x( x= my_barchart_01, cross_between = 'between',
                            major_tick_mark="out")
@@ -101,7 +101,7 @@ dat <- structure(list(Species = structure(1:3, .Label = c("setosa",
   ), row.names = c(NA, -3L))
 
 my_barchart_02 <- ms_barchart(data = dat, x = "Species", y = "mean")
-my_barchart_02 <- chart_settings( x = my_barchart_02, dir="bar" )
+my_barchart_02 <- chart_settings( x = my_barchart_02, dir="horizontal" )
 
 
 
@@ -115,7 +115,7 @@ mytheme <- mschart_theme(
 
 my_barchart_03 <- ms_barchart(data = browser_data, x = "browser",
                               y = "value", group = "serie")
-my_barchart_03 <- chart_settings( my_barchart_03, dir="bar", grouping="stacked",
+my_barchart_03 <- chart_settings( my_barchart_03, dir="horizontal", grouping="stacked",
                                   gap_width = 150, overlap = 100 )
 my_barchart_03 <- chart_ax_x(my_barchart_03, cross_between = 'between',
                              major_tick_mark="out", minor_tick_mark = "none")

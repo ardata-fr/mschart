@@ -12,7 +12,7 @@
 #'
 #' my_bc <- ms_barchart(data = browser_data, x = "browser",
 #'                               y = "value", group = "serie")
-#' my_bc <- chart_settings( my_bc, dir="bar", grouping="stacked",
+#' my_bc <- chart_settings( my_bc, dir="horizontal", grouping="stacked",
 #'                                   gap_width = 150, overlap = 100 )
 #' my_bc <- set_theme(my_bc, mytheme)
 #'
