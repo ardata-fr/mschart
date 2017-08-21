@@ -29,9 +29,11 @@ ooml_code.ms_barchart <- function(x, id_x, id_y){
                   "<c:gapWidth val=\"%.0f\"/>",
                   "<c:overlap val=\"%.0f\"/>",
                   x_ax_id, y_ax_id,
-                  "</c:barChart>"  )
+                  "</c:barChart>" )
 
-  sprintf(str_, x$options$dir, x$options$grouping,
+  dir_ <- structure(c("bar", "col"), .Names = c("horizontal", "vertical"))
+  dir_ <- dir_[x$options$dir]
+  sprintf(str_, dir_, x$options$grouping,
           x$options$vary_colors, x$options$gap_width,
           x$options$overlap)
 

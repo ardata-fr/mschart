@@ -1,0 +1,79 @@
+---
+title: "Introduction to mschart"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r 'setup', echo = FALSE, message=FALSE, warning=FALSE}
+dir.create("assets/pptx", recursive = TRUE, showWarnings = FALSE)
+office_doc_link <- function(url){
+  stopifnot(requireNamespace("htmltools", quietly = TRUE))
+  htmltools::tags$p(  htmltools::tags$span("Download file "),
+    htmltools::tags$a(basename(url), href = url), 
+    htmltools::tags$span(" - view with"),
+    htmltools::tags$a("office web viewer", target="_blank", 
+      href = paste0("https://view.officeapps.live.com/op/view.aspx?src=", url)
+      ), 
+    style="text-align:center;font-style:italic;color:gray;"
+    )
+}
+```
+
+```{r}
+library(mschart)
+library(officer)
+library(magrittr)
+```
+
+Package `mschart` lets R users to create Microsoft Office charts from data, 
+and then add title, legends, and annotations to the chart object.
+
+## Available charts
+
+Names of these high level functions are all prefixed with `ms_`.
+The following charts are the only available from all possible MS charts:
+
+* barcharts: `ms_barchart()`
+* linecharts: `ms_linechart()`
+* scatter plots: `ms_scatterchart()`
+* areacharts: `ms_areachart()`
+
+*More chart types will be made available in future versions.*
+
+
+## Quick start
+
+First, we need to call an high level function (one of those starting with `ms_`). The following arguments will be required:
+
+* `data`: the data.frame to be plotted
+* `x`, `y` and eventually `group`: colnames for x and y axis and a grouping column
+
+```{r}
+my_barchart <- ms_barchart(data = browser_data, 
+  x = "browser", y = "value", group = "serie")
+```
+
+### Chart settings
+
+Global chart settings can be modified with function `chart_settings`. Each type of chart has its own set of parameters. The following *stack* the bars for each group.
+
+```{r}
+my_barchart <- chart_settings( my_barchart, grouping = "stacked", gap_width = 50, overlap = 100 )
+```
+
+Let's have a look at the result by sending it to a new PowerPoint presentation:
+
+```{r results='hide'}
+library(officer)
+doc <- read_pptx()
+doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- ph_with_chart(doc, value = my_barchart)
+print(doc, target = "assets/pptx/barchart_01_stacked.pptx")
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/mschart/articles/", "assets/pptx/barchart_01_stacked.pptx" ) )
+```

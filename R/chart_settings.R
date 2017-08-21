@@ -12,11 +12,11 @@ chart_settings <- function( x, ... ){
 barchart_options <- function( vary_colors = FALSE, gap_width = 150,
                               dir = "vertical", grouping = "clustered",
                               overlap = 0 ){
-  bardir <- structure(c("bar", "col"), .Names = c("horizontal", "vertical"))
-  if( !dir %in% names(bardir) ){
+  # bardir <- structure(c("bar", "col"), .Names = c("horizontal", "vertical"))
+  bardir <- c("horizontal", "vertical")
+  if( !dir %in% bardir ){
     stop("dir should be one of ", paste0(shQuote(names(bardir)), collapse = ", " ))
   }
-  dir <- unname(bardir[dir])
 
   if( !(gap_width >= 0 && gap_width <= 500) ){
     stop("gap_width should be between 0 and 500")
@@ -52,7 +52,6 @@ barchart_options <- function( vary_colors = FALSE, gap_width = 150,
 #' to be superimposed. The default value is 0.
 chart_settings.ms_barchart <- function( x, vary_colors,
                                         gap_width, dir, grouping, overlap, ... ){
-
   options <- barchart_options( vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors),
                            gap_width = ifelse(missing(gap_width), x$options$gap_width, gap_width),
                            dir = ifelse(missing(dir), x$options$dir, dir),
