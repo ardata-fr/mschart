@@ -32,7 +32,7 @@ chart_settings(x, ...)
 The default width for this gap is 150 percent of the bar width. It can be set
 between 0 and 500 percent of the bar width.}
 
-\item{dir}{the direction of the bars in the chart, value must one of "bar" or "col".}
+\item{dir}{the direction of the bars in the chart, value must one of "horizontal" or "vertical".}
 
 \item{grouping}{grouping for a barchart, a linechart or an area chart. must be one of "percentStacked", "clustered", "standard" or "stacked".}
 

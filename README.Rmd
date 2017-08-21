@@ -69,7 +69,7 @@ my_barchart <- ms_barchart(data = browser_data,
   x = "browser", y = "value", group = "serie")
 
 my_barchart <- chart_settings( my_barchart, 
-  dir="bar", grouping="stacked",
+  dir="vertical", grouping="stacked",
   gap_width = 150, overlap = 100 )
 ```
 

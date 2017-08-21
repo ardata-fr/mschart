@@ -10,12 +10,14 @@ chart_settings <- function( x, ... ){
 
 
 barchart_options <- function( vary_colors = FALSE, gap_width = 150,
-                              dir = "col", grouping = "clustered",
+                              dir = "vertical", grouping = "clustered",
                               overlap = 0 ){
-
-  if( !dir %in% st_bardir ){
-    stop("dir should be one of ", paste0(shQuote(st_bardir), collapse = ", " ))
+  bardir <- structure(c("bar", "col"), .Names = c("horizontal", "vertical"))
+  if( !dir %in% names(bardir) ){
+    stop("dir should be one of ", paste0(shQuote(names(bardir)), collapse = ", " ))
   }
+  dir <- unname(bardir[dir])
+
   if( !(gap_width >= 0 && gap_width <= 500) ){
     stop("gap_width should be between 0 and 500")
   }
@@ -38,7 +40,7 @@ barchart_options <- function( vary_colors = FALSE, gap_width = 150,
 #' @param gap_width A gap appears between the bar or clustered bars for each category on a bar chart.
 #' The default width for this gap is 150 percent of the bar width. It can be set
 #' between 0 and 500 percent of the bar width.
-#' @param dir the direction of the bars in the chart, value must one of "bar" or "col".
+#' @param dir the direction of the bars in the chart, value must one of "horizontal" or "vertical".
 #' @param grouping grouping for a barchart, a linechart or an area chart. must be one of "percentStacked", "clustered", "standard" or "stacked".
 #' @param overlap In a bar chart having two or more series, the bars for each
 #' category are clustered together. By default, these bars are directly

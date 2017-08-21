@@ -2,6 +2,8 @@ mschart R package
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![Build Status](https://travis-ci.org/ardata-fr/mschart.svg?branch=master)](https://travis-ci.org/ardata-fr/mschart) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ardata-fr/mschart?branch=master&svg=true)](https://ci.appveyor.com/project/ardata-fr/mschart)
+
 The `mschart` package provides a framework for easily create charts for 'Microsoft PowerPoint' documents.
 
 Installation
@@ -57,7 +59,7 @@ my_barchart <- ms_barchart(data = browser_data,
   x = "browser", y = "value", group = "serie")
 
 my_barchart <- chart_settings( my_barchart, 
-  dir="bar", grouping="stacked",
+  dir="vertical", grouping="stacked",
   gap_width = 150, overlap = 100 )
 ```
 
