@@ -2,6 +2,7 @@ mschart R package
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+[![Build Status](https://travis-ci.org/ardata-fr/mschart.svg?branch=master)](https://travis-ci.org/ardata-fr/mschart)
 
 The `mschart` package provides a framework for easily create charts for 'Microsoft PowerPoint' documents.
 
