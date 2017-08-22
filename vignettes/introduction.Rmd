@@ -9,6 +9,7 @@ vignette: >
 
 ```{r 'setup', echo = FALSE, message=FALSE, warning=FALSE}
 dir.create("assets/pptx", recursive = TRUE, showWarnings = FALSE)
+dir.create("assets/docx", recursive = TRUE, showWarnings = FALSE)
 office_doc_link <- function(url){
   stopifnot(requireNamespace("htmltools", quietly = TRUE))
   htmltools::tags$p(  htmltools::tags$span("Download file "),
@@ -56,6 +57,35 @@ my_barchart <- ms_barchart(data = browser_data,
   x = "browser", y = "value", group = "serie")
 ```
 
+### Write charts in Microsoft documents
+
+Let's have a look at the result by sending it to a new PowerPoint presentation:
+
+```{r results='hide'}
+library(officer)
+doc <- read_pptx()
+doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- ph_with_chart(doc, chart = my_barchart)
+print(doc, target = "assets/pptx/barchart_01_stacked.pptx")
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/mschart/articles/", "assets/pptx/barchart_01_stacked.pptx" ) )
+```
+
+Or in a new Word document:
+
+```{r results='hide'}
+doc <- read_docx()
+doc <- body_add_chart(doc, chart = my_barchart, style = "centered")
+print(doc, target = "assets/docx/barchart_01_stacked.docx")
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/mschart/articles/", "assets/docx/barchart_01_stacked.docx" ) )
+```
+
+
 ### Chart settings
 
 Global chart settings can be modified with function `chart_settings`. Each type of chart has its own set of parameters. The following *stack* the bars for each group.
@@ -64,16 +94,3 @@ Global chart settings can be modified with function `chart_settings`. Each type 
 my_barchart <- chart_settings( my_barchart, grouping = "stacked", gap_width = 50, overlap = 100 )
 ```
 
-Let's have a look at the result by sending it to a new PowerPoint presentation:
-
-```{r results='hide'}
-library(officer)
-doc <- read_pptx()
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_chart(doc, value = my_barchart)
-print(doc, target = "assets/pptx/barchart_01_stacked.pptx")
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/mschart/articles/", "assets/pptx/barchart_01_stacked.pptx" ) )
-```

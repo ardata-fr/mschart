@@ -1,7 +1,7 @@
 Package: mschart
 Type: Package
-Title: Chart generation for Microsoft PowerPoint Documents
-Version: 0.1.9001
+Title: Chart Generation for Microsoft Word and PowerPoint Documents
+Version: 0.1.9003
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),
@@ -20,7 +20,6 @@ Imports: stats,
     R6,cellranger,openxlsx,grDevices,
     xml2 (>= 1.1.0)
 RoxygenNote: 6.0.1.9000
-Remotes: davidgohel/officer
 Suggests: knitr,
     rmarkdown,magrittr,htmltools
 VignetteBuilder: knitr

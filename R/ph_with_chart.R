@@ -62,8 +62,8 @@ pml_chart <- function(x, value, id_x, id_y){
 #' @importFrom xml2 read_xml xml_find_first xml_replace as_xml_document xml_add_child write_xml
 #' @title add chart into a PowerPoint slide
 #' @description add a chart as a new shape in the current slide.
-#' @param x a pptx device
-#' @param value \code{ms_chart} object
+#' @param x an rpptx object
+#' @param chart \code{ms_chart} object
 #' @param type placeholder type
 #' @param index placeholder index (integer). This is to be used when a placeholder type
 #' is not unique in the current slide, e.g. two placeholders with type 'body'.
@@ -81,12 +81,12 @@ pml_chart <- function(x, value, id_x, id_y){
 #' library(officer)
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-#' doc <- ph_with_chart(doc, value = my_barchart)
+#' doc <- ph_with_chart(doc, chart = my_barchart)
 #'
 #' print(doc, target = "barchart_example.pptx")
-ph_with_chart <- function( x, value, type = "body", index = 1 ){
+ph_with_chart <- function( x, chart, type = "body", index = 1 ){
   stopifnot(inherits(x, "rpptx"))
-  graphic_frame <- pml_chart(x, value, id_x = "64451712", id_y = "64453248")
+  graphic_frame <- pml_chart(x, chart, id_x = "64451712", id_y = "64453248")
   ph_from_xml(x = x, value = graphic_frame, type = type, index = index )
 }
 
@@ -95,9 +95,9 @@ ph_with_chart <- function( x, value, type = "body", index = 1 ){
 #' @param height,width Height and width in inches.
 #' @rdname ph_with_chart
 #' @importFrom officer ph_from_xml_at
-ph_with_chart_at <- function( x, value, left, top, width, height ){
+ph_with_chart_at <- function( x, chart, left, top, width, height ){
   stopifnot(inherits(x, "rpptx"))
-  graphic_frame <- pml_chart(x, value, id_x = "64451712", id_y = "64453248")
+  graphic_frame <- pml_chart(x, chart, id_x = "64451712", id_y = "64453248")
   ph_from_xml_at(x = x, value = graphic_frame, left = left, top = top, width = width, height = height )
 }
 

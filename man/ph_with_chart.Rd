@@ -5,14 +5,14 @@
 \alias{ph_with_chart_at}
 \title{add chart into a PowerPoint slide}
 \usage{
-ph_with_chart(x, value, type = "body", index = 1)
+ph_with_chart(x, chart, type = "body", index = 1)
 
-ph_with_chart_at(x, value, left, top, width, height)
+ph_with_chart_at(x, chart, left, top, width, height)
 }
 \arguments{
-\item{x}{a pptx device}
+\item{x}{an rpptx object}
 
-\item{value}{\code{ms_chart} object}
+\item{chart}{\code{ms_chart} object}
 
 \item{type}{placeholder type}
 
@@ -39,7 +39,7 @@ my_barchart <- chart_ax_y( x= my_barchart,
 library(officer)
 doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_chart(doc, value = my_barchart)
+doc <- ph_with_chart(doc, chart = my_barchart)
 
 print(doc, target = "barchart_example.pptx")
 }
