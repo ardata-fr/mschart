@@ -59,8 +59,8 @@ format.ms_chart  <- function(x, id_x, id_y){
     x$y_axis$num_fmt <- x$theme[[x$fmt_names$y]]
 
   axes_str <- axes_xml(x, id_x = id_x, id_y = id_y)
-  ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">"
-  xml_elt <- paste0("<c:plotArea ", ns, "<c:layout/>", str_, axes_str, "</c:plotArea>")
+  ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
+  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, axes_str, "</c:plotArea>")
 
   xml_doc <- read_xml(system.file(package = "mschart", "template", "chart.xml"))
 
@@ -75,14 +75,6 @@ format.ms_chart  <- function(x, id_x, id_y){
   }
   legend_pos <- xml_find_first(xml_doc, "//c:chart/c:legend/c:legendPos")
   xml_attr( legend_pos, "val" ) <- x$theme[["legend_position"]]
-
-  x$theme[["main_title"]]
-  if( !is.null( x$labels[["title"]] ) ){
-    chartnode <- xml_find_first(xml_doc, "//c:chart")
-    title_ <- "<c:title %s><c:tx><c:rich><a:bodyPr/><a:lstStyle/><a:p><a:pPr><a:defRPr/></a:pPr><a:r>%s<a:t>%s</a:t></a:r></a:p></c:rich></c:tx><c:layout/><c:overlay val=\"0\"/></c:title>"
-    title_ <- sprintf(title_, ns, format(x$theme[["main_title"]], type = "pml" ), x$labels[["title"]] )
-    xml_add_child( chartnode, as_xml_document(title_), .where	= 0 )
-  }
 
   as.character(xml_doc)
 }
