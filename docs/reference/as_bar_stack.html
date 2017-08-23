@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>set chart theme — set_theme • mschart</title>
+<title>set a barchart as a stacked barchart — as_bar_stack • mschart</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -76,118 +76,57 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>set chart theme</h1>
+    <h1>set a barchart as a stacked barchart</h1>
     </div>
 
     
-    <p>Modify chart theme with function <code>set_theme</code>.</p>
-<p>Use <code>mschart_theme()</code> to create a chart theme.</p>
-<p>Use <code>chart_theme()</code> to modify individual components of a chart theme.</p>
+    <p>Apply settings to an <code>ms_barchart</code> object to
+produce a stacked barchart. Options are available to use percentage
+instead of values and to choose if bars should be vertically or horizontally drawn.</p>
     
 
-    <pre class="usage"><span class='fu'>set_theme</span>(<span class='no'>x</span>, <span class='no'>value</span>)
-
-<span class='fu'>mschart_theme</span>(<span class='kw'>axis_title</span> <span class='kw'>=</span> <span class='fu'>fp_text</span>(<span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>16</span>),
-  <span class='kw'>axis_title_x</span> <span class='kw'>=</span> <span class='no'>axis_title</span>, <span class='kw'>axis_title_y</span> <span class='kw'>=</span> <span class='no'>axis_title</span>,
-  <span class='kw'>main_title</span> <span class='kw'>=</span> <span class='fu'>fp_text</span>(<span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>20</span>), <span class='kw'>axis_text</span> <span class='kw'>=</span> <span class='fu'>fp_text</span>(),
-  <span class='kw'>axis_text_x</span> <span class='kw'>=</span> <span class='no'>axis_text</span>, <span class='kw'>axis_text_y</span> <span class='kw'>=</span> <span class='no'>axis_text</span>, <span class='kw'>title_rot</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>title_x_rot</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>title_y_rot</span> <span class='kw'>=</span> <span class='fl'>270</span>, <span class='kw'>axis_ticks</span> <span class='kw'>=</span> <span class='fu'>fp_border</span>(<span class='kw'>color</span> <span class='kw'>=</span>
-  <span class='st'>"#99999999"</span>), <span class='kw'>axis_ticks_x</span> <span class='kw'>=</span> <span class='no'>axis_ticks</span>, <span class='kw'>axis_ticks_y</span> <span class='kw'>=</span> <span class='no'>axis_ticks</span>,
-  <span class='kw'>grid_major_line</span> <span class='kw'>=</span> <span class='fu'>fp_border</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#99999999"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>),
-  <span class='kw'>grid_major_line_x</span> <span class='kw'>=</span> <span class='no'>grid_major_line</span>, <span class='kw'>grid_major_line_y</span> <span class='kw'>=</span> <span class='no'>grid_major_line</span>,
-  <span class='kw'>grid_minor_line</span> <span class='kw'>=</span> <span class='fu'>fp_border</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0</span>),
-  <span class='kw'>grid_minor_line_x</span> <span class='kw'>=</span> <span class='no'>grid_minor_line</span>, <span class='kw'>grid_minor_line_y</span> <span class='kw'>=</span> <span class='no'>grid_minor_line</span>,
-  <span class='kw'>date_fmt</span> <span class='kw'>=</span> <span class='st'>"yyyy/mm/dd"</span>, <span class='kw'>str_fmt</span> <span class='kw'>=</span> <span class='st'>"General"</span>, <span class='kw'>double_fmt</span> <span class='kw'>=</span> <span class='st'>"#,##0.00"</span>,
-  <span class='kw'>integer_fmt</span> <span class='kw'>=</span> <span class='st'>"0"</span>, <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='st'>"b"</span>)
-
-<span class='fu'>chart_theme</span>(<span class='no'>x</span>, <span class='no'>axis_title_x</span>, <span class='no'>axis_title_y</span>, <span class='no'>main_title</span>, <span class='no'>title_rot</span>, <span class='no'>title_x_rot</span>,
-  <span class='no'>title_y_rot</span>, <span class='no'>axis_text_x</span>, <span class='no'>axis_text_y</span>, <span class='no'>axis_ticks_x</span>, <span class='no'>axis_ticks_y</span>,
-  <span class='no'>grid_major_line_x</span>, <span class='no'>grid_major_line_y</span>, <span class='no'>grid_minor_line_x</span>, <span class='no'>grid_minor_line_y</span>,
-  <span class='no'>date_fmt</span>, <span class='no'>str_fmt</span>, <span class='no'>double_fmt</span>, <span class='no'>integer_fmt</span>, <span class='no'>legend_position</span>)</pre>
+    <pre class="usage"><span class='fu'>as_bar_stack</span>(<span class='no'>x</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>, <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>gap_width</span> <span class='kw'>=</span> <span class='fl'>50</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>chart object.</p></td>
+      <td><p>an <code><a href='mschart.html'>ms_barchart</a></code> object</p></td>
     </tr>
     <tr>
-      <th>value</th>
-      <td><p>a <code>mschart_theme</code> object.</p></td>
+      <th>dir</th>
+      <td><p>the direction of the bars in the chart, value must one of "horizontal" or "vertical".</p></td>
     </tr>
     <tr>
-      <th>axis_title, axis_title_x, axis_title_y</th>
-      <td><p>axis title formatting properties (<a href='http://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a>)</p></td>
+      <th>percent</th>
+      <td><p>should bars be in percent</p></td>
     </tr>
     <tr>
-      <th>main_title</th>
-      <td><p>title formatting properties (<a href='http://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a>)</p></td>
-    </tr>
-    <tr>
-      <th>axis_text, axis_text_x, axis_text_y</th>
-      <td><p>axis text formatting properties (<a href='http://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a>)</p></td>
-    </tr>
-    <tr>
-      <th>title_rot, title_x_rot, title_y_rot</th>
-      <td><p>rotation angle</p></td>
-    </tr>
-    <tr>
-      <th>axis_ticks, axis_ticks_x, axis_ticks_y</th>
-      <td><p>axis ticks formatting properties (<a href='http://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a>)</p></td>
-    </tr>
-    <tr>
-      <th>grid_major_line, grid_major_line_x, grid_major_line_y</th>
-      <td><p>major grid lines formatting properties (<a href='http://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a>)</p></td>
-    </tr>
-    <tr>
-      <th>grid_minor_line, grid_minor_line_x, grid_minor_line_y</th>
-      <td><p>minor grid lines formatting properties (<a href='http://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a>)</p></td>
-    </tr>
-    <tr>
-      <th>date_fmt</th>
-      <td><p>date format</p></td>
-    </tr>
-    <tr>
-      <th>str_fmt</th>
-      <td><p>string or factor format</p></td>
-    </tr>
-    <tr>
-      <th>double_fmt</th>
-      <td><p>double format</p></td>
-    </tr>
-    <tr>
-      <th>integer_fmt</th>
-      <td><p>integer format</p></td>
-    </tr>
-    <tr>
-      <th>legend_position</th>
-      <td><p>`character(1)`: it specifies the position of the legend. It should be
-one of &#8216;b&#8217;, &#8216;tr&#8217;, &#8216;l&#8217;, &#8216;r&#8217;, &#8216;t&#8217;</p></td>
+      <th>gap_width</th>
+      <td><p>gap width between the bar for each category on a bar chart, in percent
+of the bar width. It can be set between 0 and 500.</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>officer</span>)
-<span class='no'>mytheme</span> <span class='kw'>&lt;-</span> <span class='fu'>mschart_theme</span>(
-  <span class='kw'>axis_title</span> <span class='kw'>=</span> <span class='fu'>fp_text</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>24</span>, <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>grid_major_line_y</span> <span class='kw'>=</span> <span class='fu'>fp_border</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>),
-  <span class='kw'>axis_ticks_y</span> <span class='kw'>=</span> <span class='fu'>fp_border</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>.4</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"gray"</span>) )
 
+<span class='no'>my_bar_stack_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
+<span class='no'>my_bar_stack_01</span> <span class='kw'>&lt;-</span> <span class='fu'>as_bar_stack</span>( <span class='no'>my_bar_stack_01</span> )
 
-<span class='no'>my_bc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
-                              <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
-<span class='no'>my_bc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span>( <span class='no'>my_bc</span>, <span class='kw'>dir</span><span class='kw'>=</span><span class='st'>"horizontal"</span>, <span class='kw'>grouping</span><span class='kw'>=</span><span class='st'>"stacked"</span>,
-                                  <span class='kw'>gap_width</span> <span class='kw'>=</span> <span class='fl'>150</span>, <span class='kw'>overlap</span> <span class='kw'>=</span> <span class='fl'>100</span> )
-<span class='no'>my_bc</span> <span class='kw'>&lt;-</span> <span class='fu'>set_theme</span>(<span class='no'>my_bc</span>, <span class='no'>mytheme</span>)
+<span class='no'>my_bar_stack_02</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
+<span class='no'>my_bar_stack_02</span> <span class='kw'>&lt;-</span> <span class='fu'>as_bar_stack</span>( <span class='no'>my_bar_stack_02</span>, <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span> )
 
-
-
-<span class='no'>my_bc_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
-                              <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
-<span class='no'>my_bc_2</span> <span class='kw'>&lt;-</span> <span class='fu'>chart_theme</span>(<span class='no'>my_bc_2</span>,
-  <span class='kw'>grid_major_line_y</span> <span class='kw'>=</span> <span class='fu'>fp_border</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"cyan"</span>) )</div></pre>
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>read_pptx</span>()
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>add_slide</span>(<span class='no'>doc</span>,
+  <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with_chart.html'>ph_with_chart</a></span>(<span class='no'>doc</span>, <span class='kw'>chart</span> <span class='kw'>=</span> <span class='no'>my_bar_stack_01</span>)
+<span class='fu'>print</span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"bar_stack.pptx"</span>)</div><div class='output co'>#&gt; [1] "/Users/davidgohel/Github/mschart/docs/reference/bar_stack.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

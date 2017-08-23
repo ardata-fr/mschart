@@ -11,6 +11,7 @@ reference:
   - title: Global settings
     contents:
     - chart_settings
+    - as_bar_stack
   - title: Axis
     contents:
     - starts_with("chart_ax_")
