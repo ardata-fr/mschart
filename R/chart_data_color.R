@@ -2,8 +2,9 @@
 #' @title Modify fill colour
 #' @description Specify mappings from levels in the data to displayed fill colours.
 #' @param x chart object
-#' @param values `character(num of series)`: a set of colours values to map data values to.
+#' @param values `character(num of series|1)`: a set of colours values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
+#' If it contains only one colour, this colour will be associated to all existing series.
 #' @examples
 #' my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",
 #'   y = "Sepal.Width",  group = "Species")
@@ -18,6 +19,11 @@ chart_data_fill <- function(x, values){
 
   serie_names <- names(x$series_settings$fill)
 
+  if( length(values) == 1 ){
+    values <- rep(values, length(serie_names))
+    names(values) <- serie_names
+  }
+
   if( !all(names(values) %in% serie_names ) )
     stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
 
@@ -31,6 +37,7 @@ chart_data_fill <- function(x, values){
 #' @param x chart object
 #' @param values `character(num of series)`: a set of colours values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
+#' If it contains only one colour, this colour will be associated to all existing series.
 #' @examples
 #' my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",
 #'   y = "Sepal.Width",  group = "Species")
@@ -47,6 +54,11 @@ chart_data_stroke <- function(x, values){
 
   serie_names <- names(x$series_settings$colour)
 
+  if( length(values) == 1 ){
+    values <- rep(values, length(serie_names))
+    names(values) <- serie_names
+  }
+
   if( !all(names(values) %in% serie_names ) )
     stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
 
@@ -62,6 +74,7 @@ chart_data_stroke <- function(x, values){
 #' @param values `character(num of series)`: a set of symbol values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' Possible values are: \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_markerstyle)}.
+#' If it contains only one symbol, this symbol will be associated to all existing series.
 #' @examples
 #' my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",
 #'   y = "Sepal.Width",  group = "Species")
@@ -80,6 +93,11 @@ chart_data_symbol <- function(x, values){
 
   serie_names <- names(x$series_settings$symbol)
 
+  if( length(values) == 1 ){
+    values <- rep(values, length(serie_names))
+    names(values) <- serie_names
+  }
+
   if( !all(names(values) %in% serie_names ) )
     stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
 
@@ -94,6 +112,7 @@ chart_data_symbol <- function(x, values){
 #' @param x chart object
 #' @param values `double(num of series)`: a set of size values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
+#' If it contains only one size, this size will be associated to all existing series.
 #' @examples
 #' my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",
 #'   y = "Sepal.Width",  group = "Species")
@@ -114,6 +133,11 @@ chart_data_size <- function(x, values){
     stop("values should not contain negative values")
 
   serie_names <- names(x$series_settings$size)
+
+  if( length(values) == 1 ){
+    values <- rep(values, length(serie_names))
+    names(values) <- serie_names
+  }
 
   if( !all(names(values) %in% serie_names ) )
     stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))

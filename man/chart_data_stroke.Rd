@@ -10,7 +10,8 @@ chart_data_stroke(x, values)
 \item{x}{chart object}
 
 \item{values}{`character(num of series)`: a set of colours values to map data values to.
-It is a named vector, the values will be matched based on the names.}
+It is a named vector, the values will be matched based on the names.
+If it contains only one colour, this colour will be associated to all existing series.}
 }
 \description{
 Specify mappings from levels in the data to displayed stroke colours.
