@@ -1,0 +1,41 @@
+title: mschart
+
+template:
+  package: ardatatemplate
+  bootswatch: simplex
+
+reference:
+  - title: High level functions
+    contents:
+    - starts_with("ms_")
+  - title: Global settings
+    contents:
+    - chart_settings
+  - title: Axis
+    contents:
+    - starts_with("chart_ax_")
+  - title: Chart titles
+    contents:
+    - chart_labels
+  - title: Series visual settings
+    contents:
+    - starts_with("chart_data_")
+  - title: Global visual settings
+    contents:
+    - ends_with("_theme")
+  - title: Send to Microsoft Documents
+    contents:
+    - starts_with("ph_with_")
+    - starts_with("body_add")
+
+navbar:
+  title: mschart
+  type: default
+  left:
+  - text: Overview
+    href: articles/introduction.html
+  - text: Function reference
+    href: reference/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/ardata-fr/mschart
