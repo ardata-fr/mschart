@@ -47,10 +47,13 @@ The following charts are the only available from all possible MS charts:
 
 ## Quick start
 
-First, we need to call an high level function (one of those starting with `ms_`). The following arguments will be required:
+### Call an high level function
+
+We need to call an high level function (one of those starting with `ms_`). These functions accept the following arguments:
 
 * `data`: the data.frame to be plotted
-* `x`, `y` and eventually `group`: colnames for x and y axis and a grouping column
+* `x`, `y` 
+* eventually `group`: colnames for x and y axis and a grouping column
 
 ```{r}
 my_barchart <- ms_barchart(data = browser_data, 
@@ -85,12 +88,62 @@ print(doc, target = "assets/docx/barchart_01_stacked.docx")
 office_doc_link( url = paste0( "https://davidgohel.github.io/mschart/articles/", "assets/docx/barchart_01_stacked.docx" ) )
 ```
 
+## Customise charts
 
-### Chart settings
+Charts are generated with default values. Options are available to change charts properties. 
 
-Global chart settings can be modified with function `chart_settings`. Each type of chart has its own set of parameters. The following *stack* the bars for each group.
+* Global chart settings can be specified with generic function `chart_settings`. Each type of chart has its own set of parameters. The following *stack* the bars for each group.
 
 ```{r}
 my_barchart <- chart_settings( my_barchart, grouping = "stacked", gap_width = 50, overlap = 100 )
 ```
+
+* Axis properties are available with functions `chart_ax_x` and `chart_ax_y`:
+
+```{r}
+my_barchart <- chart_ax_x(my_barchart, cross_between = 'between', 
+  major_tick_mark = "in", minor_tick_mark = "none")
+my_barchart <- chart_ax_y(my_barchart, num_fmt = "0.00", rotation = -90)
+```
+
+* Titles (main title, axis labels) can be set with function `chart_labels`:
+
+```{r}
+my_barchart <- chart_labels(my_barchart, title = "A main title", 
+  xlab = "x axis title", ylab = "y axis title")
+```
+
+* Series visual settings can be customised with functions `chart_data_fill`, `chart_data_stroke`, `chart_data_size` and `chart_data_symbol`:
+
+```{r}
+my_barchart <- chart_data_fill(my_barchart,
+  values = c(serie1 = "#003C63", serie2 = "#ED1F24", serie3 = "#F2AA00") )
+my_barchart <- chart_data_stroke(my_barchart, values = "transparent" )
+```
+
+* Global visual settings (e.g. groups fill and stroke colours) can be customised 
+with functions `set_theme`:
+
+```{r}
+title_style <- fp_text(color = "#175FAA", font.size = 14, bold = TRUE)
+mytheme <- mschart_theme(main_title = update( title_style, font.size = 18),
+  axis_title_x = title_style, axis_title_y = title_style,
+  grid_major_line_y = fp_border(width = 1, color = "orange"),
+  axis_ticks_y = fp_border(width = 1, color = "orange") )
+my_barchart <- set_theme(my_barchart, mytheme)
+```
+
+```{r results='hide'}
+library(officer)
+doc <- read_pptx()
+doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+doc <- ph_with_chart(doc, chart = my_barchart)
+print(doc, target = "assets/pptx/barchart_02_stacked.pptx")
+```
+
+```{r echo=FALSE}
+office_doc_link( url = paste0( "https://davidgohel.github.io/mschart/articles/", "assets/pptx/barchart_02_stacked.pptx" ) )
+```
+
+
 
