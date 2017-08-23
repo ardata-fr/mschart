@@ -34,6 +34,7 @@ set_theme <- function( x, value ){
 #' @param axis_title,axis_title_x,axis_title_y axis title formatting properties (\link[officer]{fp_text})
 #' @param main_title title formatting properties (\link[officer]{fp_text})
 #' @param axis_text,axis_text_x,axis_text_y axis text formatting properties (\link[officer]{fp_text})
+#' @param title_rot,title_x_rot,title_y_rot rotation angle
 #' @param axis_ticks,axis_ticks_x,axis_ticks_y axis ticks formatting properties (\link[officer]{fp_border})
 #' @param grid_major_line,grid_major_line_x,grid_major_line_y major grid lines formatting properties (\link[officer]{fp_border})
 #' @param grid_minor_line,grid_minor_line_x,grid_minor_line_y minor grid lines formatting properties (\link[officer]{fp_border})
@@ -48,6 +49,7 @@ set_theme <- function( x, value ){
 mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axis_title_x = axis_title, axis_title_y = axis_title,
                           main_title = fp_text(bold = TRUE, font.size = 20),
                           axis_text = fp_text(), axis_text_x = axis_text, axis_text_y = axis_text,
+                          title_rot = 0, title_x_rot = 0, title_y_rot = 270,
                           axis_ticks = fp_border(color = "#99999999"), axis_ticks_x = axis_ticks, axis_ticks_y = axis_ticks,
                           grid_major_line = fp_border(color = "#99999999", style = "dashed"), grid_major_line_x = grid_major_line, grid_major_line_y = grid_major_line,
                           grid_minor_line = fp_border(width = 0), grid_minor_line_x = grid_minor_line, grid_minor_line_y = grid_minor_line,
@@ -70,11 +72,24 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
   stopifnot(inherits(grid_minor_line_x, "fp_border"))
   stopifnot(inherits(grid_minor_line_y, "fp_border"))
 
+  if( title_rot < 0 && title_rot > 359 ){
+    stop("title_rot must be between 0 and 359")
+  }
+
+  if( title_x_rot < 0 && title_x_rot > 359 ){
+    stop("title_x_rot must be between 0 and 359")
+  }
+
+  if( title_y_rot < 0 && title_y_rot > 359 ){
+    stop("title_y_rot must be between 0 and 359")
+  }
+
   if( !legend_position %in% st_legendpos ){
     stop("legend_position should be one of ", paste0(shQuote(st_legendpos), collapse = ", " ))
   }
 
   out <- list(main_title = main_title, axis_title_x = axis_title_x, axis_title_y = axis_title_y,
+              title_rot = title_rot, title_x_rot = title_x_rot, title_y_rot = title_y_rot,
               axis_text_x = axis_text_x, axis_text_y = axis_text_y,
               axis_ticks_x = axis_ticks_x, axis_ticks_y = axis_ticks_y,
               grid_major_line_x = grid_major_line_x, grid_major_line_y = grid_major_line_y,
@@ -88,6 +103,7 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
 #' @export
 #' @description Use \code{chart_theme()} to modify individual components of a chart theme.
 chart_theme <- function( x, axis_title_x, axis_title_y, main_title,
+                          title_rot, title_x_rot, title_y_rot,
                           axis_text_x, axis_text_y,
                           axis_ticks_x, axis_ticks_y,
                           grid_major_line_x, grid_major_line_y,
@@ -188,6 +204,28 @@ chart_theme <- function( x, axis_title_x, axis_title_y, main_title,
     if( !legend_position %in% st_legendpos ){
       stop("legend_position should be one of ", paste0(shQuote(st_legendpos), collapse = ", " ))
     }
+    x$theme$legend_position <- legend_position
+  }
+
+  if(!missing(title_rot)){
+    if( title_rot < 0 && title_rot > 359 ){
+      stop("title_rot must be between 0 and 359")
+    }
+    x$theme$title_rot <- title_rot
+  }
+
+  if(!missing(title_x_rot)){
+    if( title_x_rot < 0 && title_x_rot > 359 ){
+      stop("title_x_rot must be between 0 and 359")
+    }
+    x$theme$title_x_rot <- title_x_rot
+  }
+
+  if(!missing(title_y_rot)){
+    if( title_y_rot < 0 && title_y_rot > 359 ){
+      stop("title_y_rot must be between 0 and 359")
+    }
+    x$theme$title_y_rot <- title_y_rot
   }
 
   x
