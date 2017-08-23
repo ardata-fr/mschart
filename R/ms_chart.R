@@ -1,3 +1,4 @@
+#' @importFrom grDevices colors
 ms_chart <- function(data, x, y, group = NULL){
 
   stopifnot(is.data.frame(data))
@@ -10,8 +11,16 @@ ms_chart <- function(data, x, y, group = NULL){
 
   theme_ <- mschart_theme()
 
-  x_axis_tag <- get_axis_tag(data[[x]])
-  y_axis_tag <- get_axis_tag(data[[y]])
+  tryCatch(
+    x_axis_tag <- get_axis_tag(data[[x]]),
+    error = function(e) {
+      stop("column ", shQuote(x), ": ", e$message, " [", paste(class(data[[x]]), collapse = ","), "]", call. = FALSE)
+    })
+  tryCatch(
+    y_axis_tag <- get_axis_tag(data[[y]]),
+    error = function(e) {
+      stop("column ", shQuote(y), ": ", e$message, " [", paste(class(data[[y]]), collapse = ","), "]", call. = FALSE)
+    })
 
   x_axis_ <- axis_options(axis_position = "b")
   y_axis_ <- axis_options(axis_position = "l")
@@ -34,19 +43,53 @@ ms_chart <- function(data, x, y, group = NULL){
   out$data_series <- shape_as_series(out)
 
   series_names <- setdiff(colnames( out$data_series ), x )
-  series_fills <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02",
-                    "#A6761D", "#666666")[seq_along(series_names)]
-  series_colours <- c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33",
-                      "#A65628", "#F781BF")[seq_along(series_names)]
+
+  if( length(series_names) <= length(colour_list) )
+    palette_ <- colour_list[[length(series_names)]]
+  else
+    palette_ <- sample(colors(), size = length(series_names), replace = TRUE)
+
   series_symbols <- rep("circle", length(series_names) )
   series_size <- rep(12, length(series_names) )
-  out$series_settings <- list( fill = setNames(series_fills, series_names),
-        colour = setNames(series_colours, series_names),
+  out$series_settings <- list( fill = setNames(palette_, series_names),
+        colour = setNames(palette_, series_names),
         symbol = setNames(series_symbols, series_names),
         size = setNames(series_size, series_names)
         )
   out
 }
+
+#' ms_chart print method
+#'
+#' @param x ms_chart object
+#' @param ... unused
+#' @export
+print.ms_chart <- function(x, ...){
+  class_val <- setdiff( class(x), "ms_chart" )
+  cat( sprintf("* %s object\n\n", shQuote(class_val)) )
+
+  cat(sprintf("* original data [%.0f,%.0f] (sample):\n", nrow(x$data), ncol(x$data)))
+  print( x$data[ seq_len( min(c( nrow(x$data), 5)) ), ] )
+  cat(sprintf("\n* series data [%.0f,%.0f] (sample):\n", nrow(x$data_series), ncol(x$data_series)))
+  print( x$data_series[ seq_len( min(c( nrow(x$data_series), 5))), ] )
+
+}
+
+colour_list <- list(
+   c("#4477AA"),
+   c("#4477AA", "#CC6677"),
+   c("#4477AA", "#DDCC77", "#CC6677"),
+   c("#4477AA", "#117733", "#DDCC77", "#CC6677"),
+   c("#332288", "#88CCEE", "#117733", "#DDCC77", "#CC6677"),
+   c("#332288", "#88CCEE", "#117733", "#DDCC77", "#CC6677","#AA4499"),
+   c("#332288", "#88CCEE", "#44AA99", "#117733", "#DDCC77", "#CC6677","#AA4499"),
+   c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677","#AA4499"),
+   c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677", "#882255", "#AA4499"),
+   c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#882255", "#AA4499"),
+   c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#882255", "#AA4499"),
+   c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#AA4466", "#882255", "#AA4499")
+)
+
 
 #' @importFrom xml2 xml_attr<-
 format.ms_chart  <- function(x, id_x, id_y){

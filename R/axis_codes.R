@@ -6,7 +6,9 @@ get_axis_tag <- function(x){
     axis_tag <- "c:catAx"
   else if( is.numeric(x) )
     axis_tag <- "c:valAx"
-  else stop("unknow type of data during x axis analysis")
+  else {
+    stop("unknow type of data")
+  }
   axis_tag
 }
 
@@ -42,10 +44,6 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   lim_min <- ""
   if( !is.null(x$limit_min) )
     lim_min <- sprintf("<c:min val=\"%.02f\"/>", x$limit_min )
-  cross_at <- ""
-  if( !is.null(x$position) )
-    cross_at <- sprintf("<c:crossesAt val=\"%.02f\"/>", x$position )
-
 
   scaling_str <- sprintf("<c:scaling><c:orientation val=\"%s\"/>%s%s</c:scaling>", x$orientation, lim_max, lim_min )
   delete <- sprintf("<c:delete val=\"%.0f\"/>", x$delete )
@@ -92,7 +90,9 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
                   major_tm, minor_tm, tl_pos,
                   labels_text_pr,
                   axis_ticks, num_fmt,
-                  "<c:crossAx val=\"%s\"/>", cross_at, crosses)
+                  "<c:crossAx val=\"%s\"/>",
+                  cross_at,
+                  crosses)
   str_ <- sprintf(str_, id, cross_id)
   str_
 
@@ -103,12 +103,12 @@ axes_xml <- function(x, id_x, id_y){
 
   x_axis_str <- axis_content_xml( x$x_axis, id = id_x, theme = x$theme,
                                   cross_id = id_y, is_x = TRUE,
-                                  lab = x$labels$x)
+                                  lab = x$labels$x, rot = x$theme$title_x_rot )
   x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
 
   y_axis_str <- axis_content_xml( x$y_axis, id = id_y, theme = x$theme,
                                   cross_id = id_x, is_x = FALSE,
-                                  lab = x$labels$y)
+                                  lab = x$labels$y, rot = x$theme$title_y_rot )
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
   paste0(x_axis_str, y_axis_str)
