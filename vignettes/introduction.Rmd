@@ -73,7 +73,7 @@ print(doc, target = "assets/pptx/barchart_01_stacked.pptx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/mschart/articles/", "assets/pptx/barchart_01_stacked.pptx" ) )
+office_doc_link( url = paste0( "https://ardata-fr.github.io/mschart/articles/", "assets/pptx/barchart_01_stacked.pptx" ) )
 ```
 
 Or in a new Word document:
@@ -85,7 +85,7 @@ print(doc, target = "assets/docx/barchart_01_stacked.docx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/mschart/articles/", "assets/docx/barchart_01_stacked.docx" ) )
+office_doc_link( url = paste0( "https://ardata-fr.github.io/mschart/articles/", "assets/docx/barchart_01_stacked.docx" ) )
 ```
 
 ## Customise charts
@@ -142,7 +142,7 @@ print(doc, target = "assets/pptx/barchart_02_stacked.pptx")
 ```
 
 ```{r echo=FALSE}
-office_doc_link( url = paste0( "https://davidgohel.github.io/mschart/articles/", "assets/pptx/barchart_02_stacked.pptx" ) )
+office_doc_link( url = paste0( "https://ardata-fr.github.io/mschart/articles/", "assets/pptx/barchart_02_stacked.pptx" ) )
 ```
 
 
