@@ -62,9 +62,21 @@ ms_chart <- function(data, x, y, group = NULL){
 #' ms_chart print method
 #'
 #' @param x ms_chart object
+#' @param preview preview the chart in a PowerPoint document
 #' @param ... unused
 #' @export
-print.ms_chart <- function(x, ...){
+#' @importFrom officer read_pptx add_slide
+#' @importFrom utils browseURL
+print.ms_chart <- function(x, preview = FALSE, ...){
+
+  if( preview && interactive() ){
+      doc <- read_pptx()
+      doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+      doc <- ph_with_chart(doc, chart = x)
+      file_out <- print(doc, target = tempfile(fileext = ".pptx"))
+      browseURL(file_out)
+      return(invisible())
+  }
   class_val <- setdiff( class(x), "ms_chart" )
   cat( sprintf("* %s object\n\n", shQuote(class_val)) )
 
