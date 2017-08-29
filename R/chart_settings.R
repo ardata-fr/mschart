@@ -15,7 +15,7 @@ barchart_options <- function( vary_colors = FALSE, gap_width = 150,
   # bardir <- structure(c("bar", "col"), .Names = c("horizontal", "vertical"))
   bardir <- c("horizontal", "vertical")
   if( !dir %in% bardir ){
-    stop("dir should be one of ", paste0(shQuote(names(bardir)), collapse = ", " ))
+    stop("dir should be one of ", paste0(shQuote(bardir), collapse = ", " ))
   }
 
   if( !(gap_width >= 0 && gap_width <= 500) ){
