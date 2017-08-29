@@ -61,7 +61,7 @@ ms_chart <- function(data, x, y, group = NULL){
 
 #' ms_chart print method
 #'
-#' @param x ms_chart object
+#' @param x an \code{ms_chart} object.
 #' @param preview preview the chart in a PowerPoint document
 #' @param ... unused
 #' @export
@@ -224,7 +224,7 @@ ms_scatterchart <- function(data, x, y, group = NULL){
 #' @title Modify axis and plot labels
 #' @description Add labels to a chart, labels can be specified for
 #' x axis, y axis and plot.
-#' @param x chart object
+#' @param x an \code{ms_chart} object.
 #' @param title,xlab,ylab Text to add
 #' @examples
 #' mylc <- ms_linechart(data = browser_ts, x = "date", y = "freq",

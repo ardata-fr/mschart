@@ -9,7 +9,7 @@ chart_data_labels(x, num_fmt = "General", position = "ctr",
   show_serie_name = FALSE, show_percent = FALSE, separator = ", ")
 }
 \arguments{
-\item{x}{chart object}
+\item{x}{an \code{ms_chart} object.}
 
 \item{num_fmt}{`character(1)`: number formatting specifies number format properties which
 indicate how to format and render the numeric values. It can be "General", "0.00", "#,##0",

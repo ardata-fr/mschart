@@ -6,7 +6,7 @@
 \alias{ms_areachart}
 \alias{ms_scatterchart}
 \alias{mschart}
-\title{chart object}
+\title{ms_chart object}
 \usage{
 ms_linechart(data, x, y, group = NULL)
 

@@ -27,7 +27,7 @@ chart_theme(x, axis_title_x, axis_title_y, main_title, title_rot, title_x_rot,
   date_fmt, str_fmt, double_fmt, integer_fmt, legend_position)
 }
 \arguments{
-\item{x}{chart object.}
+\item{x}{an \code{ms_chart} object.}
 
 \item{value}{a \code{mschart_theme} object.}
 
@@ -61,7 +61,7 @@ Modify chart theme with function \code{set_theme}.
 
 Use \code{mschart_theme()} to create a chart theme.
 
-Use \code{chart_theme()} to modify individual components of a chart theme.
+Use \code{chart_theme()} to modify components of the theme of a chart.
 }
 \examples{
 library(officer)

@@ -7,7 +7,7 @@
 chart_data_size(x, values)
 }
 \arguments{
-\item{x}{chart object}
+\item{x}{an \code{ms_chart} object.}
 
 \item{values}{`double(num of series)`: a set of size values to map data values to.
 It is a named vector, the values will be matched based on the names.

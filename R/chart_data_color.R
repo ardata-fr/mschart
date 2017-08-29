@@ -1,7 +1,7 @@
 #' @export
 #' @title Modify fill colour
 #' @description Specify mappings from levels in the data to displayed fill colours.
-#' @param x chart object
+#' @param x an \code{ms_chart} object.
 #' @param values `character(num of series|1)`: a set of colours values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' If it contains only one colour, this colour will be associated to all existing series.
@@ -34,7 +34,7 @@ chart_data_fill <- function(x, values){
 #' @export
 #' @title Modify stroke colour
 #' @description Specify mappings from levels in the data to displayed stroke colours.
-#' @param x chart object
+#' @param x an \code{ms_chart} object.
 #' @param values `character(num of series)`: a set of colours values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' If it contains only one colour, this colour will be associated to all existing series.
@@ -70,7 +70,7 @@ chart_data_stroke <- function(x, values){
 #' @export
 #' @title Modify symbol
 #' @description Specify mappings from levels in the data to displayed symbols.
-#' @param x chart object
+#' @param x an \code{ms_chart} object.
 #' @param values `character(num of series)`: a set of symbol values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' Possible values are: \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_markerstyle)}.
@@ -109,7 +109,7 @@ chart_data_symbol <- function(x, values){
 #' @export
 #' @title Modify symbol size
 #' @description Specify mappings from levels in the data to displayed size of symbols.
-#' @param x chart object
+#' @param x an \code{ms_chart} object.
 #' @param values `double(num of series)`: a set of size values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' If it contains only one size, this size will be associated to all existing series.

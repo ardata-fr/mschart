@@ -7,7 +7,7 @@
 chart_data_fill(x, values)
 }
 \arguments{
-\item{x}{chart object}
+\item{x}{an \code{ms_chart} object.}
 
 \item{values}{`character(num of series|1)`: a set of colours values to map data values to.
 It is a named vector, the values will be matched based on the names.

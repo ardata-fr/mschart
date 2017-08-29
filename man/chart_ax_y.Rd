@@ -14,7 +14,7 @@ chart_ax_y(x, orientation, crosses, cross_between, major_tick_mark,
   limit_min, limit_max, position, second_axis = FALSE)
 }
 \arguments{
-\item{x}{chart object}
+\item{x}{an \code{ms_chart} object.}
 
 \item{orientation}{`character(1)`: axis orientation,
 one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_orientation)}.}

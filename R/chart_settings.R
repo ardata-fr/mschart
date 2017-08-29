@@ -1,7 +1,7 @@
 #' @export
 #' @title set chart options
 #' @description Set chart properties.
-#' @param x chart object
+#' @param x an \code{ms_chart} object.
 #' @param ... unused parameter
 chart_settings <- function( x, ... ){
   UseMethod("chart_settings")

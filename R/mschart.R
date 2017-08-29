@@ -1,4 +1,4 @@
-#' @title chart object
+#' @title ms_chart object
 #' @description Creation of a chart object that can be
 #' inserted in a 'Microsoft' document.
 #' @param data a data.frame

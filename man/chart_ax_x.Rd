@@ -14,7 +14,7 @@ chart_ax_x(x, orientation, crosses, cross_between, major_tick_mark,
   limit_min, limit_max, position, second_axis = FALSE)
 }
 \arguments{
-\item{x}{chart object}
+\item{x}{an \code{ms_chart} object.}
 
 \item{orientation}{`character(1)`: axis orientation,
 one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_orientation)}.}
@@ -48,7 +48,7 @@ one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_ticklb
 \item{second_axis}{`logical(1)`: unused}
 }
 \description{
-Set x axis properties.
+Define settings for an x axis.
 }
 \section{Methods (by class)}{
 \itemize{

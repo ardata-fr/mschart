@@ -7,7 +7,7 @@
 \method{print}{ms_chart}(x, preview = FALSE, ...)
 }
 \arguments{
-\item{x}{ms_chart object}
+\item{x}{an \code{ms_chart} object.}
 
 \item{preview}{preview the chart in a PowerPoint document}
 

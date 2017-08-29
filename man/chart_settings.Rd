@@ -22,7 +22,7 @@ chart_settings(x, ...)
   scatterstyle = "lineMarker", ...)
 }
 \arguments{
-\item{x}{chart object}
+\item{x}{an \code{ms_chart} object.}
 
 \item{...}{unused parameter}
 

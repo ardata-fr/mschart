@@ -10,7 +10,7 @@ body_add_chart(x, chart, style = NULL, pos = "after", width = 5,
 \arguments{
 \item{x}{an rdocx object}
 
-\item{chart}{mschart object}
+\item{chart}{an \code{ms_chart} object.}
 
 \item{style}{paragraph style}
 

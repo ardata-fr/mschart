@@ -7,7 +7,7 @@
 chart_labels(x, title = NULL, xlab = NULL, ylab = NULL)
 }
 \arguments{
-\item{x}{chart object}
+\item{x}{an \code{ms_chart} object.}
 
 \item{title, xlab, ylab}{Text to add}
 }

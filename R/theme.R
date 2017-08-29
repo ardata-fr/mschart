@@ -1,6 +1,6 @@
 #' @title set chart theme
 #' @description Modify chart theme with function \code{set_theme}.
-#' @param x chart object.
+#' @param x an \code{ms_chart} object.
 #' @param value a \code{mschart_theme} object.
 #' @examples
 #' library(officer)
@@ -101,7 +101,7 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
 
 #' @rdname set_theme
 #' @export
-#' @description Use \code{chart_theme()} to modify individual components of a chart theme.
+#' @description Use \code{chart_theme()} to modify components of the theme of a chart.
 chart_theme <- function( x, axis_title_x, axis_title_y, main_title,
                           title_rot, title_x_rot, title_y_rot,
                           axis_text_x, axis_text_y,

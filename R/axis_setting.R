@@ -1,6 +1,6 @@
 #' @title x axis settings
-#' @description Set x axis properties.
-#' @param x chart object
+#' @description Define settings for an x axis.
+#' @param x an \code{ms_chart} object.
 #' @param orientation `character(1)`: axis orientation,
 #' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_orientation)}.
 #' @param crosses `character(1)`: specifies how the axis crosses the perpendicular axis,

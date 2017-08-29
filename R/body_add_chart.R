@@ -3,7 +3,7 @@
 #' @description add a \code{ms_chart} into an rdocx object, the graphic will be
 #' inserted in an empty paragraph.
 #' @param x an rdocx object
-#' @param chart mschart object
+#' @param chart an \code{ms_chart} object.
 #' @param style paragraph style
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
