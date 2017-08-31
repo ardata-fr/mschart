@@ -1,7 +1,7 @@
 Package: mschart
 Type: Package
 Title: Chart Generation for Microsoft Word and PowerPoint Documents
-Version: 0.1.1.9003
+Version: 0.1.1.9004
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
     email = "david.gohel@ardata.fr"),

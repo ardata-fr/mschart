@@ -37,7 +37,7 @@ Then use package `officer` to send the object as a chart.
 ``` r
 doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_chart(doc, value = linec)
+doc <- ph_with_chart(doc, chart = linec)
 
 print(doc, target = "example.pptx")
 ```
