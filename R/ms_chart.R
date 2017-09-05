@@ -59,7 +59,12 @@ ms_chart <- function(data, x, y, group = NULL){
   out
 }
 
-#' ms_chart print method
+#' @title ms_chart print method
+#' @description an \code{ms_chart} object can not be rendered
+#' in R. The default printing method will only display
+#' simple informations about the object.
+#' If argument \code{preview} is set to TRUE, a \code{pptx} file
+#' will be produced and opened with function \code{browseURL}.
 #'
 #' @param x an \code{ms_chart} object.
 #' @param preview preview the chart in a PowerPoint document
