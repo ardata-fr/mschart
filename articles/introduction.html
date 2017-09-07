@@ -172,6 +172,181 @@ doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with
 <a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/barchart_02_stacked.pptx">office web viewer</a>
 </p>
 </div>
+<div id="gallery" class="section level2">
+<h2 class="hasAnchor">
+<a href="#gallery" class="anchor"></a>Gallery</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gen_pptx &lt;-<span class="st"> </span><span class="cf">function</span>( chart, file ){
+  doc &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/officer/topics/read_pptx">read_pptx</a></span>()
+  doc &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/officer/topics/add_slide">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)
+  doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with_chart.html">ph_with_chart</a></span>(doc, <span class="dt">chart =</span> chart)
+  <span class="kw">print</span>(doc, <span class="dt">target =</span> file)
+  <span class="kw">office_doc_link</span>( <span class="dt">url =</span> <span class="kw">paste0</span>( <span class="st">"https://ardata-fr.github.io/mschart/articles/"</span>, file ) )
+}</code></pre></div>
+<div id="bar-charts" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bar-charts" class="anchor"></a>Bar charts</h3>
+<div id="grouped-bars" class="section level4">
+<h4 class="hasAnchor">
+<a href="#grouped-bars" class="anchor"></a>grouped bars</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_barchart_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mschart.html">ms_barchart</a></span>(
+  <span class="dt">data =</span> browser_data, <span class="dt">x =</span> <span class="st">"browser"</span>,
+  <span class="dt">y =</span> <span class="st">"value"</span>, <span class="dt">group =</span> <span class="st">"serie"</span>
+)
+<span class="kw">gen_pptx</span>(my_barchart_<span class="dv">01</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_bar_01.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_bar_01.pptx">gallery_bar_01.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_bar_01.pptx">office web viewer</a>
+</p>
+</div>
+<div id="vertical-stacked-bars" class="section level4">
+<h4 class="hasAnchor">
+<a href="#vertical-stacked-bars" class="anchor"></a>vertical stacked bars</h4>
+<p><code>as_bar_stack</code> is an helper function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_barchart_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as_bar_stack.html">as_bar_stack</a></span>(my_barchart_<span class="dv">01</span>)
+<span class="kw">gen_pptx</span>(my_barchart_<span class="dv">02</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_bar_02.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_bar_02.pptx">gallery_bar_02.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_bar_02.pptx">office web viewer</a>
+</p>
+</div>
+<div id="horizontal-stacked-bars" class="section level4">
+<h4 class="hasAnchor">
+<a href="#horizontal-stacked-bars" class="anchor"></a>horizontal stacked bars</h4>
+<ul>
+<li>Values</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_barchart_<span class="dv">03</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as_bar_stack.html">as_bar_stack</a></span>(my_barchart_<span class="dv">01</span>, <span class="dt">dir =</span> <span class="st">"horizontal"</span>)
+<span class="kw">gen_pptx</span>(my_barchart_<span class="dv">03</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_bar_03.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_bar_03.pptx">gallery_bar_03.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_bar_03.pptx">office web viewer</a>
+</p>
+<ul>
+<li>Percent</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_barchart_<span class="dv">04</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as_bar_stack.html">as_bar_stack</a></span>(my_barchart_<span class="dv">01</span>, <span class="dt">dir =</span> <span class="st">"horizontal"</span>, 
+  <span class="dt">percent =</span> <span class="ot">TRUE</span>)
+<span class="kw">gen_pptx</span>(my_barchart_<span class="dv">04</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_bar_04.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_bar_04.pptx">gallery_bar_04.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_bar_04.pptx">office web viewer</a>
+</p>
+</div>
+</div>
+<div id="line-charts" class="section level3">
+<h3 class="hasAnchor">
+<a href="#line-charts" class="anchor"></a>Line charts</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">structure</span>(
+  <span class="kw">list</span>(
+    <span class="dt">supp =</span> <span class="kw">structure</span>( <span class="kw">c</span>(1L, 1L, 1L, 2L, 2L, 2L), 
+                      <span class="dt">.Label =</span> <span class="kw">c</span>(<span class="st">"OJ"</span>, <span class="st">"VC"</span>), <span class="dt">class =</span> <span class="st">"factor"</span> ),
+    <span class="dt">dose =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>),
+    <span class="dt">length =</span> <span class="kw">c</span>(<span class="fl">13.23</span>, <span class="fl">22.7</span>, <span class="fl">26.06</span>, <span class="fl">7.98</span>, <span class="fl">16.77</span>, <span class="fl">26.14</span>)
+  ),
+  <span class="dt">.Names =</span> <span class="kw">c</span>(<span class="st">"supp"</span>, <span class="st">"dose"</span>, <span class="st">"length"</span>),
+  <span class="dt">class =</span> <span class="st">"data.frame"</span>, <span class="dt">row.names =</span> <span class="kw">c</span>(<span class="ot">NA</span>,<span class="op">-</span>6L)
+)
+
+lc_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mschart.html">ms_linechart</a></span>(<span class="dt">data =</span> data, <span class="dt">x =</span> <span class="st">"dose"</span>,
+                      <span class="dt">y =</span> <span class="st">"length"</span>, <span class="dt">group =</span> <span class="st">"supp"</span>)
+<span class="kw">gen_pptx</span>(lc_<span class="dv">01</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_line_01.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_line_01.pptx">gallery_line_01.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_line_01.pptx">office web viewer</a>
+</p>
+<div id="with-dates" class="section level4">
+<h4 class="hasAnchor">
+<a href="#with-dates" class="anchor"></a>With dates</h4>
+<p>Auto detection of dates is not yet implemented, sorry. You will need to specify the <code>num_fmt</code> argument.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lc_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mschart.html">ms_linechart</a></span>(<span class="dt">data =</span> browser_ts, <span class="dt">x =</span> <span class="st">"date"</span>,
+                      <span class="dt">y =</span> <span class="st">"freq"</span>, <span class="dt">group =</span> <span class="st">"browser"</span>)
+lc_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chart_ax_x.html">chart_ax_x</a></span>(lc_<span class="dv">02</span>, <span class="dt">num_fmt =</span> <span class="st">"m/d/yy"</span>)
+<span class="kw">gen_pptx</span>(lc_<span class="dv">02</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_line_02.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_line_02.pptx">gallery_line_02.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_line_02.pptx">office web viewer</a>
+</p>
+</div>
+<div id="stacked" class="section level4">
+<h4 class="hasAnchor">
+<a href="#stacked" class="anchor"></a>Stacked</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lc_<span class="dv">03</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chart_settings.html">chart_settings</a></span>(lc_<span class="dv">02</span>, <span class="dt">grouping =</span> <span class="st">"percentStacked"</span>)
+<span class="kw">gen_pptx</span>(lc_<span class="dv">03</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_line_03.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_line_03.pptx">gallery_line_03.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_line_03.pptx">office web viewer</a>
+</p>
+</div>
+</div>
+</div>
+<div id="area-chats" class="section level2">
+<h2 class="hasAnchor">
+<a href="#area-chats" class="anchor"></a>Area chats</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ac_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mschart.html">ms_areachart</a></span>(<span class="dt">data =</span> data, <span class="dt">x =</span> <span class="st">"dose"</span>,
+                      <span class="dt">y =</span> <span class="st">"length"</span>, <span class="dt">group =</span> <span class="st">"supp"</span>)
+<span class="kw">gen_pptx</span>(ac_<span class="dv">01</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_area_01.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_area_01.pptx">gallery_area_01.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_area_01.pptx">office web viewer</a>
+</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ac_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mschart.html">ms_areachart</a></span>(<span class="dt">data =</span> browser_ts, <span class="dt">x =</span> <span class="st">"date"</span>,
+                      <span class="dt">y =</span> <span class="st">"freq"</span>, <span class="dt">group =</span> <span class="st">"browser"</span>)
+ac_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chart_ax_y.html">chart_ax_y</a></span>(ac_<span class="dv">02</span>, <span class="dt">cross_between =</span> <span class="st">"between"</span>, <span class="dt">num_fmt =</span> <span class="st">"General"</span>)
+ac_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chart_ax_x.html">chart_ax_x</a></span>(ac_<span class="dv">02</span>, <span class="dt">cross_between =</span> <span class="st">"midCat"</span>, <span class="dt">num_fmt =</span> <span class="st">"m/d/yy"</span>)
+<span class="kw">gen_pptx</span>(ac_<span class="dv">02</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_area_02.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_area_02.pptx">gallery_area_02.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_area_02.pptx">office web viewer</a>
+</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ac_<span class="dv">03</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chart_settings.html">chart_settings</a></span>(ac_<span class="dv">02</span>, <span class="dt">grouping =</span> <span class="st">"percentStacked"</span>)
+<span class="kw">gen_pptx</span>(ac_<span class="dv">03</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_area_03.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_area_03.pptx">gallery_area_03.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_area_03.pptx">office web viewer</a>
+</p>
+</div>
+<div id="scatter-plots" class="section level2">
+<h2 class="hasAnchor">
+<a href="#scatter-plots" class="anchor"></a>Scatter plots</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sc_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mschart.html">ms_scatterchart</a></span>(<span class="dt">data =</span> mtcars, <span class="dt">x =</span> <span class="st">"disp"</span>,
+                         <span class="dt">y =</span> <span class="st">"drat"</span>, <span class="dt">group =</span> <span class="st">"gear"</span>)
+<span class="kw">gen_pptx</span>(sc_<span class="dv">01</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_scatter_01.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_scatter_01.pptx">gallery_scatter_01.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_scatter_01.pptx">office web viewer</a>
+</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sc_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mschart.html">ms_scatterchart</a></span>(<span class="dt">data =</span> mtcars, <span class="dt">x =</span> <span class="st">"disp"</span>,
+                         <span class="dt">y =</span> <span class="st">"drat"</span>, <span class="dt">group =</span> <span class="st">"gear"</span>)
+<span class="kw">gen_pptx</span>(sc_<span class="dv">02</span>, <span class="dt">file =</span> <span class="st">"assets/pptx/gallery_scatter_02.pptx"</span>)</code></pre></div>
+<p style="text-align:center;font-style:italic;color:gray;">
+<span>Download file </span>
+<a href="https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_scatter_02.pptx">gallery_scatter_02.pptx</a>
+<span> - view with</span>
+<a target="_blank" href="https://view.officeapps.live.com/op/view.aspx?src=https://ardata-fr.github.io/mschart/articles/assets/pptx/gallery_scatter_02.pptx">office web viewer</a>
+</p>
+</div>
 </div>
   </div>
 
@@ -183,6 +358,9 @@ doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with
 <li><a href="#available-charts">Available charts</a></li>
       <li><a href="#quick-start">Quick start</a></li>
       <li><a href="#customise-charts">Customise charts</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#area-chats">Area chats</a></li>
+      <li><a href="#scatter-plots">Scatter plots</a></li>
       </ul>
 </div>
       </div>
