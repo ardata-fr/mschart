@@ -16,7 +16,7 @@ pml_chart <- function(x, value, id_x, id_y){
   rel_str <- sprintf( rel_str, basename(xlsx_file) )
   cat(rel_str, file = rel_filename)
 
-  write.xlsx(value$data_series, file = xlsx_file, sheetName = "sheet1")
+  write_xlsx( x = list( "sheet1" = value$data_series ), path = xlsx_file)
   xml_elt <- format(value, id_x = id_x, id_y = id_y)
   cat(xml_elt, file = chart_file)
 
@@ -58,7 +58,7 @@ pml_chart <- function(x, value, id_x, id_y){
 
 #' @export
 #' @importFrom stats setNames
-#' @importFrom openxlsx write.xlsx
+#' @importFrom writexl write_xlsx
 #' @importFrom xml2 read_xml xml_find_first xml_replace as_xml_document xml_add_child write_xml
 #' @title add chart into a PowerPoint slide
 #' @description add a chart as a new shape in the current slide.

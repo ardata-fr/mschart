@@ -16,7 +16,7 @@ LazyData: true
 Depends: R (>= 2.10)
 Imports: stats,
     purrr,data.table,officer (>= 0.1.5),
-    R6,cellranger,openxlsx,grDevices,
+    R6,cellranger,writexl,grDevices,
     xml2 (>= 1.1.0)
 RoxygenNote: 6.0.1.9000
 Suggests: knitr,

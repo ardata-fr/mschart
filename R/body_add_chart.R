@@ -39,7 +39,7 @@ body_add_chart <- function( x, chart, style = NULL, pos = "after",
   cat(rel_str, file = rel_filename)
   id_x = "64451712"
   id_y = "64453248"
-  write.xlsx(chart$data_series, file = xlsx_file, sheetName = "sheet1")
+  write_xlsx(x = list("sheet1" = chart$data_series), path = xlsx_file)
   xml_elt <- format(chart, id_x = id_x, id_y = id_y)
   cat(xml_elt, file = chart_file)
 
