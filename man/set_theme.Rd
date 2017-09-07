@@ -53,8 +53,8 @@ chart_theme(x, axis_title_x, axis_title_y, main_title, title_rot, title_x_rot,
 
 \item{integer_fmt}{integer format}
 
-\item{legend_position}{`character(1)`: it specifies the position of the legend. It should be
-one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_legendpos)}}
+\item{legend_position}{it specifies the position of the legend. It should be
+one of 'b', 'tr', 'l', 'r', 't'.}
 }
 \description{
 Modify chart theme with function \code{set_theme}.

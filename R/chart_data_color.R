@@ -73,7 +73,8 @@ chart_data_stroke <- function(x, values){
 #' @param x an \code{ms_chart} object.
 #' @param values `character(num of series)`: a set of symbol values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
-#' Possible values are: \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_markerstyle)}.
+#' Possible values are: 'circle', 'dash', 'diamond', 'dot', 'none', 'plus',
+#' 'square', 'star', 'triangle', 'x', 'auto'.
 #' If it contains only one symbol, this symbol will be associated to all existing series.
 #' @examples
 #' my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",

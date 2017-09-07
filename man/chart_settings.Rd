@@ -46,7 +46,7 @@ full bar width and a setting of 100 causes all the bars in a category
 to be superimposed. The default value is 0.}
 
 \item{scatterstyle}{The Style for the scatter chart. One
-of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_scatterstyle)}}
+of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.}
 }
 \description{
 Set chart properties.

@@ -102,7 +102,7 @@ chart_settings.ms_areachart <- function( x, vary_colors = FALSE, grouping = "sta
 #' @export
 #' @describeIn chart_settings linechart settings
 #' @param scatterstyle The Style for the scatter chart. One
-#' of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_scatterstyle)}
+#' of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.
 chart_settings.ms_scatterchart <- function( x, vary_colors = FALSE, scatterstyle = "lineMarker", ... ){
 
   if( !scatterstyle %in% st_scatterstyle ){

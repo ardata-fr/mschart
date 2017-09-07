@@ -16,39 +16,39 @@ chart_ax_y(x, orientation, crosses, cross_between, major_tick_mark,
 \arguments{
 \item{x}{an \code{ms_chart} object.}
 
-\item{orientation}{`character(1)`: axis orientation,
-one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_orientation)}.}
+\item{orientation}{axis orientation, one of 'maxMin', 'minMax'.}
 
-\item{crosses}{`character(1)`: specifies how the axis crosses the perpendicular axis,
-one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_crosses)}.}
+\item{crosses}{specifies how the axis crosses the perpendicular
+axis, one of 'autoZero', 'max', 'min'.}
 
-\item{cross_between}{`character(1)`: specifies how the value axis crosses the category
-axis between categories,
-one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_crossbetween)}.}
+\item{cross_between}{specifies how the value axis crosses the
+category axis between categories, one of 'between', 'midCat'.}
 
-\item{major_tick_mark}{`character(1)`: tick marks position,
-one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_tickmark)}.}
+\item{major_tick_mark}{tick marks position,
+one of 'cross', 'in', 'none', 'out'.}
 
-\item{minor_tick_mark}{`character(1)`: tick marks position,
-one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_tickmark)}.}
+\item{minor_tick_mark}{tick marks position,
+one of 'cross', 'in', 'none', 'out'.}
 
-\item{tick_label_pos}{`character(1)`: ticks labels position,
-one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_ticklblpos)}.}
+\item{tick_label_pos}{ticks labels position, one of 'high',
+'low', 'nextTo', 'none'.}
 
-\item{display}{`logical(1)`: should the axis be displayed.}
+\item{display}{should the axis be displayed (a logical of
+length 1).}
 
-\item{num_fmt}{`character(1)`: number formatting. It can be "General", "0.00", "#,##0",
-"#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.}
+\item{num_fmt}{number formatting. It can be "General", "0.00",
+"#,##0", "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.}
 
-\item{rotation}{`integer(1)`: rotation angle. Value should be between `-360` and `360`.}
+\item{rotation}{rotation angle. Value should be between `-360`
+and `360`.}
 
-\item{limit_min}{`numeric(1)`: minimum value on the axis.}
+\item{limit_min}{minimum value on the axis.}
 
-\item{limit_max}{`numeric(1)`: maximum value on the axis.}
+\item{limit_max}{maximum value on the axis.}
 
-\item{position}{`numeric(1)`: position value that cross the other axis.}
+\item{position}{position value that cross the other axis.}
 
-\item{second_axis}{`logical(1)`: unused}
+\item{second_axis}{unused}
 }
 \description{
 Set y axis properties.

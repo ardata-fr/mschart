@@ -1,25 +1,25 @@
 #' @title x axis settings
 #' @description Define settings for an x axis.
 #' @param x an \code{ms_chart} object.
-#' @param orientation `character(1)`: axis orientation,
-#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_orientation)}.
-#' @param crosses `character(1)`: specifies how the axis crosses the perpendicular axis,
-#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_crosses)}.
-#' @param cross_between `character(1)`: specifies how the value axis crosses the category
-#' axis between categories,
-#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_crossbetween)}.
-#' @param major_tick_mark,minor_tick_mark `character(1)`: tick marks position,
-#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_tickmark)}.
-#' @param tick_label_pos `character(1)`: ticks labels position,
-#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_ticklblpos)}.
-#' @param display `logical(1)`: should the axis be displayed.
-#' @param num_fmt `character(1)`: number formatting. It can be "General", "0.00", "#,##0",
-#' "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.
-#' @param rotation `integer(1)`: rotation angle. Value should be between `-360` and `360`.
-#' @param limit_min `numeric(1)`: minimum value on the axis.
-#' @param limit_max `numeric(1)`: maximum value on the axis.
-#' @param position `numeric(1)`: position value that cross the other axis.
-#' @param second_axis `logical(1)`: unused
+#' @param orientation axis orientation, one of 'maxMin', 'minMax'.
+#' @param crosses specifies how the axis crosses the perpendicular
+#' axis, one of 'autoZero', 'max', 'min'.
+#' @param cross_between specifies how the value axis crosses the
+#' category axis between categories, one of 'between', 'midCat'.
+#' @param major_tick_mark,minor_tick_mark tick marks position,
+#' one of 'cross', 'in', 'none', 'out'.
+#' @param tick_label_pos ticks labels position, one of 'high',
+#' 'low', 'nextTo', 'none'.
+#' @param display should the axis be displayed (a logical of
+#' length 1).
+#' @param num_fmt number formatting. It can be "General", "0.00",
+#' "#,##0", "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.
+#' @param rotation rotation angle. Value should be between `-360`
+#' and `360`.
+#' @param limit_min minimum value on the axis.
+#' @param limit_max maximum value on the axis.
+#' @param position position value that cross the other axis.
+#' @param second_axis unused
 #' @seealso \code{\link{chart_ax_y}}
 #' @export
 chart_ax_x <- function( x, orientation, crosses, cross_between,

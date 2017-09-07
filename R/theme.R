@@ -42,8 +42,8 @@ set_theme <- function( x, value ){
 #' @param str_fmt string or factor format
 #' @param double_fmt double format
 #' @param integer_fmt integer format
-#' @param legend_position `character(1)`: it specifies the position of the legend. It should be
-#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_legendpos)}
+#' @param legend_position it specifies the position of the legend. It should be
+#' one of 'b', 'tr', 'l', 'r', 't'.
 #' @rdname set_theme
 #' @export
 mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axis_title_x = axis_title, axis_title_y = axis_title,

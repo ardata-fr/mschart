@@ -15,20 +15,21 @@ chart_data_labels(x, num_fmt = "General", position = "ctr",
 indicate how to format and render the numeric values. It can be "General", "0.00", "#,##0",
 "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.}
 
-\item{position}{`character(1)`: it specifies the position of the data label. It should be
-one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_dlblpos)}}
+\item{position}{`character(1)`: it specifies the position of the data label.
+It should be one of 'bestFit', 'b', 'ctr', 'inBase', 'inEnd', 'l',
+'outEnd', 'r', 't'.}
 
-\item{show_legend_key}{`logical(1)`}
+\item{show_legend_key}{show legend key if TRUE.}
 
-\item{show_val}{`logical(1)`}
+\item{show_val}{show values if TRUE.}
 
-\item{show_cat_name}{`logical(1)`}
+\item{show_cat_name}{show categories if TRUE.}
 
-\item{show_serie_name}{`logical(1)`}
+\item{show_serie_name}{show names of series if TRUE.}
 
-\item{show_percent}{`logical(1)`}
+\item{show_percent}{show percentages if TRUE.}
 
-\item{separator}{`character(1)`}
+\item{separator}{separator for displayed labels.}
 }
 \description{
 Data labels show details about data series.

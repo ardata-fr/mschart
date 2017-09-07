@@ -5,14 +5,15 @@
 #' @param num_fmt `character(1)`: number formatting specifies number format properties which
 #' indicate how to format and render the numeric values. It can be "General", "0.00", "#,##0",
 #' "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.
-#' @param position `character(1)`: it specifies the position of the data label. It should be
-#' one of \Sexpr[stage=render, results=rd]{mschart:::choices_rd(mschart:::st_dlblpos)}
-#' @param show_legend_key `logical(1)`
-#' @param show_val `logical(1)`
-#' @param show_cat_name `logical(1)`
-#' @param show_serie_name `logical(1)`
-#' @param show_percent `logical(1)`
-#' @param separator `character(1)`
+#' @param position `character(1)`: it specifies the position of the data label.
+#' It should be one of 'bestFit', 'b', 'ctr', 'inBase', 'inEnd', 'l',
+#' 'outEnd', 'r', 't'.
+#' @param show_legend_key show legend key if TRUE.
+#' @param show_val show values if TRUE.
+#' @param show_cat_name show categories if TRUE.
+#' @param show_serie_name show names of series if TRUE.
+#' @param show_percent show percentages if TRUE.
+#' @param separator separator for displayed labels.
 chart_data_labels <- function(x, num_fmt = "General", position = "ctr",
                                 show_legend_key = FALSE, show_val = FALSE,
                                 show_cat_name = FALSE, show_serie_name = FALSE,
