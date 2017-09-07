@@ -2,8 +2,6 @@ mschart R package
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Build Status](https://travis-ci.org/ardata-fr/mschart.svg?branch=master)](https://travis-ci.org/ardata-fr/mschart)
-
 The `mschart` package provides a framework for easily create charts for 'Microsoft PowerPoint' documents. It has to be used with package [`officer`](https://davidgohel.github.io/officer) that will produce the charts in new or existing PowerPoint or Word documents.
 
 <img src="tools/ms_barchart.png" align="center"/>
