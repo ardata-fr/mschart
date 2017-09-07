@@ -78,12 +78,14 @@ pml_chart <- function(x, value, id_x, id_y){
 #' my_barchart <- chart_ax_y( x= my_barchart,
 #'   cross_between = "midCat", major_tick_mark="in")
 #'
+#' \donttest{
 #' library(officer)
 #' doc <- read_pptx()
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #' doc <- ph_with_chart(doc, chart = my_barchart)
 #'
 #' print(doc, target = "barchart_example.pptx")
+#' }
 ph_with_chart <- function( x, chart, type = "body", index = 1 ){
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_chart(x, chart, id_x = "64451712", id_y = "64453248")

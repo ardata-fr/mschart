@@ -36,10 +36,12 @@ my_barchart <- chart_ax_x( x= my_barchart,
 my_barchart <- chart_ax_y( x= my_barchart,
   cross_between = "midCat", major_tick_mark="in")
 
+\donttest{
 library(officer)
 doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- ph_with_chart(doc, chart = my_barchart)
 
 print(doc, target = "barchart_example.pptx")
+}
 }
