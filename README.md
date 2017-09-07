@@ -46,6 +46,8 @@ doc <- ph_with_chart(doc, chart = linec)
 print(doc, target = "example.pptx")
 ```
 
+At any moment, you can type `print(your_chart, preview = TRUE)` to preview the chart in a temporary PowerPoint file. This requires to have a PowerPoint Viewer installed on the machine.
+
 Note
 ----
 
