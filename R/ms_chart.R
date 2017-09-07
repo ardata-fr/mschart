@@ -156,6 +156,9 @@ ms_linechart <- function(data, x, y, group = NULL){
   out$options <- linechart_options()
   class(out) <- c("ms_linechart", "ms_chart")
 
+  out$axis_tag <- list(x = "c:catAx",
+                  y = "c:valAx")
+
   serie_names <- names(out$series_settings$symbol)
   values <- setNames( rep( "none", length(serie_names)), serie_names )
   out <- chart_data_symbol(out, values = values)
@@ -196,6 +199,8 @@ ms_areachart <- function(data, x, y, group = NULL){
   out <- ms_chart(data = data, x = x, y = y, group = group)
   class(out) <- c("ms_areachart", "ms_chart")
   out <- chart_settings(out)
+  out$axis_tag <- list(x = "c:catAx",
+                       y = "c:valAx")
 
   serie_names <- names(out$series_settings$colour)
   values <- setNames( rep( "transparent", length(serie_names)), serie_names )

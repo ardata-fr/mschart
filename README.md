@@ -4,9 +4,13 @@ mschart R package
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 [![Build Status](https://travis-ci.org/ardata-fr/mschart.svg?branch=master)](https://travis-ci.org/ardata-fr/mschart)
 
-The `mschart` package provides a framework for easily create charts for 'Microsoft PowerPoint' documents. It has to be used with package `officer` that will produce the charts in new or existing PowerPoint or Word documents.
+The `mschart` package provides a framework for easily create charts for 'Microsoft PowerPoint' documents. It has to be used with package [`officer`](https://davidgohel.github.io/officer) that will produce the charts in new or existing PowerPoint or Word documents.
 
 <img src="tools/ms_barchart.png" align="center"/>
+
+**The user documentation can be read [here](https://ardata-fr.github.io/mschart/articles/introduction.html).**
+
+**Functions you should be aware of are documented [here](https://ardata-fr.github.io/mschart/reference/index.html).**
 
 Installation
 ------------
@@ -41,3 +45,14 @@ doc <- ph_with_chart(doc, chart = linec)
 
 print(doc, target = "example.pptx")
 ```
+
+Note
+----
+
+The project is in development, there will be more graphics later.
+
+Plans
+-----
+
+-   enable output to existing MS Excel file
+-   add helper functions

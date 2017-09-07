@@ -3,13 +3,12 @@ Type: Package
 Title: Chart Generation for Microsoft Word and PowerPoint Documents
 Version: 0.2.0
 Authors@R: c(
-    person("David", "Gohel", role = c("aut", "cre"),
-    email = "david.gohel@ardata.fr"),
-    person("YouGov", role = "fnd"))
-Description: Create native charts for 'Microsoft PowerPoint' and  'Microsoft Word' documents. 
+    person("David", "Gohel", role = c("aut", "cre"), email = "david.gohel@ardata.fr"),
+    person("YouGov", role = "fnd") )
+Description: Create native charts for 'Microsoft PowerPoint' and 'Microsoft Word' documents. 
   These can then be edited and annotated. Functions are provided to let users create charts, modify 
   and format their content. The chart's underlying data is automatically saved within the 
-  'Word' document or 'PowerPoint' presentation. It extends package 'officer'  that does 
+  'Word' document or 'PowerPoint' presentation. It extends package 'officer' that does 
   not contain any feature for 'Microsoft' native charts production. 
 License: MIT + file LICENSE
 Encoding: UTF-8

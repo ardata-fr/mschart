@@ -3,9 +3,10 @@ str_ref <- R6::R6Class(
   "str_ref",
   public = list(
 
-    initialize = function( region, values ) {
+    initialize = function( region, values, num_fmt = NULL ) {
       private$region <- region
       private$values <- values
+      private$num_fmt <- num_fmt
     },
 
     pml = function(){
@@ -20,14 +21,18 @@ str_ref <- R6::R6Class(
       }
       pt_ <- sprintf(pt_, seq_along(private$values)-1, private$values)
       pt_ <- paste0(pt_, collapse = "")
-      pml_ <- "<c:strRef><c:f>%s</c:f><c:strCache><c:ptCount val=\"%.0f\"/>%s</c:strCache></c:strRef>"
-      sprintf(pml_, private$region, length(private$values), pt_)
+      num_fmt <- ""
+      if( !is.null(private$num_fmt) )
+        num_fmt <- sprintf("<c:formatCode>%s</c:formatCode>", private$num_fmt )
+      pml_ <- "<c:strRef><c:f>%s</c:f><c:strCache>%s<c:ptCount val=\"%.0f\"/>%s</c:strCache></c:strRef>"
+      sprintf(pml_, private$region, num_fmt, length(private$values), pt_)
     }
 
   ),
   private = list(
     region = NULL,
-    values = NULL
+    values = NULL,
+    num_fmt = NULL
   )
 )
 

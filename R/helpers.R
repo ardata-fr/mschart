@@ -34,6 +34,9 @@ as_bar_stack <- function(x, dir = "vertical", percent = FALSE, gap_width = 50){
 
   x <- chart_settings( x, grouping = grouping, dir = dir, gap_width = gap_width, overlap = 100 )
   x <- chart_data_stroke( x, values = "transparent" )
+  if( dir == "horizontal" )
+    x <- chart_theme( x = x, title_x_rot = 270, title_y_rot = 0)
+
   x
 }
 
