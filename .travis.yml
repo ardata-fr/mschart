@@ -7,4 +7,3 @@ cache: packages
 r:
  - oldrel
  - release
- - devel
