@@ -53,7 +53,7 @@ num_ref <- R6::R6Class(
         private$values <- as.integer(private$values - as.Date("1900-01-01") - 2)
       }
       pt_ <- sprintf(pt_, seq_along(private$values)-1, private$values)
-      pt_ <- paste0(pt_, collapse = "")
+      pt_ <- paste0(pt_[!is.na(private$values)], collapse = "")
       num_fmt <- ""
       if( !is.null(private$num_fmt) )
         num_fmt <- sprintf("<c:formatCode>%s</c:formatCode>", private$num_fmt )
