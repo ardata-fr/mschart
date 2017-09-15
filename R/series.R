@@ -1,3 +1,4 @@
+#' @importFrom R6 R6Class
 # str_ref ----
 str_ref <- R6::R6Class(
   "str_ref",
