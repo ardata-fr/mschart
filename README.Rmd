@@ -13,6 +13,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+[![Travis-CI Build Status](https://travis-ci.org/ardata-fr/mschart.svg?branch=master)](https://travis-ci.org/ardata-fr/mschart) 
+[![version](http://www.r-pkg.org/badges/version/mschart)](https://CRAN.R-project.org/package=mschart)
+![cranlogs](http://cranlogs.r-pkg.org./badges/mschart)
+![Active](http://www.repostatus.org/badges/latest/active.svg)
+
 The `mschart` package provides a framework for easily create charts for 'Microsoft PowerPoint' documents. It has to be used with package [`officer`](https://davidgohel.github.io/officer) that will produce 
 the charts in new or existing PowerPoint or Word documents.
 
@@ -60,7 +65,3 @@ At any moment, you can type `print(your_chart, preview = TRUE)` to preview the c
 
 The project is in development, there will be more graphics later.
 
-## Plans 
-
-* enable output to existing MS Excel file
-* add helper functions
