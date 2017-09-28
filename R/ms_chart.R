@@ -242,9 +242,9 @@ ms_scatterchart <- function(data, x, y, group = NULL){
 #' mylc <- chart_labels(mylc, title = "my title", xlab = "my x label",
 #'   ylab = "my y label")
 chart_labels <- function( x, title = NULL, xlab = NULL, ylab = NULL){
-  if( !is.null(title) ) x$labels[["title"]] <- title
-  if( !is.null(xlab) ) x$labels[["x"]] <- xlab
-  if( !is.null(ylab) ) x$labels[["y"]] <- ylab
+  if( !is.null(title) ) x$labels[["title"]] <- htmlEscape(title)
+  if( !is.null(xlab) ) x$labels[["x"]] <- htmlEscape(xlab)
+  if( !is.null(ylab) ) x$labels[["y"]] <- htmlEscape(ylab)
   x
 }
 

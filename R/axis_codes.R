@@ -103,12 +103,12 @@ axes_xml <- function(x, id_x, id_y){
 
   x_axis_str <- axis_content_xml( x$x_axis, id = id_x, theme = x$theme,
                                   cross_id = id_y, is_x = TRUE,
-                                  lab = x$labels$x, rot = x$theme$title_x_rot )
+                                  lab = htmlEscape(x$labels$x), rot = x$theme$title_x_rot )
   x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
 
   y_axis_str <- axis_content_xml( x$y_axis, id = id_y, theme = x$theme,
                                   cross_id = id_x, is_x = FALSE,
-                                  lab = x$labels$y, rot = x$theme$title_y_rot )
+                                  lab = htmlEscape(x$labels$y), rot = x$theme$title_y_rot )
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
   paste0(x_axis_str, y_axis_str)

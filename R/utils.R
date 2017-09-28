@@ -1,10 +1,12 @@
 #' @importFrom stats as.formula
 #' @importFrom data.table as.data.table dcast.data.table setorderv
+#' @importFrom htmltools htmlEscape
 shape_as_series <- function(x){
   dataset <- as.data.table(x$data)
   dataset <- setorderv(dataset, c(x$x, x$group) )
 
   if( !is.null(x$group)){
+    dataset[[x$group]] <- htmlEscape(dataset[[x$group]])
     form_str <- sprintf("%s ~ %s", x$x, x$group)
     dataset <- dcast.data.table(dataset, formula = as.formula(form_str),
                                 fun.aggregate = function(x) {x},
