@@ -128,6 +128,7 @@ with functions `set_theme`:
 title_style <- fp_text(color = "#175FAA", font.size = 14, bold = TRUE)
 mytheme <- mschart_theme(main_title = update( title_style, font.size = 18),
   axis_title_x = title_style, axis_title_y = title_style,
+  legend_position = "n", # drop legend
   grid_major_line_y = fp_border(width = 1, color = "orange"),
   axis_ticks_y = fp_border(width = 1, color = "orange") )
 my_barchart <- set_theme(my_barchart, mytheme)

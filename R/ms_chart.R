@@ -108,7 +108,7 @@ colour_list <- list(
 )
 
 
-#' @importFrom xml2 xml_attr<-
+#' @importFrom xml2 xml_attr<- xml_remove
 format.ms_chart  <- function(x, id_x, id_y){
   str_ <- ooml_code(x, id_x = id_x, id_y = id_y)
 
@@ -133,8 +133,14 @@ format.ms_chart  <- function(x, id_x, id_y){
     title_ <- sprintf(title_, ns, format(x$theme[["main_title"]], type = "pml" ), x$labels[["title"]] )
     xml_add_child( chartnode, as_xml_document(title_), .where	= 0 )
   }
-  legend_pos <- xml_find_first(xml_doc, "//c:chart/c:legend/c:legendPos")
-  xml_attr( legend_pos, "val" ) <- x$theme[["legend_position"]]
+
+  if( x$theme[["legend_position"]] %in% "n" ){
+    legend_pos <- xml_find_first(xml_doc, "//c:chart/c:legend")
+    xml_remove(legend_pos)
+  } else {
+    legend_pos <- xml_find_first(xml_doc, "//c:chart/c:legend/c:legendPos")
+    xml_attr( legend_pos, "val" ) <- x$theme[["legend_position"]]
+  }
 
   as.character(xml_doc)
 }

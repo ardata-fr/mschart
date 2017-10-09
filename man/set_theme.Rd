@@ -54,7 +54,7 @@ chart_theme(x, axis_title_x, axis_title_y, main_title, title_rot, title_x_rot,
 \item{integer_fmt}{integer format}
 
 \item{legend_position}{it specifies the position of the legend. It should be
-one of 'b', 'tr', 'l', 'r', 't'.}
+one of 'b', 'tr', 'l', 'r', 't', 'n' (for 'none').}
 }
 \description{
 Modify chart theme with function \code{set_theme}.

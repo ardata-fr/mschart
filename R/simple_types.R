@@ -52,7 +52,7 @@ st_pictureformat <- c('stretch', 'stack', 'stackScale')
 
 st_orientation <- c('maxMin', 'minMax')
 
-st_legendpos <- c('b', 'tr', 'l', 'r', 't')
+st_legendpos <- c('b', 'tr', 'l', 'r', 't', 'n')
 
 st_dispblanksas <- c('span', 'gap', 'zero')
 
