@@ -1,5 +1,5 @@
-#' @title x axis settings
-#' @description Define settings for an x axis.
+#' @title axis settings
+#' @description Define settings for an x or y axis.
 #' @param x an \code{ms_chart} object.
 #' @param orientation axis orientation, one of 'maxMin', 'minMax'.
 #' @param crosses specifies how the axis crosses the perpendicular
@@ -12,15 +12,53 @@
 #' 'low', 'nextTo', 'none'.
 #' @param display should the axis be displayed (a logical of
 #' length 1).
-#' @param num_fmt number formatting. It can be "General", "0.00",
-#' "#,##0", "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.
+#' @param num_fmt number formatting. See section for more details.
 #' @param rotation rotation angle. Value should be between `-360`
 #' and `360`.
 #' @param limit_min minimum value on the axis.
 #' @param limit_max maximum value on the axis.
 #' @param position position value that cross the other axis.
 #' @param second_axis unused
-#' @seealso \code{\link{chart_ax_y}}
+#' @section num_fmt:
+#' All \code{\%} need to be doubled, \code{0\%\%} mean "a number
+#' and percent symbol".
+#'
+#' From my actual knowledge, depending on some chart type
+#' and options, the following values are not systematically
+#' used by office chart engine; i.e. when chart pre-compute
+#' percentages, it seems using \code{0\%\%} will have no
+#' effect.
+#'
+#' \itemize{
+#'   \item General: default value
+#'   \item 0: display the number with no decimal
+#'   \item 0.00: display the number with two decimals
+#'   \item 0\%\%: display as percentages
+#'   \item 0.00\%\%: display as percentages with two digits
+#'   \item #,##0
+#'   \item #,##0.00
+#'   \item 0.00E+00
+#'   \item # ?/?
+#'   \item # ??/??
+#'   \item mm-dd-yy
+#'   \item d-mmm-yy
+#'   \item d-mmm
+#'   \item mmm-yy
+#'   \item h:mm AM/PM
+#'   \item h:mm:ss AM/PM
+#'   \item h:mm
+#'   \item h:mm:ss
+#'   \item m/d/yy h:mm
+#'   \item #,##0 ;(#,##0)
+#'   \item #,##0 ;[Red](#,##0)
+#'   \item #,##0.00;(#,##0.00)
+#'   \item #,##0.00;[Red](#,##0.00)
+#'   \item mm:ss
+#'   \item [h]:mm:ss
+#'   \item mmss.0
+#'   \item ##0.0E+0
+#'   \item @
+#' }
 #' @export
 chart_ax_x <- function( x, orientation, crosses, cross_between,
                             major_tick_mark, minor_tick_mark,
@@ -33,10 +71,7 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
 
 
 #' @export
-#' @title y axis settings
-#' @description Set y axis properties.
-#' @inheritParams chart_ax_x
-#' @seealso \code{\link{chart_ax_x}}
+#' @rdname chart_ax_x
 chart_ax_y <- function( x, orientation, crosses, cross_between,
                         major_tick_mark, minor_tick_mark,
                         tick_label_pos, display,
@@ -89,7 +124,7 @@ chart_ax_x.ms_chart <- function( x, orientation, crosses, cross_between,
 }
 
 #' @export
-#' @describeIn chart_ax_y chart_ax_y method for ms_chart objects
+#' @describeIn chart_ax_x chart_ax_y method for ms_chart objects
 chart_ax_y.ms_chart <- function( x, orientation, crosses, cross_between,
                                  major_tick_mark, minor_tick_mark,
                                  tick_label_pos, display,
