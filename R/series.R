@@ -13,8 +13,8 @@ str_ref <- R6::R6Class(
     pml = function(){
       pt_ <- "<c:pt idx=\"%.0f\"><c:v>%s</c:v></c:pt>"
       if( inherits(private$values, "Date") ){
-        pt_ <- "<c:pt idx=\"%.0f\"><c:v>%.1f</c:v></c:pt>"
-        private$values <- as.integer(private$values - as.Date("1900-01-01") - 2)
+        pt_ <- "<c:pt idx=\"%.0f\"><c:v>%s</c:v></c:pt>"
+        private$values <- format(private$values)
       } else if( is.factor(private$values) ){
         private$values <- as.character(private$values)
       } else if( is.numeric(private$values) ){

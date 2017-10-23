@@ -34,6 +34,19 @@ fmt_name <- function( x ){
   x
 }
 
+serie_builtin_class <- function( x ){
+
+  if( inherits(x, "Date") )
+    str_ref
+  else if( is.factor(x) || is.character(x) )
+    str_ref
+  else if( is.integer(x) )
+    num_ref
+  else if( is.double(x) )
+    num_ref
+  else stop("unknow type of data")
+}
+
 is_valid_color = function(x) {
   sapply(x, function( x ) {
     tryCatch( is.matrix( col2rgb( x ) ), error = function( e ) FALSE )

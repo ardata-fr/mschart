@@ -5,7 +5,8 @@ ooml_code <- function(x, id_x, id_y){
 #' @importFrom purrr map_chr
 ooml_code.ms_barchart <- function(x, id_x, id_y){
 
-  series <- as_series(x, str_ref, num_ref)
+  series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
+                      y_class = serie_builtin_class(x$data[[x$y]]) )
 
   str_series_ <- map_chr( series, function(x, template ){
     marker_str <- get_sppr_xml(x$fill, x$stroke )
@@ -45,7 +46,8 @@ ooml_code.ms_linechart <- function(x, id_x, id_y){
   template_str <- paste0("<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s",
                      "<c:cat>%s</c:cat>",
                      "<c:val>%s</c:val></c:ser>")
-  series <- as_series(x, num_ref, num_ref)
+  series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
+                      y_class = serie_builtin_class(x$data[[x$y]]) )
   str_series_ <- map_chr( series, function(x, template ){
     marker_str <- get_marker_xml(x$fill, x$stroke, x$symbol, x$size )
     sppr_str <- get_sppr_xml(x$fill, x$stroke )
@@ -70,7 +72,8 @@ ooml_code.ms_linechart <- function(x, id_x, id_y){
 #' @importFrom purrr map_chr
 ooml_code.ms_areachart <- function(x, id_x, id_y){
 
-  series <- as_series(x, num_ref, num_ref)
+  series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
+                      y_class = serie_builtin_class(x$data[[x$y]]) )
 
   str_series_ <- map_chr( series, function(x, template ){
     marker_str <- get_sppr_xml(x$fill, x$stroke )
@@ -94,7 +97,8 @@ ooml_code.ms_areachart <- function(x, id_x, id_y){
 #' @importFrom purrr map_chr
 ooml_code.ms_scatterchart <- function(x, id_x, id_y){
 
-  series <- as_series(x, num_ref, num_ref)
+  series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
+                      y_class = serie_builtin_class(x$data[[x$y]]) )
 
   str_series_ <- map_chr( series, function(x, template ){
     marker_str <- get_marker_xml(x$fill, x$stroke, x$symbol, x$size )
