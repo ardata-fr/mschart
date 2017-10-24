@@ -19,6 +19,8 @@ You can install the package from github with:
 
 ``` r
 # install.packages("devtools")
+# devtools::install_github("ropensci/writexl")
+# mschart depends on writexl which is provided by ropensci
 devtools::install_github("ardata-fr/mschart")
 ```
 
