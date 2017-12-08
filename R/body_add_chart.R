@@ -77,7 +77,7 @@ body_add_chart <- function( x, chart, style = NULL, pos = "after",
   partname <- file.path( "/word/charts", basename(chart_file) )
   override <- setNames("application/vnd.openxmlformats-officedocument.drawingml.chart+xml", partname )
   x$content_type$add_override(value = override)
-
+  x$content_type$add_ext(extension = "xlsx", type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
   body_add_xml(x, str = par_elt, pos = pos)
 }
 

@@ -89,6 +89,7 @@ pml_chart <- function(x, value, id_x, id_y){
 ph_with_chart <- function( x, chart, type = "body", index = 1 ){
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_chart(x, chart, id_x = "64451712", id_y = "64453248")
+  x$content_type$add_ext(extension = "xlsx", type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
   ph_from_xml(x = x, value = graphic_frame, type = type, index = index )
 }
 
@@ -100,6 +101,7 @@ ph_with_chart <- function( x, chart, type = "body", index = 1 ){
 ph_with_chart_at <- function( x, chart, left, top, width, height ){
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_chart(x, chart, id_x = "64451712", id_y = "64453248")
+  x$content_type$add_ext(extension = "xlsx", type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
   ph_from_xml_at(x = x, value = graphic_frame, left = left, top = top, width = width, height = height )
 }
 
