@@ -62,23 +62,18 @@ chart_settings.ms_barchart <- function( x, vary_colors,
 }
 
 
-linechart_options <- function( vary_colors = FALSE, grouping = "standard" ){
+linechart_options <- function( vary_colors = FALSE ){
 
-  if( !grouping %in% st_grouping ){
-    stop("grouping should be one of ", paste0(shQuote(st_grouping), collapse = ", " ))
-  }
-
-  out <- list(vary_colors = vary_colors, grouping = grouping )
+  out <- list(vary_colors = vary_colors, grouping = "standard" )
   class(out) <- "linechart_options"
   out
 }
 
 #' @export
 #' @describeIn chart_settings linechart settings
-chart_settings.ms_linechart <- function( x, vary_colors, grouping, ... ){
+chart_settings.ms_linechart <- function( x, vary_colors, ... ){
 
-  options <- linechart_options( vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors),
-                               grouping = ifelse(missing(grouping), x$options$grouping, grouping) )
+  options <- linechart_options( vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors) )
   x$options <- options
   x
 }
