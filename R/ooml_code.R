@@ -1,14 +1,29 @@
-ooml_code <- function(x, id_x, id_y){
+ooml_code <- function(x, id_x, id_y, sheetname = "sheet1"){
   UseMethod("ooml_code")
 }
 
-#' @importFrom purrr map_chr
-ooml_code.ms_barchart <- function(x, id_x, id_y){
+clustered_pos <- c("ctr", "inBase", "inEnd", "outEnd")
+stacked_pos <- c("ctr", "inBase", "inEnd")
+
+ooml_code.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1"){
+
+  if( "clustered" %in% x$options$grouping )
+    if( !x$label_settings$position %in% clustered_pos ){
+      stop("label position issue with grouping 'clustered'.",
+           "Arg. position in chart_data_labels() should match one of ",
+           paste(shQuote(clustered_pos), collapse = ", "), ".", call. = FALSE)
+    }
+  if( "stacked" %in% x$options$grouping )
+    if( !x$label_settings$position %in% stacked_pos ){
+      stop("label position issue with grouping 'clustered'.",
+           "Arg. position in chart_data_labels() should match one of ",
+           paste(shQuote(stacked_pos), collapse = ", "), ".", call. = FALSE)
+    }
 
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
-                      y_class = serie_builtin_class(x$data[[x$y]]) )
+                      y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
-  str_series_ <- map_chr( series, function(x, template ){
+  str_series_ <- sapply( series, function(x, template ){
     marker_str <- get_sppr_xml(x$fill, x$stroke )
 
     sprintf(template, x$idx, x$order, x$tx$pml(),
@@ -21,34 +36,38 @@ ooml_code.ms_barchart <- function(x, id_x, id_y){
   x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
   y_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_y)
 
-  str_ <- paste0( "<c:barChart>",
-                  "<c:barDir val=\"%s\"/>",
-                  "<c:grouping val=\"%s\"/>",
-                  "<c:varyColors val=\"%.0f\"/>",
-                  str_series_,
-                  pml_labels_options(x$label_settings),
-                  "<c:gapWidth val=\"%.0f\"/>",
-                  "<c:overlap val=\"%.0f\"/>",
-                  x_ax_id, y_ax_id,
-                  "</c:barChart>" )
-
   dir_ <- structure(c("bar", "col"), .Names = c("horizontal", "vertical"))
   dir_ <- dir_[x$options$dir]
-  sprintf(str_, dir_, x$options$grouping,
-          x$options$vary_colors, x$options$gap_width,
-          x$options$overlap)
 
+  paste0( "<c:barChart>",
+                  sprintf("<c:barDir val=\"%s\"/>", dir_),
+                  sprintf("<c:grouping val=\"%s\"/>", x$options$grouping),
+                  sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
+                  str_series_,
+                  pml_labels_options(x$label_settings),
+                  sprintf("<c:gapWidth val=\"%.0f\"/>", x$options$gap_width),
+                  sprintf("<c:overlap val=\"%.0f\"/>", x$options$overlap),
+                  x_ax_id, y_ax_id,
+                  "</c:barChart>" )
 }
 
-#' @importFrom purrr map_chr
-ooml_code.ms_linechart <- function(x, id_x, id_y){
+standard_pos <- c("b", "ctr", "l", "r", "t")
+ooml_code.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1"){
+
+  # if( "standard" %in% x$options$grouping ){
+    if( !x$label_settings$position %in% standard_pos ){
+      stop("label position issue.",
+           "Arg. position in chart_data_labels() should match one of ",
+           paste(shQuote(standard_pos), collapse = ", "), ".", call. = FALSE)
+    }
+  # } # can not happen as "standard" is hard coded in chart_settings
 
   template_str <- paste0("<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s",
                      "<c:cat>%s</c:cat>",
                      "<c:val>%s</c:val></c:ser>")
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
-                      y_class = serie_builtin_class(x$data[[x$y]]) )
-  str_series_ <- map_chr( series, function(x, template ){
+                      y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
+  str_series_ <- sapply( series, function(x, template ){
     marker_str <- get_marker_xml(x$fill, x$stroke, x$symbol, x$size )
     sppr_str <- get_sppr_xml(x$fill, x$stroke )
 
@@ -69,13 +88,12 @@ ooml_code.ms_linechart <- function(x, id_x, id_y){
 }
 
 
-#' @importFrom purrr map_chr
-ooml_code.ms_areachart <- function(x, id_x, id_y){
+ooml_code.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1"){
 
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
-                      y_class = serie_builtin_class(x$data[[x$y]]) )
+                      y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
-  str_series_ <- map_chr( series, function(x, template ){
+  str_series_ <- sapply( series, function(x, template ){
     marker_str <- get_sppr_xml(x$fill, x$stroke )
 
     sprintf(template, x$idx, x$order, x$tx$pml(), marker_str, x$x$pml(), x$y$pml() )
@@ -94,13 +112,22 @@ ooml_code.ms_areachart <- function(x, id_x, id_y){
           "</c:areaChart>"  )
 }
 
-#' @importFrom purrr map_chr
-ooml_code.ms_scatterchart <- function(x, id_x, id_y){
+ooml_code.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1"){
+
+  if( "standard" %in% x$options$grouping ){
+    if( !x$label_settings$position %in% standard_pos ){
+      stop("label position issue.",
+           "Arg. position in chart_data_labels() should match one of ",
+           paste(shQuote(standard_pos), collapse = ", "), ".", call. = FALSE)
+    }
+  } else {
+    stop("linechart supports only grouping 'standard'", call. = FALSE)
+  }
 
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
-                      y_class = serie_builtin_class(x$data[[x$y]]) )
+                      y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
-  str_series_ <- map_chr( series, function(x, template ){
+  str_series_ <- sapply( series, function(x, template ){
     marker_str <- get_marker_xml(x$fill, x$stroke, x$symbol, x$size )
 
     sprintf(template, x$idx, x$order, x$tx$pml(),

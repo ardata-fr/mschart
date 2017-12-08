@@ -6,8 +6,11 @@
 #' indicate how to format and render the numeric values. It can be "General", "0.00", "#,##0",
 #' "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.
 #' @param position `character(1)`: it specifies the position of the data label.
-#' It should be one of 'bestFit', 'b', 'ctr', 'inBase', 'inEnd', 'l',
+#' It should be one of 'b', 'ctr', 'inBase', 'inEnd', 'l',
 #' 'outEnd', 'r', 't'.
+#' When grouping is 'clustered', it should be one of 'ctr','inBase','inEnd','outEnd'.
+#' When grouping is 'stacked', it should be one of 'ctr','inBase','inEnd'.
+#' When grouping is 'standard', it should be one of 'b','ctr','l','r','t'.
 #' @param show_legend_key show legend key if TRUE.
 #' @param show_val show values if TRUE.
 #' @param show_cat_name show categories if TRUE.

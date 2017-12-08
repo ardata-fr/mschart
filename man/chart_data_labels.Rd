@@ -16,8 +16,11 @@ indicate how to format and render the numeric values. It can be "General", "0.00
 "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.}
 
 \item{position}{`character(1)`: it specifies the position of the data label.
-It should be one of 'bestFit', 'b', 'ctr', 'inBase', 'inEnd', 'l',
-'outEnd', 'r', 't'.}
+It should be one of 'b', 'ctr', 'inBase', 'inEnd', 'l',
+'outEnd', 'r', 't'.
+When grouping is 'clustered', it should be one of 'ctr','inBase','inEnd','outEnd'.
+When grouping is 'stacked', it should be one of 'ctr','inBase','inEnd'.
+When grouping is 'standard', it should be one of 'b','ctr','l','r','t'.}
 
 \item{show_legend_key}{show legend key if TRUE.}
 
