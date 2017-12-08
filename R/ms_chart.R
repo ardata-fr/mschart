@@ -109,8 +109,8 @@ colour_list <- list(
 
 
 #' @importFrom xml2 xml_attr<- xml_remove
-format.ms_chart  <- function(x, id_x, id_y){
-  str_ <- ooml_code(x, id_x = id_x, id_y = id_y)
+format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE){
+  str_ <- ooml_code(x, id_x = id_x, id_y = id_y, sheetname = sheetname)
 
 
   if( is.null(x$x_axis$num_fmt) )
@@ -140,6 +140,9 @@ format.ms_chart  <- function(x, id_x, id_y){
   } else {
     legend_pos <- xml_find_first(xml_doc, "//c:chart/c:legend/c:legendPos")
     xml_attr( legend_pos, "val" ) <- x$theme[["legend_position"]]
+  }
+  if(drop_ext_data){
+    xml_remove(xml_find_first(xml_doc, "//c:externalData"))
   }
 
   as.character(xml_doc)

@@ -74,13 +74,13 @@ num_ref <- R6::R6Class(
 
 # as_series ----
 #' @importFrom cellranger cell_limits as.range ra_ref to_string
-as_series <- function(x, x_class, y_class ){
+as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
   dataset <- x$data_series
 
   w_x <- which( names(dataset) %in% x$x )
   x_serie_range <- cell_limits(ul = c(2, w_x),
                                lr = c(nrow(dataset)+1, w_x),
-                               sheet = "sheet1")
+                               sheet = sheetname)
   x_serie_range <- as.range(x_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
   x_serie <- x_class$new( x_serie_range, dataset[[x$x]] )
 
@@ -92,11 +92,11 @@ as_series <- function(x, x_class, y_class ){
 
     y_colname <- names(dataset)[w_y]
 
-    serie_name_range <- ra_ref(row_ref = 1, col_ref = w_y, sheet = "sheet1")
+    serie_name_range <- ra_ref(row_ref = 1, col_ref = w_y, sheet = sheetname)
     serie_name_range <- to_string(serie_name_range, fo = "A1")
     serie_name <- str_ref$new( serie_name_range, y_colname )
 
-    y_serie_range <- cell_limits(ul = c(2, w_y), lr = c(nrow(dataset)+1, w_y),  sheet = "sheet1")
+    y_serie_range <- cell_limits(ul = c(2, w_y), lr = c(nrow(dataset)+1, w_y),  sheet = sheetname)
     y_serie_range <- as.range(y_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
     y_serie <- y_class$new( y_serie_range, dataset[[y_colname]] )
     ser <- list( idx = length(series), order = length(series),
