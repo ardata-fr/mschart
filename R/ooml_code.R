@@ -114,14 +114,10 @@ ooml_code.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1"){
 
 ooml_code.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1"){
 
-  if( "standard" %in% x$options$grouping ){
-    if( !x$label_settings$position %in% standard_pos ){
-      stop("label position issue.",
-           "Arg. position in chart_data_labels() should match one of ",
-           paste(shQuote(standard_pos), collapse = ", "), ".", call. = FALSE)
-    }
-  } else {
-    stop("linechart supports only grouping 'standard'", call. = FALSE)
+  if( !x$label_settings$position %in% standard_pos ){
+    stop("label position issue.",
+         "Arg. position in chart_data_labels() should match one of ",
+         paste(shQuote(standard_pos), collapse = ", "), ".", call. = FALSE)
   }
 
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
