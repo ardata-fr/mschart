@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>License • mschart</title>
+<title>Modify line width — chart_data_line_width • mschart</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -20,9 +20,9 @@
 
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script>
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
+<script src="../pkgdown.js"></script>
   
   
 <!-- mathjax -->
@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <div class="container template-license">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -47,15 +47,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">mschart</a>
+      <a class="navbar-brand" href="../index.html">mschart</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="articles/introduction.html">Overview</a>
+  <a href="../articles/introduction.html">Overview</a>
 </li>
 <li>
-  <a href="reference/index.html">Function reference</a>
+  <a href="../reference/index.html">Function reference</a>
 </li>
       </ul>
       
@@ -75,19 +75,64 @@
       </header>
 
       <div class="row">
-  <div class="contents col-md-12">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>License</h1>
+    <h1>Modify line width</h1>
     </div>
 
-<pre>YEAR: 2017
-COPYRIGHT HOLDER: David Gohel
-</pre>
+    
+    <p>Specify mappings from levels in the data to displayed line width between symbols.</p>
+    
+
+    <pre class="usage"><span class='fu'>chart_data_line_width</span>(<span class='no'>x</span>, <span class='no'>values</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>an <code>ms_chart</code> object.</p></td>
+    </tr>
+    <tr>
+      <th>values</th>
+      <td><p>`double(num of series)`: a set of size values to map data values to.
+It is a named vector, the values will be matched based on the names.
+If it contains only one size, this size will be associated to all existing series.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='chart_data_fill.html'>chart_data_fill</a></code>, <code><a href='chart_data_stroke.html'>chart_data_stroke</a></code>, <code><a href='chart_data_symbol.html'>chart_data_symbol</a></code></p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>my_scatter</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_scatterchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"Sepal.Length"</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"Sepal.Width"</span>,  <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)
+<span class='no'>my_scatter</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span>(<span class='no'>my_scatter</span>, <span class='kw'>scatterstyle</span> <span class='kw'>=</span> <span class='st'>"lineMarker"</span>)
+<span class='no'>my_scatter</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_data_fill.html'>chart_data_fill</a></span>(<span class='no'>my_scatter</span>,
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>virginica</span> <span class='kw'>=</span> <span class='st'>"#6FA2FF"</span>, <span class='kw'>versicolor</span> <span class='kw'>=</span> <span class='st'>"#FF6161"</span>, <span class='kw'>setosa</span> <span class='kw'>=</span> <span class='st'>"#81FF5B"</span>) )
+<span class='no'>my_scatter</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_data_stroke.html'>chart_data_stroke</a></span>(<span class='no'>my_scatter</span>,
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>virginica</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>versicolor</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>setosa</span> <span class='kw'>=</span> <span class='st'>"black"</span>) )
+<span class='no'>my_scatter</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_data_symbol.html'>chart_data_symbol</a></span>(<span class='no'>my_scatter</span>,
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>virginica</span> <span class='kw'>=</span> <span class='st'>"circle"</span>, <span class='kw'>versicolor</span> <span class='kw'>=</span> <span class='st'>"diamond"</span>, <span class='kw'>setosa</span> <span class='kw'>=</span> <span class='st'>"circle"</span>) )
+<span class='no'>my_scatter</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_data_size.html'>chart_data_size</a></span>(<span class='no'>my_scatter</span>,
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>virginica</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>versicolor</span> <span class='kw'>=</span> <span class='fl'>16</span>, <span class='kw'>setosa</span> <span class='kw'>=</span> <span class='fl'>20</span>) )
+<span class='no'>my_scatter</span> <span class='kw'>&lt;-</span> <span class='fu'>chart_data_line_width</span>(<span class='no'>my_scatter</span>,
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>virginica</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>versicolor</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>setosa</span> <span class='kw'>=</span> <span class='fl'>6</span>) )</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
-
 </div>
-
 
       <footer>
       <div class="author">
