@@ -2,7 +2,7 @@
 % Please edit documentation in R/chart_data_color.R
 \name{chart_data_stroke}
 \alias{chart_data_stroke}
-\title{Modify stroke colour}
+\title{Modify marker stroke colour}
 \usage{
 chart_data_stroke(x, values)
 }
@@ -14,7 +14,7 @@ It is a named vector, the values will be matched based on the names.
 If it contains only one colour, this colour will be associated to all existing series.}
 }
 \description{
-Specify mappings from levels in the data to displayed stroke colours.
+Specify mappings from levels in the data to displayed marker stroke colours.
 }
 \examples{
 my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",

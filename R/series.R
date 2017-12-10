@@ -105,7 +105,8 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
                  stroke = x$series_settings$colour[y_colname],
                  fill = x$series_settings$fill[y_colname],
                  symbol = x$series_settings$symbol[y_colname],
-                 size = x$series_settings$size[y_colname]
+                 size = x$series_settings$size[y_colname],
+                 lwidth = x$series_settings$lwidth[y_colname]
                  )
     series <- append(series, list(ser) )
   }
