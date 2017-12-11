@@ -42,9 +42,6 @@ The following charts are the only available from all possible MS charts:
 * scatter plots: `ms_scatterchart()`
 * areacharts: `ms_areachart()`
 
-*More chart types will be made available in future versions.*
-
-
 ## Quick start
 
 ### Call an high level function
@@ -92,13 +89,15 @@ office_doc_link( url = paste0( "https://ardata-fr.github.io/mschart/articles/", 
 
 Charts are generated with default values. Options are available to change charts properties. 
 
-* Global chart settings can be specified with generic function `chart_settings`. Each type of chart has its own set of parameters. The following *stack* the bars for each group.
+* Global chart settings can be specified with generic function `chart_settings()`. Each type of chart has its own set of parameters. See vignette [details](details.html).
+
+The following *stack* the bars for each group.
 
 ```{r}
 my_barchart <- chart_settings( my_barchart, grouping = "stacked", gap_width = 50, overlap = 100 )
 ```
 
-* Axis properties are available with functions `chart_ax_x` and `chart_ax_y`:
+* Axis properties are available with functions `chart_ax_x()` and `chart_ax_y()`:
 
 ```{r}
 my_barchart <- chart_ax_x(my_barchart, cross_between = 'between', 
@@ -106,14 +105,15 @@ my_barchart <- chart_ax_x(my_barchart, cross_between = 'between',
 my_barchart <- chart_ax_y(my_barchart, num_fmt = "0.00", rotation = -90)
 ```
 
-* Titles (main title, axis labels) can be set with function `chart_labels`:
+* Titles (main title, axis labels) can be set with function `chart_labels()`:
 
 ```{r}
 my_barchart <- chart_labels(my_barchart, title = "A main title", 
   xlab = "x axis title", ylab = "y axis title")
 ```
 
-* Series visual settings can be customised with functions `chart_data_fill`, `chart_data_stroke`, `chart_data_size` and `chart_data_symbol`:
+* Series visual settings can be customised with functions `chart_data_fill()`, `chart_data_stroke()`, `chart_data_size()`, `chart_data_symbol()` and 
+`chart_data_line_width()`:
 
 ```{r}
 my_barchart <- chart_data_fill(my_barchart,
@@ -122,147 +122,6 @@ my_barchart <- chart_data_stroke(my_barchart, values = "transparent" )
 ```
 
 * Global visual settings (e.g. groups fill and stroke colours) can be customised 
-with functions `set_theme`:
+with functions `set_theme()`. See vignette [details](details.html).
 
-```{r}
-title_style <- fp_text(color = "#175FAA", font.size = 14, bold = TRUE)
-mytheme <- mschart_theme(main_title = update( title_style, font.size = 18),
-  axis_title_x = title_style, axis_title_y = title_style,
-  legend_position = "n", # drop legend
-  grid_major_line_y = fp_border(width = 1, color = "orange"),
-  axis_ticks_y = fp_border(width = 1, color = "orange") )
-my_barchart <- set_theme(my_barchart, mytheme)
-```
-
-```{r results='hide'}
-library(officer)
-doc <- read_pptx()
-doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_chart(doc, chart = my_barchart)
-print(doc, target = "assets/pptx/barchart_02_stacked.pptx")
-```
-
-```{r echo=FALSE}
-office_doc_link( url = paste0( "https://ardata-fr.github.io/mschart/articles/", "assets/pptx/barchart_02_stacked.pptx" ) )
-```
-
-## Gallery
-
-```{r}
-gen_pptx <- function( chart, file ){
-  doc <- read_pptx()
-  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with_chart(doc, chart = chart)
-  print(doc, target = file)
-  office_doc_link( url = paste0( "https://ardata-fr.github.io/mschart/articles/", file ) )
-}
-
-```
-
-
-### Bar charts
-
-#### grouped bars
-
-```{r}
-my_barchart_01 <- ms_barchart(
-  data = browser_data, x = "browser",
-  y = "value", group = "serie"
-)
-gen_pptx(my_barchart_01, file = "assets/pptx/gallery_bar_01.pptx")
-```
-
-#### vertical stacked bars
-
-`as_bar_stack` is an helper function. 
-
-```{r}
-my_barchart_02 <- as_bar_stack(my_barchart_01)
-gen_pptx(my_barchart_02, file = "assets/pptx/gallery_bar_02.pptx")
-```
-
-#### horizontal stacked bars
-
-* Values
-
-```{r}
-my_barchart_03 <- as_bar_stack(my_barchart_01, dir = "horizontal")
-gen_pptx(my_barchart_03, file = "assets/pptx/gallery_bar_03.pptx")
-```
-
-* Percent 
-
-```{r}
-my_barchart_04 <- as_bar_stack(my_barchart_01, dir = "horizontal", 
-  percent = TRUE)
-gen_pptx(my_barchart_04, file = "assets/pptx/gallery_bar_04.pptx")
-```
-
-### Line charts
-
-
-```{r}
-data <- structure(
-  list(
-    supp = structure( c(1L, 1L, 1L, 2L, 2L, 2L), 
-                      .Label = c("OJ", "VC"), class = "factor" ),
-    dose = c(0.5, 1, 2, 0.5, 1, 2),
-    length = c(13.23, 22.7, 26.06, 7.98, 16.77, 26.14)
-  ),
-  .Names = c("supp", "dose", "length"),
-  class = "data.frame", row.names = c(NA,-6L)
-)
-
-lc_01 <- ms_linechart(data = data, x = "dose",
-                      y = "length", group = "supp")
-gen_pptx(lc_01, file = "assets/pptx/gallery_line_01.pptx")
-```
-
-#### With dates
-
-Auto detection of dates is not yet implemented, sorry. You will need to specify the `num_fmt` argument. 
-
-```{r}
-lc_02 <- ms_linechart(data = browser_ts, x = "date",
-                      y = "freq", group = "browser")
-lc_02 <- chart_ax_x(lc_02, num_fmt = "m/d/yy")
-gen_pptx(lc_02, file = "assets/pptx/gallery_line_02.pptx")
-```
-
-#### Stacked
-
-```{r}
-lc_03 <- chart_settings(lc_02, grouping = "percentStacked")
-gen_pptx(lc_03, file = "assets/pptx/gallery_line_03.pptx")
-```
-
-## Area chats
-
-```{r}
-ac_01 <- ms_areachart(data = data, x = "dose",
-                      y = "length", group = "supp")
-gen_pptx(ac_01, file = "assets/pptx/gallery_area_01.pptx")
-
-ac_02 <- ms_areachart(data = browser_ts, x = "date",
-                      y = "freq", group = "browser")
-ac_02 <- chart_ax_y(ac_02, cross_between = "between", num_fmt = "General")
-ac_02 <- chart_ax_x(ac_02, cross_between = "midCat", num_fmt = "m/d/yy")
-gen_pptx(ac_02, file = "assets/pptx/gallery_area_02.pptx")
-
-ac_03 <- chart_settings(ac_02, grouping = "percentStacked")
-gen_pptx(ac_03, file = "assets/pptx/gallery_area_03.pptx")
-```
-
-## Scatter plots
-
-```{r}
-sc_01 <- ms_scatterchart(data = mtcars, x = "disp",
-                         y = "drat", group = "gear")
-gen_pptx(sc_01, file = "assets/pptx/gallery_scatter_01.pptx")
-
-sc_02 <- ms_scatterchart(data = mtcars, x = "disp",
-                         y = "drat", group = "gear")
-gen_pptx(sc_02, file = "assets/pptx/gallery_scatter_02.pptx")
-
-```
 
