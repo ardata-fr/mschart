@@ -143,6 +143,13 @@ format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data 
   } else {
     legend_pos <- xml_find_first(xml_doc, "//c:chart/c:legend/c:legendPos")
     xml_attr( legend_pos, "val" ) <- x$theme[["legend_position"]]
+
+    rpr <- format(x$theme[["legend_text"]], type = "pml" )
+    rpr <- gsub("a:rPr", "a:defRPr", rpr)
+    labels_text_pr <- "<c:txPr xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:bodyPr/><a:lstStyle/><a:p><a:pPr>%s</a:pPr></a:p></c:txPr>"
+    labels_text_pr <- sprintf(labels_text_pr, rpr )
+    legend_ <- xml_find_first(xml_doc, "//c:chart/c:legend")
+    xml_add_child(legend_, as_xml_document(labels_text_pr) )
   }
   if(drop_ext_data){
     xml_remove(xml_find_first(xml_doc, "//c:externalData"))
