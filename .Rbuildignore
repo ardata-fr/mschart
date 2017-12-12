@@ -7,5 +7,8 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^docs$
-^_pkgdown\.yml$
 ^cran-comments\.md$
+^revdep$
+^_pkgdown\.yml$
+^CONDUCT\.md$
+^CONTRIBUTING\.md$
