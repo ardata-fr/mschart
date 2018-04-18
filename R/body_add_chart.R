@@ -69,7 +69,8 @@ body_add_chart <- function( x, chart, style = NULL, pos = "after",
   base_ns <- "xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:w14=\"http://schemas.microsoft.com/office/word/2010/wordml\""
   if( is.null(style) )
     style <- x$default_styles$paragraph
-  style_id <- x$doc_obj$get_style_id(style=style, type = "paragraph")
+
+  style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
   par_elt <- paste0(sprintf("<%s %s>", "w:p", base_ns),
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr><w:r>",
                     drawing_str, "</w:r></w:p>")
@@ -81,3 +82,14 @@ body_add_chart <- function( x, chart, style = NULL, pos = "after",
   body_add_xml(x, str = par_elt, pos = pos)
 }
 
+get_style_id <- function(data, style, type ){
+  ref <- data[data$style_type==type, ]
+
+  if(!style %in% ref$style_name){
+    t_ <- shQuote(ref$style_name, type = "sh")
+    t_ <- paste(t_, collapse = ", ")
+    t_ <- paste0("c(", t_, ")")
+    stop("could not match any style named ", shQuote(style, type = "sh"), " in ", t_, call. = FALSE)
+  }
+  ref$style_id[ref$style_name == style]
+}
