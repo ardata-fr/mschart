@@ -8,7 +8,7 @@
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @param height,width height and width in inches.
-#' @importFrom officer body_add_xml
+#' @importFrom officer body_add_xml styles_info
 #' @examples
 #' library(officer)
 #' my_barchart <- ms_barchart(data = browser_data,
@@ -70,7 +70,7 @@ body_add_chart <- function( x, chart, style = NULL, pos = "after",
   if( is.null(style) )
     style <- x$default_styles$paragraph
 
-  style_id <- get_style_id(data = x$styles, style=style, type = "paragraph")
+  style_id <- get_style_id(data = styles_info(x), style = style, type = "paragraph")
   par_elt <- paste0(sprintf("<%s %s>", "w:p", base_ns),
                     "<w:pPr><w:pStyle w:val=\"", style_id, "\"/></w:pPr><w:r>",
                     drawing_str, "</w:r></w:p>")
