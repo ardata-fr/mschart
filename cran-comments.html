@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • mschart</title>
+<title>/Users/davidgohel/Github/mschart/cran-comments.md • mschart</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,7 +27,7 @@
 <script src="pkgdown.js"></script>
   
   
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="/Users/davidgohel/Github/mschart/cran-comments.md" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -40,7 +40,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -83,19 +83,31 @@
       <div class="row">
   <div class="contents col-md-12">
     <div class="page-header">
-      <h1>Authors</h1>
+      <h1>/Users/davidgohel/Github/mschart/cran-comments.md</h1>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>David Gohel</strong>. Author, maintainer. 
-        </p>
-      </li>
-      <li>
-        <p><strong>YouGov</strong>. Funder. 
-        </p>
-      </li>
-    </ul>
+
+<div class="section level2">
+<h2>Test environments</h2>
+<ul>
+<li>local OS X install (R 3.4.2)</li>
+<li>ubuntu 12.04 (on travis-ci with older, release and devel)</li>
+<li>winbuilder (older, release and devel)</li>
+</ul>
+</div>
+<div class="section level2">
+<h2>R CMD check results</h2>
+<p>There were no ERROR or WARNING.</p>
+<p>There was 2 NOTEs on R 3.3.3 “older”:</p>
+<ul>
+<li>checking DESCRIPTION meta-information … NOTE <a href="mailto:Authors@R">Authors@R</a> field gives persons with no valid roles: YouGov [fnd] Author field differs from that derived from <a href="mailto:Authors@R">Authors@R</a> Author: ‘David Gohel [aut, cre], YouGov [fnd]’ <a href="mailto:Authors@R">Authors@R</a>: ‘David Gohel [aut, cre]’</li>
+</ul>
+<p>This is due to usage of person(“YouGov”, role = “fnd”) in DESCRIPTION. “fnd” was not available in R version 3.3.3.</p>
+<ul>
+<li>License components with restrictions and base license permitting such: MIT + file LICENSE</li>
+</ul>
+</div>
+
 
   </div>
 

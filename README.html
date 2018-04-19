@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • mschart</title>
+<title>/Users/davidgohel/Github/mschart/README.md • mschart</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,7 +27,7 @@
 <script src="pkgdown.js"></script>
   
   
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="/Users/davidgohel/Github/mschart/README.md" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -40,7 +40,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -83,19 +83,64 @@
       <div class="row">
   <div class="contents col-md-12">
     <div class="page-header">
-      <h1>Authors</h1>
+      <h1>/Users/davidgohel/Github/mschart/README.md</h1>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>David Gohel</strong>. Author, maintainer. 
-        </p>
-      </li>
-      <li>
-        <p><strong>YouGov</strong>. Funder. 
-        </p>
-      </li>
-    </ul>
+<div class="section level1">
+<h1>mschart R package</h1>
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<p><a href="https://travis-ci.org/ardata-fr/mschart"><img src="https://travis-ci.org/ardata-fr/mschart.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://CRAN.R-project.org/package=mschart"><img src="http://www.r-pkg.org/badges/version/mschart" alt="version"></a> <img src="http://cranlogs.r-pkg.org./badges/mschart" alt="cranlogs"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Active"></p>
+<p>The <code>mschart</code> package provides a framework for easily create charts for ‘Microsoft PowerPoint’ documents. It has to be used with package <a href="https://davidgohel.github.io/officer"><code>officer</code></a> that will produce the charts in new or existing PowerPoint or Word documents.</p>
+<p><img src="tools/ms_barchart.png" align="center"></p>
+<p><strong>The user documentation can be read <a href="https://ardata-fr.github.io/mschart/articles/introduction.html">here</a>.</strong></p>
+<p><strong>Functions you should be aware of are documented <a href="https://ardata-fr.github.io/mschart/reference/index.html">here</a>.</strong></p>
+<div class="section level2">
+<h2>Example</h2>
+<p>This is a basic example which shows you how to create a line chart.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(mschart)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(officer)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">linec &lt;-<span class="st"> </span><span class="kw"><a href="reference/mschart.html">ms_linechart</a></span>(<span class="dt">data =</span> iris, <span class="dt">x =</span> <span class="st">"Sepal.Length"</span>,</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">                      <span class="dt">y =</span> <span class="st">"Sepal.Width"</span>, <span class="dt">group =</span> <span class="st">"Species"</span>)</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">linec &lt;-<span class="st"> </span><span class="kw"><a href="reference/chart_ax_x.html">chart_ax_y</a></span>(linec, <span class="dt">num_fmt =</span> <span class="st">"0.00"</span>, <span class="dt">rotation =</span> <span class="dv">-90</span>)</a></code></pre></div>
+<p>Then use package <code>officer</code> to send the object as a chart.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">doc &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/officer/topics/read_pptx">read_pptx</a></span>()</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">doc &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/officer/topics/add_slide">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">doc &lt;-<span class="st"> </span><span class="kw"><a href="reference/ph_with_chart.html">ph_with_chart</a></span>(doc, <span class="dt">chart =</span> linec)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">print</span>(doc, <span class="dt">target =</span> <span class="st">"example.pptx"</span>)</a></code></pre></div>
+<p>At any moment, you can type <code>print(your_chart, preview = TRUE)</code> to preview the chart in a temporary PowerPoint file. This requires to have a PowerPoint Viewer installed on the machine.</p>
+</div>
+<div class="section level2">
+<h2>Installation</h2>
+<p>You can get the development version from GitHub:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ardata-fr/mschart"</span>)</a></code></pre></div>
+<p>Or the latest version on CRAN:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"mschart"</span>)</a></code></pre></div>
+</div>
+<div class="section level2">
+<h2>Contributing to the package</h2>
+<div class="section level3">
+<h3>Code of Conduct</h3>
+<p>Anyone getting involved in this package agrees to our <a href="https://github.com/ardata-fr/mschart/blob/master/CONDUCT.md">Code of Conduct</a>.</p>
+</div>
+<div class="section level3">
+<h3>Bug reports</h3>
+<p>When you file a <a href="https://github.com/ardata-fr/mschart/issues">bug report</a>, please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.</p>
+</div>
+<div class="section level3">
+<h3>Contributing to the package development</h3>
+<p>A great way to start is to contribute an example or improve the documentation.</p>
+<p>If you want to submit a Pull Request to integrate functions of yours, please provide:</p>
+<ul>
+<li>the new function(s) with code and roxygen tags (with examples)</li>
+<li>a new section in the appropriate vignette that describes how to use the new function</li>
+<li>add corresponding tests in directory <code>tests/testthat</code>.</li>
+</ul>
+<p>By using rhub (run <code><a href="http://www.rdocumentation.org/packages/rhub/topics/check_for_cran">rhub::check_for_cran()</a></code>), you will see if everything is ok. When submitted, the PR will be evaluated automatically on travis and appveyor and you will be able to see if something broke.</p>
+</div>
+</div>
+</div>
 
   </div>
 
