@@ -1,6 +1,8 @@
 #' @export
 #' @title Modify data labels settings
-#' @description Data labels show details about data series.
+#' @description Data labels show details about data series. This function indicate that
+#' data labels should be displayed. See \code{link{chart_labels_text}} for modifying
+#' text settings associated with labels.
 #' @param x an \code{ms_chart} object.
 #' @param num_fmt `character(1)`: number formatting specifies number format properties which
 #' indicate how to format and render the numeric values. It can be "General", "0.00", "#,##0",
@@ -37,8 +39,15 @@ chart_data_labels <- function(x, num_fmt = "General", position = "ctr",
 
 
 pml_labels_options <- function(x){
+
+  txpr <- ""
+  if( !is.null( x$labels_fp )){
+    txpr <- ooxml_txpr(x$labels_fp)
+  }
+
   str_ <- paste0("<c:dLbls>",
          sprintf("<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>", x$num_fmt),
+         txpr,
          sprintf("<c:dLblPos val=\"%s\"/>", x$position),
          sprintf("<c:showLegendKey val=\"%.0f\"/>", x$show_legend_key),
          sprintf("<c:showVal val=\"%.0f\"/>", as.integer(x$show_val)),
@@ -52,4 +61,5 @@ pml_labels_options <- function(x){
   str_
 
 }
+
 

@@ -1,5 +1,9 @@
 # mschart 0.2.3
 
+## Enhancements
+
+* new function `chart_labels_text()` to customise text labels
+
 ## Issues
 
 * fix issue 22 with grid lines and fp_border(style = "none").

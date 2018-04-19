@@ -112,8 +112,9 @@ my_barchart <- chart_labels(my_barchart, title = "A main title",
   xlab = "x axis title", ylab = "y axis title")
 ```
 
-* Series visual settings can be customised with functions `chart_data_fill()`, `chart_data_stroke()`, `chart_data_size()`, `chart_data_symbol()` and 
-`chart_data_line_width()`:
+* Series visual settings can be customised with functions `chart_data_fill()`,
+`chart_data_stroke()`, `chart_data_size()`, `chart_data_symbol()`,  
+`chart_data_line_width()` and `chart_labels_text()`:
 
 ```{r}
 my_barchart <- chart_data_fill(my_barchart,

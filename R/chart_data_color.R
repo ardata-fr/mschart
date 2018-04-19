@@ -1,4 +1,50 @@
 #' @export
+#' @title Modify labels font settings
+#' @description Specify mappings from levels in the data to displayed text font settings.
+#' @param x an \code{ms_chart} object.
+#' @param values a named list of \code{fp_text} objects to map data labels to.
+#' It is a named list, the values will be matched based on the names.
+#' If it contains only one \code{fp_text} object, it will be associated to all existing series.
+#' @examples
+#' library(officer)
+#'
+#' fp_text_settings <- list(
+#'   serie1 = fp_text(font.size = 7, color = "red"),
+#'   serie2 = fp_text(font.size = 0, color = "purple"),
+#'   serie3 = fp_text(font.size = 19, color = "wheat")
+#' )
+#'
+#' barchart <- ms_barchart(
+#'   data = browser_data,
+#'   x = "browser", y = "value", group = "serie")
+#' barchart <- chart_data_labels(barchart, show_val = TRUE)
+#' barchart <- chart_labels_text( barchart,
+#'   values = fp_text_settings )
+chart_labels_text <- function(x, values){
+
+  serie_names <- names(x$series_settings$fill)
+
+  if( inherits(values, "fp_text") ){
+    values <- rep(list(values), length(serie_names) )
+    setNames(values, serie_names)
+  }
+  if( is.null(values) || !is.list(values) || length(values) < 1 ){
+    stop("values must be a list of fp_text objects", call. = FALSE)
+  }
+
+  if( !all( sapply(values, inherits, what = "fp_text") ) ){
+    stop("values must be a list of fp_text objects", call. = FALSE)
+  }
+
+  if( !all(names(values) %in% serie_names ) )
+    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
+
+  x$series_settings$labels_fp[names(values)] <- values
+  x
+}
+
+
+#' @export
 #' @title Modify fill colour
 #' @description Specify mappings from levels in the data to displayed fill colours.
 #' @param x an \code{ms_chart} object.
@@ -189,4 +235,27 @@ chart_data_line_width <- function(x, values){
   x$series_settings$line_width[names(values)] <- values
   x
 }
+
+
+
+#' chart_labels_colors <- function(x, values){
+#'
+#'   valid_cols <- is_valid_color(values)
+#'   if( any(!valid_cols) )
+#'     stop("invalid color(s) in argument values")
+#'
+#'   serie_names <- names(x$series_settings$labels_colors)
+#'
+#'   if( length(values) == 1 ){
+#'     values <- rep(values, length(serie_names))
+#'     names(values) <- serie_names
+#'   }
+#'
+#'   if( !all(names(values) %in% serie_names ) )
+#'     stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
+#'
+#'
+#'   x$series_settings$colour[names(values)] <- values
+#'   x
+#' }
 

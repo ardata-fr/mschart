@@ -23,14 +23,19 @@ ooml_code.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1"){
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
-  str_series_ <- sapply( series, function(x, template ){
-    marker_str <- get_sppr_xml(x$fill, x$stroke )
+  str_series_ <- sapply( series, function(serie, template ){
+    marker_str <- get_sppr_xml(serie$fill, serie$stroke )
 
-    sprintf(template, x$idx, x$order, x$tx$pml(),
+    label_settings <- x$label_settings
+    label_settings$labels_fp <- serie$labels_fp
+    labels_ooxml <- pml_labels_options(label_settings)
+
+    sprintf(template, serie$idx, serie$order, serie$tx$pml(),
             marker_str,
             "<c:invertIfNegative val=\"0\"/>",
-            x$x$pml(), x$y$pml() )
-  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s<c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
+            labels_ooxml,
+            serie$x$pml(), serie$y$pml() )
+  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s%s<c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
   str_series_ <- paste(str_series_, collapse = "")
 
   x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
@@ -60,16 +65,23 @@ ooml_code.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1"){
          paste(shQuote(standard_pos), collapse = ", "), ".", call. = FALSE)
   }
 
-  template_str <- paste0("<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s",
+  template_str <- paste0("<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s%s",
                      "<c:cat>%s</c:cat>",
                      "<c:val>%s</c:val></c:ser>")
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
-  str_series_ <- sapply( series, function(x, template ){
-    marker_str <- get_marker_xml(x$fill, x$stroke, x$symbol, x$size )
-    sppr_str <- get_sppr_xml(x$fill, x$stroke )
+  str_series_ <- sapply( series, function(serie, template ){
+    marker_str <- get_marker_xml(serie$fill, serie$stroke, serie$symbol, serie$size )
+    sppr_str <- get_sppr_xml(serie$fill, serie$stroke )
 
-    sprintf(template, x$idx, x$order, x$tx$pml(), sppr_str, marker_str, x$x$pml(), x$y$pml() )
+    label_settings <- x$label_settings
+    label_settings$labels_fp <- serie$labels_fp
+    labels_ooxml <- pml_labels_options(label_settings)
+
+
+    sprintf(template, serie$idx, serie$order, serie$tx$pml(), sppr_str, marker_str,
+            labels_ooxml,
+            serie$x$pml(), serie$y$pml() )
   }, template = template_str)
   str_series_ <- paste(str_series_, collapse = "")
 
@@ -91,11 +103,15 @@ ooml_code.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1"){
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
-  str_series_ <- sapply( series, function(x, template ){
-    marker_str <- get_sppr_xml(x$fill, x$stroke )
+  str_series_ <- sapply( series, function(serie, template ){
+    marker_str <- get_sppr_xml(serie$fill, serie$stroke )
 
-    sprintf(template, x$idx, x$order, x$tx$pml(), marker_str, x$x$pml(), x$y$pml() )
-  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s<c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
+    label_settings <- x$label_settings
+    label_settings$labels_fp <- serie$labels_fp
+    labels_ooxml <- pml_labels_options(label_settings)
+
+    sprintf(template, serie$idx, serie$order, serie$tx$pml(), marker_str, labels_ooxml, serie$x$pml(), serie$y$pml() )
+  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s<c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
   str_series_ <- paste(str_series_, collapse = "")
 
   x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
@@ -129,23 +145,28 @@ ooml_code.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1"){
                       y_class = serie_builtin_class(x$data[[x$y]]),
                       sheetname = sheetname )
 
-  str_series_ <- sapply( series, function(x, template, has_line, has_marker ){
+  str_series_ <- sapply( series, function(serie, template, has_line, has_marker ){
 
     if( !has_line ){
       line_str <- "<c:spPr><a:ln><a:noFill/></a:ln></c:spPr>"
     } else {
-      line_properties <- fp_border(color = x$stroke, style = "solid", width = x$line_width)
+      line_properties <- fp_border(color = serie$stroke, style = "solid", width = serie$line_width)
       line_str <- ooxml_fp_border(line_properties,
                       in_tags = c("c:spPr"))
     }
     if( !has_marker )
       marker_str <- "<c:marker><c:symbol val=\"none\"/></c:marker>"
-    else marker_str <- get_marker_xml(x$fill, x$stroke, x$symbol, x$size )
+    else marker_str <- get_marker_xml(serie$fill, serie$stroke, serie$symbol, serie$size )
 
-    sprintf(template, x$idx, x$order, x$tx$pml(),
+    label_settings <- x$label_settings
+    label_settings$labels_fp <- serie$labels_fp
+    labels_ooxml <- pml_labels_options(label_settings)
+
+    sprintf(template, serie$idx, serie$order, serie$tx$pml(),
             line_str, marker_str,
-            x$x$pml(), x$y$pml() )
-  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s<c:xVal>%s</c:xVal><c:yVal>%s</c:yVal></c:ser>",
+            labels_ooxml,
+            serie$x$pml(), serie$y$pml() )
+  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s%s<c:xVal>%s</c:xVal><c:yVal>%s</c:yVal></c:ser>",
   has_line = has_lines[x$options$scatterstyle],
   has_marker = has_markers[x$options$scatterstyle])
 

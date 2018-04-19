@@ -99,3 +99,12 @@ ooxml_fp_border <- function(x, in_tags = NULL ){
   }
   out
 }
+
+
+ooxml_txpr <- function( fptext ){
+  out <- format(fptext, type = "pml" )
+  out <- gsub("a:rPr", "a:defRPr", out, fixed = TRUE)
+  rpr <- "<a:p><a:pPr>%s</a:pPr></a:p>"
+  rpr <- sprintf(rpr, out)
+  paste0("<c:txPr><a:bodyPr/><a:lstStyle/>", rpr, "</c:txPr>")
+}
