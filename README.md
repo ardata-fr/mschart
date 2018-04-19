@@ -14,7 +14,7 @@ The `mschart` package provides a framework for easily create charts for
 [`officer`](https://davidgohel.github.io/officer) that will produce the
 charts in new or existing PowerPoint or Word documents.
 
-<img src="tools/ms_barchart.png" align="center"/>
+![](http://www.ardata.fr/images/ms_barchart.png)
 
 **The user documentation can be read
 [here](https://ardata-fr.github.io/mschart/articles/introduction.html).**
