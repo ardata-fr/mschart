@@ -21,6 +21,7 @@ reference:
   - title: Series visual settings
     contents:
     - starts_with("chart_data_")
+    - chart_labels_text
   - title: Global visual settings
     contents:
     - ends_with("_theme")
