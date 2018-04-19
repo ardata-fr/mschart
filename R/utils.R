@@ -61,4 +61,41 @@ pretty_num_axes <- function(x){
   x
 }
 
+#' @importFrom grDevices rgb
+ooxml_fp_border <- function(x, in_tags = NULL ){
+  stopifnot(inherits(x, "fp_border"))
+  colspecs <- as.list(col2rgb( x$color, alpha = TRUE )[,1] / 255)
 
+  alpha <- colspecs$alpha
+  is_transparent <- alpha < .0001
+
+  if( is_transparent || x$width < 0.001 || x$style %in% "none" ){
+    return("")
+  }
+
+  colspecs$alpha <- NULL
+  hexcol <- do.call(rgb,colspecs)
+  hexcol <- substring(hexcol, 2 )
+
+  solidfill <- "<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>"
+  solidfill <- sprintf(solidfill, hexcol, alpha * 100000)
+
+  presetdash <- "<a:prstDash val="
+  if( x$style %in% "solid" ){
+    presetdash <- paste0(presetdash, "\"solid\"/>")
+  } else if( x$style %in% "dotted" ){
+    presetdash <- paste0(presetdash, "\"sysDot\"/>")
+  } else {
+    presetdash <- paste0(presetdash, "\"sysDash\"/>")
+  }
+
+  out <- sprintf("<a:ln algn=\"ctr\" w=\"%.0f\">", x$width * 12700)
+  out <- paste0(out, solidfill, presetdash, "</a:ln>")
+
+  if( !is.null(in_tags) ){
+    begin <- paste0("<", in_tags, ">", collapse = "")
+    end <- paste0("</", rev(in_tags), ">", collapse = "")
+    out <- paste0(begin, out, end)
+  }
+  out
+}

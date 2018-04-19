@@ -1,3 +1,9 @@
+# mschart 0.2.3
+
+## Issues
+
+* fix issue 22 with grid lines and fp_border(style = "none").
+
 # mschart 0.2.2
 
 ## Issues

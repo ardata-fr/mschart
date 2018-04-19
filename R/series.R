@@ -106,7 +106,7 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
                  fill = x$series_settings$fill[y_colname],
                  symbol = x$series_settings$symbol[y_colname],
                  size = x$series_settings$size[y_colname],
-                 lwidth = x$series_settings$lwidth[y_colname]
+                 line_width = x$series_settings$line_width[y_colname]
                  )
     series <- append(series, list(ser) )
   }

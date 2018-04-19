@@ -131,9 +131,13 @@ ooml_code.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1"){
 
   str_series_ <- sapply( series, function(x, template, has_line, has_marker ){
 
-    if( !has_line )
+    if( !has_line ){
       line_str <- "<c:spPr><a:ln><a:noFill/></a:ln></c:spPr>"
-    else line_str <- get_line_xml(x$stroke, x$line_width)
+    } else {
+      line_properties <- fp_border(color = x$stroke, style = "solid", width = x$line_width)
+      line_str <- ooxml_fp_border(line_properties,
+                      in_tags = c("c:spPr"))
+    }
     if( !has_marker )
       marker_str <- "<c:marker><c:symbol val=\"none\"/></c:marker>"
     else marker_str <- get_marker_xml(x$fill, x$stroke, x$symbol, x$size )
@@ -144,6 +148,7 @@ ooml_code.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1"){
   }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s<c:xVal>%s</c:xVal><c:yVal>%s</c:yVal></c:ser>",
   has_line = has_lines[x$options$scatterstyle],
   has_marker = has_markers[x$options$scatterstyle])
+
   str_series_ <- paste(str_series_, collapse = "")
 
   x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
@@ -182,18 +187,6 @@ get_marker_xml <- function( fill, stroke, symbol = NULL, size = NULL){
   paste0("<c:marker>",
          str_sym, str_size, get_sppr_xml(fill, stroke),
          "</c:marker>" )
-}
-get_line_xml <- function( stroke, width){
-
-  stroke_elts <- col2rgb(stroke, alpha = TRUE)[,1]
-  stroke_hex <- sprintf( "%02X%02X%02X", stroke_elts[1], stroke_elts[2], stroke_elts[3])
-
-  paste0("<c:spPr>",
-         sprintf("<a:ln w=\"%.0f\"><a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill></a:ln>",
-                 width * 12700,
-                 stroke_hex,
-                 stroke_elts[4] / 255.0 * 100000 ),
-         "</c:spPr>" )
 }
 
 
