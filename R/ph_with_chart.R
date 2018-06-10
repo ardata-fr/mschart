@@ -18,7 +18,12 @@ pml_chart <- function(x, value, id_x, id_y){
 
   write_xlsx( x = list( "sheet1" = value$data_series ), path = xlsx_file)
   xml_elt <- format(value, id_x = id_x, id_y = id_y)
-  cat(xml_elt, file = chart_file)
+
+  con <- file(chart_file, open = "wt", encoding = "UTF-8")
+  sink(con)
+  cat(xml_elt)
+  sink()
+  close(con)
 
   slide <- x$slide$get_slide(x$cursor)
   next_id <- slide$relationship()$get_next_id()
