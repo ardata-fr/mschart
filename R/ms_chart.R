@@ -53,13 +53,15 @@ ms_chart <- function(data, x, y, group = NULL){
   series_size <- rep(12, length(series_names) )
   series_lwidth <- rep(2, length(series_names) )
   labels_fp <- rep(list(fp_text(font.size = 0)), length(series_names) )
+  series_smooth <- rep(1,length(series_names))
   out$series_settings <- list(
     fill = setNames(palette_, series_names),
     colour = setNames(palette_, series_names),
     symbol = setNames(series_symbols, series_names),
     size = setNames(series_size, series_names),
     line_width = setNames(series_lwidth, series_names),
-    labels_fp = setNames(labels_fp, series_names)
+    labels_fp = setNames(labels_fp, series_names),
+    smooth = setNames(series_smooth, series_names)
     )
   out
 }
