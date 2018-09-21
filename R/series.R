@@ -107,7 +107,8 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
                  symbol = x$series_settings$symbol[y_colname],
                  size = x$series_settings$size[y_colname],
                  line_width = x$series_settings$line_width[y_colname],
-                 labels_fp = x$series_settings$labels_fp[[y_colname]]
+                 labels_fp = x$series_settings$labels_fp[[y_colname]],
+                 smooth = x$series_settings$smooth[y_colname]
                  )
     series <- append(series, list(ser) )
   }
