@@ -16,12 +16,12 @@ chart_ax_y(x, orientation, crosses, cross_between, major_tick_mark,
   limit_max, position, second_axis = FALSE)
 
 \method{chart_ax_x}{ms_chart}(x, orientation, crosses, cross_between,
-  major_tick_mark, minor_tick_mark, tick_label_pos, display, num_fmt, rotation,
-  limit_min, limit_max, position, second_axis = FALSE)
+  major_tick_mark, minor_tick_mark, tick_label_pos, display, num_fmt,
+  rotation, limit_min, limit_max, position, second_axis = FALSE)
 
 \method{chart_ax_y}{ms_chart}(x, orientation, crosses, cross_between,
-  major_tick_mark, minor_tick_mark, tick_label_pos, display, num_fmt, rotation,
-  limit_min, limit_max, position, second_axis = FALSE)
+  major_tick_mark, minor_tick_mark, tick_label_pos, display, num_fmt,
+  rotation, limit_min, limit_max, position, second_axis = FALSE)
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}

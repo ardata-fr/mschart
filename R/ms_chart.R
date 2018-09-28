@@ -264,8 +264,12 @@ ms_scatterchart <- function(data, x, y, group = NULL){
 #'   ylab = "my y label")
 chart_labels <- function( x, title = NULL, xlab = NULL, ylab = NULL){
   if( !is.null(title) ) x$labels[["title"]] <- htmlEscape(title)
+  else x$labels[["title"]] <- NULL
+
   if( !is.null(xlab) ) x$labels[["x"]] <- htmlEscape(xlab)
+  else x$labels[["x"]] <- NULL
+
   if( !is.null(ylab) ) x$labels[["y"]] <- htmlEscape(ylab)
+  else x$labels[["y"]] <- NULL
   x
 }
-

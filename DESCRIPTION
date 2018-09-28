@@ -1,7 +1,7 @@
 Package: mschart
 Type: Package
 Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents
-Version: 0.2.4.001
+Version: 0.2.4.002
 Authors@R: c( person("David", "Gohel", role = c("aut", "cre"), email = "david.gohel@ardata.fr"), person("YouGov", role = "fnd") )
 Description: Create native charts for 'Microsoft PowerPoint' and 'Microsoft Word' documents. 
  These can then be edited and annotated. Functions are provided to let users create charts, modify 
@@ -18,7 +18,7 @@ Imports: stats, data.table,
  htmltools
 URL: https://ardata-fr.github.io/mschart/
 BugReports: https://github.com/ardata-fr/mschart/issues
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.0
 Suggests: knitr,
     rmarkdown,magrittr
 VignetteBuilder: knitr
