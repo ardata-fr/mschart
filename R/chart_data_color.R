@@ -236,7 +236,40 @@ chart_data_line_width <- function(x, values){
   x
 }
 
+#' @export
+#' @title Smooth series
+#' @description Specify mappings from levels in the data to displayed symbols.
+#' @param x an \code{ms_chart} object.
+#' @param values  `integer(num of series)`: a set of smooth values to map data values to.
+#' It is a named vector, the values will be matched based on the names.
+#' Possible values are 0 or 1
+#' If it contains only one integer it will be associated to all existing series.
+#' @examples
+#' linec <- ms_linechart(data = iris, x = "Sepal.Length",
+#'   y = "Sepal.Width", group = "Species")
+#'linec <- chart_data_smooth(linec,
+#'   values = c(virginica = 0, versicolor = 0, setosa = 0) )
+#' @seealso \code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_size}}
+chart_data_smooth <- function(x, values){
+  as_bool <- c(1,0)
 
+  if( !all(values %in% as_bool) ){
+    stop("smooth can only take values of 0 or 1")
+  }
+
+  serie_names <- names(x$series_settings$symbol)
+
+  if( length(values) == 1 ){
+    values <- rep(values, length(serie_names))
+    names(values) <- serie_names
+  }
+
+  if( !all(names(values) %in% serie_names ) )
+    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
+
+  x$series_settings$smooth[names(values)] <- values
+  x
+}
 
 #' chart_labels_colors <- function(x, values){
 #'

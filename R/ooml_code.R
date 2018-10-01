@@ -67,7 +67,7 @@ ooml_code.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1"){
 
   template_str <- paste0("<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s%s",
                      "<c:cat>%s</c:cat>",
-                     "<c:val>%s</c:val></c:ser>")
+                     "<c:val>%s</c:val><c:smooth val=\"%.0f\"/></c:ser>")
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
   str_series_ <- sapply( series, function(serie, template ){
@@ -81,7 +81,7 @@ ooml_code.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1"){
 
     sprintf(template, serie$idx, serie$order, serie$tx$pml(), sppr_str, marker_str,
             labels_ooxml,
-            serie$x$pml(), serie$y$pml() )
+            serie$x$pml(), serie$y$pml(), serie$smooth )
   }, template = template_str)
   str_series_ <- paste(str_series_, collapse = "")
 
