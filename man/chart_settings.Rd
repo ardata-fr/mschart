@@ -10,8 +10,8 @@
 \usage{
 chart_settings(x, ...)
 
-\method{chart_settings}{ms_barchart}(x, vary_colors, gap_width, dir, grouping,
-  overlap, ...)
+\method{chart_settings}{ms_barchart}(x, vary_colors, gap_width, dir,
+  grouping, overlap, ...)
 
 \method{chart_settings}{ms_linechart}(x, vary_colors, ...)
 
