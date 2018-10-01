@@ -130,6 +130,15 @@ gen_pptx(lc_02, file = "assets/pptx/gallery_line_02.pptx")
 lc_03 <- chart_settings(lc_02, grouping = "percentStacked")
 gen_pptx(lc_03, file = "assets/pptx/gallery_line_03.pptx")
 ```
+#### Smoothed lines
+
+```{r}
+linec <- ms_linechart(data = iris, x = "Sepal.Length",
+                      y = "Sepal.Width", group = "Species")
+linec_smooth <- chart_data_smooth(linec,
+                values = c(virginica = 1, versicolor = 0, setosa = 0) )
+gen_pptx(linec_smooth, file = "assets/pptx/gallery_line_04.pptx")
+```
 
 ### Area chats
 
