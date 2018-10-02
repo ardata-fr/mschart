@@ -70,14 +70,15 @@ ooml_code.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1"){
                      "<c:val>%s</c:val><c:smooth val=\"%.0f\"/></c:ser>")
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
+
+  # sapply linec-----
   str_series_ <- sapply( series, function(serie, template ){
     marker_str <- get_marker_xml(serie$fill, serie$stroke, serie$symbol, serie$size )
-    sppr_str <- get_sppr_xml(serie$fill, serie$stroke )
+    sppr_str <- get_sppr_xml_line_chart(fill = serie$fill, stroke = serie$stroke, width = serie$line_width)
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
     labels_ooxml <- pml_labels_options(label_settings)
-
 
     sprintf(template, serie$idx, serie$order, serie$tx$pml(), sppr_str, marker_str,
             labels_ooxml,
@@ -144,7 +145,7 @@ ooml_code.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1"){
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]),
                       sheetname = sheetname )
-
+  # sapply scatter-----
   str_series_ <- sapply( series, function(serie, template, has_line, has_marker ){
 
     if( !has_line ){
@@ -220,5 +221,17 @@ get_sppr_xml <- function( fill, stroke){
   paste0("<c:spPr>",
          sprintf("<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>", fill_hex,  fill_elts[4] / 255.0 * 100000 ),
          sprintf("<a:ln><a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill></a:ln>", stroke_hex,  stroke_elts[4] / 255.0 * 100000 ),
+         "</c:spPr>" )
+}
+get_sppr_xml_line_chart <- function( fill, stroke, width){
+  fill_elts <- col2rgb(fill, alpha = TRUE)[,1]
+  fill_hex <- sprintf( "%02X%02X%02X", fill_elts[1], fill_elts[2], fill_elts[3]);
+
+  line_properties <- fp_border(color = stroke, style = "solid", width = width)
+  line_str <- ooxml_fp_border(line_properties)
+
+  paste0("<c:spPr>",
+         sprintf("<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>", fill_hex,  fill_elts[4] / 255.0 * 100000 ),
+         line_str,
          "</c:spPr>" )
 }
