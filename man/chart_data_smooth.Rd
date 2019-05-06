@@ -15,7 +15,7 @@ Possible values are 0 or 1
 If it contains only one integer it will be associated to all existing series.}
 }
 \description{
-Specify mappings from levels in the data to displayed symbols.
+Specify mappings from levels in the data to smooth or not lines.
 }
 \examples{
 linec <- ms_linechart(data = iris, x = "Sepal.Length",

@@ -238,7 +238,7 @@ chart_data_line_width <- function(x, values){
 
 #' @export
 #' @title Smooth series
-#' @description Specify mappings from levels in the data to displayed symbols.
+#' @description Specify mappings from levels in the data to smooth or not lines.
 #' @param x an \code{ms_chart} object.
 #' @param values  `integer(num of series)`: a set of smooth values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
