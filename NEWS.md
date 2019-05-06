@@ -1,3 +1,13 @@
+# mschart 0.2.4
+
+## Enhancements
+
+* new function `chart_data_smooth()` to activate line smooth
+
+## Issues
+
+* activate *no shadow* mode in all components.
+
 # mschart 0.2.3
 
 ## Enhancements
