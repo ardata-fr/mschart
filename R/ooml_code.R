@@ -221,7 +221,7 @@ get_sppr_xml <- function( fill, stroke){
   paste0("<c:spPr>",
          sprintf("<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>", fill_hex,  fill_elts[4] / 255.0 * 100000 ),
          sprintf("<a:ln><a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill></a:ln>", stroke_hex,  stroke_elts[4] / 255.0 * 100000 ),
-         "</c:spPr>" )
+         "<a:effectLst/></c:spPr>" )
 }
 get_sppr_xml_line_chart <- function( fill, stroke, width){
   fill_elts <- col2rgb(fill, alpha = TRUE)[,1]
