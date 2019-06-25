@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">gen_pptx &lt;-<span class="st"> </span><span class="cf">function</span>( chart, file ){</a>
 <a class="sourceLine" id="cb2-2" title="2">  doc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/read_pptx">read_pptx</a></span>()</a>
 <a class="sourceLine" id="cb2-3" title="3">  doc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/add_slide">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
-<a class="sourceLine" id="cb2-4" title="4">  doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with_chart.html">ph_with_chart</a></span>(doc, <span class="dt">chart =</span> chart)</a>
+<a class="sourceLine" id="cb2-4" title="4">  doc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/ph_with">ph_with</a></span>(doc, <span class="dt">value =</span> chart, <span class="dt">location =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/ph_location_type">ph_location_type</a></span>(<span class="dt">type =</span> <span class="st">"body"</span>))</a>
 <a class="sourceLine" id="cb2-5" title="5">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> file)</a>
 <a class="sourceLine" id="cb2-6" title="6">  <span class="kw">office_doc_link</span>( <span class="dt">url =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>( <span class="st">"https://ardata-fr.github.io/mschart/articles/"</span>, file ) )</a>
 <a class="sourceLine" id="cb2-7" title="7">}</a></code></pre></div>
@@ -396,7 +396,7 @@
 
       <footer><link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.2.4.5 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.2.4 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

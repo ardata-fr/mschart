@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(officer)</a>
 <a class="sourceLine" id="cb3-2" title="2">doc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/read_pptx">read_pptx</a></span>()</a>
 <a class="sourceLine" id="cb3-3" title="3">doc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/add_slide">add_slide</a></span>(doc, <span class="dt">layout =</span> <span class="st">"Title and Content"</span>, <span class="dt">master =</span> <span class="st">"Office Theme"</span>)</a>
-<a class="sourceLine" id="cb3-4" title="4">doc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ph_with_chart.html">ph_with_chart</a></span>(doc, <span class="dt">chart =</span> my_barchart)</a>
+<a class="sourceLine" id="cb3-4" title="4">doc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/ph_with">ph_with</a></span>(doc, <span class="dt">value =</span> my_barchart, <span class="dt">location =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/officer/topics/ph_location_fullsize">ph_location_fullsize</a></span>())</a>
 <a class="sourceLine" id="cb3-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/print">print</a></span>(doc, <span class="dt">target =</span> <span class="st">"assets/pptx/barchart_01_stacked.pptx"</span>)</a></code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
 <span>Download file </span>
@@ -188,7 +188,7 @@
 
       <footer><link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.2.4.5 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.2.4 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
