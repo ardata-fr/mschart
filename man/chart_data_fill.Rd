@@ -9,7 +9,7 @@ chart_data_fill(x, values)
 \arguments{
 \item{x}{an \code{ms_chart} object.}
 
-\item{values}{`character(num of series|1)`: a set of colours values to map data values to.
+\item{values}{\code{character(num of series|1)}: a set of colours values to map data values to.
 It is a named vector, the values will be matched based on the names.
 If it contains only one colour, this colour will be associated to all existing series.}
 }

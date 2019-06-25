@@ -20,45 +20,44 @@
 #' @param position position value that cross the other axis.
 #' @param second_axis unused
 #' @section num_fmt:
-#' All \code{\%} need to be doubled, \code{0\%\%} mean "a number
+#' All `\%` need to be doubled, `0\%\%` mean "a number
 #' and percent symbol".
 #'
 #' From my actual knowledge, depending on some chart type
 #' and options, the following values are not systematically
 #' used by office chart engine; i.e. when chart pre-compute
-#' percentages, it seems using \code{0\%\%} will have no
+#' percentages, it seems using `0\%\%` will have no
 #' effect.
 #'
-#' \itemize{
-#'   \item General: default value
-#'   \item 0: display the number with no decimal
-#'   \item 0.00: display the number with two decimals
-#'   \item 0\%\%: display as percentages
-#'   \item 0.00\%\%: display as percentages with two digits
-#'   \item #,##0
-#'   \item #,##0.00
-#'   \item 0.00E+00
-#'   \item # ?/?
-#'   \item # ??/??
-#'   \item mm-dd-yy
-#'   \item d-mmm-yy
-#'   \item d-mmm
-#'   \item mmm-yy
-#'   \item h:mm AM/PM
-#'   \item h:mm:ss AM/PM
-#'   \item h:mm
-#'   \item h:mm:ss
-#'   \item m/d/yy h:mm
-#'   \item #,##0 ;(#,##0)
-#'   \item #,##0 ;[Red](#,##0)
-#'   \item #,##0.00;(#,##0.00)
-#'   \item #,##0.00;[Red](#,##0.00)
-#'   \item mm:ss
-#'   \item [h]:mm:ss
-#'   \item mmss.0
-#'   \item ##0.0E+0
-#'   \item @
-#' }
+#' * `General`: default value
+#' * `0`: display the number with no decimal
+#' * `0.00`: display the number with two decimals
+#' * `0\%\%`: display as percentages
+#' * `0.00\%\%`: display as percentages with two digits
+#' * `#,##0`
+#' * `#,##0.00`
+#' * `0.00E+00`
+#' * `# ?/?`
+#' * `# ??/??`
+#' * `mm-dd-yy`
+#' * `d-mmm-yy`
+#' * `d-mmm`
+#' * `mmm-yy`
+#' * `h:mm AM/PM`
+#' * `h:mm:ss AM/PM`
+#' * `h:mm`
+#' * `h:mm:ss`
+#' * `m/d/yy h:mm`
+#' * `#,##0 ;(#,##0)`
+#' * `#,##0 ;[Red](#,##0)`
+#' * `#,##0.00;(#,##0.00)`
+#' * `#,##0.00;[Red](#,##0.00)`
+#' * `mm:ss`
+#' * `[h]:mm:ss`
+#' * `mmss.0`
+#' * `##0.0E+0`
+#' * `@`
+#'
 #' @export
 chart_ax_x <- function( x, orientation, crosses, cross_between,
                             major_tick_mark, minor_tick_mark,

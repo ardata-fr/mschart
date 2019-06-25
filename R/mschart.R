@@ -13,11 +13,9 @@ NULL
 #'
 #' A dataset containing 2 categorical and an integer variables:
 #'
-#' \itemize{
-#'   \item browser web browser
-#'   \item serie id of series
-#'   \item value integer values
-#' }
+#' * browser web browser
+#' * serie id of series
+#' * value integer values
 #'
 #' @name browser_data
 #' @docType data
@@ -30,11 +28,9 @@ NULL
 #'
 #' A dataset containing a date, a categorical and an integer variables:
 #'
-#' \itemize{
-#'   \item date date values
-#'   \item browser web browser
-#'   \item freq values in percent
-#' }
+#' * date date values
+#' * browser web browser
+#' * freq values in percent
 #'
 #' @name browser_ts
 #' @docType data

@@ -13,9 +13,9 @@ A dataset containing 2 categorical and an integer variables:
 }
 \details{
 \itemize{
-  \item browser web browser
-  \item serie id of series
-  \item value integer values
+\item browser web browser
+\item serie id of series
+\item value integer values
 }
 }
 \keyword{datasets}

@@ -11,11 +11,11 @@ chart_data_labels(x, num_fmt = "General", position = "ctr",
 \arguments{
 \item{x}{an \code{ms_chart} object.}
 
-\item{num_fmt}{`character(1)`: number formatting specifies number format properties which
+\item{num_fmt}{\code{character(1)}: number formatting specifies number format properties which
 indicate how to format and render the numeric values. It can be "General", "0.00", "#,##0",
 "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.}
 
-\item{position}{`character(1)`: it specifies the position of the data label.
+\item{position}{\code{character(1)}: it specifies the position of the data label.
 It should be one of 'b', 'ctr', 'inBase', 'inEnd', 'l',
 'outEnd', 'r', 't'.
 When grouping is 'clustered', it should be one of 'ctr','inBase','inEnd','outEnd'.

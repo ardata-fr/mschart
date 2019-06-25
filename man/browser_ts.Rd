@@ -13,9 +13,9 @@ A dataset containing a date, a categorical and an integer variables:
 }
 \details{
 \itemize{
-  \item date date values
-  \item browser web browser
-  \item freq values in percent
+\item date date values
+\item browser web browser
+\item freq values in percent
 }
 }
 \keyword{datasets}

@@ -9,7 +9,7 @@ chart_data_smooth(x, values)
 \arguments{
 \item{x}{an \code{ms_chart} object.}
 
-\item{values}{`integer(num of series)`: a set of smooth values to map data values to.
+\item{values}{\code{integer(num of series)}: a set of smooth values to map data values to.
 It is a named vector, the values will be matched based on the names.
 Possible values are 0 or 1
 If it contains only one integer it will be associated to all existing series.}

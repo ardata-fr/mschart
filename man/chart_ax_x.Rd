@@ -45,8 +45,8 @@ length 1).}
 
 \item{num_fmt}{number formatting. See section for more details.}
 
-\item{rotation}{rotation angle. Value should be between `-360`
-and `360`.}
+\item{rotation}{rotation angle. Value should be between \code{-360}
+and \code{360}.}
 
 \item{limit_min}{minimum value on the axis.}
 
@@ -68,44 +68,43 @@ Define settings for an x or y axis.
 
 \section{num_fmt}{
 
-All \code{\%} need to be doubled, \code{0\%\%} mean "a number
+All \code{\\\%} need to be doubled, \code{0\\\%\\\%} mean "a number
 and percent symbol".
 
 From my actual knowledge, depending on some chart type
 and options, the following values are not systematically
 used by office chart engine; i.e. when chart pre-compute
-percentages, it seems using \code{0\%\%} will have no
+percentages, it seems using \code{0\\\%\\\%} will have no
 effect.
-
 \itemize{
-  \item General: default value
-  \item 0: display the number with no decimal
-  \item 0.00: display the number with two decimals
-  \item 0\%\%: display as percentages
-  \item 0.00\%\%: display as percentages with two digits
-  \item #,##0
-  \item #,##0.00
-  \item 0.00E+00
-  \item # ?/?
-  \item # ??/??
-  \item mm-dd-yy
-  \item d-mmm-yy
-  \item d-mmm
-  \item mmm-yy
-  \item h:mm AM/PM
-  \item h:mm:ss AM/PM
-  \item h:mm
-  \item h:mm:ss
-  \item m/d/yy h:mm
-  \item #,##0 ;(#,##0)
-  \item #,##0 ;[Red](#,##0)
-  \item #,##0.00;(#,##0.00)
-  \item #,##0.00;[Red](#,##0.00)
-  \item mm:ss
-  \item [h]:mm:ss
-  \item mmss.0
-  \item ##0.0E+0
-  \item @
+\item \code{General}: default value
+\item \code{0}: display the number with no decimal
+\item \code{0.00}: display the number with two decimals
+\item \code{0\\\%\\\%}: display as percentages
+\item \code{0.00\\\%\\\%}: display as percentages with two digits
+\item \code{#,##0}
+\item \code{#,##0.00}
+\item \code{0.00E+00}
+\item \code{# ?/?}
+\item \code{# ??/??}
+\item \code{mm-dd-yy}
+\item \code{d-mmm-yy}
+\item \code{d-mmm}
+\item \code{mmm-yy}
+\item \code{h:mm AM/PM}
+\item \code{h:mm:ss AM/PM}
+\item \code{h:mm}
+\item \code{h:mm:ss}
+\item \code{m/d/yy h:mm}
+\item \code{#,##0 ;(#,##0)}
+\item \code{#,##0 ;[Red](#,##0)}
+\item \code{#,##0.00;(#,##0.00)}
+\item \code{#,##0.00;[Red](#,##0.00)}
+\item \code{mm:ss}
+\item \code{[h]:mm:ss}
+\item \code{mmss.0}
+\item \code{##0.0E+0}
+\item \code{@}
 }
 }
 
