@@ -32,7 +32,10 @@
 
 <meta property="og:title" content="add chart into a PowerPoint slide — ph_with_chart" />
 
-<meta property="og:description" content="add a chart as a new shape in the current slide." />
+<meta property="og:description" content="add a chart as a new shape in the current slide.
+These functions will be deprecated
+in the next release and function ph_with.ms_chart should
+be used instead.#' @param x an rpptx object" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -106,7 +109,10 @@
 
     <div class="ref-description">
     
-    <p>add a chart as a new shape in the current slide.</p>
+    <p>add a chart as a new shape in the current slide.
+These functions will be deprecated
+in the next release and function <code><a href='ph_with.ms_chart.html'>ph_with.ms_chart</a></code> should
+be used instead.#' @param x an rpptx object</p>
     
     </div>
 
@@ -119,7 +125,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an rpptx object</p></td>
+      <td><p>a pptx device</p></td>
     </tr>
     <tr>
       <th>chart</th>
@@ -158,7 +164,8 @@ is not unique in the current slide, e.g. two placeholders with type 'body'.</p><
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/add_slide'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'>ph_with_chart</span>(<span class='no'>doc</span>, <span class='kw'>chart</span> <span class='kw'>=</span> <span class='no'>my_barchart</span>)
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"barchart_example.pptx"</span>)</div><div class='output co'>#&gt; [1] "/Users/davidgohel/gitprojects/mschart/docs/reference/barchart_example.pptx"</div></pre>
+<span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYakdT8/file1708b273ce1b1.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -174,7 +181,7 @@ is not unique in the current slide, e.g. two placeholders with type 'body'.</p><
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.4.5 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.4 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

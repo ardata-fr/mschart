@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>set a barchart as a stacked barchart — as_bar_stack • mschart</title>
+<title>add a MS Chart output into a PowerPoint object — ph_with.ms_chart • mschart</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,11 +30,11 @@
 
 
 
-<meta property="og:title" content="set a barchart as a stacked barchart — as_bar_stack" />
+<meta property="og:title" content="add a MS Chart output into a PowerPoint object — ph_with.ms_chart" />
 
-<meta property="og:description" content="Apply settings to an ms_barchart object to
-produce a stacked barchart. Options are available to use percentage
-instead of values and to choose if bars should be vertically or horizontally drawn." />
+<meta property="og:description" content="produces a Microsoft Chart graphics output from R instructions
+and add the result in a PowerPoint document object produced
+by read_pptx." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -101,62 +101,58 @@ instead of values and to choose if bars should be vertically or horizontally dra
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>set a barchart as a stacked barchart</h1>
+    <h1>add a MS Chart output into a PowerPoint object</h1>
     
-    <div class="hidden name"><code>as_bar_stack.Rd</code></div>
+    <div class="hidden name"><code>ph_with.ms_chart.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Apply settings to an <code>ms_barchart</code> object to
-produce a stacked barchart. Options are available to use percentage
-instead of values and to choose if bars should be vertically or horizontally drawn.</p>
+    <p>produces a Microsoft Chart graphics output from R instructions
+and add the result in a PowerPoint document object produced
+by <code><a href='https://www.rdocumentation.org/packages/officer/topics/read_pptx'>read_pptx</a></code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>as_bar_stack</span>(<span class='no'>x</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>, <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>gap_width</span> <span class='kw'>=</span> <span class='fl'>50</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for ms_chart</span>
+<span class='fu'>ph_with</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an <code><a href='mschart.html'>ms_barchart</a></code> object</p></td>
+      <td><p>a pptx device</p></td>
     </tr>
     <tr>
-      <th>dir</th>
-      <td><p>the direction of the bars in the chart, value must one of "horizontal" or "vertical".</p></td>
+      <th>value</th>
+      <td><p>chart object</p></td>
     </tr>
     <tr>
-      <th>percent</th>
-      <td><p>should bars be in percent</p></td>
-    </tr>
-    <tr>
-      <th>gap_width</th>
-      <td><p>gap width between the bar for each category on a bar chart, in percent
-of the bar width. It can be set between 0 and 500.</p></td>
+      <th>...</th>
+      <td><p>Arguments to be passed to methods, argument
+<code>location</code> is mandatory.</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>officer</span>)
+    <pre class="examples"><div class='input'><span class='no'>my_barchart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>,
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
+<span class='no'>my_barchart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span>( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>my_barchart</span>,
+  <span class='kw'>dir</span><span class='kw'>=</span><span class='st'>"vertical"</span>, <span class='kw'>grouping</span><span class='kw'>=</span><span class='st'>"clustered"</span>, <span class='kw'>gap_width</span> <span class='kw'>=</span> <span class='fl'>50</span> )
+<span class='no'>my_barchart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span>( <span class='kw'>x</span><span class='kw'>=</span> <span class='no'>my_barchart</span>,
+  <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>'between'</span>, <span class='kw'>major_tick_mark</span><span class='kw'>=</span><span class='st'>"out"</span>)
+<span class='no'>my_barchart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span>( <span class='kw'>x</span><span class='kw'>=</span> <span class='no'>my_barchart</span>,
+  <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>"midCat"</span>, <span class='kw'>major_tick_mark</span><span class='kw'>=</span><span class='st'>"in"</span>)
 
-<span class='no'>my_bar_stack_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
-<span class='no'>my_bar_stack_01</span> <span class='kw'>&lt;-</span> <span class='fu'>as_bar_stack</span>( <span class='no'>my_bar_stack_01</span> )
-
-<span class='no'>my_bar_stack_02</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
-<span class='no'>my_bar_stack_02</span> <span class='kw'>&lt;-</span> <span class='fu'>as_bar_stack</span>( <span class='no'>my_bar_stack_02</span>, <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span> )
-
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>officer</span>)
 <span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/read_pptx'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/add_slide'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with_chart.html'>ph_with_chart</a></span>(<span class='no'>doc</span>, <span class='kw'>chart</span> <span class='kw'>=</span> <span class='no'>my_bar_stack_02</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/add_slide'>add_slide</a></span>(<span class='no'>doc</span>, <span class='st'>"Title and Content"</span>, <span class='st'>"Office Theme"</span>)
+<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/ph_with'>ph_with</a></span>(<span class='no'>doc</span>, <span class='no'>my_barchart</span>, <span class='kw'>location</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/ph_location_fullsize'>ph_location_fullsize</a></span>())
 
 <span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYakdT8/file1708b6696ffd5.pptx"</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYakdT8/file1708b3c5aebbd.pptx"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

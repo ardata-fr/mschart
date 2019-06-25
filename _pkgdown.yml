@@ -32,7 +32,7 @@ reference:
     - ends_with("_theme")
   - title: Send to Microsoft Documents
     contents:
-    - starts_with("ph_with_")
+    - ph_with.ms_chart
     - starts_with("body_add")
 
 navbar:
