@@ -4,6 +4,10 @@
 
 * new function `chart_data_smooth()` to activate line smooth
 
+## Changes
+
+* drop shadows effects on charts
+
 ## Issues
 
 * activate *no shadow* mode in all components.
