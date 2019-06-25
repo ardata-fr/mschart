@@ -67,7 +67,10 @@ pml_chart <- function(x, value, id_x, id_y){
 #' @importFrom xml2 read_xml xml_find_first xml_replace as_xml_document xml_add_child write_xml
 #' @title add chart into a PowerPoint slide
 #' @description add a chart as a new shape in the current slide.
-#' @param x an rpptx object
+#' These functions will be deprecated
+#' in the next release and function \code{\link{ph_with.ms_chart}} should
+#' be used instead.#' @param x an rpptx object
+#' @param x a pptx device
 #' @param chart \code{ms_chart} object
 #' @param type placeholder type
 #' @param index placeholder index (integer). This is to be used when a placeholder type
@@ -89,7 +92,8 @@ pml_chart <- function(x, value, id_x, id_y){
 #' doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 #' doc <- ph_with_chart(doc, chart = my_barchart)
 #'
-#' print(doc, target = "barchart_example.pptx")
+#' fileout <- tempfile(fileext = ".pptx")
+#' print(doc, target = fileout)
 #' }
 ph_with_chart <- function( x, chart, type = "body", index = 1 ){
   stopifnot(inherits(x, "rpptx"))
@@ -110,3 +114,37 @@ ph_with_chart_at <- function( x, chart, left, top, width, height ){
   ph_from_xml_at(x = x, value = graphic_frame, left = left, top = top, width = width, height = height )
 }
 
+#' @importFrom officer ph_with
+#' @importFrom xml2 as_xml_document
+#' @export
+#' @title add a MS Chart output into a PowerPoint object
+#' @description produces a Microsoft Chart graphics output from R instructions
+#' and add the result in a PowerPoint document object produced
+#' by \code{\link[officer]{read_pptx}}.
+#' @param x a pptx device
+#' @param value chart object
+#' @param ... Arguments to be passed to methods, argument
+#' \code{location} is mandatory.
+#' @examples
+#' my_barchart <- ms_barchart(data = browser_data,
+#'   x = "browser", y = "value", group = "serie")
+#' my_barchart <- chart_settings( x = my_barchart,
+#'   dir="vertical", grouping="clustered", gap_width = 50 )
+#' my_barchart <- chart_ax_x( x= my_barchart,
+#'   cross_between = 'between', major_tick_mark="out")
+#' my_barchart <- chart_ax_y( x= my_barchart,
+#'   cross_between = "midCat", major_tick_mark="in")
+#'
+#' library(officer)
+#' doc <- read_pptx()
+#' doc <- add_slide(doc, "Title and Content", "Office Theme")
+#' doc <- ph_with(doc, my_barchart, location = ph_location_fullsize())
+#'
+#' fileout <- tempfile(fileext = ".pptx")
+#' print(doc, target = fileout)
+ph_with.ms_chart <- function( x, value, ... ){
+  stopifnot(inherits(x, "rpptx"))
+  graphic_frame <- pml_chart(x, value, id_x = "64451712", id_y = "64453248")
+  x$content_type$add_ext(extension = "xlsx", type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+  ph_with(x = x, value = as_xml_document(graphic_frame), ... )
+}
