@@ -10,7 +10,7 @@ ph_with_chart(x, chart, type = "body", index = 1)
 ph_with_chart_at(x, chart, left, top, width, height)
 }
 \arguments{
-\item{x}{an rpptx object}
+\item{x}{a pptx device}
 
 \item{chart}{\code{ms_chart} object}
 
@@ -25,6 +25,9 @@ is not unique in the current slide, e.g. two placeholders with type 'body'.}
 }
 \description{
 add a chart as a new shape in the current slide.
+These functions will be deprecated
+in the next release and function \code{\link{ph_with.ms_chart}} should
+be used instead.#' @param x an rpptx object
 }
 \examples{
 my_barchart <- ms_barchart(data = browser_data,
@@ -42,6 +45,7 @@ doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
 doc <- ph_with_chart(doc, chart = my_barchart)
 
-print(doc, target = "barchart_example.pptx")
+fileout <- tempfile(fileext = ".pptx")
+print(doc, target = fileout)
 }
 }
