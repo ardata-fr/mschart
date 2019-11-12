@@ -1,7 +1,7 @@
 Package: mschart
 Type: Package
 Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents
-Version: 0.2.4
+Version: 0.2.5.001
 Authors@R: c( person("David", "Gohel", role = c("aut", "cre"), email = "david.gohel@ardata.fr"),
            person("YouGov", role = "fnd"),
            person("David", "Camposeco", role = "ctb", email = "david.camposeco.paulsen@gmail.com", comment = "chart_data_smooth function") 
@@ -16,7 +16,7 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
 Imports: stats, data.table,
- officer (>= 0.2.0), R6,cellranger,
+ officer (>= 0.3.6), R6,cellranger,
  writexl,grDevices, xml2 (>= 1.1.0),
  htmltools
 URL: https://ardata-fr.github.io/mschart/

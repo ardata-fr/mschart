@@ -203,10 +203,14 @@ my_sc_02 <- ms_scatterchart(
 layout <- "Title and Content"
 master <- "Office Theme"
 read_pptx() %>% 
-  add_slide(layout, master) %>% ph_with_chart(chart = my_bc_01) %>% 
-  add_slide(layout, master) %>% ph_with_chart(chart = my_bc_02) %>% 
-  add_slide(layout, master) %>% ph_with_chart(chart = my_sc_01) %>% 
-  add_slide(layout, master) %>% ph_with_chart(chart = my_sc_02) %>% 
+  add_slide(layout, master) %>% 
+  ph_with(my_bc_01, location = ph_location_fullsize()) %>% 
+  add_slide(layout, master) %>% 
+  ph_with(my_bc_02, location = ph_location_fullsize()) %>% 
+  add_slide(layout, master) %>% 
+  ph_with(my_sc_01, location = ph_location_fullsize()) %>% 
+  add_slide(layout, master) %>% 
+  ph_with(my_sc_02, location = ph_location_fullsize()) %>% 
   print(target = "assets/pptx/chart_settings_01.pptx")
 ```
 

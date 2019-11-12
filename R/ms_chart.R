@@ -77,14 +77,14 @@ ms_chart <- function(data, x, y, group = NULL){
 #' @param preview preview the chart in a PowerPoint document
 #' @param ... unused
 #' @export
-#' @importFrom officer read_pptx add_slide
+#' @importFrom officer read_pptx add_slide ph_location_fullsize ph_with
 #' @importFrom utils browseURL
 print.ms_chart <- function(x, preview = FALSE, ...){
 
   if( preview && interactive() ){
       doc <- read_pptx()
       doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-      doc <- ph_with_chart(doc, chart = x)
+      doc <- ph_with(doc, x, location = ph_location_fullsize())
       file_out <- print(doc, target = tempfile(fileext = ".pptx"))
       browseURL(file_out)
       return(invisible())

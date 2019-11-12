@@ -35,7 +35,7 @@ my_bar_stack_02 <- as_bar_stack( my_bar_stack_02, percent = TRUE,
 
 doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_chart(doc, chart = my_bar_stack_02)
+doc <- ph_with(doc, my_bar_stack_02, location = ph_location_fullsize())
 
 fileout <- tempfile(fileext = ".pptx")
 print(doc, target = fileout)

@@ -4,15 +4,16 @@
 \alias{ph_with.ms_chart}
 \title{add a MS Chart output into a PowerPoint object}
 \usage{
-\method{ph_with}{ms_chart}(x, value, ...)
+\method{ph_with}{ms_chart}(x, value, location, ...)
 }
 \arguments{
 \item{x}{a pptx device}
 
 \item{value}{chart object}
 
-\item{...}{Arguments to be passed to methods, argument
-\code{location} is mandatory.}
+\item{location}{a location for a placeholder.}
+
+\item{...}{Arguments to be passed to methods.}
 }
 \description{
 produces a Microsoft Chart graphics output from R instructions
