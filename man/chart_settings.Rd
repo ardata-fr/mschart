@@ -10,16 +10,13 @@
 \usage{
 chart_settings(x, ...)
 
-\method{chart_settings}{ms_barchart}(x, vary_colors, gap_width, dir,
-  grouping, overlap, ...)
+\method{chart_settings}{ms_barchart}(x, vary_colors, gap_width, dir, grouping, overlap, ...)
 
 \method{chart_settings}{ms_linechart}(x, vary_colors, ...)
 
-\method{chart_settings}{ms_areachart}(x, vary_colors = FALSE,
-  grouping = "standard", ...)
+\method{chart_settings}{ms_areachart}(x, vary_colors = FALSE, grouping = "standard", ...)
 
-\method{chart_settings}{ms_scatterchart}(x, vary_colors = FALSE,
-  scatterstyle = "lineMarker", ...)
+\method{chart_settings}{ms_scatterchart}(x, vary_colors = FALSE, scatterstyle = "lineMarker", ...)
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}

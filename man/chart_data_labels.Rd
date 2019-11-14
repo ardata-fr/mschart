@@ -4,9 +4,17 @@
 \alias{chart_data_labels}
 \title{Modify data labels settings}
 \usage{
-chart_data_labels(x, num_fmt = "General", position = "ctr",
-  show_legend_key = FALSE, show_val = FALSE, show_cat_name = FALSE,
-  show_serie_name = FALSE, show_percent = FALSE, separator = ", ")
+chart_data_labels(
+  x,
+  num_fmt = "General",
+  position = "ctr",
+  show_legend_key = FALSE,
+  show_val = FALSE,
+  show_cat_name = FALSE,
+  show_serie_name = FALSE,
+  show_percent = FALSE,
+  separator = ", "
+)
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}

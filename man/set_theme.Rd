@@ -8,27 +8,57 @@
 \usage{
 set_theme(x, value)
 
-mschart_theme(axis_title = fp_text(bold = TRUE, font.size = 16),
-  axis_title_x = axis_title, axis_title_y = axis_title,
+mschart_theme(
+  axis_title = fp_text(bold = TRUE, font.size = 16),
+  axis_title_x = axis_title,
+  axis_title_y = axis_title,
   main_title = fp_text(bold = TRUE, font.size = 20),
-  legend_text = fp_text(font.size = 14), axis_text = fp_text(),
-  axis_text_x = axis_text, axis_text_y = axis_text, title_rot = 0,
-  title_x_rot = 0, title_y_rot = 270, axis_ticks = fp_border(color =
-  "#99999999"), axis_ticks_x = axis_ticks, axis_ticks_y = axis_ticks,
+  legend_text = fp_text(font.size = 14),
+  axis_text = fp_text(),
+  axis_text_x = axis_text,
+  axis_text_y = axis_text,
+  title_rot = 0,
+  title_x_rot = 0,
+  title_y_rot = 270,
+  axis_ticks = fp_border(color = "#99999999"),
+  axis_ticks_x = axis_ticks,
+  axis_ticks_y = axis_ticks,
   grid_major_line = fp_border(color = "#99999999", style = "dashed"),
   grid_major_line_x = grid_major_line,
   grid_major_line_y = grid_major_line,
   grid_minor_line = fp_border(width = 0),
   grid_minor_line_x = grid_minor_line,
-  grid_minor_line_y = grid_minor_line, date_fmt = "yyyy/mm/dd",
-  str_fmt = "General", double_fmt = "#,##0.00", integer_fmt = "0",
-  legend_position = "b")
+  grid_minor_line_y = grid_minor_line,
+  date_fmt = "yyyy/mm/dd",
+  str_fmt = "General",
+  double_fmt = "#,##0.00",
+  integer_fmt = "0",
+  legend_position = "b"
+)
 
-chart_theme(x, axis_title_x, axis_title_y, main_title, legend_text,
-  title_rot, title_x_rot, title_y_rot, axis_text_x, axis_text_y,
-  axis_ticks_x, axis_ticks_y, grid_major_line_x, grid_major_line_y,
-  grid_minor_line_x, grid_minor_line_y, date_fmt, str_fmt, double_fmt,
-  integer_fmt, legend_position)
+chart_theme(
+  x,
+  axis_title_x,
+  axis_title_y,
+  main_title,
+  legend_text,
+  title_rot,
+  title_x_rot,
+  title_y_rot,
+  axis_text_x,
+  axis_text_y,
+  axis_ticks_x,
+  axis_ticks_y,
+  grid_major_line_x,
+  grid_major_line_y,
+  grid_minor_line_x,
+  grid_minor_line_y,
+  date_fmt,
+  str_fmt,
+  double_fmt,
+  integer_fmt,
+  legend_position
+)
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}

@@ -7,21 +7,73 @@
 \alias{chart_ax_y.ms_chart}
 \title{axis settings}
 \usage{
-chart_ax_x(x, orientation, crosses, cross_between, major_tick_mark,
-  minor_tick_mark, tick_label_pos, display, num_fmt, rotation, limit_min,
-  limit_max, position, second_axis = FALSE)
+chart_ax_x(
+  x,
+  orientation,
+  crosses,
+  cross_between,
+  major_tick_mark,
+  minor_tick_mark,
+  tick_label_pos,
+  display,
+  num_fmt,
+  rotation,
+  limit_min,
+  limit_max,
+  position,
+  second_axis = FALSE
+)
 
-chart_ax_y(x, orientation, crosses, cross_between, major_tick_mark,
-  minor_tick_mark, tick_label_pos, display, num_fmt, rotation, limit_min,
-  limit_max, position, second_axis = FALSE)
+chart_ax_y(
+  x,
+  orientation,
+  crosses,
+  cross_between,
+  major_tick_mark,
+  minor_tick_mark,
+  tick_label_pos,
+  display,
+  num_fmt,
+  rotation,
+  limit_min,
+  limit_max,
+  position,
+  second_axis = FALSE
+)
 
-\method{chart_ax_x}{ms_chart}(x, orientation, crosses, cross_between,
-  major_tick_mark, minor_tick_mark, tick_label_pos, display, num_fmt,
-  rotation, limit_min, limit_max, position, second_axis = FALSE)
+\method{chart_ax_x}{ms_chart}(
+  x,
+  orientation,
+  crosses,
+  cross_between,
+  major_tick_mark,
+  minor_tick_mark,
+  tick_label_pos,
+  display,
+  num_fmt,
+  rotation,
+  limit_min,
+  limit_max,
+  position,
+  second_axis = FALSE
+)
 
-\method{chart_ax_y}{ms_chart}(x, orientation, crosses, cross_between,
-  major_tick_mark, minor_tick_mark, tick_label_pos, display, num_fmt,
-  rotation, limit_min, limit_max, position, second_axis = FALSE)
+\method{chart_ax_y}{ms_chart}(
+  x,
+  orientation,
+  crosses,
+  cross_between,
+  major_tick_mark,
+  minor_tick_mark,
+  tick_label_pos,
+  display,
+  num_fmt,
+  rotation,
+  limit_min,
+  limit_max,
+  position,
+  second_axis = FALSE
+)
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}
@@ -68,43 +120,43 @@ Define settings for an x or y axis.
 
 \section{num_fmt}{
 
-All \code{\\\%} need to be doubled, \code{0\\\%\\\%} mean "a number
+All \verb{\\\%} need to be doubled, \verb{0\\\%\\\%} mean "a number
 and percent symbol".
 
 From my actual knowledge, depending on some chart type
 and options, the following values are not systematically
 used by office chart engine; i.e. when chart pre-compute
-percentages, it seems using \code{0\\\%\\\%} will have no
+percentages, it seems using \verb{0\\\%\\\%} will have no
 effect.
 \itemize{
 \item \code{General}: default value
 \item \code{0}: display the number with no decimal
 \item \code{0.00}: display the number with two decimals
-\item \code{0\\\%\\\%}: display as percentages
-\item \code{0.00\\\%\\\%}: display as percentages with two digits
-\item \code{#,##0}
-\item \code{#,##0.00}
+\item \verb{0\\\%\\\%}: display as percentages
+\item \verb{0.00\\\%\\\%}: display as percentages with two digits
+\item \verb{#,##0}
+\item \verb{#,##0.00}
 \item \code{0.00E+00}
-\item \code{# ?/?}
-\item \code{# ??/??}
+\item \verb{# ?/?}
+\item \verb{# ??/??}
 \item \code{mm-dd-yy}
 \item \code{d-mmm-yy}
 \item \code{d-mmm}
 \item \code{mmm-yy}
-\item \code{h:mm AM/PM}
-\item \code{h:mm:ss AM/PM}
+\item \verb{h:mm AM/PM}
+\item \verb{h:mm:ss AM/PM}
 \item \code{h:mm}
 \item \code{h:mm:ss}
-\item \code{m/d/yy h:mm}
-\item \code{#,##0 ;(#,##0)}
-\item \code{#,##0 ;[Red](#,##0)}
-\item \code{#,##0.00;(#,##0.00)}
-\item \code{#,##0.00;[Red](#,##0.00)}
+\item \verb{m/d/yy h:mm}
+\item \verb{#,##0 ;(#,##0)}
+\item \verb{#,##0 ;[Red](#,##0)}
+\item \verb{#,##0.00;(#,##0.00)}
+\item \verb{#,##0.00;[Red](#,##0.00)}
 \item \code{mm:ss}
-\item \code{[h]:mm:ss}
+\item \verb{[h]:mm:ss}
 \item \code{mmss.0}
-\item \code{##0.0E+0}
-\item \code{@}
+\item \verb{##0.0E+0}
+\item \verb{@}
 }
 }
 

@@ -4,8 +4,7 @@
 \alias{body_add_chart}
 \title{add chart into a Word document}
 \usage{
-body_add_chart(x, chart, style = NULL, pos = "after", width = 5,
-  height = 3)
+body_add_chart(x, chart, style = NULL, pos = "after", width = 5, height = 3)
 }
 \arguments{
 \item{x}{an rdocx object}
