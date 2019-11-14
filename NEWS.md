@@ -1,3 +1,10 @@
+# mschart 0.2.5
+
+## Changes
+
+* implement method ph_with.ms_chart that is replacing `ph_with_chart` and 
+  `ph_with_chart_at`.
+
 # mschart 0.2.4
 
 ## Enhancements
