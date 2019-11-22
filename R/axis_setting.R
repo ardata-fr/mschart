@@ -20,20 +20,20 @@
 #' @param position position value that cross the other axis.
 #' @param second_axis unused
 #' @section num_fmt:
-#' All `\%` need to be doubled, `0\%\%` mean "a number
+#' All `%` need to be doubled, `0%%` mean "a number
 #' and percent symbol".
 #'
 #' From my actual knowledge, depending on some chart type
 #' and options, the following values are not systematically
 #' used by office chart engine; i.e. when chart pre-compute
-#' percentages, it seems using `0\%\%` will have no
+#' percentages, it seems using `0%%` will have no
 #' effect.
 #'
 #' * `General`: default value
 #' * `0`: display the number with no decimal
 #' * `0.00`: display the number with two decimals
-#' * `0\%\%`: display as percentages
-#' * `0.00\%\%`: display as percentages with two digits
+#' * `0%%`: display as percentages
+#' * `0.00%%`: display as percentages with two digits
 #' * `#,##0`
 #' * `#,##0.00`
 #' * `0.00E+00`
@@ -212,5 +212,3 @@ axis_options <- function( orientation = "minMax", axis_position = "b",
   out
 
 }
-
-
