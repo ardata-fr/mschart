@@ -21,7 +21,7 @@ class_preserving_html_escape <- function(text, attribute = FALSE) {
   if (is.factor(text)) {
     factor(text, levels=htmltools::htmlEscape(levels(text)))
   } else {
-    htmltools::htmlEscape(t)
+    htmltools::htmlEscape(text)
   }
 }
 
