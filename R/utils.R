@@ -2,18 +2,39 @@
 #' @importFrom data.table as.data.table dcast.data.table setorderv
 shape_as_series <- function(x){
   dataset <- as.data.table(x$data)
-  dataset <- setorderv(dataset, c(x$x, x$group) )
 
   if( !is.null(x$group)){
-    dataset[[x$group]] <- class_preserving_html_escape(dataset[[x$group]])
-    form_str <- sprintf("%s ~ %s", x$x, x$group)
-    dataset <- dcast.data.table(dataset, formula = as.formula(form_str),
-                                fun.aggregate = function(x) {x},
-                                fill = NA, value.var = x$y )
+    dataset <- groupify_data(x, dataset)
   } else {
+    # Happens by reference, no need to assign
+    setorderv(dataset, c(x$x))
     dataset <- dataset[, c(x$x, x$y), with = FALSE ]
   }
+
   as.data.frame(dataset)
+}
+
+#' @importFrom data.table as.data.table
+groupify_data <- function(x, dataset) {
+  # This weird looking line is designed to resolve the notes that get generated
+  # during devtools::check() because .N and := aren't explicitly made visible
+  `:=` <- .N <- NULL
+
+  unique_rows_dataset <- unique(dataset[, c(x$x, x$y, x$group), with=F])
+
+  dummy_column_name <- generate_temp_column_name(unique_rows_dataset)
+  unique_rows_dataset[, (dummy_column_name):=seq(.N), keyby=c(x$x, x$group)]
+
+  ds <- dcast.data.table(unique_rows_dataset,
+                         formula = as.formula(sprintf("%s + %s ~ %s", x$x, dummy_column_name, x$group)),
+                         value.var = x$y, fill = NA)
+
+  ds[, (dummy_column_name) := NULL]
+  ds
+}
+
+generate_temp_column_name <- function(tbl) {
+  paste0(sample(letters, max(sapply(names(tbl), nchar)+1), replace = T), collapse = '')
 }
 
 #' @importFrom htmltools htmlEscape
