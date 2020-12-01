@@ -16,6 +16,9 @@ shape_as_series <- function(x){
 
 #' @importFrom data.table as.data.table
 groupify_data <- function(x, dataset) {
+  # This function relies on a grouop being defined
+  stopifnot(!is.null(x$group))
+
   # This weird looking line is designed to resolve the notes that get generated
   # during devtools::check() because .N and := aren't explicitly made visible
   `:=` <- .N <- NULL

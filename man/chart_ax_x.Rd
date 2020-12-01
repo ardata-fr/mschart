@@ -156,7 +156,7 @@ effect.
 \item \verb{[h]:mm:ss}
 \item \code{mmss.0}
 \item \verb{##0.0E+0}
-\item \verb{@}
+\item \code{@}
 }
 }
 

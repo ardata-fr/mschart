@@ -4,7 +4,9 @@
 \name{browser_data}
 \alias{browser_data}
 \title{Dummy dataset for barchart}
-\format{A data frame with 18 rows and 3 variables}
+\format{
+A data frame with 18 rows and 3 variables
+}
 \usage{
 data(browser_data)
 }
