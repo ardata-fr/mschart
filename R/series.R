@@ -105,6 +105,7 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
                  stroke = x$series_settings$colour[y_colname],
                  fill = x$series_settings$fill[y_colname],
                  symbol = x$series_settings$symbol[y_colname],
+                 line_style = x$series_settings$line_style[y_colname],
                  size = x$series_settings$size[y_colname],
                  line_width = x$series_settings$line_width[y_colname],
                  labels_fp = x$series_settings$labels_fp[[y_colname]],

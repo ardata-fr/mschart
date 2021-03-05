@@ -74,7 +74,7 @@ ooml_code.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1"){
   # sapply linec-----
   str_series_ <- sapply( series, function(serie, template ){
     marker_str <- get_marker_xml(serie$fill, serie$stroke, serie$symbol, serie$size )
-    sppr_str <- get_sppr_xml_line_chart(fill = serie$fill, stroke = serie$stroke, width = serie$line_width)
+    sppr_str <- get_sppr_xml_line_chart(fill = serie$fill, stroke = serie$stroke, style = serie$line_style, width = serie$line_width)
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
@@ -151,7 +151,7 @@ ooml_code.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1"){
     if( !has_line ){
       line_str <- "<c:spPr><a:ln><a:noFill/></a:ln></c:spPr>"
     } else {
-      line_properties <- fp_border(color = serie$stroke, style = "solid", width = serie$line_width)
+      line_properties <- fp_border(color = serie$stroke, style = serie$line_style, width = serie$line_width)
       line_str <- ooxml_fp_border(line_properties,
                       in_tags = c("c:spPr"))
     }
@@ -223,11 +223,11 @@ get_sppr_xml <- function( fill, stroke){
          sprintf("<a:ln><a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill></a:ln>", stroke_hex,  stroke_elts[4] / 255.0 * 100000 ),
          "<a:effectLst/></c:spPr>" )
 }
-get_sppr_xml_line_chart <- function( fill, stroke, width){
+get_sppr_xml_line_chart <- function( fill, stroke, style, width){
   fill_elts <- col2rgb(fill, alpha = TRUE)[,1]
   fill_hex <- sprintf( "%02X%02X%02X", fill_elts[1], fill_elts[2], fill_elts[3]);
 
-  line_properties <- fp_border(color = stroke, style = "solid", width = width)
+  line_properties <- fp_border(color = stroke, style = style, width = width)
   line_str <- ooxml_fp_border(line_properties)
 
   paste0("<c:spPr>",

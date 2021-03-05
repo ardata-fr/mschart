@@ -237,6 +237,47 @@ chart_data_line_width <- function(x, values){
 }
 
 #' @export
+#' @title Modify line style
+#' @description Specify mappings from levels in the data to displayed line style.
+#' @param x an \code{ms_chart} object.
+#' @param values `character(num of series)`: a set of line style values to map data values to.
+#' It is a named vector, the values will be matched based on the names.
+#' Possible values are: 'none', 'solid', 'dashed', 'dotted'.
+#' If it contains only one line style, this style will be associated to all existing series.
+#' @examples
+#' my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",
+#'   y = "Sepal.Width",  group = "Species")
+#' my_scatter <- chart_data_fill(my_scatter,
+#'   values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
+#' my_scatter <- chart_data_stroke(my_scatter,
+#'   values = c(virginica = "black", versicolor = "black", setosa = "black") )
+#' my_scatter <- chart_data_symbol(my_scatter,
+#'   values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
+#' my_scatter <- chart_data_style(my_scatter,
+#'   values = c(virginica = "solid", versicolor = "dotted", setosa = "dashed") )
+#' @seealso \code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_size}}
+chart_data_line_style <- function(x, values){
+
+  if( !all(values %in% st_linestyle) ){
+    stop("values should have values matching ", paste0(shQuote(st_linestyle), collapse = ", " ))
+  }
+
+  serie_names <- names(x$series_settings$line_style)
+
+  if( length(values) == 1 ){
+    values <- rep(values, length(serie_names))
+    names(values) <- serie_names
+  }
+
+  if( !all(names(values) %in% serie_names ) )
+    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
+
+
+  x$series_settings$line_style[names(values)] <- values
+  x
+}
+
+#' @export
 #' @title Smooth series
 #' @description Specify mappings from levels in the data to smooth or not lines.
 #' @param x an \code{ms_chart} object.

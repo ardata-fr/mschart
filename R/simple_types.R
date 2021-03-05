@@ -12,6 +12,8 @@ st_dlblpos <- c('bestFit', 'b', 'ctr', 'inBase', 'inEnd', 'l', 'outEnd', 'r', 't
 
 st_markerstyle <- c('circle', 'dash', 'diamond', 'dot', 'none', 'plus', 'square', 'star', 'triangle', 'x', 'auto')
 
+st_linestyle <- c('none', 'solid', 'dotted', 'dashed')
+
 st_trendlinetype <- c('exp', 'linear', 'log', 'movingAvg', 'poly', 'power')
 
 st_errdir <- c('x', 'y')
