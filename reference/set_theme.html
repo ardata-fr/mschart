@@ -8,21 +8,29 @@
 
 <title>set chart theme — set_theme • mschart</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +38,12 @@
 
 
 
-<meta property="og:title" content="set chart theme — set_theme" />
 
+<meta property="og:title" content="set chart theme — set_theme" />
 <meta property="og:description" content="Modify chart theme with function set_theme.
 Use mschart_theme() to create a chart theme.
 Use chart_theme() to modify components of the theme of a chart." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +57,10 @@ Use chart_theme() to modify components of the theme of a chart." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +74,7 @@ Use chart_theme() to modify components of the theme of a chart." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6.001</span>
       </span>
     </div>
 
@@ -81,11 +90,10 @@ Use chart_theme() to modify components of the theme of a chart." />
   <a href="../reference/index.html">Function reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ardata-fr/mschart">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,48 +104,77 @@ Use chart_theme() to modify components of the theme of a chart." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>set chart theme</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/ardata-fr/mschart/blob/master/R/theme.R'><code>R/theme.R</code></a></small>
     <div class="hidden name"><code>set_theme.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Modify chart theme with function <code>set_theme</code>.</p>
 <p>Use <code>mschart_theme()</code> to create a chart theme.</p>
 <p>Use <code>chart_theme()</code> to modify components of the theme of a chart.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>set_theme</span>(<span class='no'>x</span>, <span class='no'>value</span>)
+    <pre class="usage"><span class='fu'>set_theme</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span><span class='op'>)</span>
 
-<span class='fu'>mschart_theme</span>(<span class='kw'>axis_title</span> <span class='kw'>=</span> <span class='fu'>fp_text</span>(<span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>16</span>),
-  <span class='kw'>axis_title_x</span> <span class='kw'>=</span> <span class='no'>axis_title</span>, <span class='kw'>axis_title_y</span> <span class='kw'>=</span> <span class='no'>axis_title</span>,
-  <span class='kw'>main_title</span> <span class='kw'>=</span> <span class='fu'>fp_text</span>(<span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>20</span>),
-  <span class='kw'>legend_text</span> <span class='kw'>=</span> <span class='fu'>fp_text</span>(<span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>14</span>), <span class='kw'>axis_text</span> <span class='kw'>=</span> <span class='fu'>fp_text</span>(),
-  <span class='kw'>axis_text_x</span> <span class='kw'>=</span> <span class='no'>axis_text</span>, <span class='kw'>axis_text_y</span> <span class='kw'>=</span> <span class='no'>axis_text</span>, <span class='kw'>title_rot</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>title_x_rot</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>title_y_rot</span> <span class='kw'>=</span> <span class='fl'>270</span>, <span class='kw'>axis_ticks</span> <span class='kw'>=</span> <span class='fu'>fp_border</span>(<span class='kw'>color</span> <span class='kw'>=</span>
-  <span class='st'>"#99999999"</span>), <span class='kw'>axis_ticks_x</span> <span class='kw'>=</span> <span class='no'>axis_ticks</span>, <span class='kw'>axis_ticks_y</span> <span class='kw'>=</span> <span class='no'>axis_ticks</span>,
-  <span class='kw'>grid_major_line</span> <span class='kw'>=</span> <span class='fu'>fp_border</span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#99999999"</span>, <span class='kw'>style</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>),
-  <span class='kw'>grid_major_line_x</span> <span class='kw'>=</span> <span class='no'>grid_major_line</span>,
-  <span class='kw'>grid_major_line_y</span> <span class='kw'>=</span> <span class='no'>grid_major_line</span>,
-  <span class='kw'>grid_minor_line</span> <span class='kw'>=</span> <span class='fu'>fp_border</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0</span>),
-  <span class='kw'>grid_minor_line_x</span> <span class='kw'>=</span> <span class='no'>grid_minor_line</span>,
-  <span class='kw'>grid_minor_line_y</span> <span class='kw'>=</span> <span class='no'>grid_minor_line</span>, <span class='kw'>date_fmt</span> <span class='kw'>=</span> <span class='st'>"yyyy/mm/dd"</span>,
-  <span class='kw'>str_fmt</span> <span class='kw'>=</span> <span class='st'>"General"</span>, <span class='kw'>double_fmt</span> <span class='kw'>=</span> <span class='st'>"#,##0.00"</span>, <span class='kw'>integer_fmt</span> <span class='kw'>=</span> <span class='st'>"0"</span>,
-  <span class='kw'>legend_position</span> <span class='kw'>=</span> <span class='st'>"b"</span>)
+<span class='fu'>mschart_theme</span><span class='op'>(</span>
+  axis_title <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>bold <span class='op'>=</span> <span class='cn'>TRUE</span>, font.size <span class='op'>=</span> <span class='fl'>16</span><span class='op'>)</span>,
+  axis_title_x <span class='op'>=</span> <span class='va'>axis_title</span>,
+  axis_title_y <span class='op'>=</span> <span class='va'>axis_title</span>,
+  main_title <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>bold <span class='op'>=</span> <span class='cn'>TRUE</span>, font.size <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>,
+  legend_text <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>font.size <span class='op'>=</span> <span class='fl'>14</span><span class='op'>)</span>,
+  axis_text <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span><span class='op'>)</span>,
+  axis_text_x <span class='op'>=</span> <span class='va'>axis_text</span>,
+  axis_text_y <span class='op'>=</span> <span class='va'>axis_text</span>,
+  title_rot <span class='op'>=</span> <span class='fl'>0</span>,
+  title_x_rot <span class='op'>=</span> <span class='fl'>0</span>,
+  title_y_rot <span class='op'>=</span> <span class='fl'>270</span>,
+  axis_ticks <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"#99999999"</span><span class='op'>)</span>,
+  axis_ticks_x <span class='op'>=</span> <span class='va'>axis_ticks</span>,
+  axis_ticks_y <span class='op'>=</span> <span class='va'>axis_ticks</span>,
+  grid_major_line <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"#99999999"</span>, style <span class='op'>=</span> <span class='st'>"dashed"</span><span class='op'>)</span>,
+  grid_major_line_x <span class='op'>=</span> <span class='va'>grid_major_line</span>,
+  grid_major_line_y <span class='op'>=</span> <span class='va'>grid_major_line</span>,
+  grid_minor_line <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
+  grid_minor_line_x <span class='op'>=</span> <span class='va'>grid_minor_line</span>,
+  grid_minor_line_y <span class='op'>=</span> <span class='va'>grid_minor_line</span>,
+  date_fmt <span class='op'>=</span> <span class='st'>"yyyy/mm/dd"</span>,
+  str_fmt <span class='op'>=</span> <span class='st'>"General"</span>,
+  double_fmt <span class='op'>=</span> <span class='st'>"#,##0.00"</span>,
+  integer_fmt <span class='op'>=</span> <span class='st'>"0"</span>,
+  legend_position <span class='op'>=</span> <span class='st'>"b"</span>
+<span class='op'>)</span>
 
-<span class='fu'>chart_theme</span>(<span class='no'>x</span>, <span class='no'>axis_title_x</span>, <span class='no'>axis_title_y</span>, <span class='no'>main_title</span>, <span class='no'>legend_text</span>,
-  <span class='no'>title_rot</span>, <span class='no'>title_x_rot</span>, <span class='no'>title_y_rot</span>, <span class='no'>axis_text_x</span>, <span class='no'>axis_text_y</span>,
-  <span class='no'>axis_ticks_x</span>, <span class='no'>axis_ticks_y</span>, <span class='no'>grid_major_line_x</span>, <span class='no'>grid_major_line_y</span>,
-  <span class='no'>grid_minor_line_x</span>, <span class='no'>grid_minor_line_y</span>, <span class='no'>date_fmt</span>, <span class='no'>str_fmt</span>, <span class='no'>double_fmt</span>,
-  <span class='no'>integer_fmt</span>, <span class='no'>legend_position</span>)</pre>
-    
+<span class='fu'>chart_theme</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>axis_title_x</span>,
+  <span class='va'>axis_title_y</span>,
+  <span class='va'>main_title</span>,
+  <span class='va'>legend_text</span>,
+  <span class='va'>title_rot</span>,
+  <span class='va'>title_x_rot</span>,
+  <span class='va'>title_y_rot</span>,
+  <span class='va'>axis_text_x</span>,
+  <span class='va'>axis_text_y</span>,
+  <span class='va'>axis_ticks_x</span>,
+  <span class='va'>axis_ticks_y</span>,
+  <span class='va'>grid_major_line_x</span>,
+  <span class='va'>grid_major_line_y</span>,
+  <span class='va'>grid_minor_line_x</span>,
+  <span class='va'>grid_minor_line_y</span>,
+  <span class='va'>date_fmt</span>,
+  <span class='va'>str_fmt</span>,
+  <span class='va'>double_fmt</span>,
+  <span class='va'>integer_fmt</span>,
+  <span class='va'>legend_position</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -151,19 +188,19 @@ Use chart_theme() to modify components of the theme of a chart." />
     </tr>
     <tr>
       <th>axis_title, axis_title_x, axis_title_y</th>
-      <td><p>axis title formatting properties (<a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a>)</p></td>
+      <td><p>axis title formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a>)</p></td>
     </tr>
     <tr>
       <th>main_title</th>
-      <td><p>title formatting properties (<a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a>)</p></td>
+      <td><p>title formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a>)</p></td>
     </tr>
     <tr>
       <th>legend_text</th>
-      <td><p>legend text formatting properties (<a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a>)</p></td>
+      <td><p>legend text formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a>)</p></td>
     </tr>
     <tr>
       <th>axis_text, axis_text_x, axis_text_y</th>
-      <td><p>axis text formatting properties (<a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a>)</p></td>
+      <td><p>axis text formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a>)</p></td>
     </tr>
     <tr>
       <th>title_rot, title_x_rot, title_y_rot</th>
@@ -171,15 +208,15 @@ Use chart_theme() to modify components of the theme of a chart." />
     </tr>
     <tr>
       <th>axis_ticks, axis_ticks_x, axis_ticks_y</th>
-      <td><p>axis ticks formatting properties (<a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a>)</p></td>
+      <td><p>axis ticks formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a>)</p></td>
     </tr>
     <tr>
       <th>grid_major_line, grid_major_line_x, grid_major_line_y</th>
-      <td><p>major grid lines formatting properties (<a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a>)</p></td>
+      <td><p>major grid lines formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a>)</p></td>
     </tr>
     <tr>
       <th>grid_minor_line, grid_minor_line_x, grid_minor_line_y</th>
-      <td><p>minor grid lines formatting properties (<a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a>)</p></td>
+      <td><p>minor grid lines formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a>)</p></td>
     </tr>
     <tr>
       <th>date_fmt</th>
@@ -203,48 +240,46 @@ Use chart_theme() to modify components of the theme of a chart." />
 one of 'b', 'tr', 'l', 'r', 't', 'n' (for 'none').</p></td>
     </tr>
     </table>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>officer</span>)
-<span class='no'>mytheme</span> <span class='kw'>&lt;-</span> <span class='fu'>mschart_theme</span>(
-  <span class='kw'>axis_title</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>24</span>, <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>grid_major_line_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>),
-  <span class='kw'>axis_ticks_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>.4</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"gray"</span>) )
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
+<span class='va'>mytheme</span> <span class='op'>&lt;-</span> <span class='fu'>mschart_theme</span><span class='op'>(</span>
+  axis_title <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>24</span>, bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>,
+  axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>.4</span>, color <span class='op'>=</span> <span class='st'>"gray"</span><span class='op'>)</span> <span class='op'>)</span>
 
 
-<span class='no'>my_bc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
-                              <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
-<span class='no'>my_bc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span>( <span class='no'>my_bc</span>, <span class='kw'>dir</span><span class='kw'>=</span><span class='st'>"horizontal"</span>, <span class='kw'>grouping</span><span class='kw'>=</span><span class='st'>"stacked"</span>,
-                                  <span class='kw'>gap_width</span> <span class='kw'>=</span> <span class='fl'>150</span>, <span class='kw'>overlap</span> <span class='kw'>=</span> <span class='fl'>100</span> )
-<span class='no'>my_bc</span> <span class='kw'>&lt;-</span> <span class='fu'>set_theme</span>(<span class='no'>my_bc</span>, <span class='no'>mytheme</span>)
+<span class='va'>my_bc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_linechart.html'>ms_barchart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
+                              y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span><span class='op'>)</span>
+<span class='va'>my_bc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span> <span class='va'>my_bc</span>, dir<span class='op'>=</span><span class='st'>"horizontal"</span>, grouping<span class='op'>=</span><span class='st'>"stacked"</span>,
+                                  gap_width <span class='op'>=</span> <span class='fl'>150</span>, overlap <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>)</span>
+<span class='va'>my_bc</span> <span class='op'>&lt;-</span> <span class='fu'>set_theme</span><span class='op'>(</span><span class='va'>my_bc</span>, <span class='va'>mytheme</span><span class='op'>)</span>
 
 
 
-<span class='no'>my_bc_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
-                              <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
-<span class='no'>my_bc_2</span> <span class='kw'>&lt;-</span> <span class='fu'>chart_theme</span>(<span class='no'>my_bc_2</span>,
-  <span class='kw'>grid_major_line_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>.5</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"cyan"</span>) )</div></pre>
+<span class='va'>my_bc_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_linechart.html'>ms_barchart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
+                              y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span><span class='op'>)</span>
+<span class='va'>my_bc_2</span> <span class='op'>&lt;-</span> <span class='fu'>chart_theme</span><span class='op'>(</span><span class='va'>my_bc_2</span>,
+  grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>.5</span>, color <span class='op'>=</span> <span class='st'>"cyan"</span><span class='op'>)</span> <span class='op'>)</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.4 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.6.001 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>
@@ -256,11 +291,14 @@ one of 'b', 'tr', 'l', 'r', 't', 'n' (for 'none').</p></td>
   ga('create', 'UA-48354045-1', 'auto');
   ga('send', 'pageview');
 </script>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

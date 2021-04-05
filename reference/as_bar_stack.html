@@ -8,21 +8,29 @@
 
 <title>set a barchart as a stacked barchart — as_bar_stack • mschart</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +38,12 @@
 
 
 
-<meta property="og:title" content="set a barchart as a stacked barchart — as_bar_stack" />
 
+<meta property="og:title" content="set a barchart as a stacked barchart — as_bar_stack" />
 <meta property="og:description" content="Apply settings to an ms_barchart object to
 produce a stacked barchart. Options are available to use percentage
 instead of values and to choose if bars should be vertically or horizontally drawn." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -49,9 +57,10 @@ instead of values and to choose if bars should be vertically or horizontally dra
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +74,7 @@ instead of values and to choose if bars should be vertically or horizontally dra
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6.001</span>
       </span>
     </div>
 
@@ -81,11 +90,10 @@ instead of values and to choose if bars should be vertically or horizontally dra
   <a href="../reference/index.html">Function reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ardata-fr/mschart">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,32 +104,31 @@ instead of values and to choose if bars should be vertically or horizontally dra
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>set a barchart as a stacked barchart</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/ardata-fr/mschart/blob/master/R/helpers.R'><code>R/helpers.R</code></a></small>
     <div class="hidden name"><code>as_bar_stack.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Apply settings to an <code>ms_barchart</code> object to
 produce a stacked barchart. Options are available to use percentage
 instead of values and to choose if bars should be vertically or horizontally drawn.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>as_bar_stack</span>(<span class='no'>x</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"vertical"</span>, <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>gap_width</span> <span class='kw'>=</span> <span class='fl'>50</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>as_bar_stack</span><span class='op'>(</span><span class='va'>x</span>, dir <span class='op'>=</span> <span class='st'>"vertical"</span>, percent <span class='op'>=</span> <span class='cn'>FALSE</span>, gap_width <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>an <code><a href='mschart.html'>ms_barchart</a></code> object</p></td>
+      <td><p>an <code><a href='ms_linechart.html'>ms_barchart</a></code> object</p></td>
     </tr>
     <tr>
       <th>dir</th>
@@ -137,46 +144,44 @@ instead of values and to choose if bars should be vertically or horizontally dra
 of the bar width. It can be set between 0 and 500.</p></td>
     </tr>
     </table>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>officer</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
 
-<span class='no'>my_bar_stack_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
-<span class='no'>my_bar_stack_01</span> <span class='kw'>&lt;-</span> <span class='fu'>as_bar_stack</span>( <span class='no'>my_bar_stack_01</span> )
+<span class='va'>my_bar_stack_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_linechart.html'>ms_barchart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
+  y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span><span class='op'>)</span>
+<span class='va'>my_bar_stack_01</span> <span class='op'>&lt;-</span> <span class='fu'>as_bar_stack</span><span class='op'>(</span> <span class='va'>my_bar_stack_01</span> <span class='op'>)</span>
 
-<span class='no'>my_bar_stack_02</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='mschart.html'>ms_barchart</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
-<span class='no'>my_bar_stack_02</span> <span class='kw'>&lt;-</span> <span class='fu'>as_bar_stack</span>( <span class='no'>my_bar_stack_02</span>, <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span> )
+<span class='va'>my_bar_stack_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_linechart.html'>ms_barchart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
+  y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span><span class='op'>)</span>
+<span class='va'>my_bar_stack_02</span> <span class='op'>&lt;-</span> <span class='fu'>as_bar_stack</span><span class='op'>(</span> <span class='va'>my_bar_stack_02</span>, percent <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  dir <span class='op'>=</span> <span class='st'>"horizontal"</span> <span class='op'>)</span>
 
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/read_pptx'>read_pptx</a></span>()
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/add_slide'>add_slide</a></span>(<span class='no'>doc</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"Title and Content"</span>, <span class='kw'>master</span> <span class='kw'>=</span> <span class='st'>"Office Theme"</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ph_with_chart.html'>ph_with_chart</a></span>(<span class='no'>doc</span>, <span class='kw'>chart</span> <span class='kw'>=</span> <span class='no'>my_bar_stack_02</span>)
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/read_pptx.html'>read_pptx</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/add_slide.html'>add_slide</a></span><span class='op'>(</span><span class='va'>doc</span>, layout <span class='op'>=</span> <span class='st'>"Title and Content"</span>, master <span class='op'>=</span> <span class='st'>"Office Theme"</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/ph_with.html'>ph_with</a></span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>my_bar_stack_02</span>, location <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/ph_location_fullsize.html'>ph_location_fullsize</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='no'>fileout</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".pptx"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>doc</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='no'>fileout</span>)</div><div class='output co'>#&gt; [1] "/private/var/folders/08/2qdvv0q95wn52xy6mxgj340r0000gn/T/RtmpYakdT8/file1708b6696ffd5.pptx"</div></pre>
+<span class='va'>fileout</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".pptx"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>doc</span>, target <span class='op'>=</span> <span class='va'>fileout</span><span class='op'>)</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.4 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.6.001 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>
@@ -188,11 +193,14 @@ of the bar width. It can be set between 0 and 500.</p></td>
   ga('create', 'UA-48354045-1', 'auto');
   ga('send', 'pageview');
 </script>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

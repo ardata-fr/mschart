@@ -8,21 +8,29 @@
 
 <title>ms_chart object — ms_linechart • mschart</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,11 +38,11 @@
 
 
 
-<meta property="og:title" content="ms_chart object — ms_linechart" />
 
+<meta property="og:title" content="ms_chart object — ms_linechart" />
 <meta property="og:description" content="Creation of a chart object that can be
 inserted in a 'Microsoft' document." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -48,9 +56,10 @@ inserted in a 'Microsoft' document." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +73,7 @@ inserted in a 'Microsoft' document." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6.001</span>
       </span>
     </div>
 
@@ -80,11 +89,10 @@ inserted in a 'Microsoft' document." />
   <a href="../reference/index.html">Function reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ardata-fr/mschart">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -95,31 +103,30 @@ inserted in a 'Microsoft' document." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>ms_chart object</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/ardata-fr/mschart/blob/master/R/ms_chart.R'><code>R/ms_chart.R</code></a>, <a href='https://github.com/ardata-fr/mschart/blob/master/R/mschart.R'><code>R/mschart.R</code></a></small>
     <div class="hidden name"><code>mschart.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Creation of a chart object that can be
 inserted in a 'Microsoft' document.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>ms_linechart</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>ms_linechart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>ms_barchart</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>ms_barchart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>ms_areachart</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>ms_areachart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>ms_scatterchart</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+<span class='fu'>ms_scatterchart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -140,51 +147,51 @@ inserted in a 'Microsoft' document.</p>
       <td><p>grouping colname used to split data into series. Optional.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
-    <ul>
+    
+<ul>
 <li><p><code>ms_linechart</code>: line plot</p></li>
 <li><p><code>ms_barchart</code>: bar plot</p></li>
 <li><p><code>ms_areachart</code>: area plot</p></li>
 <li><p><code>ms_scatterchart</code>: scatter plot</p></li>
 </ul>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>officer</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
 
 
 <span class='co'>##########################</span>
 <span class='co'># linecharts example -----</span>
 <span class='co'>##########################</span>
 
-<span class='no'>mytheme</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_theme.html'>mschart_theme</a></span>(
-  <span class='kw'>axis_title_x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>24</span>, <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>axis_title_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>italic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>grid_major_line_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>),
-  <span class='kw'>axis_ticks_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>) )
+<span class='va'>mytheme</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>mschart_theme</a></span><span class='op'>(</span>
+  axis_title_x <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>24</span>, bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  axis_title_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"green"</span>, font.size <span class='op'>=</span> <span class='fl'>12</span>, italic <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>,
+  axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span> <span class='op'>)</span>
 
 <span class='co'># example lc_01 -------</span>
-<span class='no'>lc_01</span> <span class='kw'>&lt;-</span> <span class='fu'>ms_linechart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"Sepal.Length"</span>,
-                      <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"Sepal.Width"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)
-<span class='no'>lc_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span>(<span class='no'>lc_01</span>, <span class='kw'>num_fmt</span> <span class='kw'>=</span> <span class='st'>"0.00"</span>, <span class='kw'>rotation</span> <span class='kw'>=</span> -<span class='fl'>90</span>)
-<span class='no'>lc_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span>(<span class='no'>lc_01</span>, <span class='no'>mytheme</span>)
+<span class='va'>lc_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>iris</span>, x <span class='op'>=</span> <span class='st'>"Sepal.Length"</span>,
+                      y <span class='op'>=</span> <span class='st'>"Sepal.Width"</span>, group <span class='op'>=</span> <span class='st'>"Species"</span><span class='op'>)</span>
+<span class='va'>lc_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>lc_01</span>, num_fmt <span class='op'>=</span> <span class='st'>"0.00"</span>, rotation <span class='op'>=</span> <span class='op'>-</span><span class='fl'>90</span><span class='op'>)</span>
+<span class='va'>lc_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>lc_01</span>, <span class='va'>mytheme</span><span class='op'>)</span>
 
 
 <span class='co'># example lc_02 -------</span>
-<span class='no'>lc_02</span> <span class='kw'>&lt;-</span> <span class='fu'>ms_linechart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_ts</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"date"</span>,
-                      <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"freq"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"browser"</span>)
-<span class='no'>lc_02</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span>(<span class='no'>lc_02</span>, <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>"between"</span>, <span class='kw'>num_fmt</span> <span class='kw'>=</span> <span class='st'>"General"</span>)
-<span class='no'>lc_02</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span>(<span class='no'>lc_02</span>, <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>"midCat"</span>, <span class='kw'>num_fmt</span> <span class='kw'>=</span> <span class='st'>"m/d/yy"</span>)
-<span class='no'>lc_02</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span>(<span class='no'>lc_02</span>, <span class='no'>mytheme</span>)
+<span class='va'>lc_02</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
+                      y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
+<span class='va'>lc_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>lc_02</span>, cross_between <span class='op'>=</span> <span class='st'>"between"</span>, num_fmt <span class='op'>=</span> <span class='st'>"General"</span><span class='op'>)</span>
+<span class='va'>lc_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>lc_02</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
+<span class='va'>lc_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>lc_02</span>, <span class='va'>mytheme</span><span class='op'>)</span>
 
 
 <span class='co'># example lc_03 -------</span>
-<span class='no'>lc_03</span> <span class='kw'>&lt;-</span> <span class='fu'>ms_linechart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_ts</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"date"</span>,
-                      <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"freq"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"browser"</span>)
-<span class='no'>lc_03</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span>(<span class='no'>lc_03</span>, <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>"midCat"</span>, <span class='kw'>num_fmt</span> <span class='kw'>=</span> <span class='st'>"m/d/yy"</span>)
-<span class='no'>lc_03</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span>(<span class='no'>lc_03</span>, <span class='kw'>grouping</span> <span class='kw'>=</span> <span class='st'>"percentStacked"</span>)
+<span class='va'>lc_03</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
+                      y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
+<span class='va'>lc_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>lc_03</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
+<span class='va'>lc_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>lc_03</span>, grouping <span class='op'>=</span> <span class='st'>"percentStacked"</span><span class='op'>)</span>
 
 
 
@@ -194,47 +201,47 @@ inserted in a 'Microsoft' document.</p>
 
 <span class='co'># example my_barchart_01 -------</span>
 
-<span class='no'>my_barchart_01</span> <span class='kw'>&lt;-</span> <span class='fu'>ms_barchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
-                           <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
-<span class='no'>my_barchart_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span>( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>my_barchart_01</span>, <span class='kw'>dir</span><span class='kw'>=</span><span class='st'>"vertical"</span>,
-                               <span class='kw'>grouping</span><span class='kw'>=</span><span class='st'>"clustered"</span>, <span class='kw'>gap_width</span> <span class='kw'>=</span> <span class='fl'>50</span> )
-<span class='no'>my_barchart_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span>( <span class='kw'>x</span><span class='kw'>=</span> <span class='no'>my_barchart_01</span>, <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>'between'</span>,
-                           <span class='kw'>major_tick_mark</span><span class='kw'>=</span><span class='st'>"out"</span>)
-<span class='no'>my_barchart_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span>( <span class='kw'>x</span><span class='kw'>=</span> <span class='no'>my_barchart_01</span>, <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>"midCat"</span>,
-                           <span class='kw'>major_tick_mark</span><span class='kw'>=</span><span class='st'>"in"</span>)
+<span class='va'>my_barchart_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
+                           y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span><span class='op'>)</span>
+<span class='va'>my_barchart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span> x <span class='op'>=</span> <span class='va'>my_barchart_01</span>, dir<span class='op'>=</span><span class='st'>"vertical"</span>,
+                               grouping<span class='op'>=</span><span class='st'>"clustered"</span>, gap_width <span class='op'>=</span> <span class='fl'>50</span> <span class='op'>)</span>
+<span class='va'>my_barchart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span> x<span class='op'>=</span> <span class='va'>my_barchart_01</span>, cross_between <span class='op'>=</span> <span class='st'>'between'</span>,
+                           major_tick_mark<span class='op'>=</span><span class='st'>"out"</span><span class='op'>)</span>
+<span class='va'>my_barchart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span> x<span class='op'>=</span> <span class='va'>my_barchart_01</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>,
+                           major_tick_mark<span class='op'>=</span><span class='st'>"in"</span><span class='op'>)</span>
 
 
 <span class='co'># example my_barchart_02 -------</span>
 
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/structure'>structure</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>Species</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/structure'>structure</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>.Label</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"setosa"</span>,
-  <span class='st'>"versicolor"</span>, <span class='st'>"virginica"</span>), <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"factor"</span>), <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5.006</span>,
-  <span class='fl'>5.936</span>, <span class='fl'>6.588</span>)), <span class='kw'>class</span> <span class='kw'>=</span> <span class='st'>"data.frame"</span>, <span class='kw'>.Names</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Species"</span>, <span class='st'>"mean"</span>
-  ), <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>, -<span class='fl'>3L</span>))
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Species <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, .Label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"setosa"</span>,
+  <span class='st'>"versicolor"</span>, <span class='st'>"virginica"</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"factor"</span><span class='op'>)</span>, mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.006</span>,
+  <span class='fl'>5.936</span>, <span class='fl'>6.588</span><span class='op'>)</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"data.frame"</span>, .Names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Species"</span>, <span class='st'>"mean"</span>
+  <span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='op'>-</span><span class='fl'>3L</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='no'>my_barchart_02</span> <span class='kw'>&lt;-</span> <span class='fu'>ms_barchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dat</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"Species"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"mean"</span>)
-<span class='no'>my_barchart_02</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span>( <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>my_barchart_02</span>, <span class='kw'>dir</span><span class='kw'>=</span><span class='st'>"horizontal"</span> )
+<span class='va'>my_barchart_02</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>dat</span>, x <span class='op'>=</span> <span class='st'>"Species"</span>, y <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span>
+<span class='va'>my_barchart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span> x <span class='op'>=</span> <span class='va'>my_barchart_02</span>, dir<span class='op'>=</span><span class='st'>"horizontal"</span> <span class='op'>)</span>
 
 
 
 <span class='co'># example my_barchart_03 -------</span>
 
-<span class='no'>mytheme</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_theme.html'>mschart_theme</a></span>(
-  <span class='kw'>axis_title_x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>24</span>, <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>axis_title_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>italic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>grid_major_line_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>),
-  <span class='kw'>axis_ticks_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>) )
+<span class='va'>mytheme</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>mschart_theme</a></span><span class='op'>(</span>
+  axis_title_x <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>24</span>, bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  axis_title_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"green"</span>, font.size <span class='op'>=</span> <span class='fl'>12</span>, italic <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>,
+  axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span> <span class='op'>)</span>
 
-<span class='no'>my_barchart_03</span> <span class='kw'>&lt;-</span> <span class='fu'>ms_barchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_data</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"browser"</span>,
-                              <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"serie"</span>)
-<span class='no'>my_barchart_03</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span>( <span class='no'>my_barchart_03</span>, <span class='kw'>dir</span><span class='kw'>=</span><span class='st'>"horizontal"</span>, <span class='kw'>grouping</span><span class='kw'>=</span><span class='st'>"stacked"</span>,
-                                  <span class='kw'>gap_width</span> <span class='kw'>=</span> <span class='fl'>150</span>, <span class='kw'>overlap</span> <span class='kw'>=</span> <span class='fl'>100</span> )
-<span class='no'>my_barchart_03</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span>(<span class='no'>my_barchart_03</span>, <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>'between'</span>,
-                             <span class='kw'>major_tick_mark</span><span class='kw'>=</span><span class='st'>"out"</span>, <span class='kw'>minor_tick_mark</span> <span class='kw'>=</span> <span class='st'>"none"</span>)
-<span class='no'>my_barchart_03</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span>(<span class='no'>my_barchart_03</span>, <span class='kw'>num_fmt</span> <span class='kw'>=</span> <span class='st'>"0.00"</span>, <span class='kw'>rotation</span> <span class='kw'>=</span> -<span class='fl'>90</span>,
-                             <span class='kw'>minor_tick_mark</span> <span class='kw'>=</span> <span class='st'>"none"</span>)
-<span class='no'>my_barchart_03</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span>(<span class='no'>my_barchart_03</span>, <span class='no'>mytheme</span>)
-<span class='no'>my_barchart_03</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_data_labels.html'>chart_data_labels</a></span>(<span class='no'>my_barchart_03</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"inBase"</span>,
-                                    <span class='kw'>show_val</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>separator</span> <span class='kw'>=</span> <span class='st'>", "</span>, <span class='kw'>show_cat_name</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='va'>my_barchart_03</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
+                              y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span><span class='op'>)</span>
+<span class='va'>my_barchart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span> <span class='va'>my_barchart_03</span>, dir<span class='op'>=</span><span class='st'>"horizontal"</span>, grouping<span class='op'>=</span><span class='st'>"stacked"</span>,
+                                  gap_width <span class='op'>=</span> <span class='fl'>150</span>, overlap <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>)</span>
+<span class='va'>my_barchart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>my_barchart_03</span>, cross_between <span class='op'>=</span> <span class='st'>'between'</span>,
+                             major_tick_mark<span class='op'>=</span><span class='st'>"out"</span>, minor_tick_mark <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+<span class='va'>my_barchart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>my_barchart_03</span>, num_fmt <span class='op'>=</span> <span class='st'>"0.00"</span>, rotation <span class='op'>=</span> <span class='op'>-</span><span class='fl'>90</span>,
+                             minor_tick_mark <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+<span class='va'>my_barchart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>my_barchart_03</span>, <span class='va'>mytheme</span><span class='op'>)</span>
+<span class='va'>my_barchart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_data_labels.html'>chart_data_labels</a></span><span class='op'>(</span><span class='va'>my_barchart_03</span>, position <span class='op'>=</span> <span class='st'>"inBase"</span>,
+                                    show_val <span class='op'>=</span> <span class='cn'>TRUE</span>, separator <span class='op'>=</span> <span class='st'>", "</span>, show_cat_name <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 
 
@@ -243,32 +250,32 @@ inserted in a 'Microsoft' document.</p>
 <span class='co'># areacharts example -----</span>
 <span class='co'>##########################</span>
 
-<span class='no'>mytheme</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_theme.html'>mschart_theme</a></span>(
-  <span class='kw'>axis_title_x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>24</span>, <span class='kw'>bold</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>axis_title_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_text'>fp_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>font.size</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>italic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-  <span class='kw'>grid_major_line_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>),
-  <span class='kw'>axis_ticks_y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/officer/topics/fp_border'>fp_border</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"orange"</span>) )
+<span class='va'>mytheme</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>mschart_theme</a></span><span class='op'>(</span>
+  axis_title_x <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>24</span>, bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  axis_title_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"green"</span>, font.size <span class='op'>=</span> <span class='fl'>12</span>, italic <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
+  grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>,
+  axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span> <span class='op'>)</span>
 
 <span class='co'># example ac_01 -------</span>
-<span class='no'>ac_01</span> <span class='kw'>&lt;-</span> <span class='fu'>ms_areachart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>iris</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"Sepal.Length"</span>,
-                      <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"Sepal.Width"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)
-<span class='no'>ac_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span>(<span class='no'>ac_01</span>, <span class='kw'>num_fmt</span> <span class='kw'>=</span> <span class='st'>"0.00"</span>, <span class='kw'>rotation</span> <span class='kw'>=</span> -<span class='fl'>90</span>)
-<span class='no'>ac_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span>(<span class='no'>ac_01</span>, <span class='no'>mytheme</span>)
+<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_areachart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>iris</span>, x <span class='op'>=</span> <span class='st'>"Sepal.Length"</span>,
+                      y <span class='op'>=</span> <span class='st'>"Sepal.Width"</span>, group <span class='op'>=</span> <span class='st'>"Species"</span><span class='op'>)</span>
+<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>ac_01</span>, num_fmt <span class='op'>=</span> <span class='st'>"0.00"</span>, rotation <span class='op'>=</span> <span class='op'>-</span><span class='fl'>90</span><span class='op'>)</span>
+<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>ac_01</span>, <span class='va'>mytheme</span><span class='op'>)</span>
 
 
 <span class='co'># example ac_02 -------</span>
-<span class='no'>ac_02</span> <span class='kw'>&lt;-</span> <span class='fu'>ms_areachart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_ts</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"date"</span>,
-                      <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"freq"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"browser"</span>)
-<span class='no'>ac_02</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span>(<span class='no'>ac_02</span>, <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>"between"</span>, <span class='kw'>num_fmt</span> <span class='kw'>=</span> <span class='st'>"General"</span>)
-<span class='no'>ac_02</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span>(<span class='no'>ac_02</span>, <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>"midCat"</span>, <span class='kw'>num_fmt</span> <span class='kw'>=</span> <span class='st'>"m/d/yy"</span>)
-<span class='no'>ac_02</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span>(<span class='no'>ac_02</span>, <span class='no'>mytheme</span>)
+<span class='va'>ac_02</span> <span class='op'>&lt;-</span> <span class='fu'>ms_areachart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
+                      y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
+<span class='va'>ac_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>ac_02</span>, cross_between <span class='op'>=</span> <span class='st'>"between"</span>, num_fmt <span class='op'>=</span> <span class='st'>"General"</span><span class='op'>)</span>
+<span class='va'>ac_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>ac_02</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
+<span class='va'>ac_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>ac_02</span>, <span class='va'>mytheme</span><span class='op'>)</span>
 
 
 <span class='co'># example ac_03 -------</span>
-<span class='no'>ac_03</span> <span class='kw'>&lt;-</span> <span class='fu'>ms_areachart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>browser_ts</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"date"</span>,
-                      <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"freq"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"browser"</span>)
-<span class='no'>ac_03</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span>(<span class='no'>ac_03</span>, <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>"midCat"</span>, <span class='kw'>num_fmt</span> <span class='kw'>=</span> <span class='st'>"m/d/yy"</span>)
-<span class='no'>ac_03</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span>(<span class='no'>ac_03</span>, <span class='kw'>grouping</span> <span class='kw'>=</span> <span class='st'>"percentStacked"</span>)
+<span class='va'>ac_03</span> <span class='op'>&lt;-</span> <span class='fu'>ms_areachart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
+                      y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
+<span class='va'>ac_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>ac_03</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
+<span class='va'>ac_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>ac_03</span>, grouping <span class='op'>=</span> <span class='st'>"percentStacked"</span><span class='op'>)</span>
 
 
 
@@ -277,32 +284,30 @@ inserted in a 'Microsoft' document.</p>
 <span class='co'>##########################</span>
 
 <span class='co'># example sc_01 -------</span>
-<span class='no'>sc_01</span> <span class='kw'>&lt;-</span> <span class='fu'>ms_scatterchart</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"disp"</span>,
-                         <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"drat"</span>)
-<span class='no'>sc_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span>(<span class='no'>sc_01</span>, <span class='kw'>cross_between</span> <span class='kw'>=</span> <span class='st'>"midCat"</span>)
-<span class='no'>sc_01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span>(<span class='no'>sc_01</span>, <span class='kw'>scatterstyle</span> <span class='kw'>=</span> <span class='st'>"marker"</span>)</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#functions">Functions</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+<span class='va'>sc_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_scatterchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>mtcars</span>, x <span class='op'>=</span> <span class='st'>"disp"</span>,
+                         y <span class='op'>=</span> <span class='st'>"drat"</span><span class='op'>)</span>
+<span class='va'>sc_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>sc_01</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span><span class='op'>)</span>
+<span class='va'>sc_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>sc_01</span>, scatterstyle <span class='op'>=</span> <span class='st'>"marker"</span><span class='op'>)</span>
 
+
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.4 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.6.001 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
 <script>
@@ -314,11 +319,14 @@ inserted in a 'Microsoft' document.</p>
   ga('create', 'UA-48354045-1', 'auto');
   ga('send', 'pageview');
 </script>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
