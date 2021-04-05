@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-16.04
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSPM: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"
     steps:
       - uses: actions/checkout@v2
 
@@ -39,15 +40,9 @@ jobs:
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
 
-      - name: Install pkgdown system dependencies
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          sysreqs="export DEBIAN_FRONTEND=noninteractive; apt-get -y update && apt-get install -y pandoc pandoc-citeproc libssl-dev libharfbuzz-dev make libxml2-dev libfribidi-dev libcurl4-openssl-dev libtiff-dev libpng-dev"
-          sudo -s eval "$sysreqs"
-
       - name: Install dependencies
         run: |
+          remotes::install_cran("pkgdown")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_github("ardata-fr/pkgardata")
         shell: Rscript {0}
