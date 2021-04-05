@@ -61,33 +61,6 @@ pml_chart <- function(x, value, id_x, id_y){
   graphic_frame
 }
 
-#' @export
-#' @title add chart into a PowerPoint slide
-#' @description add a chart as a new shape in the current slide.
-#' These functions are deprecated, function \code{\link{ph_with.ms_chart}} should
-#' be used instead.
-#' @param x an rpptx object
-#' @param chart \code{ms_chart} object
-#' @param type placeholder type
-#' @param index placeholder index (integer). This is to be used when a placeholder type
-#' is not unique in the current slide, e.g. two placeholders with type 'body'.
-#' @importFrom officer ph_location_type
-ph_with_chart <- function( x, chart, type = "body", index = 1 ){
-  .Deprecated("ph_with")
-  ph_with(x, chart, location = ph_location_type(type = type, id = index))
-}
-
-#' @export
-#' @param left,top location of chart on the slide
-#' @param height,width Height and width in inches.
-#' @rdname ph_with_chart
-#' @importFrom officer ph_location
-ph_with_chart_at <- function( x, chart, left, top, width, height ){
-  .Deprecated("ph_with")
-  ph_with(x, chart, location = ph_location(left = left, top = top, width = width, height = height))
-
-}
-
 #' @importFrom stats setNames
 #' @importFrom writexl write_xlsx
 #' @importFrom xml2 read_xml xml_find_first xml_replace as_xml_document xml_add_child write_xml

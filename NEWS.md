@@ -4,6 +4,9 @@
 
 * fix issue with labels that contains `<>&`.
 
+## Changes
+
+* mark functions `ph_with_chart` and `ph_with_chart_at` as defunct.
 
 # mschart 0.2.5
 
