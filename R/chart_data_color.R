@@ -253,7 +253,7 @@ chart_data_line_width <- function(x, values){
 #'   values = c(virginica = "black", versicolor = "black", setosa = "black") )
 #' my_scatter <- chart_data_symbol(my_scatter,
 #'   values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
-#' my_scatter <- chart_data_style(my_scatter,
+#' my_scatter <- chart_data_line_style(my_scatter,
 #'   values = c(virginica = "solid", versicolor = "dotted", setosa = "dashed") )
 #' @seealso \code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_size}}
 chart_data_line_style <- function(x, values){

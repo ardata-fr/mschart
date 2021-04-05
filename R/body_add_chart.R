@@ -16,11 +16,9 @@
 #' my_barchart <- chart_settings( my_barchart, grouping = "stacked",
 #'   gap_width = 50, overlap = 100 )
 #'
-#' \donttest{
 #' doc <- read_docx()
 #' doc <- body_add_chart(doc, chart = my_barchart, style = "centered")
-#' print(doc, target = "barchart_example.docx")
-#' }
+#' print(doc, target = tempfile(fileext = ".docx"))
 body_add_chart <- function( x, chart, style = NULL, pos = "after",
                             width = 5, height = 3 ){
 
