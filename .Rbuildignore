@@ -3,12 +3,8 @@
 ^data-src$
 ^examples$
 ^README\.Rmd$
-^docs$
 ^cran-comments\.md$
 ^revdep$
 ^_pkgdown\.yml$
-^CONDUCT\.md$
-^CONTRIBUTING\.md$
-^ISSUE_TEMPLATE\.md$
 ^inst/vtests\.Rmd$
 ^\.github$

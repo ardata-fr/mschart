@@ -65,11 +65,6 @@ install.packages("mschart")
 
 ## Contributing to the package
 
-### Code of Conduct
-
-Anyone getting involved in this package agrees to our [Code of
-Conduct](https://github.com/ardata-fr/mschart/blob/master/CONDUCT.md).
-
 ### Bug reports
 
 When you file a [bug
