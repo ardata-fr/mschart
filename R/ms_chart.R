@@ -11,13 +11,15 @@ ms_chart <- function(data, x, y, group = NULL){
 
   theme_ <- mschart_theme()
 
-  tryCatch(
-    x_axis_tag <- get_axis_tag(data[[x]]),
+  tryCatch({
+    x_axis_tag <- get_axis_tag(data[[x]])
+    },
     error = function(e) {
       stop("column ", shQuote(x), ": ", e$message, " [", paste(class(data[[x]]), collapse = ","), "]", call. = FALSE)
     })
-  tryCatch(
-    y_axis_tag <- get_axis_tag(data[[y]]),
+  tryCatch({
+    y_axis_tag <- get_axis_tag(data[[y]])
+    },
     error = function(e) {
       stop("column ", shQuote(y), ": ", e$message, " [", paste(class(data[[y]]), collapse = ","), "]", call. = FALSE)
     })
@@ -117,6 +119,7 @@ colour_list <- list(
 )
 
 
+#' @importFrom htmltools htmlEscape
 #' @importFrom xml2 xml_attr<- xml_remove
 format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE){
   str_ <- ooml_code(x, id_x = id_x, id_y = id_y, sheetname = sheetname)
@@ -127,10 +130,18 @@ format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data 
   if( is.null(x$y_axis$num_fmt) )
     x$y_axis$num_fmt <- x$theme[[x$fmt_names$y]]
 
-  axes_str <- axes_xml(x, id_x = id_x, id_y = id_y)
-  ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
-  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, axes_str, "</c:plotArea>")
+  x_axis_str <- axis_content_xml( x$x_axis, id = id_x, theme = x$theme,
+                                  cross_id = id_y, is_x = TRUE,
+                                  lab = htmlEscape(x$labels$x), rot = x$theme$title_x_rot )
+  x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
 
+  y_axis_str <- axis_content_xml( x$y_axis, id = id_y, theme = x$theme,
+                                  cross_id = id_x, is_x = FALSE,
+                                  lab = htmlEscape(x$labels$y), rot = x$theme$title_y_rot )
+  y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
+
+  ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
+  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, x_axis_str, y_axis_str, "</c:plotArea>")
   xml_doc <- read_xml(system.file(package = "mschart", "template", "chart.xml"))
 
   node <- xml_find_first(xml_doc, "//c:plotArea")

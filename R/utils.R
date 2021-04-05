@@ -5,7 +5,6 @@ shape_as_series <- function(x){
   dataset <- setorderv(dataset, c(x$x, x$group) )
 
   if( !is.null(x$group)){
-    dataset[[x$group]] <- class_preserving_html_escape(dataset[[x$group]])
     form_str <- sprintf("%s ~ %s", x$x, x$group)
     dataset <- dcast.data.table(dataset, formula = as.formula(form_str),
                                 fun.aggregate = function(x) {x},
@@ -16,14 +15,6 @@ shape_as_series <- function(x){
   as.data.frame(dataset)
 }
 
-#' @importFrom htmltools htmlEscape
-class_preserving_html_escape <- function(text, attribute = FALSE) {
-  if (is.factor(text)) {
-    factor(text, levels=htmltools::htmlEscape(levels(text)))
-  } else {
-    htmltools::htmlEscape(text)
-  }
-}
 
 fmt_name <- function( x ){
 

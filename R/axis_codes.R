@@ -1,18 +1,32 @@
-# axes ----
+# axes xml utils ----
+
+#' @noRd
+#' @title find the tags corresponding to the type of x
+#' that will be used as axis tag in the chart
+#' @param x a vector used as axis
 get_axis_tag <- function(x){
-  if( inherits(x, "Date") )
+  if( inherits(x, c("POSIXt", "Date")) ){
     axis_tag <- "c:dateAx"
-  else if( is.factor(x) || is.character(x) )
+  } else if( is.factor(x) || is.character(x) ){
     axis_tag <- "c:catAx"
-  else if( is.numeric(x) )
+  } else if( is.numeric(x) ){
     axis_tag <- "c:valAx"
-  else {
+  } else {
     stop("unknow type of data")
   }
   axis_tag
 }
 
 
+#' @noRd
+#' @title xml code for an axis
+#' @param x an object of class axis_options
+#' @param id to be doc
+#' @param cross_id to be doc
+#' @param theme an object of class mschart_theme
+#' @param is_x if TRUE, generate xml for x axis, else for y axis
+#' @param lab label for the axis
+#' @param rot rotation of title
 axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, rot = 0 ){
 
   x_title_id <- paste0("axis_title_", ifelse(is_x, "x", "y"))
@@ -97,21 +111,4 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   str_
 
 }
-
-
-axes_xml <- function(x, id_x, id_y){
-
-  x_axis_str <- axis_content_xml( x$x_axis, id = id_x, theme = x$theme,
-                                  cross_id = id_y, is_x = TRUE,
-                                  lab = htmlEscape(x$labels$x), rot = x$theme$title_x_rot )
-  x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
-
-  y_axis_str <- axis_content_xml( x$y_axis, id = id_y, theme = x$theme,
-                                  cross_id = id_x, is_x = FALSE,
-                                  lab = htmlEscape(x$labels$y), rot = x$theme$title_y_rot )
-  y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
-
-  paste0(x_axis_str, y_axis_str)
-}
-
 

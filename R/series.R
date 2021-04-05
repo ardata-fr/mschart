@@ -16,9 +16,11 @@ str_ref <- R6::R6Class(
         pt_ <- "<c:pt idx=\"%.0f\"><c:v>%s</c:v></c:pt>"
         private$values <- format(private$values)
       } else if( is.factor(private$values) ){
-        private$values <- as.character(private$values)
+        private$values <- htmlEscape(as.character(private$values))
       } else if( is.numeric(private$values) ){
         private$values <- as.character(private$values)
+      } else if( is.character(private$values) ){
+        private$values <- htmlEscape(private$values)
       }
       pt_ <- sprintf(pt_, seq_along(private$values)-1, private$values)
       pt_ <- paste0(pt_, collapse = "")

@@ -1,3 +1,10 @@
+# mschart 0.2.6
+
+## Issues
+
+* fix issue with labels that contains `<>&`.
+
+
 # mschart 0.2.5
 
 ## Changes
