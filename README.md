@@ -3,10 +3,10 @@ mschart R package
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Travis-CI Build
-Status](https://travis-ci.org/ardata-fr/mschart.svg?branch=master)](https://travis-ci.org/ardata-fr/mschart)
-[![version](http://www.r-pkg.org/badges/version/mschart)](https://CRAN.R-project.org/package=mschart)
-![cranlogs](http://cranlogs.r-pkg.org./badges/mschart)
+[![R build
+status](https://github.com/ardata-fr/mschart/workflows/R-CMD-check/badge.svg)](https://github.com/ardata-fr/mschart/actions)
+[![version](https://www.r-pkg.org/badges/version/mschart)](https://CRAN.R-project.org/package=mschart)
+![cranlogs](https://cranlogs.r-pkg.org/badges/mschart)
 ![Active](http://www.repostatus.org/badges/latest/active.svg)
 
 The `mschart` package provides a framework for easily create charts for
@@ -40,7 +40,7 @@ Then use package `officer` to send the object as a chart.
 ``` r
 doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with_chart(doc, chart = linec)
+doc <- ph_with(doc, value = linec, location = ph_location_type(type = "body"))
 
 print(doc, target = "example.pptx")
 ```

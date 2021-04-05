@@ -3,9 +3,6 @@
 ^data-src$
 ^examples$
 ^README\.Rmd$
-^README-.*\.png$
-^\.travis\.yml$
-^appveyor\.yml$
 ^docs$
 ^cran-comments\.md$
 ^revdep$
@@ -14,3 +11,4 @@
 ^CONTRIBUTING\.md$
 ^ISSUE_TEMPLATE\.md$
 ^inst/vtests\.Rmd$
+^\.github$

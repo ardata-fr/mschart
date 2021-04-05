@@ -1,10 +1,10 @@
 ## Test environments
 
-- local OS X install (R 3.6.0)
-- ubuntu 14.04 (on travis-ci with older, release and devel) 
-- winbuilder (older, release and devel)
+- local OS X install (R 4.0.2)
+- ubuntu 16.04 (release)
+- macOS (release and devel)
+- winbuilder (with release and devel) 
 
 ## R CMD check results
 
-There were no ERROR, WARNING or NOTE. 
-
+There were no ERROR, WARNING or NOTE.
