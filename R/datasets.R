@@ -1,14 +1,3 @@
-#' @title ms_chart object
-#' @description Creation of a chart object that can be
-#' inserted in a 'Microsoft' document.
-#' @param data a data.frame
-#' @param x x colname
-#' @param y y colname
-#' @param group grouping colname used to split data into series. Optional.
-#' @name mschart
-#' @rdname mschart
-NULL
-
 #' Dummy dataset for barchart
 #'
 #' A dataset containing 2 categorical and an integer variables:

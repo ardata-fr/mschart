@@ -1,11 +1,7 @@
-ooml_code <- function(x, id_x, id_y, sheetname = "sheet1"){
-  UseMethod("ooml_code")
-}
-
 clustered_pos <- c("ctr", "inBase", "inEnd", "outEnd")
 stacked_pos <- c("ctr", "inBase", "inEnd")
 
-ooml_code.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1"){
+to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, ...){
 
   if( "clustered" %in% x$options$grouping )
     if( !x$label_settings$position %in% clustered_pos ){
@@ -28,13 +24,13 @@ ooml_code.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1"){
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
-    labels_ooxml <- pml_labels_options(label_settings)
+    labels_ooxml <- to_pml(label_settings)
 
-    sprintf(template, serie$idx, serie$order, serie$tx$pml(),
+    sprintf(template, serie$idx, serie$order, to_pml(serie$tx),
             marker_str,
             "<c:invertIfNegative val=\"0\"/>",
             labels_ooxml,
-            serie$x$pml(), serie$y$pml() )
+            to_pml(serie$x), to_pml(serie$y) )
   }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s%s<c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
   str_series_ <- paste(str_series_, collapse = "")
 
@@ -49,7 +45,7 @@ ooml_code.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1"){
                   sprintf("<c:grouping val=\"%s\"/>", x$options$grouping),
                   sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
                   str_series_,
-                  pml_labels_options(x$label_settings),
+                  to_pml(x$label_settings),
                   sprintf("<c:gapWidth val=\"%.0f\"/>", x$options$gap_width),
                   sprintf("<c:overlap val=\"%.0f\"/>", x$options$overlap),
                   x_ax_id, y_ax_id,
@@ -57,7 +53,7 @@ ooml_code.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1"){
 }
 
 standard_pos <- c("b", "ctr", "l", "r", "t")
-ooml_code.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1"){
+to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, ...){
 
   if( !x$label_settings$position %in% standard_pos ){
     stop("label position issue.",
@@ -78,11 +74,11 @@ ooml_code.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1"){
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
-    labels_ooxml <- pml_labels_options(label_settings)
+    labels_ooxml <- to_pml(label_settings)
 
-    sprintf(template, serie$idx, serie$order, serie$tx$pml(), sppr_str, marker_str,
+    sprintf(template, serie$idx, serie$order, to_pml(serie$tx), sppr_str, marker_str,
             labels_ooxml,
-            serie$x$pml(), serie$y$pml(), serie$smooth )
+            to_pml(serie$x), to_pml(serie$y), serie$smooth )
   }, template = template_str)
   str_series_ <- paste(str_series_, collapse = "")
 
@@ -93,13 +89,13 @@ ooml_code.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1"){
                   sprintf("<c:grouping val=\"%s\"/>", x$options$grouping),
                   sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
                   str_series_,
-                  pml_labels_options(x$label_settings),
+                  to_pml(x$label_settings),
                   x_ax_id, y_ax_id,
                   "</c:lineChart>"  )
 }
 
 
-ooml_code.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1"){
+to_pml.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, ...){
 
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
@@ -109,10 +105,19 @@ ooml_code.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1"){
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
-    labels_ooxml <- pml_labels_options(label_settings)
 
-    sprintf(template, serie$idx, serie$order, serie$tx$pml(), marker_str, labels_ooxml, serie$x$pml(), serie$y$pml() )
-  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s<c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
+    paste0(
+      "<c:ser>",
+      sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
+      sprintf("<c:order val=\"%.0f\"/>", serie$order),
+      "<c:tx>", to_pml(serie$tx), "</c:tx>",
+      marker_str,
+      to_pml(label_settings, with_position = FALSE),
+      "<c:cat>", to_pml(serie$x), "</c:cat>",
+      "<c:val>", to_pml(serie$y), "</c:val>",
+      "</c:ser>"
+    )
+  })
   str_series_ <- paste(str_series_, collapse = "")
 
   x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
@@ -122,7 +127,7 @@ ooml_code.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1"){
           sprintf("<c:grouping val=\"%s\"/>", x$options$grouping),
           sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
           str_series_,
-          pml_labels_options(x$label_settings),
+          to_pml(x$label_settings),
           x_ax_id, y_ax_id,
           "</c:areaChart>"  )
 }
@@ -133,7 +138,7 @@ names(has_markers) <- scatterstyles
 has_lines <- c(FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)
 names(has_lines) <- scatterstyles
 
-ooml_code.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1"){
+to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, ...){
 
   if( !x$label_settings$position %in% standard_pos ){
     stop("label position issue.",
@@ -161,12 +166,14 @@ ooml_code.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1"){
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
-    labels_ooxml <- pml_labels_options(label_settings)
+    labels_ooxml <- to_pml(label_settings)
 
-    sprintf(template, serie$idx, serie$order, serie$tx$pml(),
+    sprintf(template, serie$idx, serie$order, to_pml(serie$tx),
             line_str, marker_str,
             labels_ooxml,
-            serie$x$pml(), serie$y$pml() )
+            to_pml(serie$x),
+            to_pml(serie$y)
+            )
   }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s%s<c:xVal>%s</c:xVal><c:yVal>%s</c:yVal></c:ser>",
   has_line = has_lines[x$options$scatterstyle],
   has_marker = has_markers[x$options$scatterstyle])
@@ -180,7 +187,7 @@ ooml_code.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1"){
           sprintf("<c:scatterStyle val=\"%s\"/>", x$options$scatterstyle),
           sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
           str_series_,
-          pml_labels_options(x$label_settings),
+          to_pml(x$label_settings),
           x_ax_id, y_ax_id,
           "</c:scatterChart>"  )
 }

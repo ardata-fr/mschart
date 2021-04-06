@@ -26,7 +26,7 @@ chart_labels_text <- function(x, values){
 
   if( inherits(values, "fp_text") ){
     values <- rep(list(values), length(serie_names) )
-    setNames(values, serie_names)
+    values <- setNames(values, serie_names)
   }
   if( is.null(values) || !is.list(values) || length(values) < 1 ){
     stop("values must be a list of fp_text objects", call. = FALSE)

@@ -34,13 +34,13 @@ fmt_name <- function( x ){
 serie_builtin_class <- function( x ){
 
   if( inherits(x, "Date") )
-    str_ref
+    date_ref(x)
   else if( is.factor(x) || is.character(x) )
-    str_ref
+    str_ref(x)
   else if( is.integer(x) )
-    num_ref
+    num_ref(x)
   else if( is.double(x) )
-    num_ref
+    num_ref(x)
   else stop("unknow type of data")
 }
 
