@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6.003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6.004</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@
 <h4 class="hasAnchor">
 <a href="#grouped-bars" class="anchor"></a>grouped bars</h4>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_barchart_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_linechart.html">ms_barchart</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">my_barchart_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_barchart.html">ms_barchart</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="va">browser_data</span>, x <span class="op">=</span> <span class="st">"browser"</span>,
   y <span class="op">=</span> <span class="st">"value"</span>, group <span class="op">=</span> <span class="st">"serie"</span>
 <span class="op">)</span>
@@ -233,7 +233,7 @@
 <h3 class="hasAnchor">
 <a href="#area-chats" class="anchor"></a>Area chats</h3>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ac_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_linechart.html">ms_areachart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, x <span class="op">=</span> <span class="st">"dose"</span>,
+<code class="sourceCode R"><span class="va">ac_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_areachart.html">ms_areachart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, x <span class="op">=</span> <span class="st">"dose"</span>,
                       y <span class="op">=</span> <span class="st">"length"</span>, group <span class="op">=</span> <span class="st">"supp"</span><span class="op">)</span>
 <span class="fu">gen_pptx</span><span class="op">(</span><span class="va">ac_01</span>, file <span class="op">=</span> <span class="st">"assets/pptx/gallery_area_01.pptx"</span><span class="op">)</span></code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
@@ -261,7 +261,7 @@ ac_03
 <h3 class="hasAnchor">
 <a href="#scatter-plots" class="anchor"></a>Scatter plots</h3>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sc_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_linechart.html">ms_scatterchart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, x <span class="op">=</span> <span class="st">"disp"</span>,
+<code class="sourceCode R"><span class="va">sc_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_scatterchart.html">ms_scatterchart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, x <span class="op">=</span> <span class="st">"disp"</span>,
                          y <span class="op">=</span> <span class="st">"drat"</span>, group <span class="op">=</span> <span class="st">"gear"</span><span class="op">)</span>
 <span class="fu">gen_pptx</span><span class="op">(</span><span class="va">sc_01</span>, file <span class="op">=</span> <span class="st">"assets/pptx/gallery_scatter_01.pptx"</span><span class="op">)</span></code></pre></div>
 <p style="text-align:center;font-style:italic;color:gray;">
@@ -286,20 +286,20 @@ sc_02
 <p><code><a href="../reference/chart_settings.html">chart_settings()</a></code> is a generic function, each type of chart has its own method.</p>
 <p>The following examples are illustrating existing chart types:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_bc_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_linechart.html">ms_barchart</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">my_bc_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_barchart.html">ms_barchart</a></span><span class="op">(</span>
     data <span class="op">=</span> <span class="va">browser_data</span>, x <span class="op">=</span> <span class="st">"browser"</span>, y <span class="op">=</span> <span class="st">"value"</span>, group <span class="op">=</span> <span class="st">"serie"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/chart_settings.html">chart_settings</a></span><span class="op">(</span> dir <span class="op">=</span> <span class="st">"vertical"</span>, grouping <span class="op">=</span> <span class="st">"stacked"</span>, overlap <span class="op">=</span> <span class="fl">100</span> <span class="op">)</span>
 
-<span class="va">my_bc_02</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_linechart.html">ms_barchart</a></span><span class="op">(</span>
+<span class="va">my_bc_02</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_barchart.html">ms_barchart</a></span><span class="op">(</span>
     data <span class="op">=</span> <span class="va">browser_data</span>, x <span class="op">=</span> <span class="st">"browser"</span>, y <span class="op">=</span> <span class="st">"value"</span>, group <span class="op">=</span> <span class="st">"serie"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/chart_settings.html">chart_settings</a></span><span class="op">(</span> dir <span class="op">=</span> <span class="st">"vertical"</span>, grouping <span class="op">=</span> <span class="st">"clustered"</span>, 
                   gap_width <span class="op">=</span> <span class="fl">400</span>, overlap <span class="op">=</span> <span class="op">-</span><span class="fl">100</span> <span class="op">)</span>
 
-<span class="va">my_sc_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_linechart.html">ms_scatterchart</a></span><span class="op">(</span>
+<span class="va">my_sc_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_scatterchart.html">ms_scatterchart</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="va">mtcars</span>, x <span class="op">=</span> <span class="st">"disp"</span>, y <span class="op">=</span> <span class="st">"drat"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/chart_settings.html">chart_settings</a></span><span class="op">(</span>scatterstyle <span class="op">=</span> <span class="st">"marker"</span><span class="op">)</span>
 
-<span class="va">my_sc_02</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_linechart.html">ms_scatterchart</a></span><span class="op">(</span>
+<span class="va">my_sc_02</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_scatterchart.html">ms_scatterchart</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="va">mtcars</span>, x <span class="op">=</span> <span class="st">"disp"</span>, y <span class="op">=</span> <span class="st">"drat"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/chart_settings.html">chart_settings</a></span><span class="op">(</span>scatterstyle <span class="op">=</span> <span class="st">"lineMarker"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -329,7 +329,7 @@ sc_02
 <p>A theme is a set of parameters (i.e. colors, fonts) that can be applied to a chart. As for <code>ggplot</code> objects, a theme is controling the appearance of non-data components of the plot.</p>
 <p>Let’s first create a chart:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_bc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_linechart.html">ms_barchart</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">my_bc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ms_barchart.html">ms_barchart</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="va">browser_data</span>, x <span class="op">=</span> <span class="st">"browser"</span>, y <span class="op">=</span> <span class="st">"value"</span>, group <span class="op">=</span> <span class="st">"serie"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/as_bar_stack.html">as_bar_stack</a></span><span class="op">(</span> <span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/chart_labels.html">chart_labels</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Title example"</span>, xlab <span class="op">=</span> <span class="st">"x label"</span>, ylab <span class="op">=</span> <span class="st">"y label"</span><span class="op">)</span></code></pre></div>
@@ -408,7 +408,7 @@ sc_02
 
       <footer><link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.2.6.003 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.2.6.004 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="../ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

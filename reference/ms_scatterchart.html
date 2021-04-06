@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • mschart</title>
+<title>scatterchart object — ms_scatterchart • mschart</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="scatterchart object — ms_scatterchart" />
+<meta property="og:description" content="Creation of a scatterchart object that can be
+inserted in a 'Microsoft' document." />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -107,20 +109,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>scatterchart object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ardata-fr/mschart/blob/master/R/ms_chart.R'><code>R/ms_chart.R</code></a></small>
+    <div class="hidden name"><code>ms_scatterchart.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="details.html">Details</a></dt>
-        <dd></dt>
-        <dt><a href="introduction.html">Introduction to mschart</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>Creation of a scatterchart object that can be
+inserted in a 'Microsoft' document.</p>
     </div>
+
+    <pre class="usage"><span class='fu'>ms_scatterchart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>a data.frame</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>x colname</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>y colname</p></td>
+    </tr>
+    <tr>
+      <th>group</th>
+      <td><p>grouping colname used to split data into series. Optional.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other 'Office' chart objects: 
+<code><a href='ms_areachart.html'>ms_areachart</a>()</code>,
+<code><a href='ms_barchart.html'>ms_barchart</a>()</code>,
+<code><a href='ms_linechart.html'>ms_linechart</a>()</code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
+<span class='co'># example chart_01 -------</span>
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_scatterchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>mtcars</span>, x <span class='op'>=</span> <span class='st'>"disp"</span>,
+                         y <span class='op'>=</span> <span class='st'>"drat"</span><span class='op'>)</span>
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>chart_01</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span><span class='op'>)</span>
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>chart_01</span>, scatterstyle <span class='op'>=</span> <span class='st'>"marker"</span><span class='op'>)</span>
+
+
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
