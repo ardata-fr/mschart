@@ -24,10 +24,7 @@ Imports: stats, data.table,
  officer (>= 0.3.6), cellranger,
  writexl, grDevices, xml2 (>= 1.1.0),
  htmltools
-URL: https://ardata-fr.github.io/mschart/
+URL: https://ardata-fr.github.io/officeverse/, https://ardata-fr.github.io/mschart/
 BugReports: https://github.com/ardata-fr/mschart/issues
 RoxygenNote: 7.1.1
-Suggests: knitr,
-    rmarkdown,magrittr
-VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

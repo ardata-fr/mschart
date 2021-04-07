@@ -4,7 +4,6 @@
 ^examples$
 ^README\.Rmd$
 ^cran-comments\.md$
-^revdep$
 ^_pkgdown\.yml$
 ^inst/vtests\.Rmd$
 ^\.github$
