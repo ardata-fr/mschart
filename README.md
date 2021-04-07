@@ -11,16 +11,10 @@ status](https://github.com/ardata-fr/mschart/workflows/R-CMD-check/badge.svg)](h
 
 The `mschart` package provides a framework for easily create charts for
 ‘Microsoft PowerPoint’ documents. It has to be used with package
-[`officer`](https://davidgohel.github.io/officer) that will produce the
+[`officer`](https://davidgohel.github.io/officer/) that will produce the
 charts in new or existing PowerPoint or Word documents.
 
 ![](https://www.ardata.fr/img/illustrations/ms_barchart.png)
-
-**The user documentation can be read
-[here](https://ardata-fr.github.io/mschart/articles/introduction.html).**
-
-**Functions you should be aware of are documented
-[here](https://ardata-fr.github.io/mschart/reference/index.html).**
 
 ## Example
 

@@ -39,10 +39,6 @@ navbar:
   title: mschart
   type: default
   left:
-  - text: Overview
-    href: articles/introduction.html
-  - text: Details
-    href: articles/details.html
   - text: Function reference
     href: reference/index.html
   right:
