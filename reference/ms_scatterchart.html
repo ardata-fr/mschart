@@ -8,6 +8,13 @@
 
 <title>scatterchart object — ms_scatterchart • mschart</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -42,6 +49,7 @@
 <meta property="og:title" content="scatterchart object — ms_scatterchart" />
 <meta property="og:description" content="Creation of a scatterchart object that can be
 inserted in a 'Microsoft' document." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,7 +81,7 @@ inserted in a 'Microsoft' document." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.003</span>
       </span>
     </div>
 
@@ -113,7 +121,7 @@ inserted in a 'Microsoft' document." />
 inserted in a 'Microsoft' document.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ms_scatterchart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ms_scatterchart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span>, labels <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,8 +142,21 @@ inserted in a 'Microsoft' document.</p>
       <th>group</th>
       <td><p>grouping colname used to split data into series. Optional.</p></td>
     </tr>
+    <tr>
+      <th>labels</th>
+      <td><p>colnames of columns to be used as labels into series. Optional.
+If more than a name, only the first one will be used as label, but all
+labels (transposed if a group is used) will be available in the Excel file
+associated with the chart.</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
+
+    
+
+
+<p><img src='figures/fig_ms_scatterchart_1.png' width=60% /><img src='figures/fig_ms_scatterchart_2.png' width=60% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other 'Office' chart objects: 
@@ -152,6 +173,11 @@ inserted in a 'Microsoft' document.</p>
 <span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>chart_01</span>, scatterstyle <span class='op'>=</span> <span class='st'>"marker"</span><span class='op'>)</span>
 
 
+<span class='co'># example chart_02 -------</span>
+<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'>ms_scatterchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>iris</span>, x <span class='op'>=</span> <span class='st'>"Sepal.Length"</span>, y <span class='op'>=</span> <span class='st'>"Petal.Length"</span>, group <span class='op'>=</span> <span class='st'>"Species"</span><span class='op'>)</span>
+<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>chart_02</span>, scatterstyle <span class='op'>=</span> <span class='st'>"marker"</span><span class='op'>)</span>
+
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -165,7 +191,7 @@ inserted in a 'Microsoft' document.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.6 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.7.003 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

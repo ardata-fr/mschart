@@ -8,6 +8,13 @@
 
 <title>areachart object — ms_areachart • mschart</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,7 +48,11 @@
 
 <meta property="og:title" content="areachart object — ms_areachart" />
 <meta property="og:description" content="Creation of an areachart object that can be
-inserted in a 'Microsoft' document." />
+inserted in a 'Microsoft' document.
+Area charts can be used to plot change over time and draw attention to the
+total value across a trend. By showing the sum of the plotted values, an area
+chart also shows the relationship of parts to a whole." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,7 +84,7 @@ inserted in a 'Microsoft' document." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.003</span>
       </span>
     </div>
 
@@ -111,9 +122,12 @@ inserted in a 'Microsoft' document." />
     <div class="ref-description">
     <p>Creation of an areachart object that can be
 inserted in a 'Microsoft' document.</p>
+<p>Area charts can be used to plot change over time and draw attention to the
+total value across a trend. By showing the sum of the plotted values, an area
+chart also shows the relationship of parts to a whole.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ms_areachart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ms_areachart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span>, labels <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,6 +148,13 @@ inserted in a 'Microsoft' document.</p>
       <th>group</th>
       <td><p>grouping colname used to split data into series. Optional.</p></td>
     </tr>
+    <tr>
+      <th>labels</th>
+      <td><p>colnames of columns to be used as labels into series. Optional.
+If more than a name, only the first one will be used as label, but all
+labels (transposed if a group is used) will be available in the Excel file
+associated with the chart.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -152,25 +173,18 @@ inserted in a 'Microsoft' document.</p>
   axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span> <span class='op'>)</span>
 
 <span class='co'># example ac_01 -------</span>
-<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_areachart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>iris</span>, x <span class='op'>=</span> <span class='st'>"Sepal.Length"</span>,
-                      y <span class='op'>=</span> <span class='st'>"Sepal.Width"</span>, group <span class='op'>=</span> <span class='st'>"Species"</span><span class='op'>)</span>
-<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>ac_01</span>, num_fmt <span class='op'>=</span> <span class='st'>"0.00"</span>, rotation <span class='op'>=</span> <span class='op'>-</span><span class='fl'>90</span><span class='op'>)</span>
+<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_areachart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
+                      y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
+<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>ac_01</span>, cross_between <span class='op'>=</span> <span class='st'>"between"</span>, num_fmt <span class='op'>=</span> <span class='st'>"General"</span><span class='op'>)</span>
+<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>ac_01</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
 <span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>ac_01</span>, <span class='va'>mytheme</span><span class='op'>)</span>
 
 
 <span class='co'># example ac_02 -------</span>
 <span class='va'>ac_02</span> <span class='op'>&lt;-</span> <span class='fu'>ms_areachart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
                       y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
-<span class='va'>ac_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>ac_02</span>, cross_between <span class='op'>=</span> <span class='st'>"between"</span>, num_fmt <span class='op'>=</span> <span class='st'>"General"</span><span class='op'>)</span>
 <span class='va'>ac_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>ac_02</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
-<span class='va'>ac_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>ac_02</span>, <span class='va'>mytheme</span><span class='op'>)</span>
-
-
-<span class='co'># example ac_03 -------</span>
-<span class='va'>ac_03</span> <span class='op'>&lt;-</span> <span class='fu'>ms_areachart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
-                      y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
-<span class='va'>ac_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>ac_03</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
-<span class='va'>ac_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>ac_03</span>, grouping <span class='op'>=</span> <span class='st'>"percentStacked"</span><span class='op'>)</span>
+<span class='va'>ac_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>ac_02</span>, grouping <span class='op'>=</span> <span class='st'>"percentStacked"</span><span class='op'>)</span>
 
 </div></pre>
   </div>
@@ -185,7 +199,7 @@ inserted in a 'Microsoft' document.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.6 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.7.003 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

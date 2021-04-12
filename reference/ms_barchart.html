@@ -8,6 +8,13 @@
 
 <title>barchart object — ms_barchart • mschart</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,7 +48,16 @@
 
 <meta property="og:title" content="barchart object — ms_barchart" />
 <meta property="og:description" content="Creation of a barchart object that can be
-inserted in a 'Microsoft' document." />
+inserted in a 'Microsoft' document.
+Bar charts illustrate comparisons among individual items. In a bar chart, the
+categories are typically organized along the vertical axis, and the values
+along the horizontal axis.
+Consider using a bar chart when:
+The axis labels are long.
+The values that are shown are durations.
+
+" />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -73,7 +89,7 @@ inserted in a 'Microsoft' document." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.003</span>
       </span>
     </div>
 
@@ -111,9 +127,17 @@ inserted in a 'Microsoft' document." />
     <div class="ref-description">
     <p>Creation of a barchart object that can be
 inserted in a 'Microsoft' document.</p>
+<p>Bar charts illustrate comparisons among individual items. In a bar chart, the
+categories are typically organized along the vertical axis, and the values
+along the horizontal axis.</p>
+<p>Consider using a bar chart when:</p><ul>
+<li><p>The axis labels are long.</p></li>
+<li><p>The values that are shown are durations.</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>ms_barchart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ms_barchart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span>, labels <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,8 +158,21 @@ inserted in a 'Microsoft' document.</p>
       <th>group</th>
       <td><p>grouping colname used to split data into series. Optional.</p></td>
     </tr>
+    <tr>
+      <th>labels</th>
+      <td><p>colnames of columns to be used as labels into series. Optional.
+If more than a name, only the first one will be used as label, but all
+labels (transposed if a group is used) will be available in the Excel file
+associated with the chart.</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
+
+    
+
+
+<p><img src='figures/fig_ms_barchart_1.png' width=60% /><img src='figures/fig_ms_barchart_2.png' width=60% /><img src='figures/fig_ms_barchart_3.png' width=60% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other 'Office' chart objects: 
@@ -147,25 +184,36 @@ inserted in a 'Microsoft' document.</p>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
 <span class='co'># example chart_01 -------</span>
 
-<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
-                           y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span><span class='op'>)</span>
-<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span> x <span class='op'>=</span> <span class='va'>chart_01</span>, dir<span class='op'>=</span><span class='st'>"vertical"</span>,
-                               grouping<span class='op'>=</span><span class='st'>"clustered"</span>, gap_width <span class='op'>=</span> <span class='fl'>50</span> <span class='op'>)</span>
-<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span> x<span class='op'>=</span> <span class='va'>chart_01</span>, cross_between <span class='op'>=</span> <span class='st'>'between'</span>,
-                           major_tick_mark<span class='op'>=</span><span class='st'>"out"</span><span class='op'>)</span>
-<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span> x<span class='op'>=</span> <span class='va'>chart_01</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>,
-                           major_tick_mark<span class='op'>=</span><span class='st'>"in"</span><span class='op'>)</span>
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
+  y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span>
+<span class='op'>)</span>
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>chart_01</span>, dir <span class='op'>=</span> <span class='st'>"vertical"</span>,
+  grouping <span class='op'>=</span> <span class='st'>"clustered"</span>, gap_width <span class='op'>=</span> <span class='fl'>50</span>
+<span class='op'>)</span>
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>chart_01</span>, cross_between <span class='op'>=</span> <span class='st'>"between"</span>,
+  major_tick_mark <span class='op'>=</span> <span class='st'>"out"</span>
+<span class='op'>)</span>
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>chart_01</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>,
+  major_tick_mark <span class='op'>=</span> <span class='st'>"in"</span>
+<span class='op'>)</span>
 
 
 <span class='co'># example chart_02 -------</span>
 
-<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Species <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, .Label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"setosa"</span>,
-  <span class='st'>"versicolor"</span>, <span class='st'>"virginica"</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"factor"</span><span class='op'>)</span>, mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.006</span>,
-  <span class='fl'>5.936</span>, <span class='fl'>6.588</span><span class='op'>)</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"data.frame"</span>, .Names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Species"</span>, <span class='st'>"mean"</span>
-  <span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='op'>-</span><span class='fl'>3L</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Species <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, .Label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+  <span class='st'>"setosa"</span>,
+  <span class='st'>"versicolor"</span>, <span class='st'>"virginica"</span>
+<span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"factor"</span><span class='op'>)</span>, mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+  <span class='fl'>5.006</span>,
+  <span class='fl'>5.936</span>, <span class='fl'>6.588</span>
+<span class='op'>)</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"data.frame"</span>, .Names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Species"</span>, <span class='st'>"mean"</span><span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='op'>-</span><span class='fl'>3L</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>dat</span>, x <span class='op'>=</span> <span class='st'>"Species"</span>, y <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span>
-<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span> x <span class='op'>=</span> <span class='va'>chart_02</span>, dir<span class='op'>=</span><span class='st'>"horizontal"</span> <span class='op'>)</span>
+<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>chart_02</span>, dir <span class='op'>=</span> <span class='st'>"horizontal"</span><span class='op'>)</span>
 
 
 
@@ -175,21 +223,178 @@ inserted in a 'Microsoft' document.</p>
   axis_title_x <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>24</span>, bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
   axis_title_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"green"</span>, font.size <span class='op'>=</span> <span class='fl'>12</span>, italic <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
   grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>,
-  axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span> <span class='op'>)</span>
+  axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
-                              y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span><span class='op'>)</span>
-<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span> <span class='va'>chart_03</span>, dir<span class='op'>=</span><span class='st'>"horizontal"</span>, grouping<span class='op'>=</span><span class='st'>"stacked"</span>,
-                                  gap_width <span class='op'>=</span> <span class='fl'>150</span>, overlap <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>)</span>
-<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>chart_03</span>, cross_between <span class='op'>=</span> <span class='st'>'between'</span>,
-                             major_tick_mark<span class='op'>=</span><span class='st'>"out"</span>, minor_tick_mark <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
-<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>chart_03</span>, num_fmt <span class='op'>=</span> <span class='st'>"0.00"</span>, rotation <span class='op'>=</span> <span class='op'>-</span><span class='fl'>90</span>,
-                             minor_tick_mark <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
+  y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span>
+<span class='op'>)</span>
+<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>chart_03</span>,
+  dir <span class='op'>=</span> <span class='st'>"horizontal"</span>, grouping <span class='op'>=</span> <span class='st'>"stacked"</span>,
+  gap_width <span class='op'>=</span> <span class='fl'>150</span>, overlap <span class='op'>=</span> <span class='fl'>100</span>
+<span class='op'>)</span>
+<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>chart_03</span>,
+  cross_between <span class='op'>=</span> <span class='st'>"between"</span>,
+  major_tick_mark <span class='op'>=</span> <span class='st'>"out"</span>, minor_tick_mark <span class='op'>=</span> <span class='st'>"none"</span>
+<span class='op'>)</span>
+<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>chart_03</span>,
+  num_fmt <span class='op'>=</span> <span class='st'>"0.00"</span>, rotation <span class='op'>=</span> <span class='op'>-</span><span class='fl'>90</span>,
+  minor_tick_mark <span class='op'>=</span> <span class='st'>"none"</span>
+<span class='op'>)</span>
 <span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>chart_03</span>, <span class='va'>mytheme</span><span class='op'>)</span>
-<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_data_labels.html'>chart_data_labels</a></span><span class='op'>(</span><span class='va'>chart_03</span>, position <span class='op'>=</span> <span class='st'>"inBase"</span>,
-                                    show_val <span class='op'>=</span> <span class='cn'>TRUE</span>, separator <span class='op'>=</span> <span class='st'>", "</span>, show_cat_name <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_data_labels.html'>chart_data_labels</a></span><span class='op'>(</span><span class='va'>chart_03</span>,
+  position <span class='op'>=</span> <span class='st'>"inBase"</span>,
+  show_val <span class='op'>=</span> <span class='cn'>TRUE</span>, separator <span class='op'>=</span> <span class='st'>", "</span>, show_cat_name <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
 
+
+
+
+
+<span class='co'># other examples -------</span>
+
+<span class='va'>dat_groups</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  cut <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='fl'>1L</span>, <span class='fl'>1L</span>, <span class='fl'>1L</span>, <span class='fl'>1L</span>, <span class='fl'>1L</span>, <span class='fl'>1L</span>, <span class='fl'>1L</span>,
+    <span class='fl'>1L</span>, <span class='fl'>2L</span>, <span class='fl'>2L</span>, <span class='fl'>2L</span>, <span class='fl'>2L</span>, <span class='fl'>2L</span>, <span class='fl'>2L</span>, <span class='fl'>2L</span>, <span class='fl'>2L</span>, <span class='fl'>3L</span>, <span class='fl'>3L</span>, <span class='fl'>3L</span>, <span class='fl'>3L</span>, <span class='fl'>3L</span>, <span class='fl'>3L</span>, <span class='fl'>3L</span>,
+    <span class='fl'>3L</span>, <span class='fl'>4L</span>, <span class='fl'>4L</span>, <span class='fl'>4L</span>, <span class='fl'>4L</span>, <span class='fl'>4L</span>, <span class='fl'>4L</span>, <span class='fl'>4L</span>, <span class='fl'>4L</span>, <span class='fl'>5L</span>, <span class='fl'>5L</span>, <span class='fl'>5L</span>, <span class='fl'>5L</span>, <span class='fl'>5L</span>, <span class='fl'>5L</span>, <span class='fl'>5L</span>,
+    <span class='fl'>5L</span>
+  <span class='op'>)</span>,
+  .Label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Fair"</span>, <span class='st'>"Good"</span>, <span class='st'>"Very Good"</span>, <span class='st'>"Premium"</span>, <span class='st'>"Ideal"</span><span class='op'>)</span>,
+  class <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ordered"</span>, <span class='st'>"factor"</span><span class='op'>)</span>
+  <span class='op'>)</span>, clarity <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='fl'>1L</span>,
+    <span class='fl'>2L</span>, <span class='fl'>3L</span>, <span class='fl'>4L</span>, <span class='fl'>5L</span>, <span class='fl'>6L</span>, <span class='fl'>7L</span>, <span class='fl'>8L</span>, <span class='fl'>1L</span>, <span class='fl'>2L</span>, <span class='fl'>3L</span>, <span class='fl'>4L</span>, <span class='fl'>5L</span>, <span class='fl'>6L</span>, <span class='fl'>7L</span>, <span class='fl'>8L</span>, <span class='fl'>1L</span>,
+    <span class='fl'>2L</span>, <span class='fl'>3L</span>, <span class='fl'>4L</span>, <span class='fl'>5L</span>, <span class='fl'>6L</span>, <span class='fl'>7L</span>, <span class='fl'>8L</span>, <span class='fl'>1L</span>, <span class='fl'>2L</span>, <span class='fl'>3L</span>, <span class='fl'>4L</span>, <span class='fl'>5L</span>, <span class='fl'>6L</span>, <span class='fl'>7L</span>, <span class='fl'>8L</span>, <span class='fl'>1L</span>,
+    <span class='fl'>2L</span>, <span class='fl'>3L</span>, <span class='fl'>4L</span>, <span class='fl'>5L</span>, <span class='fl'>6L</span>, <span class='fl'>7L</span>, <span class='fl'>8L</span>
+  <span class='op'>)</span>, .Label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='st'>"I1"</span>, <span class='st'>"SI2"</span>, <span class='st'>"SI1"</span>, <span class='st'>"VS2"</span>,
+    <span class='st'>"VS1"</span>, <span class='st'>"VVS2"</span>, <span class='st'>"VVS1"</span>, <span class='st'>"IF"</span>
+  <span class='op'>)</span>, class <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ordered"</span>, <span class='st'>"factor"</span><span class='op'>)</span><span class='op'>)</span>,
+  carat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='fl'>1.065</span>, <span class='fl'>1.01</span>, <span class='fl'>0.98</span>, <span class='fl'>0.9</span>, <span class='fl'>0.77</span>, <span class='fl'>0.7</span>, <span class='fl'>0.7</span>, <span class='fl'>0.47</span>, <span class='fl'>1.07</span>,
+    <span class='fl'>1</span>, <span class='fl'>0.79</span>, <span class='fl'>0.82</span>, <span class='fl'>0.7</span>, <span class='fl'>0.505</span>, <span class='fl'>0.4</span>, <span class='fl'>0.46</span>, <span class='fl'>1.145</span>, <span class='fl'>1.01</span>, <span class='fl'>0.77</span>,
+    <span class='fl'>0.71</span>, <span class='fl'>0.7</span>, <span class='fl'>0.4</span>, <span class='fl'>0.36</span>, <span class='fl'>0.495</span>, <span class='fl'>1.11</span>, <span class='fl'>1.04</span>, <span class='fl'>0.9</span>, <span class='fl'>0.72</span>, <span class='fl'>0.7</span>,
+    <span class='fl'>0.455</span>, <span class='fl'>0.4</span>, <span class='fl'>0.36</span>, <span class='fl'>1.13</span>, <span class='fl'>1</span>, <span class='fl'>0.71</span>, <span class='fl'>0.53</span>, <span class='fl'>0.53</span>, <span class='fl'>0.44</span>, <span class='fl'>0.4</span>, <span class='fl'>0.34</span>
+  <span class='op'>)</span>, n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='fl'>210L</span>, <span class='fl'>466L</span>, <span class='fl'>408L</span>, <span class='fl'>261L</span>, <span class='fl'>170L</span>, <span class='fl'>69L</span>, <span class='fl'>17L</span>, <span class='fl'>9L</span>, <span class='fl'>96L</span>,
+    <span class='fl'>1081L</span>, <span class='fl'>1560L</span>, <span class='fl'>978L</span>, <span class='fl'>648L</span>, <span class='fl'>286L</span>, <span class='fl'>186L</span>, <span class='fl'>71L</span>, <span class='fl'>84L</span>, <span class='fl'>2100L</span>, <span class='fl'>3240L</span>,
+    <span class='fl'>2591L</span>, <span class='fl'>1775L</span>, <span class='fl'>1235L</span>, <span class='fl'>789L</span>, <span class='fl'>268L</span>, <span class='fl'>205L</span>, <span class='fl'>2949L</span>, <span class='fl'>3575L</span>, <span class='fl'>3357L</span>,
+    <span class='fl'>1989L</span>, <span class='fl'>870L</span>, <span class='fl'>616L</span>, <span class='fl'>230L</span>, <span class='fl'>146L</span>, <span class='fl'>2598L</span>, <span class='fl'>4282L</span>, <span class='fl'>5071L</span>, <span class='fl'>3589L</span>,
+    <span class='fl'>2606L</span>, <span class='fl'>2047L</span>, <span class='fl'>1212L</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='op'>-</span><span class='fl'>40L</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"data.frame"</span><span class='op'>)</span>
+<span class='va'>dat_groups</span><span class='op'>$</span><span class='va'>label</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span>
+  <span class='st'>"carat median is `%.01.f`"</span>,
+  <span class='va'>dat_groups</span><span class='op'>$</span><span class='va'>carat</span>
+<span class='op'>)</span>
+<span class='va'>dat_groups</span>
+</div><div class='output co'>#&gt;          cut clarity carat    n                   label
+#&gt; 1       Fair      I1 1.065  210 carat median is `%.1.f`
+#&gt; 2       Fair     SI2 1.010  466 carat median is `%.1.f`
+#&gt; 3       Fair     SI1 0.980  408 carat median is `%.1.f`
+#&gt; 4       Fair     VS2 0.900  261 carat median is `%.1.f`
+#&gt; 5       Fair     VS1 0.770  170 carat median is `%.1.f`
+#&gt; 6       Fair    VVS2 0.700   69 carat median is `%.1.f`
+#&gt; 7       Fair    VVS1 0.700   17 carat median is `%.1.f`
+#&gt; 8       Fair      IF 0.470    9 carat median is `%.1.f`
+#&gt; 9       Good      I1 1.070   96 carat median is `%.1.f`
+#&gt; 10      Good     SI2 1.000 1081 carat median is `%.1.f`
+#&gt; 11      Good     SI1 0.790 1560 carat median is `%.1.f`
+#&gt; 12      Good     VS2 0.820  978 carat median is `%.1.f`
+#&gt; 13      Good     VS1 0.700  648 carat median is `%.1.f`
+#&gt; 14      Good    VVS2 0.505  286 carat median is `%.1.f`
+#&gt; 15      Good    VVS1 0.400  186 carat median is `%.1.f`
+#&gt; 16      Good      IF 0.460   71 carat median is `%.1.f`
+#&gt; 17 Very Good      I1 1.145   84 carat median is `%.1.f`
+#&gt; 18 Very Good     SI2 1.010 2100 carat median is `%.1.f`
+#&gt; 19 Very Good     SI1 0.770 3240 carat median is `%.1.f`
+#&gt; 20 Very Good     VS2 0.710 2591 carat median is `%.1.f`
+#&gt; 21 Very Good     VS1 0.700 1775 carat median is `%.1.f`
+#&gt; 22 Very Good    VVS2 0.400 1235 carat median is `%.1.f`
+#&gt; 23 Very Good    VVS1 0.360  789 carat median is `%.1.f`
+#&gt; 24 Very Good      IF 0.495  268 carat median is `%.1.f`
+#&gt; 25   Premium      I1 1.110  205 carat median is `%.1.f`
+#&gt; 26   Premium     SI2 1.040 2949 carat median is `%.1.f`
+#&gt; 27   Premium     SI1 0.900 3575 carat median is `%.1.f`
+#&gt; 28   Premium     VS2 0.720 3357 carat median is `%.1.f`
+#&gt; 29   Premium     VS1 0.700 1989 carat median is `%.1.f`
+#&gt; 30   Premium    VVS2 0.455  870 carat median is `%.1.f`
+#&gt; 31   Premium    VVS1 0.400  616 carat median is `%.1.f`
+#&gt; 32   Premium      IF 0.360  230 carat median is `%.1.f`
+#&gt; 33     Ideal      I1 1.130  146 carat median is `%.1.f`
+#&gt; 34     Ideal     SI2 1.000 2598 carat median is `%.1.f`
+#&gt; 35     Ideal     SI1 0.710 4282 carat median is `%.1.f`
+#&gt; 36     Ideal     VS2 0.530 5071 carat median is `%.1.f`
+#&gt; 37     Ideal     VS1 0.530 3589 carat median is `%.1.f`
+#&gt; 38     Ideal    VVS2 0.440 2606 carat median is `%.1.f`
+#&gt; 39     Ideal    VVS1 0.400 2047 carat median is `%.1.f`
+#&gt; 40     Ideal      IF 0.340 1212 carat median is `%.1.f`</div><div class='input'>
+<span class='va'>text_prop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>font.size <span class='op'>=</span> <span class='fl'>11</span>, color <span class='op'>=</span> <span class='st'>"gray"</span><span class='op'>)</span>
+
+<span class='co'>## an example with group and label -----</span>
+<span class='va'>chart_04</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>dat_groups</span>, x <span class='op'>=</span> <span class='st'>"cut"</span>,
+  labels <span class='op'>=</span> <span class='st'>"label"</span>, y <span class='op'>=</span> <span class='st'>"n"</span>, group <span class='op'>=</span> <span class='st'>"clarity"</span>
+<span class='op'>)</span>
+<span class='va'>chart_04</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>chart_04</span>,
+  grouping <span class='op'>=</span> <span class='st'>"clustered"</span>,
+  dir <span class='op'>=</span> <span class='st'>"horizontal"</span>, gap_width <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
+<span class='va'>chart_04</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_data_labels.html'>chart_data_labels</a></span><span class='op'>(</span><span class='va'>chart_04</span>, position <span class='op'>=</span> <span class='st'>"outEnd"</span><span class='op'>)</span>
+<span class='va'>chart_04</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_labels_text.html'>chart_labels_text</a></span><span class='op'>(</span><span class='va'>chart_04</span>, <span class='va'>text_prop</span><span class='op'>)</span>
+
+<span class='co'>## an example with group and no label -----</span>
+<span class='va'>chart_05</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>dat_groups</span>,
+  x <span class='op'>=</span> <span class='st'>"cut"</span>, y <span class='op'>=</span> <span class='st'>"n"</span>, group <span class='op'>=</span> <span class='st'>"clarity"</span>
+<span class='op'>)</span>
+<span class='va'>chart_05</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>chart_05</span>,
+  grouping <span class='op'>=</span> <span class='st'>"clustered"</span>, dir <span class='op'>=</span> <span class='st'>"horizontal"</span>
+<span class='op'>)</span>
+
+
+<span class='va'>dat_no_group</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  cut <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>,
+    .Label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+      <span class='st'>"Fair"</span>, <span class='st'>"Good"</span>, <span class='st'>"Very Good"</span>, <span class='st'>"Premium"</span>, <span class='st'>"Ideal"</span>
+    <span class='op'>)</span>,
+    class <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ordered"</span>, <span class='st'>"factor"</span><span class='op'>)</span>
+  <span class='op'>)</span>, carat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0.82</span>, <span class='fl'>0.71</span>, <span class='fl'>0.86</span>, <span class='fl'>0.54</span><span class='op'>)</span>,
+  n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1610L</span>, <span class='fl'>4906L</span>, <span class='fl'>12082L</span>, <span class='fl'>13791L</span>, <span class='fl'>21551L</span><span class='op'>)</span>
+<span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='op'>-</span><span class='fl'>5L</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"data.frame"</span><span class='op'>)</span>
+<span class='va'>dat_no_group</span><span class='op'>$</span><span class='va'>label</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span>
+  <span class='st'>"carat median is `%.01.f`"</span>,
+  <span class='va'>dat_no_group</span><span class='op'>$</span><span class='va'>carat</span>
+<span class='op'>)</span>
+<span class='va'>dat_no_group</span>
+</div><div class='output co'>#&gt;         cut carat     n                   label
+#&gt; 1      Fair  1.00  1610 carat median is `%.1.f`
+#&gt; 2      Good  0.82  4906 carat median is `%.1.f`
+#&gt; 3 Very Good  0.71 12082 carat median is `%.1.f`
+#&gt; 4   Premium  0.86 13791 carat median is `%.1.f`
+#&gt; 5     Ideal  0.54 21551 carat median is `%.1.f`</div><div class='input'>
+<span class='co'>## an example with no group and a label -----</span>
+<span class='va'>chart_06</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>dat_no_group</span>,
+  x <span class='op'>=</span> <span class='st'>"cut"</span>, labels <span class='op'>=</span> <span class='st'>"label"</span>, y <span class='op'>=</span> <span class='st'>"n"</span>
+<span class='op'>)</span>
+<span class='va'>chart_06</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>chart_06</span>,
+  grouping <span class='op'>=</span> <span class='st'>"clustered"</span>, dir <span class='op'>=</span> <span class='st'>"horizontal"</span>
+<span class='op'>)</span>
+<span class='va'>chart_06</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_data_labels.html'>chart_data_labels</a></span><span class='op'>(</span><span class='va'>chart_06</span>, position <span class='op'>=</span> <span class='st'>"outEnd"</span><span class='op'>)</span>
+<span class='va'>chart_06</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_labels_text.html'>chart_labels_text</a></span><span class='op'>(</span><span class='va'>chart_06</span>, <span class='va'>text_prop</span><span class='op'>)</span>
+
+<span class='co'>## an example with no group and no label -----</span>
+<span class='va'>chart_07</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>dat_no_group</span>,
+  x <span class='op'>=</span> <span class='st'>"cut"</span>, y <span class='op'>=</span> <span class='st'>"n"</span>
+<span class='op'>)</span>
+<span class='va'>chart_07</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>chart_07</span>,
+  grouping <span class='op'>=</span> <span class='st'>"clustered"</span>, dir <span class='op'>=</span> <span class='st'>"horizontal"</span>
+<span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -203,7 +408,7 @@ inserted in a 'Microsoft' document.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.6 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.7.003 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
