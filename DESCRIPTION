@@ -9,7 +9,9 @@ Authors@R: c(
     person("YouGov", role = "fnd"),
     person("David", "Camposeco", role = "ctb", 
       email = "david.camposeco.paulsen@gmail.com", 
-      comment = "chart_data_smooth function") 
+      comment = "chart_data_smooth function"),
+    person("Dan", "Joplin", role = "ctb", 
+      comment = "fix scatter plot data structure") 
     )
 Description: Create native charts for 'Microsoft PowerPoint' and 'Microsoft Word' documents. 
  These can then be edited and annotated. Functions are provided to let users create charts, modify 
