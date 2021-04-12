@@ -287,51 +287,51 @@ associated with the chart.</p></td>
   <span class='op'>)</span>
 <span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='op'>-</span><span class='fl'>40L</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"data.frame"</span><span class='op'>)</span>
 <span class='va'>dat_groups</span><span class='op'>$</span><span class='va'>label</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span>
-  <span class='st'>"carat median is `%.01.f`"</span>,
+  <span class='st'>"carat median is %.01f"</span>,
   <span class='va'>dat_groups</span><span class='op'>$</span><span class='va'>carat</span>
 <span class='op'>)</span>
 <span class='va'>dat_groups</span>
-</div><div class='output co'>#&gt;          cut clarity carat    n                   label
-#&gt; 1       Fair      I1 1.065  210 carat median is `%.1.f`
-#&gt; 2       Fair     SI2 1.010  466 carat median is `%.1.f`
-#&gt; 3       Fair     SI1 0.980  408 carat median is `%.1.f`
-#&gt; 4       Fair     VS2 0.900  261 carat median is `%.1.f`
-#&gt; 5       Fair     VS1 0.770  170 carat median is `%.1.f`
-#&gt; 6       Fair    VVS2 0.700   69 carat median is `%.1.f`
-#&gt; 7       Fair    VVS1 0.700   17 carat median is `%.1.f`
-#&gt; 8       Fair      IF 0.470    9 carat median is `%.1.f`
-#&gt; 9       Good      I1 1.070   96 carat median is `%.1.f`
-#&gt; 10      Good     SI2 1.000 1081 carat median is `%.1.f`
-#&gt; 11      Good     SI1 0.790 1560 carat median is `%.1.f`
-#&gt; 12      Good     VS2 0.820  978 carat median is `%.1.f`
-#&gt; 13      Good     VS1 0.700  648 carat median is `%.1.f`
-#&gt; 14      Good    VVS2 0.505  286 carat median is `%.1.f`
-#&gt; 15      Good    VVS1 0.400  186 carat median is `%.1.f`
-#&gt; 16      Good      IF 0.460   71 carat median is `%.1.f`
-#&gt; 17 Very Good      I1 1.145   84 carat median is `%.1.f`
-#&gt; 18 Very Good     SI2 1.010 2100 carat median is `%.1.f`
-#&gt; 19 Very Good     SI1 0.770 3240 carat median is `%.1.f`
-#&gt; 20 Very Good     VS2 0.710 2591 carat median is `%.1.f`
-#&gt; 21 Very Good     VS1 0.700 1775 carat median is `%.1.f`
-#&gt; 22 Very Good    VVS2 0.400 1235 carat median is `%.1.f`
-#&gt; 23 Very Good    VVS1 0.360  789 carat median is `%.1.f`
-#&gt; 24 Very Good      IF 0.495  268 carat median is `%.1.f`
-#&gt; 25   Premium      I1 1.110  205 carat median is `%.1.f`
-#&gt; 26   Premium     SI2 1.040 2949 carat median is `%.1.f`
-#&gt; 27   Premium     SI1 0.900 3575 carat median is `%.1.f`
-#&gt; 28   Premium     VS2 0.720 3357 carat median is `%.1.f`
-#&gt; 29   Premium     VS1 0.700 1989 carat median is `%.1.f`
-#&gt; 30   Premium    VVS2 0.455  870 carat median is `%.1.f`
-#&gt; 31   Premium    VVS1 0.400  616 carat median is `%.1.f`
-#&gt; 32   Premium      IF 0.360  230 carat median is `%.1.f`
-#&gt; 33     Ideal      I1 1.130  146 carat median is `%.1.f`
-#&gt; 34     Ideal     SI2 1.000 2598 carat median is `%.1.f`
-#&gt; 35     Ideal     SI1 0.710 4282 carat median is `%.1.f`
-#&gt; 36     Ideal     VS2 0.530 5071 carat median is `%.1.f`
-#&gt; 37     Ideal     VS1 0.530 3589 carat median is `%.1.f`
-#&gt; 38     Ideal    VVS2 0.440 2606 carat median is `%.1.f`
-#&gt; 39     Ideal    VVS1 0.400 2047 carat median is `%.1.f`
-#&gt; 40     Ideal      IF 0.340 1212 carat median is `%.1.f`</div><div class='input'>
+</div><div class='output co'>#&gt;          cut clarity carat    n               label
+#&gt; 1       Fair      I1 1.065  210 carat median is 1.1
+#&gt; 2       Fair     SI2 1.010  466 carat median is 1.0
+#&gt; 3       Fair     SI1 0.980  408 carat median is 1.0
+#&gt; 4       Fair     VS2 0.900  261 carat median is 0.9
+#&gt; 5       Fair     VS1 0.770  170 carat median is 0.8
+#&gt; 6       Fair    VVS2 0.700   69 carat median is 0.7
+#&gt; 7       Fair    VVS1 0.700   17 carat median is 0.7
+#&gt; 8       Fair      IF 0.470    9 carat median is 0.5
+#&gt; 9       Good      I1 1.070   96 carat median is 1.1
+#&gt; 10      Good     SI2 1.000 1081 carat median is 1.0
+#&gt; 11      Good     SI1 0.790 1560 carat median is 0.8
+#&gt; 12      Good     VS2 0.820  978 carat median is 0.8
+#&gt; 13      Good     VS1 0.700  648 carat median is 0.7
+#&gt; 14      Good    VVS2 0.505  286 carat median is 0.5
+#&gt; 15      Good    VVS1 0.400  186 carat median is 0.4
+#&gt; 16      Good      IF 0.460   71 carat median is 0.5
+#&gt; 17 Very Good      I1 1.145   84 carat median is 1.1
+#&gt; 18 Very Good     SI2 1.010 2100 carat median is 1.0
+#&gt; 19 Very Good     SI1 0.770 3240 carat median is 0.8
+#&gt; 20 Very Good     VS2 0.710 2591 carat median is 0.7
+#&gt; 21 Very Good     VS1 0.700 1775 carat median is 0.7
+#&gt; 22 Very Good    VVS2 0.400 1235 carat median is 0.4
+#&gt; 23 Very Good    VVS1 0.360  789 carat median is 0.4
+#&gt; 24 Very Good      IF 0.495  268 carat median is 0.5
+#&gt; 25   Premium      I1 1.110  205 carat median is 1.1
+#&gt; 26   Premium     SI2 1.040 2949 carat median is 1.0
+#&gt; 27   Premium     SI1 0.900 3575 carat median is 0.9
+#&gt; 28   Premium     VS2 0.720 3357 carat median is 0.7
+#&gt; 29   Premium     VS1 0.700 1989 carat median is 0.7
+#&gt; 30   Premium    VVS2 0.455  870 carat median is 0.5
+#&gt; 31   Premium    VVS1 0.400  616 carat median is 0.4
+#&gt; 32   Premium      IF 0.360  230 carat median is 0.4
+#&gt; 33     Ideal      I1 1.130  146 carat median is 1.1
+#&gt; 34     Ideal     SI2 1.000 2598 carat median is 1.0
+#&gt; 35     Ideal     SI1 0.710 4282 carat median is 0.7
+#&gt; 36     Ideal     VS2 0.530 5071 carat median is 0.5
+#&gt; 37     Ideal     VS1 0.530 3589 carat median is 0.5
+#&gt; 38     Ideal    VVS2 0.440 2606 carat median is 0.4
+#&gt; 39     Ideal    VVS1 0.400 2047 carat median is 0.4
+#&gt; 40     Ideal      IF 0.340 1212 carat median is 0.3</div><div class='input'>
 <span class='va'>text_prop</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>font.size <span class='op'>=</span> <span class='fl'>11</span>, color <span class='op'>=</span> <span class='st'>"gray"</span><span class='op'>)</span>
 
 <span class='co'>## an example with group and label -----</span>
@@ -366,16 +366,16 @@ associated with the chart.</p></td>
   n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1610L</span>, <span class='fl'>4906L</span>, <span class='fl'>12082L</span>, <span class='fl'>13791L</span>, <span class='fl'>21551L</span><span class='op'>)</span>
 <span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='op'>-</span><span class='fl'>5L</span><span class='op'>)</span>, class <span class='op'>=</span> <span class='st'>"data.frame"</span><span class='op'>)</span>
 <span class='va'>dat_no_group</span><span class='op'>$</span><span class='va'>label</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span><span class='op'>(</span>
-  <span class='st'>"carat median is `%.01.f`"</span>,
+  <span class='st'>"carat median is %.01f"</span>,
   <span class='va'>dat_no_group</span><span class='op'>$</span><span class='va'>carat</span>
 <span class='op'>)</span>
 <span class='va'>dat_no_group</span>
-</div><div class='output co'>#&gt;         cut carat     n                   label
-#&gt; 1      Fair  1.00  1610 carat median is `%.1.f`
-#&gt; 2      Good  0.82  4906 carat median is `%.1.f`
-#&gt; 3 Very Good  0.71 12082 carat median is `%.1.f`
-#&gt; 4   Premium  0.86 13791 carat median is `%.1.f`
-#&gt; 5     Ideal  0.54 21551 carat median is `%.1.f`</div><div class='input'>
+</div><div class='output co'>#&gt;         cut carat     n               label
+#&gt; 1      Fair  1.00  1610 carat median is 1.0
+#&gt; 2      Good  0.82  4906 carat median is 0.8
+#&gt; 3 Very Good  0.71 12082 carat median is 0.7
+#&gt; 4   Premium  0.86 13791 carat median is 0.9
+#&gt; 5     Ideal  0.54 21551 carat median is 0.5</div><div class='input'>
 <span class='co'>## an example with no group and a label -----</span>
 <span class='va'>chart_06</span> <span class='op'>&lt;-</span> <span class='fu'>ms_barchart</span><span class='op'>(</span>
   data <span class='op'>=</span> <span class='va'>dat_no_group</span>,
