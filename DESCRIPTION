@@ -1,7 +1,7 @@
 Package: mschart
 Type: Package
 Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents
-Version: 0.2.6
+Version: 0.2.7.003
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"), 
       email = "david.gohel@ardata.fr"),
@@ -23,8 +23,9 @@ Depends: R (>= 2.10)
 Imports: stats, data.table,
  officer (>= 0.3.6), cellranger,
  writexl, grDevices, xml2 (>= 1.1.0),
- htmltools
+ htmltools, utils
 URL: https://ardata-fr.github.io/officeverse/, https://ardata-fr.github.io/mschart/
 BugReports: https://github.com/ardata-fr/mschart/issues
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
+Suggests: tinytest

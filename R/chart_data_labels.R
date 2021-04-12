@@ -1,7 +1,7 @@
 #' @export
 #' @title Modify data labels settings
 #' @description Data labels show details about data series. This function indicate that
-#' data labels should be displayed. See \code{link{chart_labels_text}} for modifying
+#' data labels should be displayed. See [chart_labels_text()] for modifying
 #' text settings associated with labels.
 #' @param x an \code{ms_chart} object.
 #' @param num_fmt `character(1)`: number formatting specifies number format properties which
@@ -31,13 +31,14 @@ chart_data_labels <- function(x, num_fmt = "General", position = "ctr",
   out <- list(num_fmt = num_fmt, position = position,
        show_legend_key = show_legend_key, show_val = show_val,
        show_cat_name = show_cat_name, show_serie_name = show_serie_name,
-       show_percent = show_percent, separator = separator )
+       show_percent = show_percent, separator = separator)
   class(out) <- "labels_options"
   x$label_settings <- out
   x
 }
 
-to_pml.labels_options <- function(x, add_ns = FALSE, with_position = TRUE, ...){
+to_pml.labels_options <- function(x, add_ns = FALSE, with_position = TRUE, show_label = FALSE , ...){
+
   txpr <- ""
   if( !is.null( x$labels_fp )){
     txpr <- ooxml_txpr(x$labels_fp)
@@ -54,6 +55,16 @@ to_pml.labels_options <- function(x, add_ns = FALSE, with_position = TRUE, ...){
                  sprintf("<c:showSerName val=\"%.0f\"/>", as.integer(x$show_serie_name)),
                  sprintf("<c:showVal val=\"%.0f\"/>", as.integer(x$show_val)),
                  txpr,
+                 if(show_label){
+                   paste0(
+                     "<c:extLst>",
+                       "<c:ext uri=\"{CE6537A1-D6FC-4f65-9D91-7224C49458BB}\" xmlns:c15=\"http://schemas.microsoft.com/office/drawing/2012/chart\">",
+                         "<c15:dlblFieldTable/>",
+                         "<c15:showDataLabelsRange val=\"1\"/>",
+                       "</c:ext>",
+                     "</c:extLst>"
+                   )
+                 },
                  "</c:dLbls>")
 
   str_

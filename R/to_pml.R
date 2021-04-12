@@ -20,18 +20,29 @@ to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FAL
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
   str_series_ <- sapply( series, function(serie, template ){
-    marker_str <- get_sppr_xml(serie$fill, serie$stroke )
+    marker_str <- get_sppr_xml(serie$fill, serie$stroke, serie$line_width )
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
-    labels_ooxml <- to_pml(label_settings)
 
-    sprintf(template, serie$idx, serie$order, to_pml(serie$tx),
-            marker_str,
-            "<c:invertIfNegative val=\"0\"/>",
-            labels_ooxml,
-            to_pml(serie$x), to_pml(serie$y) )
-  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s%s<c:cat>%s</c:cat><c:val>%s</c:val></c:ser>")
+    if(!is.null(x$label_cols)){
+      label_pml <- to_pml(serie$label)
+    } else label_pml <- ""
+
+    paste0(
+      "<c:ser>",
+      sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
+      sprintf("<c:order val=\"%.0f\"/>", serie$order),
+      sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
+      marker_str,
+      "<c:invertIfNegative val=\"0\"/>",
+      to_pml(label_settings, show_label = !is.null(x$label_cols)),
+      "<c:cat>", to_pml(serie$x), "</c:cat>",
+      "<c:val>", to_pml(serie$y), "</c:val>",
+      label_pml,
+      "</c:ser>"
+    )
+  })
   str_series_ <- paste(str_series_, collapse = "")
 
   x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
@@ -45,7 +56,7 @@ to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FAL
                   sprintf("<c:grouping val=\"%s\"/>", x$options$grouping),
                   sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
                   str_series_,
-                  to_pml(x$label_settings),
+                  to_pml(x$label_settings, !is.null(x$label_cols)),
                   sprintf("<c:gapWidth val=\"%.0f\"/>", x$options$gap_width),
                   sprintf("<c:overlap val=\"%.0f\"/>", x$options$overlap),
                   x_ax_id, y_ax_id,
@@ -74,12 +85,24 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
-    labels_ooxml <- to_pml(label_settings)
 
-    sprintf(template, serie$idx, serie$order, to_pml(serie$tx), sppr_str, marker_str,
-            labels_ooxml,
-            to_pml(serie$x), to_pml(serie$y), serie$smooth )
-  }, template = template_str)
+    if(!is.null(x$label_cols)){
+      label_pml <- to_pml(serie$label)
+    } else label_pml <- ""
+
+    paste0(
+      "<c:ser>",
+      sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
+      sprintf("<c:order val=\"%.0f\"/>", serie$order),
+      sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
+      sppr_str, marker_str,
+      to_pml(label_settings, show_label = !is.null(x$label_cols)),
+      "<c:cat>", to_pml(serie$x), "</c:cat>",
+      "<c:val>", to_pml(serie$y), "</c:val>",
+      label_pml, serie$smooth,
+      "</c:ser>"
+    )
+  })
   str_series_ <- paste(str_series_, collapse = "")
 
   x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
@@ -100,11 +123,15 @@ to_pml.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
-  str_series_ <- sapply( series, function(serie, template ){
-    marker_str <- get_sppr_xml(serie$fill, serie$stroke )
+  str_series_ <- sapply( series, function(serie){
+    marker_str <- get_sppr_xml(serie$fill, serie$stroke, serie$line_width)
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
+
+    if(!is.null(x$label_cols)){
+      label_pml <- to_pml(serie$label)
+    } else label_pml <- ""
 
     paste0(
       "<c:ser>",
@@ -112,9 +139,10 @@ to_pml.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
       sprintf("<c:order val=\"%.0f\"/>", serie$order),
       "<c:tx>", to_pml(serie$tx), "</c:tx>",
       marker_str,
-      to_pml(label_settings, with_position = FALSE),
+      to_pml(label_settings, with_position = FALSE, show_label = !is.null(x$label_cols)),
       "<c:cat>", to_pml(serie$x), "</c:cat>",
       "<c:val>", to_pml(serie$y), "</c:val>",
+      label_pml,
       "</c:ser>"
     )
   })
@@ -127,7 +155,7 @@ to_pml.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
           sprintf("<c:grouping val=\"%s\"/>", x$options$grouping),
           sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
           str_series_,
-          to_pml(x$label_settings),
+          to_pml(x$label_settings, with_position = FALSE, show_label = !is.null(x$label_cols)),
           x_ax_id, y_ax_id,
           "</c:areaChart>"  )
 }
@@ -150,8 +178,7 @@ to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns =
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]),
                       sheetname = sheetname )
-  # sapply scatter-----
-  str_series_ <- sapply( series, function(serie, template, has_line, has_marker ){
+  str_series_ <- sapply( series, function(serie, has_line, has_marker ){
 
     if( !has_line ){
       line_str <- "<c:spPr><a:ln><a:noFill/></a:ln></c:spPr>"
@@ -166,15 +193,24 @@ to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns =
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
-    labels_ooxml <- to_pml(label_settings)
 
-    sprintf(template, serie$idx, serie$order, to_pml(serie$tx),
-            line_str, marker_str,
-            labels_ooxml,
-            to_pml(serie$x),
-            to_pml(serie$y)
-            )
-  }, template = "<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s%s<c:xVal>%s</c:xVal><c:yVal>%s</c:yVal></c:ser>",
+    if(!is.null(x$label_cols)){
+      label_pml <- to_pml(serie$label)
+    } else label_pml <- ""
+
+    paste0(
+      "<c:ser>",
+      sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
+      sprintf("<c:order val=\"%.0f\"/>", serie$order),
+      sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
+      line_str, marker_str,
+      to_pml(label_settings, show_label = !is.null(x$label_cols)),
+      "<c:xVal>", to_pml(serie$x), "</c:xVal>",
+      "<c:yVal>", to_pml(serie$y), "</c:yVal>",
+      label_pml,
+      "</c:ser>"
+    )
+  },
   has_line = has_lines[x$options$scatterstyle],
   has_marker = has_markers[x$options$scatterstyle])
 
@@ -187,7 +223,7 @@ to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns =
           sprintf("<c:scatterStyle val=\"%s\"/>", x$options$scatterstyle),
           sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
           str_series_,
-          to_pml(x$label_settings),
+          to_pml(x$label_settings, !is.null(x$label_cols)),
           x_ax_id, y_ax_id,
           "</c:scatterChart>"  )
 }
@@ -219,15 +255,19 @@ get_marker_xml <- function( fill, stroke, symbol = NULL, size = NULL){
 }
 
 
-get_sppr_xml <- function( fill, stroke){
+get_sppr_xml <- function( fill, stroke, line_width = NULL){
   fill_elts <- col2rgb(fill, alpha = TRUE)[,1]
   fill_hex <- sprintf( "%02X%02X%02X", fill_elts[1], fill_elts[2], fill_elts[3]);
   stroke_elts <- col2rgb(stroke, alpha = TRUE)[,1]
   stroke_hex <- sprintf( "%02X%02X%02X", stroke_elts[1], stroke_elts[2], stroke_elts[3])
-
+  stroke_width <- ""
+  if(!is.null(line_width)){
+    stroke_width <- sprintf(" w=\"%.0f\"", 12700*line_width)
+  }
   paste0("<c:spPr>",
          sprintf("<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>", fill_hex,  fill_elts[4] / 255.0 * 100000 ),
-         sprintf("<a:ln><a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill></a:ln>", stroke_hex,  stroke_elts[4] / 255.0 * 100000 ),
+         sprintf("<a:ln%s><a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill></a:ln>",
+                 stroke_width, stroke_hex,  stroke_elts[4] / 255.0 * 100000 ),
          "<a:effectLst/></c:spPr>" )
 }
 get_sppr_xml_line_chart <- function( fill, stroke, style, width){

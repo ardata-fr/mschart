@@ -4,7 +4,7 @@
 \alias{ms_areachart}
 \title{areachart object}
 \usage{
-ms_areachart(data, x, y, group = NULL)
+ms_areachart(data, x, y, group = NULL, labels = NULL)
 }
 \arguments{
 \item{data}{a data.frame}
@@ -14,10 +14,19 @@ ms_areachart(data, x, y, group = NULL)
 \item{y}{y colname}
 
 \item{group}{grouping colname used to split data into series. Optional.}
+
+\item{labels}{colnames of columns to be used as labels into series. Optional.
+If more than a name, only the first one will be used as label, but all
+labels (transposed if a group is used) will be available in the Excel file
+associated with the chart.}
 }
 \description{
 Creation of an areachart object that can be
 inserted in a 'Microsoft' document.
+
+Area charts can be used to plot change over time and draw attention to the
+total value across a trend. By showing the sum of the plotted values, an area
+chart also shows the relationship of parts to a whole.
 }
 \examples{
 library(officer)
@@ -28,25 +37,18 @@ mytheme <- mschart_theme(
   axis_ticks_y = fp_border(width = 1, color = "orange") )
 
 # example ac_01 -------
-ac_01 <- ms_areachart(data = iris, x = "Sepal.Length",
-                      y = "Sepal.Width", group = "Species")
-ac_01 <- chart_ax_y(ac_01, num_fmt = "0.00", rotation = -90)
+ac_01 <- ms_areachart(data = browser_ts, x = "date",
+                      y = "freq", group = "browser")
+ac_01 <- chart_ax_y(ac_01, cross_between = "between", num_fmt = "General")
+ac_01 <- chart_ax_x(ac_01, cross_between = "midCat", num_fmt = "m/d/yy")
 ac_01 <- set_theme(ac_01, mytheme)
 
 
 # example ac_02 -------
 ac_02 <- ms_areachart(data = browser_ts, x = "date",
                       y = "freq", group = "browser")
-ac_02 <- chart_ax_y(ac_02, cross_between = "between", num_fmt = "General")
 ac_02 <- chart_ax_x(ac_02, cross_between = "midCat", num_fmt = "m/d/yy")
-ac_02 <- set_theme(ac_02, mytheme)
-
-
-# example ac_03 -------
-ac_03 <- ms_areachart(data = browser_ts, x = "date",
-                      y = "freq", group = "browser")
-ac_03 <- chart_ax_x(ac_03, cross_between = "midCat", num_fmt = "m/d/yy")
-ac_03 <- chart_settings(ac_03, grouping = "percentStacked")
+ac_02 <- chart_settings(ac_02, grouping = "percentStacked")
 
 }
 \seealso{

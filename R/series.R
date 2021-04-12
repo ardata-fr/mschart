@@ -99,48 +99,38 @@ to_pml.date_ref <- function(x, add_ns = FALSE, ...){
   sprintf(pml_, x$region, num_fmt, length(values), pt_)
 }
 
-
-
-# as_series ----
-#' @importFrom cellranger cell_limits as.range ra_ref to_string
-as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
-  dataset <- x$data_series
-  w_x <- which( names(dataset) %in% x$x )
-
-  x_serie_range <- cell_limits(ul = c(2, w_x),
-                               lr = c(nrow(dataset)+1, w_x),
-                               sheet = sheetname)
-  x_serie_range <- as.range(x_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
-  x_serie <- update(x_class, region = x_serie_range, values = dataset[[x$x]])
-
-  series <- list()
-  w_y_values <- which( names(dataset) %in% setdiff(names(dataset), x$x) )
-
-  for( w_y in w_y_values){
-    y_colname <- names(dataset)[w_y]
-
-    serie_name_range <- ra_ref(row_ref = 1, col_ref = w_y, sheet = sheetname)
-    serie_name_range <- to_string(serie_name_range, fo = "A1")
-    serie_name <- str_ref(values = y_colname, region = serie_name_range)
-
-    y_serie_range <- cell_limits(ul = c(2, w_y), lr = c(nrow(dataset)+1, w_y),  sheet = sheetname)
-    y_serie_range <- as.range(y_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
-
-    y_serie <- update(y_class, region = y_serie_range, values = dataset[[y_colname]])
-
-    ser <- list( idx = length(series), order = length(series),
-                 tx = serie_name,
-                 x = x_serie, y = y_serie,
-                 stroke = x$series_settings$colour[y_colname],
-                 fill = x$series_settings$fill[y_colname],
-                 symbol = x$series_settings$symbol[y_colname],
-                 line_style = x$series_settings$line_style[y_colname],
-                 size = x$series_settings$size[y_colname],
-                 line_width = x$series_settings$line_width[y_colname],
-                 labels_fp = x$series_settings$labels_fp[[y_colname]],
-                 smooth = x$series_settings$smooth[y_colname]
-                 )
-    series <- append(series, list(ser) )
-  }
-  series
+label_ref <- function(values, region = NULL, num_fmt = NULL){
+  x <- list(
+    region = region,
+    values = values,
+    num_fmt = num_fmt
+  )
+  class(x) <- c("col_ref", "label_ref")
+  x
 }
+
+to_pml.label_ref <- function(x, add_ns = FALSE, ...){
+
+  values <- character(length(x$values))
+
+  if( is.factor(x$values) ){
+    values <- htmlEscape(as.character(x$values))
+  } else if( is.numeric(x$values) ){
+    values <- as.character(x$values)
+  } else if( is.character(x$values) ){
+    values <- htmlEscape(x$values)
+  } else htmlEscape(format(x$values))
+
+  pt_ <- sprintf("<c:pt idx=\"%.0f\"><c:v>%s</c:v></c:pt>", seq_along(values)-1, values)
+  pt_ <- paste0(pt_, collapse = "")
+
+  num_fmt <- ""
+  pml_ <- "<c15:datalabelsRange><c15:f>%s</c15:f><c15:dlblRangeCache>%s<c:ptCount val=\"%.0f\"/>%s</c15:dlblRangeCache></c15:datalabelsRange>"
+  pml_ <- paste0(
+    "<c:extLst>",
+    "<c:ext uri=\"{02D57815-91ED-43cb-92C2-25804820EDAC}\" xmlns:c15=\"http://schemas.microsoft.com/office/drawing/2012/chart\">",
+    pml_, "</c:ext></c:extLst>")
+
+  sprintf(pml_, x$region, num_fmt, length(values), pt_)
+}
+

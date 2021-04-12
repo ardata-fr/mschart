@@ -4,7 +4,7 @@
 \alias{ms_scatterchart}
 \title{scatterchart object}
 \usage{
-ms_scatterchart(data, x, y, group = NULL)
+ms_scatterchart(data, x, y, group = NULL, labels = NULL)
 }
 \arguments{
 \item{data}{a data.frame}
@@ -14,11 +14,28 @@ ms_scatterchart(data, x, y, group = NULL)
 \item{y}{y colname}
 
 \item{group}{grouping colname used to split data into series. Optional.}
+
+\item{labels}{colnames of columns to be used as labels into series. Optional.
+If more than a name, only the first one will be used as label, but all
+labels (transposed if a group is used) will be available in the Excel file
+associated with the chart.}
 }
 \description{
 Creation of a scatterchart object that can be
 inserted in a 'Microsoft' document.
 }
+\section{Illustrations}{
+
+
+\if{html}{
+
+\figure{fig_ms_scatterchart_1.png}{options: width=60\%}
+
+\figure{fig_ms_scatterchart_2.png}{options: width=60\%}
+
+}
+}
+
 \examples{
 library(officer)
 # example chart_01 -------
@@ -26,6 +43,11 @@ chart_01 <- ms_scatterchart(data = mtcars, x = "disp",
                          y = "drat")
 chart_01 <- chart_ax_x(chart_01, cross_between = "midCat")
 chart_01 <- chart_settings(chart_01, scatterstyle = "marker")
+
+
+# example chart_02 -------
+chart_02 <- ms_scatterchart(data = iris, x = "Sepal.Length", y = "Petal.Length", group = "Species")
+chart_02 <- chart_settings(chart_02, scatterstyle = "marker")
 
 
 }

@@ -1,17 +1,37 @@
 #' @title linechart object
 #' @description Creation of a linechart object that can be
 #' inserted in a 'Microsoft' document.
+#'
+#' In a line chart, category data is distributed evenly along the horizontal axis, and
+#' all value data is distributed evenly along the vertical axis. Line charts can show
+#' continuous data over time on an evenly scaled axis, so they're ideal for showing
+#' trends in data at equal intervals, like months and quarters.
 #' @param data a data.frame
 #' @param x x colname
 #' @param y y colname
 #' @param group grouping colname used to split data into series. Optional.
+#' @param labels colnames of columns to be used as labels into series. Optional.
+#' If more than a name, only the first one will be used as label, but all
+#' labels (transposed if a group is used) will be available in the Excel file
+#' associated with the chart.
 #' @export
 #' @family 'Office' chart objects
+#' @section Illustrations:
+#'
+#' \if{html}{
+#'
+#' \figure{fig_ms_linechart_1.png}{options: width=60\%}
+#'
+#' \figure{fig_ms_linechart_2.png}{options: width=60\%}
+#'
+#' \figure{fig_ms_linechart_3.png}{options: width=60\%}
+#'
+#' }
 #' @examples
 #' library(officer)
 #' @example examples/02_linechart.R
-ms_linechart <- function(data, x, y, group = NULL){
-  out <- ms_chart(data = data, x = x, y = y, group = group)
+ms_linechart <- function(data, x, y, group = NULL, labels = NULL){
+  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels)
   out$options <- linechart_options()
   class(out) <- c("ms_linechart", "ms_chart")
   xtag <- if(inherits(data[[x]], "Date")){
@@ -19,8 +39,13 @@ ms_linechart <- function(data, x, y, group = NULL){
   } else if(is.character(data[[x]]) || is.factor(data[[x]])){
     "c:catAx"
   } else {
+    warning("using continuous data in the x-axis is not an expected representation, the next versions will prevent this.")
     "c:valAx"
   }
+  if(!is.numeric(data[[y]])){
+    stop("y column should be numeric.")
+  }
+
   out$axis_tag <- list(x = xtag,
                        y = "c:valAx")
 
@@ -34,15 +59,43 @@ ms_linechart <- function(data, x, y, group = NULL){
 #' @title barchart object
 #' @description Creation of a barchart object that can be
 #' inserted in a 'Microsoft' document.
+#'
+#' Bar charts illustrate comparisons among individual items. In a bar chart, the
+#' categories are typically organized along the vertical axis, and the values
+#' along the horizontal axis.
+#'
+#' Consider using a bar chart when:
+#'
+#' * The axis labels are long.
+#' * The values that are shown are durations.
 #' @inheritParams ms_linechart
 #' @family 'Office' chart objects
 #' @export
+#' @section Illustrations:
+#'
+#' \if{html}{
+#'
+#' \figure{fig_ms_barchart_1.png}{options: width=60\%}
+#'
+#' \figure{fig_ms_barchart_2.png}{options: width=60\%}
+#'
+#' \figure{fig_ms_barchart_3.png}{options: width=60\%}
+#'
+#' }
 #' @examples
 #' library(officer)
 #' @example examples/01_barchart.R
-ms_barchart <- function(data, x, y, group = NULL){
+ms_barchart <- function(data, x, y, group = NULL, labels = NULL){
 
-  out <- ms_chart(data = data, x = x, y = y, group = group)
+  if(!is.numeric(data[[y]])){
+    stop("y column should be numeric.")
+  }
+  check_x <- inherits(data[[x]], "Date") || is.character(data[[x]]) || is.factor(data[[x]])
+  if(!check_x){
+    stop("x column should be a date or a categorical column.")
+  }
+
+  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels)
   out$options <- barchart_options()
   class(out) <- c("ms_barchart", "ms_chart")
   out
@@ -56,15 +109,27 @@ ms_barchart <- function(data, x, y, group = NULL){
 #' @title areachart object
 #' @description Creation of an areachart object that can be
 #' inserted in a 'Microsoft' document.
+#'
+#' Area charts can be used to plot change over time and draw attention to the
+#' total value across a trend. By showing the sum of the plotted values, an area
+#' chart also shows the relationship of parts to a whole.
 #' @inheritParams ms_linechart
 #' @family 'Office' chart objects
 #' @export
 #' @examples
 #' library(officer)
 #' @example examples/03_areachart.R
-ms_areachart <- function(data, x, y, group = NULL){
+ms_areachart <- function(data, x, y, group = NULL, labels = NULL){
 
-  out <- ms_chart(data = data, x = x, y = y, group = group)
+  if(!is.numeric(data[[y]])){
+    stop("y column should be numeric.")
+  }
+  check_x <- inherits(data[[x]], "Date") || is.character(data[[x]]) || is.factor(data[[x]])
+  if(!check_x){
+    stop("x column should be a date or a categorical column.")
+  }
+
+  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels)
   class(out) <- c("ms_areachart", "ms_chart")
   out <- chart_settings(out)
   xtag <- if(inherits(data[[x]], "Date")){
@@ -90,12 +155,29 @@ ms_areachart <- function(data, x, y, group = NULL){
 #' @inheritParams ms_linechart
 #' @family 'Office' chart objects
 #' @export
+#' @section Illustrations:
+#'
+#' \if{html}{
+#'
+#' \figure{fig_ms_scatterchart_1.png}{options: width=60\%}
+#'
+#' \figure{fig_ms_scatterchart_2.png}{options: width=60\%}
+#'
+#' }
 #' @examples
 #' library(officer)
 #' @example examples/04_scatterchart.R
-ms_scatterchart <- function(data, x, y, group = NULL){
+ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL){
 
-  out <- ms_chart(data = data, x = x, y = y, group = group)
+  if(!is.numeric(data[[y]])){
+    stop("y column should be numeric.")
+  }
+  if(!is.numeric(data[[x]])){
+    stop("x column should be numeric.")
+  }
+
+  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels,
+                  excel_data_setup = transpose_series_bysplit)
   class(out) <- c("ms_scatterchart", "ms_chart")
 
   out <- chart_settings(out)
@@ -108,7 +190,7 @@ ms_scatterchart <- function(data, x, y, group = NULL){
 # ms_chart -----
 
 #' @importFrom grDevices colors
-ms_chart <- function(data, x, y, group = NULL){
+ms_chart <- function(data, x, y, group = NULL, labels = NULL, excel_data_setup = shape_as_series){
 
   stopifnot(is.data.frame(data))
   stopifnot(x %in% names(data))
@@ -116,6 +198,11 @@ ms_chart <- function(data, x, y, group = NULL){
 
   if( !is.null(group) && !(group %in% names(data)) ){
     stop("column ", shQuote(group), " could not be found in data.", call. = FALSE)
+  }
+  if( !is.null(labels) ){
+    labs <- labels[!labels %in% names(data)]
+    if(!(all(labs)))
+      stop("column(s) ", paste(shQuote(labs), collapse = ", "), " could not be found in data.", call. = FALSE)
   }
 
   theme_ <- mschart_theme()
@@ -139,7 +226,7 @@ ms_chart <- function(data, x, y, group = NULL){
 
   lbls <- list(title = NULL, x = x, y = y)
 
-  out <- list(data = data, x = x, y = y, group = group,
+  out <- list(data = data, x = x, y = y, group = group, label_cols = labels,
               theme = theme_,
               options = list(),
               x_axis = x_axis_,
@@ -151,9 +238,10 @@ ms_chart <- function(data, x, y, group = NULL){
               labels = lbls)
   class(out) <- c("ms_chart")
   out <- chart_data_labels(out)
-  out$data_series <- shape_as_series(out)
 
-  series_names <- setdiff(colnames( out$data_series ), x )
+  out$data_series <- excel_data_setup(out)
+
+  series_names <- get_series_names(out)
 
   if( length(series_names) <= length(colour_list) )
     palette_ <- colour_list[[length(series_names)]]

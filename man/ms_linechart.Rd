@@ -4,7 +4,7 @@
 \alias{ms_linechart}
 \title{linechart object}
 \usage{
-ms_linechart(data, x, y, group = NULL)
+ms_linechart(data, x, y, group = NULL, labels = NULL)
 }
 \arguments{
 \item{data}{a data.frame}
@@ -14,11 +14,35 @@ ms_linechart(data, x, y, group = NULL)
 \item{y}{y colname}
 
 \item{group}{grouping colname used to split data into series. Optional.}
+
+\item{labels}{colnames of columns to be used as labels into series. Optional.
+If more than a name, only the first one will be used as label, but all
+labels (transposed if a group is used) will be available in the Excel file
+associated with the chart.}
 }
 \description{
 Creation of a linechart object that can be
 inserted in a 'Microsoft' document.
+
+In a line chart, category data is distributed evenly along the horizontal axis, and
+all value data is distributed evenly along the vertical axis. Line charts can show
+continuous data over time on an evenly scaled axis, so they're ideal for showing
+trends in data at equal intervals, like months and quarters.
 }
+\section{Illustrations}{
+
+
+\if{html}{
+
+\figure{fig_ms_linechart_1.png}{options: width=60\%}
+
+\figure{fig_ms_linechart_2.png}{options: width=60\%}
+
+\figure{fig_ms_linechart_3.png}{options: width=60\%}
+
+}
+}
+
 \examples{
 library(officer)
 mytheme <- mschart_theme(

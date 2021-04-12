@@ -1,7 +1,5 @@
-library(magick)
 library(mschart)
-
-
+remove(list = ls())
 
 # funs -----
 #' @title topic names from a package
@@ -74,6 +72,8 @@ for (man_index in seq_along(man_names)) {
 }
 
 
+rsvg::rsvg_png("inst/mediasrc/logo-src.svg", file.path(dir, "logo.png"))
+
 # compress all images ----
-minimage::compress_images(input = dir, "man/figures")
+minimage::compress_images(input = dir, "man/figures", overwrite = TRUE)
 

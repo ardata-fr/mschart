@@ -9,12 +9,11 @@ status](https://github.com/ardata-fr/mschart/workflows/R-CMD-check/badge.svg)](h
 ![cranlogs](https://cranlogs.r-pkg.org/badges/mschart)
 ![Active](http://www.repostatus.org/badges/latest/active.svg)
 
+<a href="https://github.com/ardata-fr/mschart"><img src="man/figures/logo.png" alt="mschart logo" align="right" /></a>
 The `mschart` package provides a framework for easily create charts for
 ‘Microsoft PowerPoint’ documents. It has to be used with package
 [`officer`](https://davidgohel.github.io/officer/) that will produce the
 charts in new or existing PowerPoint or Word documents.
-
-![](https://www.ardata.fr/img/illustrations/ms_barchart.png)
 
 ## Example
 
@@ -66,20 +65,3 @@ report](https://github.com/ardata-fr/mschart/issues), please spend some
 time making it easy for me to follow and reproduce. The more time you
 spend on making the bug report coherent, the more time I can dedicate to
 investigate the bug as opposed to the bug report.
-
-### Contributing to the package development
-
-A great way to start is to contribute an example or improve the
-documentation.
-
-If you want to submit a Pull Request to integrate functions of yours,
-please provide:
-
-  - the new function(s) with code and roxygen tags (with examples)
-  - a new section in the appropriate vignette that describes how to use
-    the new function
-  - add corresponding tests in directory `tests/testthat`.
-
-By using rhub (run `rhub::check_for_cran()`), you will see if everything
-is ok. When submitted, the PR will be evaluated automatically on travis
-and appveyor and you will be able to see if something broke.
