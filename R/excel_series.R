@@ -5,7 +5,7 @@ get_series_names <- function(x){
     data_grps <- x$data[[x$group]]
     if(is.factor(data_grps)) names_ <- levels(data_grps)
     else if(is.character(data_grps)) names_ <- sort(unique(data_grps))
-    else stop("group column should only be a factor or a character vector.")
+    else names_ <- as.character(sort(unique(data_grps)))
   } else {
     names_ <- x$y
   }
@@ -20,7 +20,7 @@ get_label_names <- function(x){
     data_grps <- x$data[[x$group]]
     if(is.factor(data_grps)) names_ <- levels(data_grps)
     else if(is.character(data_grps)) names_ <- sort(unique(data_grps))
-    else stop("group column should only be a factor or a character vector.")
+    else names_ <- as.character(sort(unique(data_grps)))
   } else {
     names_ <- x$y
   }
