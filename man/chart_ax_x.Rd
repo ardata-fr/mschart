@@ -120,20 +120,20 @@ Define settings for an x or y axis.
 
 \section{num_fmt}{
 
-All \verb{\\\%} need to be doubled, \verb{0\\\%\\\%} mean "a number
+All \verb{\%} need to be doubled, \verb{0\%\%} mean "a number
 and percent symbol".
 
 From my actual knowledge, depending on some chart type
 and options, the following values are not systematically
 used by office chart engine; i.e. when chart pre-compute
-percentages, it seems using \verb{0\\\%\\\%} will have no
+percentages, it seems using \verb{0\%\%} will have no
 effect.
 \itemize{
 \item \code{General}: default value
 \item \code{0}: display the number with no decimal
 \item \code{0.00}: display the number with two decimals
-\item \verb{0\\\%\\\%}: display as percentages
-\item \verb{0.00\\\%\\\%}: display as percentages with two digits
+\item \verb{0\%\%}: display as percentages
+\item \verb{0.00\%\%}: display as percentages with two digits
 \item \verb{#,##0}
 \item \verb{#,##0.00}
 \item \code{0.00E+00}

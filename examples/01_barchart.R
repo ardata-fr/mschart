@@ -103,7 +103,7 @@ dat_groups <- structure(list(
   )
 ), row.names = c(NA, -40L), class = "data.frame")
 dat_groups$label <- sprintf(
-  "carat median is `%.01.f`",
+  "carat median is %.01f",
   dat_groups$carat
 )
 dat_groups
@@ -142,7 +142,7 @@ dat_no_group <- structure(list(
   n = c(1610L, 4906L, 12082L, 13791L, 21551L)
 ), row.names = c(NA, -5L), class = "data.frame")
 dat_no_group$label <- sprintf(
-  "carat median is `%.01.f`",
+  "carat median is %.01f",
   dat_no_group$carat
 )
 dat_no_group
