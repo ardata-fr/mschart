@@ -13,8 +13,5 @@ ac_01 <- set_theme(ac_01, mytheme)
 
 
 # example ac_02 -------
-ac_02 <- ms_areachart(data = browser_ts, x = "date",
-                      y = "freq", group = "browser")
-ac_02 <- chart_ax_x(ac_02, cross_between = "midCat", num_fmt = "m/d/yy")
-ac_02 <- chart_settings(ac_02, grouping = "percentStacked")
+ac_02 <- chart_settings(ac_01, grouping = "percentStacked")
 
