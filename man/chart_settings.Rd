@@ -59,3 +59,21 @@ Set chart properties.
 \item \code{ms_scatterchart}: linechart settings
 }}
 
+\examples{
+chart_01 <- ms_barchart(
+  data = browser_data, x = "browser",
+  y = "value", group = "serie"
+)
+chart_01 <- chart_settings(
+  x = chart_01, dir = "vertical",
+  grouping = "clustered", gap_width = 50
+)
+
+chart_02 <- ms_areachart(data = browser_ts, x = "date",
+  y = "freq", group = "browser")
+chart_02 <- chart_settings(chart_02,
+  grouping = "percentStacked")
+}
+\seealso{
+\code{\link[=ms_barchart]{ms_barchart()}}, \code{\link[=ms_areachart]{ms_areachart()}}, \code{\link[=ms_scatterchart]{ms_scatterchart()}}, \code{\link[=ms_linechart]{ms_linechart()}}
+}

@@ -24,5 +24,13 @@ linec <- chart_data_smooth(linec,
   values = c(virginica = 0, versicolor = 0, setosa = 0) )
 }
 \seealso{
-\code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_size}}
+Other 'Office' chart series: 
+\code{\link{chart_data_fill}()},
+\code{\link{chart_data_line_style}()},
+\code{\link{chart_data_line_width}()},
+\code{\link{chart_data_size}()},
+\code{\link{chart_data_stroke}()},
+\code{\link{chart_data_symbol}()},
+\code{\link{chart_labels_text}()}
 }
+\concept{'Office' chart series}

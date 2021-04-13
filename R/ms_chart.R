@@ -16,6 +16,8 @@
 #' associated with the chart.
 #' @export
 #' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
+#' [chart_data_labels()], [chart_theme()], [chart_labels()]
 #' @section Illustrations:
 #'
 #' \if{html}{
@@ -70,6 +72,8 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL){
 #' * The values that are shown are durations.
 #' @inheritParams ms_linechart
 #' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
+#' [chart_data_labels()], [chart_theme()], [chart_labels()]
 #' @export
 #' @section Illustrations:
 #'
@@ -115,6 +119,8 @@ ms_barchart <- function(data, x, y, group = NULL, labels = NULL){
 #' chart also shows the relationship of parts to a whole.
 #' @inheritParams ms_linechart
 #' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
+#' [chart_data_labels()], [chart_theme()], [chart_labels()]
 #' @export
 #' @examples
 #' library(officer)
@@ -154,6 +160,8 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL){
 #' inserted in a 'Microsoft' document.
 #' @inheritParams ms_linechart
 #' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
+#' [chart_data_labels()], [chart_theme()], [chart_labels()]
 #' @export
 #' @section Illustrations:
 #'

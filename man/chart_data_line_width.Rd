@@ -32,5 +32,13 @@ my_scatter <- chart_data_line_width(my_scatter,
   values = c(virginica = 2, versicolor = 3, setosa = 6) )
 }
 \seealso{
-\code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_symbol}}
+Other 'Office' chart series: 
+\code{\link{chart_data_fill}()},
+\code{\link{chart_data_line_style}()},
+\code{\link{chart_data_size}()},
+\code{\link{chart_data_smooth}()},
+\code{\link{chart_data_stroke}()},
+\code{\link{chart_data_symbol}()},
+\code{\link{chart_labels_text}()}
 }
+\concept{'Office' chart series}

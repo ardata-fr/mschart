@@ -1,5 +1,5 @@
-#' @title axis settings
-#' @description Define settings for an x or y axis.
+#' @title x axis settings
+#' @description Define settings for an x axis.
 #' @param x an \code{ms_chart} object.
 #' @param orientation axis orientation, one of 'maxMin', 'minMax'.
 #' @param crosses specifies how the axis crosses the perpendicular
@@ -59,6 +59,16 @@
 #' * `@`
 #'
 #' @export
+#' @examples
+#' chart_01 <- ms_linechart(
+#'   data = us_indus_prod,
+#'   x = "date", y = "value",
+#'   group = "type")
+#'
+#' chart_01 <- chart_ax_x(
+#'   x = chart_01, num_fmt = "[$-fr-FR]mmm yyyy",
+#'   limit_min = min(us_indus_prod$date), limit_max = as.Date("1992-01-01"))
+#' @seealso [chart_ax_y()]
 chart_ax_x <- function( x, orientation, crosses, cross_between,
                             major_tick_mark, minor_tick_mark,
                             tick_label_pos, display,
@@ -69,8 +79,24 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
 }
 
 
+#' @title y axis settings
+#' @description Define settings for a y axis.
+#' @inheritParams chart_ax_x
+#' @inheritSection chart_ax_x num_fmt
 #' @export
-#' @rdname chart_ax_x
+#' @examples
+#' chart_01 <- ms_linechart(
+#'   data = us_indus_prod,
+#'   x = "date", y = "value",
+#'   group = "type")
+#'
+#' chart_01 <- chart_ax_y(x = chart_01, limit_min = 0, limit_max = 150)
+#'
+#' chart_01 <- chart_ax_x(
+#'   x = chart_01, num_fmt = "[$-fr-FR]mmm yyyy",
+#'   limit_min = min(us_indus_prod$date),
+#'   limit_max = as.Date("1992-01-01"))
+#' @seealso [chart_ax_x()]
 chart_ax_y <- function( x, orientation, crosses, cross_between,
                         major_tick_mark, minor_tick_mark,
                         tick_label_pos, display,
@@ -82,7 +108,6 @@ chart_ax_y <- function( x, orientation, crosses, cross_between,
 
 
 #' @export
-#' @describeIn chart_ax_x chart_ax_x method for ms_chart objects
 chart_ax_x.ms_chart <- function( x, orientation, crosses, cross_between,
                                  major_tick_mark, minor_tick_mark,
                                  tick_label_pos, display,
@@ -130,7 +155,6 @@ chart_ax_x.ms_chart <- function( x, orientation, crosses, cross_between,
 }
 
 #' @export
-#' @describeIn chart_ax_x chart_ax_y method for ms_chart objects
 chart_ax_y.ms_chart <- function( x, orientation, crosses, cross_between,
                                  major_tick_mark, minor_tick_mark,
                                  tick_label_pos, display,

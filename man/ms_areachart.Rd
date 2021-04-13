@@ -49,6 +49,9 @@ ac_02 <- chart_settings(ac_01, grouping = "percentStacked")
 
 }
 \seealso{
+\code{\link[=chart_settings]{chart_settings()}}, \code{\link[=chart_ax_x]{chart_ax_x()}}, \code{\link[=chart_ax_y]{chart_ax_y()}},
+\code{\link[=chart_data_labels]{chart_data_labels()}}, \code{\link[=chart_theme]{chart_theme()}}, \code{\link[=chart_labels]{chart_labels()}}
+
 Other 'Office' chart objects: 
 \code{\link{ms_barchart}()},
 \code{\link{ms_linechart}()},

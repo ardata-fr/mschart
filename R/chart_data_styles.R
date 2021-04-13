@@ -20,6 +20,7 @@
 #' barchart <- chart_data_labels(barchart, show_val = TRUE)
 #' barchart <- chart_labels_text( barchart,
 #'   values = fp_text_settings )
+#' @family 'Office' chart series
 chart_labels_text <- function(x, values){
 
   serie_names <- names(x$series_settings$fill)
@@ -56,7 +57,7 @@ chart_labels_text <- function(x, values){
 #'   y = "Sepal.Width",  group = "Species")
 #' my_scatter <- chart_data_fill(my_scatter,
 #'   values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
-#' @seealso \code{\link{chart_data_stroke}}, \code{\link{chart_data_symbol}}, \code{\link{chart_data_size}}
+#' @family 'Office' chart series
 chart_data_fill <- function(x, values){
 
   valid_cols <- is_valid_color(values)
@@ -91,7 +92,7 @@ chart_data_fill <- function(x, values){
 #'   values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
 #' my_scatter <- chart_data_stroke(my_scatter,
 #'   values = c(virginica = "black", versicolor = "black", setosa = "black") )
-#' @seealso \code{\link{chart_data_fill}}, \code{\link{chart_data_symbol}}, \code{\link{chart_data_size}}
+#' @family 'Office' chart series
 chart_data_stroke <- function(x, values){
 
   valid_cols <- is_valid_color(values)
@@ -131,7 +132,7 @@ chart_data_stroke <- function(x, values){
 #'   values = c(virginica = "black", versicolor = "black", setosa = "black") )
 #' my_scatter <- chart_data_symbol(my_scatter,
 #'   values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
-#' @seealso \code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_size}}
+#' @family 'Office' chart series
 chart_data_symbol <- function(x, values){
 
   if( !all(values %in% st_markerstyle) ){
@@ -171,7 +172,7 @@ chart_data_symbol <- function(x, values){
 #'   values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
 #' my_scatter <- chart_data_size(my_scatter,
 #'   values = c(virginica = 20, versicolor = 16, setosa = 20) )
-#' @seealso \code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_symbol}}
+#' @family 'Office' chart series
 chart_data_size <- function(x, values){
 
   if( !is.numeric(values) )
@@ -214,7 +215,7 @@ chart_data_size <- function(x, values){
 #'   values = c(virginica = 20, versicolor = 16, setosa = 20) )
 #' my_scatter <- chart_data_line_width(my_scatter,
 #'   values = c(virginica = 2, versicolor = 3, setosa = 6) )
-#' @seealso \code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_symbol}}
+#' @family 'Office' chart series
 chart_data_line_width <- function(x, values){
 
   if( !is.numeric(values) )
@@ -255,7 +256,7 @@ chart_data_line_width <- function(x, values){
 #'   values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
 #' my_scatter <- chart_data_line_style(my_scatter,
 #'   values = c(virginica = "solid", versicolor = "dotted", setosa = "dashed") )
-#' @seealso \code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_size}}
+#' @family 'Office' chart series
 chart_data_line_style <- function(x, values){
 
   if( !all(values %in% st_linestyle) ){
@@ -290,7 +291,7 @@ chart_data_line_style <- function(x, values){
 #'   y = "Sepal.Width", group = "Species")
 #'linec <- chart_data_smooth(linec,
 #'   values = c(virginica = 0, versicolor = 0, setosa = 0) )
-#' @seealso \code{\link{chart_data_fill}}, \code{\link{chart_data_stroke}}, \code{\link{chart_data_size}}
+#' @family 'Office' chart series
 chart_data_smooth <- function(x, values){
   as_bool <- c(1,0)
 

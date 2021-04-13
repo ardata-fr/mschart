@@ -189,6 +189,9 @@ chrt <- chart_labels_text(chrt, text_prop)
 
 }
 \seealso{
+\code{\link[=chart_settings]{chart_settings()}}, \code{\link[=chart_ax_x]{chart_ax_x()}}, \code{\link[=chart_ax_y]{chart_ax_y()}},
+\code{\link[=chart_data_labels]{chart_data_labels()}}, \code{\link[=chart_theme]{chart_theme()}}, \code{\link[=chart_labels]{chart_labels()}}
+
 Other 'Office' chart objects: 
 \code{\link{ms_areachart}()},
 \code{\link{ms_linechart}()},
