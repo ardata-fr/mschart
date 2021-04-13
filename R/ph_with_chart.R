@@ -14,16 +14,11 @@ pml_chart <- function(x, value, id_x, id_y){
   rel_str <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
                     "<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/package\" Target=\"../embeddings/%s\"/></Relationships>")
   rel_str <- sprintf( rel_str, basename(xlsx_file) )
-  cat(rel_str, file = rel_filename)
+  writeLines(rel_str, rel_filename, useBytes = TRUE)
 
   write_xlsx( x = list( "sheet1" = value$data_series ), path = xlsx_file)
   xml_elt <- format(value, id_x = id_x, id_y = id_y)
-
-  con <- file(chart_file, open = "wt", encoding = "UTF-8")
-  sink(con)
-  cat(xml_elt)
-  sink()
-  close(con)
+  writeLines(xml_elt, chart_file, useBytes = TRUE)
 
   slide <- x$slide$get_slide(x$cursor)
   next_id <- slide$relationship()$get_next_id()

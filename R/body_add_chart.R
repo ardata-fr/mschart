@@ -36,12 +36,13 @@ body_add_chart <- function( x, chart, style = NULL, pos = "after",
   rel_str <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
                     "<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/package\" Target=\"../embeddings/%s\"/></Relationships>")
   rel_str <- sprintf( rel_str, basename(xlsx_file) )
-  cat(rel_str, file = rel_filename)
+  writeLines(rel_str, rel_filename, useBytes = TRUE)
+
   id_x = "64451712"
   id_y = "64453248"
   write_xlsx(x = list("sheet1" = chart$data_series), path = xlsx_file)
   xml_elt <- format(chart, id_x = id_x, id_y = id_y)
-  cat(xml_elt, file = chart_file)
+  writeLines(xml_elt, chart_file, useBytes = TRUE)
 
   next_id <- x$doc_obj$relationship()$get_next_id()
   x$doc_obj$relationship()$add(paste0("rId", next_id),
