@@ -119,7 +119,9 @@ to_pml.label_ref <- function(x, add_ns = FALSE, ...){
     values <- as.character(x$values)
   } else if( is.character(x$values) ){
     values <- htmlEscape(x$values)
-  } else htmlEscape(format(x$values))
+  } else values <- htmlEscape(format(x$values))
+
+  values[is.na(x$values)] <- ""
 
   pt_ <- sprintf("<c:pt idx=\"%.0f\"><c:v>%s</c:v></c:pt>", seq_along(values)-1, values)
   pt_ <- paste0(pt_, collapse = "")
