@@ -21,10 +21,11 @@ get_label_names <- function(x){
     if(is.factor(data_grps)) names_ <- levels(data_grps)
     else if(is.character(data_grps)) names_ <- sort(unique(data_grps))
     else names_ <- as.character(sort(unique(data_grps)))
+    names_ <- paste0(x$label_cols[1], "-", names_)
   } else {
-    names_ <- x$y
+    names_ <- x$label_cols[1]
   }
-  paste0(x$label_cols[1], "-", names_)
+
 }
 
 # 2 different transpose ops -----
