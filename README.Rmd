@@ -20,32 +20,39 @@ knitr::opts_chunk$set(
 
 <a href="https://github.com/ardata-fr/mschart"><img src="man/figures/logo.png" alt="mschart logo" align="right" /></a> 
 The `mschart` package provides a framework for easily create charts for
-'Microsoft PowerPoint' documents. It has to be used with package
-[`officer`](https://davidgohel.github.io/officer/) that will produce the charts
-in new or existing PowerPoint or Word documents.
+'Microsoft PowerPoint' presentations and 'Microsoft Word' documents. It has to
+be used with package [`officer`](https://davidgohel.github.io/officer/) that
+will produce the charts in new or existing PowerPoint or Word documents. With
+'Microsoft Charts', the data is integrated into the document and linked to the
+chart. The result can be edited, annotated and resized. If the data is updated
+in the document, the chart is also updated.
 
 ## Example
 
-This is a basic example which shows you how to create a line chart.
+This is a basic example which shows you how to create a scatter plot.
 
 ```{r example}
 library(mschart)
-library(officer)
-
-linec <- ms_linechart(data = iris, x = "Sepal.Length",
-                      y = "Sepal.Width", group = "Species")
-linec <- chart_ax_y(linec, num_fmt = "0.00", rotation = -90)
+scatter <-
+  ms_scatterchart(
+    data = iris, x = "Sepal.Length",
+    y = "Sepal.Width", group = "Species"
+  )
+scatter <- chart_settings(scatter, scatterstyle = "marker")
 ```
 
 Then use package `officer` to send the object as a chart.
 
 ```{r eval=FALSE}
+library(officer)
 doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with(doc, value = linec, location = ph_location_type(type = "body"))
+doc <- ph_with(doc, value = scatter, location = ph_location_fullsize())
 
 print(doc, target = "example.pptx")
 ```
+
+![](man/figures/README-example.png)
 
 At any moment, you can type `print(your_chart, preview = TRUE)` to preview the
 chart in a temporary PowerPoint file. This requires to have a PowerPoint Viewer
@@ -74,4 +81,3 @@ When you file a [bug report](https://github.com/ardata-fr/mschart/issues),
 please spend some time making it easy for me to follow and reproduce. The more
 time you spend on making the bug report coherent, the more time I can dedicate
 to investigate the bug as opposed to the bug report.
-

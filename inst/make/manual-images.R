@@ -73,6 +73,7 @@ for (man_index in seq_along(man_names)) {
 
 
 rsvg::rsvg_png("inst/mediasrc/logo-src.svg", file.path(dir, "logo.png"))
+file.copy("inst/mediasrc/example.png", file.path(dir, "README-example.png"), overwrite = TRUE)
 
 # compress all images ----
 minimage::compress_images(input = dir, "man/figures", overwrite = TRUE)
