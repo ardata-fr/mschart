@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.004</span>
       </span>
     </div>
 
@@ -76,25 +76,28 @@
 <a href="#mschart-r-package" class="anchor"></a>mschart R package</h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<p><a href="https://github.com/ardata-fr/mschart"><img src="reference/figures/logo.png" alt="mschart logo" align="right"></a> The <code>mschart</code> package provides a framework for easily create charts for ‘Microsoft PowerPoint’ documents. It has to be used with package <a href="https://davidgohel.github.io/officer/"><code>officer</code></a> that will produce the charts in new or existing PowerPoint or Word documents.</p>
+<p><a href="https://github.com/ardata-fr/mschart"><img src="reference/figures/logo.png" alt="mschart logo" align="right"></a> The <code>mschart</code> package provides a framework for easily create charts for ‘Microsoft PowerPoint’ presentations and ‘Microsoft Word’ documents. It has to be used with package <a href="https://davidgohel.github.io/officer/"><code>officer</code></a> that will produce the charts in new or existing PowerPoint or Word documents. With ‘Microsoft Charts’, the data is integrated into the document and linked to the chart. The result can be edited, annotated and resized. If the data is updated in the document, the chart is also updated.</p>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>This is a basic example which shows you how to create a line chart.</p>
+<p>This is a basic example which shows you how to create a scatter plot.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/">mschart</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/">officer</a></span><span class="op">)</span>
-
-<span class="va">linec</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ms_linechart.html">ms_linechart</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">iris</span>, x <span class="op">=</span> <span class="st">"Sepal.Length"</span>,
-                      y <span class="op">=</span> <span class="st">"Sepal.Width"</span>, group <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span>
-<span class="va">linec</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/chart_ax_x.html">chart_ax_y</a></span><span class="op">(</span><span class="va">linec</span>, num_fmt <span class="op">=</span> <span class="st">"0.00"</span>, rotation <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span></code></pre></div>
+<span class="va">scatter</span> <span class="op">&lt;-</span>
+  <span class="fu"><a href="reference/ms_scatterchart.html">ms_scatterchart</a></span><span class="op">(</span>
+    data <span class="op">=</span> <span class="va">iris</span>, x <span class="op">=</span> <span class="st">"Sepal.Length"</span>,
+    y <span class="op">=</span> <span class="st">"Sepal.Width"</span>, group <span class="op">=</span> <span class="st">"Species"</span>
+  <span class="op">)</span>
+<span class="va">scatter</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/chart_settings.html">chart_settings</a></span><span class="op">(</span><span class="va">scatter</span>, scatterstyle <span class="op">=</span> <span class="st">"marker"</span><span class="op">)</span></code></pre></div>
 <p>Then use package <code>officer</code> to send the object as a chart.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/">officer</a></span><span class="op">)</span>
+<span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span><span class="op">)</span>
-<span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">linec</span>, location <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/ph_location_type.html">ph_location_type</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"body"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">scatter</span>, location <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/ph_location_fullsize.html">ph_location_fullsize</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="st">"example.pptx"</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-example.png"></p>
 <p>At any moment, you can type <code><a href="https://rdrr.io/r/base/print.html">print(your_chart, preview = TRUE)</a></code> to preview the chart in a temporary PowerPoint file. This requires to have a PowerPoint Viewer installed on the machine.</p>
 </div>
 <div id="installation" class="section level2">
@@ -156,7 +159,7 @@
 
       <footer><link href="ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.2.7.003 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.2.7.004 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">

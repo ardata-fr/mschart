@@ -85,7 +85,7 @@ trends in data at equal intervals, like months and quarters." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.004</span>
       </span>
     </div>
 
@@ -174,32 +174,42 @@ associated with the chart.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
-<span class='va'>mytheme</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>mschart_theme</a></span><span class='op'>(</span>
-  axis_title_x <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>24</span>, bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-  axis_title_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"green"</span>, font.size <span class='op'>=</span> <span class='fl'>12</span>, italic <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-  grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>,
-  axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span> <span class='op'>)</span>
-
 <span class='co'># example chart_01 -------</span>
-<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>iris</span>, x <span class='op'>=</span> <span class='st'>"Sepal.Length"</span>,
-                      y <span class='op'>=</span> <span class='st'>"Sepal.Width"</span>, group <span class='op'>=</span> <span class='st'>"Species"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: using continuous data in the x-axis is not an expected representation, the next versions will prevent this.</span></div><div class='input'><span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>chart_01</span>, num_fmt <span class='op'>=</span> <span class='st'>"0.00"</span>, rotation <span class='op'>=</span> <span class='op'>-</span><span class='fl'>90</span><span class='op'>)</span>
-<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>chart_01</span>, <span class='va'>mytheme</span><span class='op'>)</span>
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>us_indus_prod</span>,
+  x <span class='op'>=</span> <span class='st'>"date"</span>, y <span class='op'>=</span> <span class='st'>"value"</span>,
+  group <span class='op'>=</span> <span class='st'>"type"</span><span class='op'>)</span>
+
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>chart_01</span>, num_fmt <span class='op'>=</span> <span class='st'>"[$-fr-FR]mmm yyyy"</span>,
+  limit_min <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>us_indus_prod</span><span class='op'>$</span><span class='va'>date</span><span class='op'>)</span>, limit_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"1992-01-01"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_data_stroke.html'>chart_data_stroke</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>chart_01</span>,
+  values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>adjusted <span class='op'>=</span> <span class='st'>"red"</span>, unadjusted <span class='op'>=</span> <span class='st'>"gray"</span><span class='op'>)</span> <span class='op'>)</span>
+
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_data_line_width.html'>chart_data_line_width</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>chart_01</span>,
+  values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>adjusted <span class='op'>=</span> <span class='fl'>2</span>, unadjusted <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>)</span>
 
 
 <span class='co'># example chart_02 -------</span>
-<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
-                      y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
-<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>chart_02</span>, cross_between <span class='op'>=</span> <span class='st'>"between"</span>, num_fmt <span class='op'>=</span> <span class='st'>"General"</span><span class='op'>)</span>
-<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>chart_02</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
-<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>chart_02</span>, <span class='va'>mytheme</span><span class='op'>)</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  supp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"OJ"</span>, <span class='st'>"VC"</span><span class='op'>)</span>, each <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>, levels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"OJ"</span>, <span class='st'>"VC"</span><span class='op'>)</span><span class='op'>)</span>,
+  dose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"low"</span>, <span class='st'>"medium"</span>, <span class='st'>"high"</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span>, levels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"low"</span>, <span class='st'>"medium"</span>, <span class='st'>"high"</span><span class='op'>)</span><span class='op'>)</span>,
+  length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>13.23</span>, <span class='fl'>22.7</span>, <span class='fl'>26.06</span>, <span class='fl'>7.98</span>, <span class='fl'>16.77</span>, <span class='fl'>26.14</span><span class='op'>)</span>,
+  stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
+<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, x <span class='op'>=</span> <span class='st'>"dose"</span>,
+                         y <span class='op'>=</span> <span class='st'>"length"</span>,
+                         group <span class='op'>=</span> <span class='st'>"supp"</span><span class='op'>)</span>
+<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>chart_02</span>, cross_between <span class='op'>=</span> <span class='st'>"between"</span>, limit_min <span class='op'>=</span> <span class='fl'>5</span>, limit_max <span class='op'>=</span> <span class='fl'>30</span>,
+                       num_fmt <span class='op'>=</span> <span class='st'>"General"</span><span class='op'>)</span>
 
 <span class='co'># example chart_03 -------</span>
 <span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
                       y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
 <span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>chart_03</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
-<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>chart_03</span>, grouping <span class='op'>=</span> <span class='st'>"percentStacked"</span><span class='op'>)</span>
 
 </div></pre>
   </div>
@@ -214,7 +224,7 @@ associated with the chart.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.7.003 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.7.004 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
