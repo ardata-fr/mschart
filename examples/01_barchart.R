@@ -1,5 +1,4 @@
 library(mschart)
-library(magrittr)
 library(officer)
 
 

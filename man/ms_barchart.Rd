@@ -51,7 +51,6 @@ Consider using a bar chart when:
 \examples{
 library(officer)
 library(mschart)
-library(magrittr)
 library(officer)
 
 
