@@ -102,14 +102,21 @@ chart_ax_x.ms_chart <- function( x, orientation, crosses, cross_between,
                            num_fmt = ifelse(missing(num_fmt), x$x_axis$num_fmt, num_fmt),
                            rotation = ifelse(missing(rotation), x$x_axis$rotation, rotation)
                            )
+
   if( missing(limit_min) && !is.null(x$x_axis$limit_min) ){
     options$limit_min <- x$x_axis$limit_min
   } else if( !missing(limit_min) ){
+    if(inherits(limit_min, "Date")){
+      limit_min <- as.integer(limit_min - as.Date("1899-12-30"))
+    }
     options$limit_min <- limit_min
   }
   if( missing(limit_max) && !is.null(x$x_axis$limit_max) ){
     options$limit_max <- x$x_axis$limit_max
   } else if( !missing(limit_max) ){
+    if(inherits(limit_max, "Date")){
+      limit_max <- as.integer(limit_max - as.Date("1899-12-30"))
+    }
     options$limit_max <- limit_max
   }
   if( missing(position) && !is.null(x$x_axis$position) ){
@@ -145,11 +152,17 @@ chart_ax_y.ms_chart <- function( x, orientation, crosses, cross_between,
   if( missing(limit_min) && !is.null(x$y_axis$limit_min) ){
     options$limit_min <- x$y_axis$limit_min
   } else if( !missing(limit_min) ){
+    if(inherits(limit_min, "Date")){
+      limit_min <- as.integer(limit_min - as.Date("1899-12-30"))
+    }
     options$limit_min <- limit_min
   }
   if( missing(limit_max) && !is.null(x$y_axis$limit_max) ){
     options$limit_max <- x$y_axis$limit_max
   } else if( !missing(limit_max) ){
+    if(inherits(limit_max, "Date")){
+      limit_max <- as.integer(limit_max - as.Date("1899-12-30"))
+    }
     options$limit_max <- limit_max
   }
   if( missing(position) && !is.null(x$y_axis$position) ){

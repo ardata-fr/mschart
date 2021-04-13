@@ -91,7 +91,7 @@ date_ref <- function(values, region = NULL, num_fmt = NULL){
 
 to_pml.date_ref <- function(x, add_ns = FALSE, ...){
   pt_ <- "<c:pt idx=\"%.0f\"><c:v>%.0f</c:v></c:pt>"
-  values <- as.integer(x$values - as.Date("1900-01-01") - 2)
+  values <- as.integer(x$values - as.Date("1899-12-30"))
   pt_ <- sprintf(pt_, seq_along(values)-1, values)
   pt_ <- paste0(pt_[!is.na(values)], collapse = "")
   num_fmt <- sprintf("<c:formatCode>%s</c:formatCode>", "yyyy\\-mm\\-dd" )
