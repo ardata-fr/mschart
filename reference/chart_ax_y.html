@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>areachart object — ms_areachart • mschart</title>
+<title>y axis settings — chart_ax_y • mschart</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,8 @@
 
 
 
-<meta property="og:title" content="areachart object — ms_areachart" />
-<meta property="og:description" content="Creation of an areachart object that can be
-inserted in a 'Microsoft' document.
-Area charts can be used to plot change over time and draw attention to the
-total value across a trend. By showing the sum of the plotted values, an area
-chart also shows the relationship of parts to a whole." />
+<meta property="og:title" content="y axis settings — chart_ax_y" />
+<meta property="og:description" content="Define settings for a y axis." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -114,77 +110,157 @@ chart also shows the relationship of parts to a whole." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>areachart object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ardata-fr/mschart/blob/master/R/ms_chart.R'><code>R/ms_chart.R</code></a></small>
-    <div class="hidden name"><code>ms_areachart.Rd</code></div>
+    <h1>y axis settings</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ardata-fr/mschart/blob/master/R/axis_setting.R'><code>R/axis_setting.R</code></a></small>
+    <div class="hidden name"><code>chart_ax_y.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Creation of an areachart object that can be
-inserted in a 'Microsoft' document.</p>
-<p>Area charts can be used to plot change over time and draw attention to the
-total value across a trend. By showing the sum of the plotted values, an area
-chart also shows the relationship of parts to a whole.</p>
+    <p>Define settings for a y axis.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ms_areachart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>x</span>, <span class='va'>y</span>, group <span class='op'>=</span> <span class='cn'>NULL</span>, labels <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>chart_ax_y</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>orientation</span>,
+  <span class='va'>crosses</span>,
+  <span class='va'>cross_between</span>,
+  <span class='va'>major_tick_mark</span>,
+  <span class='va'>minor_tick_mark</span>,
+  <span class='va'>tick_label_pos</span>,
+  <span class='va'>display</span>,
+  <span class='va'>num_fmt</span>,
+  <span class='va'>rotation</span>,
+  <span class='va'>limit_min</span>,
+  <span class='va'>limit_max</span>,
+  <span class='va'>position</span>,
+  second_axis <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>a data.frame</p></td>
-    </tr>
-    <tr>
       <th>x</th>
-      <td><p>x colname</p></td>
+      <td><p>an <code>ms_chart</code> object.</p></td>
     </tr>
     <tr>
-      <th>y</th>
-      <td><p>y colname</p></td>
+      <th>orientation</th>
+      <td><p>axis orientation, one of 'maxMin', 'minMax'.</p></td>
     </tr>
     <tr>
-      <th>group</th>
-      <td><p>grouping colname used to split data into series. Optional.</p></td>
+      <th>crosses</th>
+      <td><p>specifies how the axis crosses the perpendicular
+axis, one of 'autoZero', 'max', 'min'.</p></td>
     </tr>
     <tr>
-      <th>labels</th>
-      <td><p>colnames of columns to be used as labels into series. Optional.
-If more than a name, only the first one will be used as label, but all
-labels (transposed if a group is used) will be available in the Excel file
-associated with the chart.</p></td>
+      <th>cross_between</th>
+      <td><p>specifies how the value axis crosses the
+category axis between categories, one of 'between', 'midCat'.</p></td>
+    </tr>
+    <tr>
+      <th>major_tick_mark</th>
+      <td><p>tick marks position,
+one of 'cross', 'in', 'none', 'out'.</p></td>
+    </tr>
+    <tr>
+      <th>minor_tick_mark</th>
+      <td><p>tick marks position,
+one of 'cross', 'in', 'none', 'out'.</p></td>
+    </tr>
+    <tr>
+      <th>tick_label_pos</th>
+      <td><p>ticks labels position, one of 'high',
+'low', 'nextTo', 'none'.</p></td>
+    </tr>
+    <tr>
+      <th>display</th>
+      <td><p>should the axis be displayed (a logical of
+length 1).</p></td>
+    </tr>
+    <tr>
+      <th>num_fmt</th>
+      <td><p>number formatting. See section for more details.</p></td>
+    </tr>
+    <tr>
+      <th>rotation</th>
+      <td><p>rotation angle. Value should be between <code>-360</code>
+and <code>360</code>.</p></td>
+    </tr>
+    <tr>
+      <th>limit_min</th>
+      <td><p>minimum value on the axis.</p></td>
+    </tr>
+    <tr>
+      <th>limit_max</th>
+      <td><p>maximum value on the axis.</p></td>
+    </tr>
+    <tr>
+      <th>position</th>
+      <td><p>position value that cross the other axis.</p></td>
+    </tr>
+    <tr>
+      <th>second_axis</th>
+      <td><p>unused</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="num-fmt"><a class="anchor" href="#num-fmt"></a>num_fmt</h2>
+
+    
+
+<p>All <code>%</code> need to be doubled, <code>0%%</code> mean "a number
+and percent symbol".</p>
+<p>From my actual knowledge, depending on some chart type
+and options, the following values are not systematically
+used by office chart engine; i.e. when chart pre-compute
+percentages, it seems using <code>0%%</code> will have no
+effect.</p><ul>
+<li><p><code>General</code>: default value</p></li>
+<li><p><code>0</code>: display the number with no decimal</p></li>
+<li><p><code>0.00</code>: display the number with two decimals</p></li>
+<li><p><code>0%%</code>: display as percentages</p></li>
+<li><p><code>0.00%%</code>: display as percentages with two digits</p></li>
+<li><p><code>#,##0</code></p></li>
+<li><p><code>#,##0.00</code></p></li>
+<li><p><code>0.00E+00</code></p></li>
+<li><p><code># ?/?</code></p></li>
+<li><p><code># ??/??</code></p></li>
+<li><p><code>mm-dd-yy</code></p></li>
+<li><p><code>d-mmm-yy</code></p></li>
+<li><p><code>d-mmm</code></p></li>
+<li><p><code>mmm-yy</code></p></li>
+<li><p><code>h:mm AM/PM</code></p></li>
+<li><p><code>h:mm:ss AM/PM</code></p></li>
+<li><p><code>h:mm</code></p></li>
+<li><p><code>h:mm:ss</code></p></li>
+<li><p><code>m/d/yy h:mm</code></p></li>
+<li><p><code>#,##0 ;(#,##0)</code></p></li>
+<li><p><code>#,##0 ;[Red](#,##0)</code></p></li>
+<li><p><code>#,##0.00;(#,##0.00)</code></p></li>
+<li><p><code>#,##0.00;[Red](#,##0.00)</code></p></li>
+<li><p><code>mm:ss</code></p></li>
+<li><p><code>[h]:mm:ss</code></p></li>
+<li><p><code>mmss.0</code></p></li>
+<li><p><code>##0.0E+0</code></p></li>
+<li><p><code><a href='https://rdrr.io/r/base/slotOp.html'>@</a></code></p></li>
+</ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='chart_settings.html'>chart_settings()</a></code>, <code><a href='chart_ax_x.html'>chart_ax_x()</a></code>, <code><a href='chart_ax_y.html'>chart_ax_y()</a></code>,
-<code><a href='chart_data_labels.html'>chart_data_labels()</a></code>, <code><a href='set_theme.html'>chart_theme()</a></code>, <code><a href='chart_labels.html'>chart_labels()</a></code></p>
-<p>Other 'Office' chart objects: 
-<code><a href='ms_barchart.html'>ms_barchart</a>()</code>,
-<code><a href='ms_linechart.html'>ms_linechart</a>()</code>,
-<code><a href='ms_scatterchart.html'>ms_scatterchart</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='chart_ax_x.html'>chart_ax_x()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
-<span class='va'>mytheme</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>mschart_theme</a></span><span class='op'>(</span>
-  axis_title_x <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>24</span>, bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-  axis_title_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"green"</span>, font.size <span class='op'>=</span> <span class='fl'>12</span>, italic <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-  grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>,
-  axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span> <span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_linechart.html'>ms_linechart</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>us_indus_prod</span>,
+  x <span class='op'>=</span> <span class='st'>"date"</span>, y <span class='op'>=</span> <span class='st'>"value"</span>,
+  group <span class='op'>=</span> <span class='st'>"type"</span><span class='op'>)</span>
 
-<span class='co'># example ac_01 -------</span>
-<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_areachart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
-                      y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
-<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_y.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>ac_01</span>, cross_between <span class='op'>=</span> <span class='st'>"between"</span>, num_fmt <span class='op'>=</span> <span class='st'>"General"</span><span class='op'>)</span>
-<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>ac_01</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
-<span class='va'>ac_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>set_theme</a></span><span class='op'>(</span><span class='va'>ac_01</span>, <span class='va'>mytheme</span><span class='op'>)</span>
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'>chart_ax_y</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>chart_01</span>, limit_min <span class='op'>=</span> <span class='fl'>0</span>, limit_max <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span>
 
-
-<span class='co'># example ac_02 -------</span>
-<span class='va'>ac_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>ac_01</span>, grouping <span class='op'>=</span> <span class='st'>"percentStacked"</span><span class='op'>)</span>
-
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>chart_01</span>, num_fmt <span class='op'>=</span> <span class='st'>"[$-fr-FR]mmm yyyy"</span>,
+  limit_min <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>us_indus_prod</span><span class='op'>$</span><span class='va'>date</span><span class='op'>)</span>,
+  limit_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"1992-01-01"</span><span class='op'>)</span><span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
