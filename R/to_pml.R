@@ -72,9 +72,6 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
          paste(shQuote(standard_pos), collapse = ", "), ".", call. = FALSE)
   }
 
-  template_str <- paste0("<c:ser><c:idx val=\"%.0f\"/><c:order val=\"%.0f\"/><c:tx>%s</c:tx>%s%s%s",
-                     "<c:cat>%s</c:cat>",
-                     "<c:val>%s</c:val><c:smooth val=\"%.0f\"/></c:ser>")
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
@@ -99,7 +96,8 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
       to_pml(label_settings, show_label = !is.null(x$label_cols)),
       "<c:cat>", to_pml(serie$x), "</c:cat>",
       "<c:val>", to_pml(serie$y), "</c:val>",
-      label_pml, serie$smooth,
+      label_pml,
+      sprintf("<c:smooth val=\"%.0f\"/>", serie$smooth),
       "</c:ser>"
     )
   })

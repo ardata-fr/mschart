@@ -15,7 +15,8 @@ Possible values are 0 or 1
 If it contains only one integer it will be associated to all existing series.}
 }
 \description{
-Specify mappings from levels in the data to smooth or not lines.
+Specify mappings from levels in the data to smooth or not lines. This
+feature only applies to \code{\link[=ms_linechart]{ms_linechart()}}.
 }
 \examples{
 linec <- ms_linechart(data = iris, x = "Sepal.Length",
@@ -24,7 +25,7 @@ linec <- chart_data_smooth(linec,
   values = c(virginica = 0, versicolor = 0, setosa = 0) )
 }
 \seealso{
-Other 'Office' chart series: 
+Other Series customization functions: 
 \code{\link{chart_data_fill}()},
 \code{\link{chart_data_line_style}()},
 \code{\link{chart_data_line_width}()},
@@ -33,4 +34,4 @@ Other 'Office' chart series:
 \code{\link{chart_data_symbol}()},
 \code{\link{chart_labels_text}()}
 }
-\concept{'Office' chart series}
+\concept{Series customization functions}

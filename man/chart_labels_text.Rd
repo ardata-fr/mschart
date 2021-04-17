@@ -33,7 +33,7 @@ barchart <- chart_labels_text( barchart,
   values = fp_text_settings )
 }
 \seealso{
-Other 'Office' chart series: 
+Other Series customization functions: 
 \code{\link{chart_data_fill}()},
 \code{\link{chart_data_line_style}()},
 \code{\link{chart_data_line_width}()},
@@ -42,4 +42,4 @@ Other 'Office' chart series:
 \code{\link{chart_data_stroke}()},
 \code{\link{chart_data_symbol}()}
 }
-\concept{'Office' chart series}
+\concept{Series customization functions}

@@ -23,7 +23,7 @@ my_scatter <- chart_data_fill(my_scatter,
   values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
 }
 \seealso{
-Other 'Office' chart series: 
+Other Series customization functions: 
 \code{\link{chart_data_line_style}()},
 \code{\link{chart_data_line_width}()},
 \code{\link{chart_data_size}()},
@@ -32,4 +32,4 @@ Other 'Office' chart series:
 \code{\link{chart_data_symbol}()},
 \code{\link{chart_labels_text}()}
 }
-\concept{'Office' chart series}
+\concept{Series customization functions}

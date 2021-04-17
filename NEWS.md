@@ -1,3 +1,17 @@
+# mschart 0.3.0
+
+## Issues
+
+* fix UTF8 encoding issue for Windows users.
+
+## New features
+
+* Support for custom labels, this is automatically set when argument `labels` is used.
+
+## Changes
+
+* Documentation is now here: https://ardata-fr.github.io/officeverse/charts-with-mschart.html
+
 # mschart 0.2.6
 
 ## Issues
