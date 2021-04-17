@@ -26,8 +26,6 @@
 #'
 #' \figure{fig_ms_linechart_2.png}{options: width=60\%}
 #'
-#' \figure{fig_ms_linechart_3.png}{options: width=60\%}
-#'
 #' }
 #' @examples
 #' library(officer)

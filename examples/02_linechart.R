@@ -21,17 +21,18 @@ chart_01 <- chart_data_line_width(
 data <- data.frame(
   supp = factor(rep(c("OJ", "VC"), each = 3), levels = c("OJ", "VC")),
   dose = factor(rep(c("low", "medium", "high"), 2), levels = c("low", "medium", "high")),
-  length = c(13.23, 22.7, 26.06, 7.98, 16.77, 26.14),
+  length = c(13.23, 22.7, 24.06, 7.98, 16.77, 26.14),
+  label = LETTERS[1:6],
   stringsAsFactors = FALSE)
 
-chart_02 <- ms_linechart(data = data, x = "dose",
-                         y = "length",
-                         group = "supp")
-chart_02 <- chart_ax_y(chart_02, cross_between = "between", limit_min = 5, limit_max = 30,
-                       num_fmt = "General")
-
-# example chart_03 -------
-chart_03 <- ms_linechart(data = browser_ts, x = "date",
-                      y = "freq", group = "browser")
-chart_03 <- chart_ax_x(chart_03, cross_between = "midCat", num_fmt = "m/d/yy")
+chart_02 <- ms_linechart(
+  data = data, x = "dose", y = "length",
+  group = "supp", labels = "label")
+chart_02 <- chart_ax_y(
+  x = chart_02, cross_between = "between",
+  limit_min = 5, limit_max = 30,
+  num_fmt = "General")
+chart_02 <- chart_data_labels(
+  x = chart_02, position = "l"
+  )
 
