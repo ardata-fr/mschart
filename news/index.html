@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.006</span>
       </span>
     </div>
 
@@ -113,22 +113,49 @@
       <small>Source: <a href='https://github.com/ardata-fr/mschart/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="mschart-026" class="section level1">
-<h1 class="page-header" data-toc-text="0.2.6">
-<a href="#mschart-026" class="anchor"></a>mschart 0.2.6<small> 2021-04-07 </small>
+    <div id="mschart-030" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0">
+<a href="#mschart-030" class="anchor"></a>mschart 0.3.0<small> Unreleased </small>
 </h1>
 <div id="issues" class="section level2">
 <h2 class="hasAnchor">
 <a href="#issues" class="anchor"></a>Issues</h2>
+<ul>
+<li>fix UTF8 encoding issue for Windows users.</li>
+</ul>
+</div>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Support for custom labels, this is automatically set when argument <code>labels</code> is used.</li>
+</ul>
+</div>
+<div id="changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changes" class="anchor"></a>Changes</h2>
+<ul>
+<li>Documentation is now here: <a href="https://ardata-fr.github.io/officeverse/charts-with-mschart.html" class="uri">https://ardata-fr.github.io/officeverse/charts-with-mschart.html</a>
+</li>
+</ul>
+</div>
+</div>
+    <div id="mschart-026" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.6">
+<a href="#mschart-026" class="anchor"></a>mschart 0.2.6<small> 2021-04-07 </small>
+</h1>
+<div id="issues-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#issues-1" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue with labels that contains <code>&lt;&gt;&amp;</code>.</li>
 <li>fix areachart that should never have a position defined for labels in XML series</li>
 <li>fix <code><a href="../reference/chart_labels_text.html">chart_labels_text()</a></code> when only a <code>fp_text</code> was used as value for arg <code>values</code>.</li>
 </ul>
 </div>
-<div id="changes" class="section level2">
+<div id="changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes" class="anchor"></a>Changes</h2>
+<a href="#changes-1" class="anchor"></a>Changes</h2>
 <ul>
 <li>Mark functions <code>ph_with_chart</code> and <code>ph_with_chart_at</code> as defunct.</li>
 <li>The R6 package is no longer used.</li>
@@ -139,9 +166,9 @@
 <h1 class="page-header" data-toc-text="0.2.5">
 <a href="#mschart-025" class="anchor"></a>mschart 0.2.5<small> 2019-11-14 </small>
 </h1>
-<div id="changes-1" class="section level2">
+<div id="changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-1" class="anchor"></a>Changes</h2>
+<a href="#changes-2" class="anchor"></a>Changes</h2>
 <ul>
 <li>implement method ph_with.ms_chart that is replacing <code>ph_with_chart</code> and <code>ph_with_chart_at</code>.</li>
 </ul>
@@ -158,16 +185,16 @@
 <li>new function <code><a href="../reference/chart_data_smooth.html">chart_data_smooth()</a></code> to activate line smooth</li>
 </ul>
 </div>
-<div id="changes-2" class="section level2">
+<div id="changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changes-2" class="anchor"></a>Changes</h2>
+<a href="#changes-3" class="anchor"></a>Changes</h2>
 <ul>
 <li>drop shadows effects on charts</li>
 </ul>
 </div>
-<div id="issues-1" class="section level2">
+<div id="issues-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-1" class="anchor"></a>Issues</h2>
+<a href="#issues-2" class="anchor"></a>Issues</h2>
 <ul>
 <li>activate <em>no shadow</em> mode in all components.</li>
 </ul>
@@ -184,9 +211,9 @@
 <li>new function <code><a href="../reference/chart_labels_text.html">chart_labels_text()</a></code> to customise text labels</li>
 </ul>
 </div>
-<div id="issues-2" class="section level2">
+<div id="issues-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-2" class="anchor"></a>Issues</h2>
+<a href="#issues-3" class="anchor"></a>Issues</h2>
 <ul>
 <li>fix issue 22 with grid lines and fp_border(style = “none”).</li>
 </ul>
@@ -196,9 +223,9 @@
 <h1 class="page-header" data-toc-text="0.2.2">
 <a href="#mschart-022" class="anchor"></a>mschart 0.2.2<small> 2017-12-12 </small>
 </h1>
-<div id="issues-3" class="section level2">
+<div id="issues-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#issues-3" class="anchor"></a>Issues</h2>
+<a href="#issues-4" class="anchor"></a>Issues</h2>
 <ul>
 <li>htmlEscape characters to allow “&amp;” and “&lt;” symbols</li>
 <li>num_fmt issues with <code>%</code>
@@ -239,7 +266,7 @@
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.7.005 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.7.006 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
