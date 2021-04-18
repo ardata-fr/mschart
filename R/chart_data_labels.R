@@ -3,7 +3,7 @@
 #' @description Data labels show details about data series. This function indicate that
 #' data labels should be displayed. See [chart_labels_text()] for modifying
 #' text settings associated with labels.
-#' @param x an \code{ms_chart} object.
+#' @param x an `ms_chart` object.
 #' @param num_fmt `character(1)`: number formatting specifies number format properties which
 #' indicate how to format and render the numeric values. It can be "General", "0.00", "#,##0",
 #' "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.

@@ -63,23 +63,23 @@ chart_theme(
 \arguments{
 \item{x}{an \code{ms_chart} object.}
 
-\item{value}{a \code{mschart_theme} object.}
+\item{value}{a \code{\link[=mschart_theme]{mschart_theme()}} object.}
 
-\item{axis_title, axis_title_x, axis_title_y}{axis title formatting properties (\link[officer]{fp_text})}
+\item{axis_title, axis_title_x, axis_title_y}{axis title formatting properties (see \code{\link[=fp_text]{fp_text()}})}
 
-\item{main_title}{title formatting properties (\link[officer]{fp_text})}
+\item{main_title}{title formatting properties (see \code{\link[=fp_text]{fp_text()}})}
 
-\item{legend_text}{legend text formatting properties (\link[officer]{fp_text})}
+\item{legend_text}{legend text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
 
-\item{axis_text, axis_text_x, axis_text_y}{axis text formatting properties (\link[officer]{fp_text})}
+\item{axis_text, axis_text_x, axis_text_y}{axis text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
 
 \item{title_rot, title_x_rot, title_y_rot}{rotation angle}
 
-\item{axis_ticks, axis_ticks_x, axis_ticks_y}{axis ticks formatting properties (\link[officer]{fp_border})}
+\item{axis_ticks, axis_ticks_x, axis_ticks_y}{axis ticks formatting properties (see \code{\link[=fp_border]{fp_border()}})}
 
-\item{grid_major_line, grid_major_line_x, grid_major_line_y}{major grid lines formatting properties (\link[officer]{fp_border})}
+\item{grid_major_line, grid_major_line_x, grid_major_line_y}{major grid lines formatting properties (see \code{\link[=fp_border]{fp_border()}})}
 
-\item{grid_minor_line, grid_minor_line_x, grid_minor_line_y}{minor grid lines formatting properties (\link[officer]{fp_border})}
+\item{grid_minor_line, grid_minor_line_x, grid_minor_line_y}{minor grid lines formatting properties (see \code{\link[=fp_border]{fp_border()}})}
 
 \item{date_fmt}{date format}
 
@@ -104,19 +104,30 @@ library(officer)
 mytheme <- mschart_theme(
   axis_title = fp_text(color = "red", font.size = 24, bold = TRUE),
   grid_major_line_y = fp_border(width = 1, color = "orange"),
-  axis_ticks_y = fp_border(width = .4, color = "gray") )
+  axis_ticks_y = fp_border(width = .4, color = "gray")
+)
 
 
-my_bc <- ms_barchart(data = browser_data, x = "browser",
-                              y = "value", group = "serie")
-my_bc <- chart_settings( my_bc, dir="horizontal", grouping="stacked",
-                                  gap_width = 150, overlap = 100 )
+my_bc <- ms_barchart(
+  data = browser_data, x = "browser",
+  y = "value", group = "serie"
+)
+my_bc <- chart_settings(my_bc,
+  dir = "horizontal", grouping = "stacked",
+  gap_width = 150, overlap = 100
+)
 my_bc <- set_theme(my_bc, mytheme)
 
 
 
-my_bc_2 <- ms_barchart(data = browser_data, x = "browser",
-                              y = "value", group = "serie")
+my_bc_2 <- ms_barchart(
+  data = browser_data, x = "browser",
+  y = "value", group = "serie"
+)
 my_bc_2 <- chart_theme(my_bc_2,
-  grid_major_line_y = fp_border(width = .5, color = "cyan") )
+  grid_major_line_y = fp_border(width = .5, color = "cyan")
+)
+}
+\seealso{
+\code{\link[=ms_barchart]{ms_barchart()}}, \code{\link[=ms_areachart]{ms_areachart()}}, \code{\link[=ms_scatterchart]{ms_scatterchart()}}, \code{\link[=ms_linechart]{ms_linechart()}}
 }

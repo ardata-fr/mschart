@@ -1,10 +1,10 @@
 #' @export
 #' @title Modify labels font settings
 #' @description Specify mappings from levels in the data to displayed text font settings.
-#' @param x an \code{ms_chart} object.
-#' @param values a named list of \code{fp_text} objects to map data labels to.
+#' @param x an `ms_chart` object.
+#' @param values a named list of [fp_text()] objects to map data labels to.
 #' It is a named list, the values will be matched based on the names.
-#' If it contains only one \code{fp_text} object, it will be associated to all existing series.
+#' If it contains only one [fp_text()] object, it will be associated to all existing series.
 #' @examples
 #' library(officer)
 #'
@@ -48,7 +48,7 @@ chart_labels_text <- function(x, values){
 #' @export
 #' @title Modify fill colour
 #' @description Specify mappings from levels in the data to displayed fill colours.
-#' @param x an \code{ms_chart} object.
+#' @param x an `ms_chart` object.
 #' @param values `character(num of series|1)`: a set of colours values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' If it contains only one colour, this colour will be associated to all existing series.
@@ -81,7 +81,7 @@ chart_data_fill <- function(x, values){
 #' @export
 #' @title Modify marker stroke colour
 #' @description Specify mappings from levels in the data to displayed marker stroke colours.
-#' @param x an \code{ms_chart} object.
+#' @param x an `ms_chart` object.
 #' @param values `character(num of series)`: a set of colours values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' If it contains only one colour, this colour will be associated to all existing series.
@@ -117,7 +117,7 @@ chart_data_stroke <- function(x, values){
 #' @export
 #' @title Modify symbol
 #' @description Specify mappings from levels in the data to displayed symbols.
-#' @param x an \code{ms_chart} object.
+#' @param x an `ms_chart` object.
 #' @param values `character(num of series)`: a set of symbol values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' Possible values are: 'circle', 'dash', 'diamond', 'dot', 'none', 'plus',
@@ -157,7 +157,7 @@ chart_data_symbol <- function(x, values){
 #' @export
 #' @title Modify symbol size
 #' @description Specify mappings from levels in the data to displayed size of symbols.
-#' @param x an \code{ms_chart} object.
+#' @param x an `ms_chart` object.
 #' @param values `double(num of series)`: a set of size values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' If it contains only one size, this size will be associated to all existing series.
@@ -197,7 +197,7 @@ chart_data_size <- function(x, values){
 #' @export
 #' @title Modify line width
 #' @description Specify mappings from levels in the data to displayed line width between symbols.
-#' @param x an \code{ms_chart} object.
+#' @param x an `ms_chart` object.
 #' @param values `double(num of series)`: a set of size values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' If it contains only one size, this size will be associated to all existing series.
@@ -240,7 +240,7 @@ chart_data_line_width <- function(x, values){
 #' @export
 #' @title Modify line style
 #' @description Specify mappings from levels in the data to displayed line style.
-#' @param x an \code{ms_chart} object.
+#' @param x an `ms_chart` object.
 #' @param values `character(num of series)`: a set of line style values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' Possible values are: 'none', 'solid', 'dashed', 'dotted'.
@@ -282,7 +282,7 @@ chart_data_line_style <- function(x, values){
 #' @title Smooth series
 #' @description Specify mappings from levels in the data to smooth or not lines. This
 #' feature only applies to [ms_linechart()].
-#' @param x an \code{ms_chart} object.
+#' @param x an `ms_chart` object.
 #' @param values  `integer(num of series)`: a set of smooth values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' Possible values are 0 or 1

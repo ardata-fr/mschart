@@ -4,12 +4,11 @@
 \name{mschart}
 \alias{mschart}
 \alias{mschart-package}
-\title{mschart: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents}
+\title{Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents}
 \description{
 It lets R users to create Microsoft Office charts from data, and
 then add title, legends, and annotations to the chart object.
-}
-\details{
+
 The graph produced is a Microsoft graph, which means that it can be edited in
 your Microsoft software and that the underlying data are available.
 
@@ -25,6 +24,30 @@ The following charts are the only available from all possible MS charts:
 \item scatter plots: \code{\link[=ms_scatterchart]{ms_scatterchart()}}
 \item area charts: \code{\link[=ms_areachart]{ms_areachart()}}
 }
+
+These functions are creating a 'chart' object, it can be customized;
+\itemize{
+\item by using options specific to the chart (with \code{\link[=chart_settings]{chart_settings()}}),
+\item by changing the options related to the axes (with \code{\link[=chart_ax_x]{chart_ax_x()}} and \code{\link[=chart_ax_y]{chart_ax_y()}}),
+\item by changing the options related to the labels (with \code{\link[=chart_data_labels]{chart_data_labels()}}),
+\item by changing the colors, line widths, ... with functions
+\itemize{
+\item \code{\link[=chart_labels_text]{chart_labels_text()}}
+\item \code{\link[=chart_data_fill]{chart_data_fill()}}
+\item \code{\link[=chart_data_line_style]{chart_data_line_style()}}
+\item \code{\link[=chart_data_line_width]{chart_data_line_width()}}
+\item \code{\link[=chart_data_size]{chart_data_size()}}
+\item \code{\link[=chart_data_smooth]{chart_data_smooth()}}
+\item \code{\link[=chart_data_stroke]{chart_data_stroke()}}
+\item \code{\link[=chart_data_symbol]{chart_data_symbol()}}
+}
+\item by changing the general theme with function \code{\link[=chart_theme]{chart_theme()}},
+\item by changing the title labels with function \code{\link[=chart_labels]{chart_labels()}}.
+}
+
+You can add a chart into a slide in PowerPoint with function \code{\link[=ph_with.ms_chart]{ph_with.ms_chart()}}.
+
+You can add a chart into a Word document with function \code{\link[=body_add_chart]{body_add_chart()}}.
 }
 \seealso{
 \url{https://ardata-fr.github.io/officeverse/}

@@ -9,9 +9,9 @@ chart_labels_text(x, values)
 \arguments{
 \item{x}{an \code{ms_chart} object.}
 
-\item{values}{a named list of \code{fp_text} objects to map data labels to.
+\item{values}{a named list of \code{\link[=fp_text]{fp_text()}} objects to map data labels to.
 It is a named list, the values will be matched based on the names.
-If it contains only one \code{fp_text} object, it will be associated to all existing series.}
+If it contains only one \code{\link[=fp_text]{fp_text()}} object, it will be associated to all existing series.}
 }
 \description{
 Specify mappings from levels in the data to displayed text font settings.

@@ -1,6 +1,6 @@
 #' @title x axis settings
 #' @description Define settings for an x axis.
-#' @param x an \code{ms_chart} object.
+#' @param x an `ms_chart` object.
 #' @param orientation axis orientation, one of 'maxMin', 'minMax'.
 #' @param crosses specifies how the axis crosses the perpendicular
 #' axis, one of 'autoZero', 'max', 'min'.
@@ -91,7 +91,44 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
                             num_fmt, rotation,
                         limit_min, limit_max, position,
                         second_axis = FALSE ){
-  UseMethod("chart_ax_x")
+  stopifnot(inherits(x, "ms_chart"))
+
+  options <- list( orientation = ifelse(missing(orientation), x$x_axis$orientation, orientation),
+                   axis_position = ifelse( second_axis, "r", "l" ),
+                   crosses = ifelse(missing(crosses), x$x_axis$crosses, crosses),
+                   cross_between = ifelse(missing(cross_between), x$x_axis$cross_between, cross_between),
+                   major_tick_mark = ifelse(missing(major_tick_mark), x$x_axis$major_tick_mark, major_tick_mark),
+                   minor_tick_mark = ifelse(missing(minor_tick_mark), x$x_axis$minor_tick_mark, minor_tick_mark),
+                   tick_label_pos = ifelse(missing(tick_label_pos), x$x_axis$tick_label_pos, tick_label_pos),
+                   delete = ifelse(missing(display), x$x_axis$delete, !display),
+                   num_fmt = ifelse(missing(num_fmt), x$x_axis$num_fmt, num_fmt),
+                   rotation = ifelse(missing(rotation), x$x_axis$rotation, rotation)
+  )
+
+  if( missing(limit_min) && !is.null(x$x_axis$limit_min) ){
+    options$limit_min <- x$x_axis$limit_min
+  } else if( !missing(limit_min) ){
+    if(inherits(limit_min, "Date")){
+      limit_min <- as.integer(limit_min - as.Date("1899-12-30"))
+    }
+    options$limit_min <- limit_min
+  }
+  if( missing(limit_max) && !is.null(x$x_axis$limit_max) ){
+    options$limit_max <- x$x_axis$limit_max
+  } else if( !missing(limit_max) ){
+    if(inherits(limit_max, "Date")){
+      limit_max <- as.integer(limit_max - as.Date("1899-12-30"))
+    }
+    options$limit_max <- limit_max
+  }
+  if( missing(position) && !is.null(x$x_axis$position) ){
+    options$position <- x$x_axis$position
+  } else if( !missing(position) ){
+    options$position <- position
+  }
+
+  x$x_axis <- do.call(axis_options, options)
+  x
 }
 
 
@@ -134,64 +171,7 @@ chart_ax_y <- function( x, orientation, crosses, cross_between,
                         num_fmt, rotation,
                         limit_min, limit_max, position,
                         second_axis = FALSE ){
-  UseMethod("chart_ax_y")
-}
-
-
-#' @export
-chart_ax_x.ms_chart <- function( x, orientation, crosses, cross_between,
-                                 major_tick_mark, minor_tick_mark,
-                                 tick_label_pos, display,
-                                 num_fmt, rotation,
-                                 limit_min, limit_max, position,
-                                 second_axis = FALSE ){
-
-
-  options <- list( orientation = ifelse(missing(orientation), x$x_axis$orientation, orientation),
-                           axis_position = ifelse( second_axis, "r", "l" ),
-                           crosses = ifelse(missing(crosses), x$x_axis$crosses, crosses),
-                           cross_between = ifelse(missing(cross_between), x$x_axis$cross_between, cross_between),
-                           major_tick_mark = ifelse(missing(major_tick_mark), x$x_axis$major_tick_mark, major_tick_mark),
-                           minor_tick_mark = ifelse(missing(minor_tick_mark), x$x_axis$minor_tick_mark, minor_tick_mark),
-                           tick_label_pos = ifelse(missing(tick_label_pos), x$x_axis$tick_label_pos, tick_label_pos),
-                           delete = ifelse(missing(display), x$x_axis$delete, !display),
-                           num_fmt = ifelse(missing(num_fmt), x$x_axis$num_fmt, num_fmt),
-                           rotation = ifelse(missing(rotation), x$x_axis$rotation, rotation)
-                           )
-
-  if( missing(limit_min) && !is.null(x$x_axis$limit_min) ){
-    options$limit_min <- x$x_axis$limit_min
-  } else if( !missing(limit_min) ){
-    if(inherits(limit_min, "Date")){
-      limit_min <- as.integer(limit_min - as.Date("1899-12-30"))
-    }
-    options$limit_min <- limit_min
-  }
-  if( missing(limit_max) && !is.null(x$x_axis$limit_max) ){
-    options$limit_max <- x$x_axis$limit_max
-  } else if( !missing(limit_max) ){
-    if(inherits(limit_max, "Date")){
-      limit_max <- as.integer(limit_max - as.Date("1899-12-30"))
-    }
-    options$limit_max <- limit_max
-  }
-  if( missing(position) && !is.null(x$x_axis$position) ){
-    options$position <- x$x_axis$position
-  } else if( !missing(position) ){
-    options$position <- position
-  }
-
-  x$x_axis <- do.call(axis_options, options)
-  x
-}
-
-#' @export
-chart_ax_y.ms_chart <- function( x, orientation, crosses, cross_between,
-                                 major_tick_mark, minor_tick_mark,
-                                 tick_label_pos, display,
-                                 num_fmt, rotation,
-                                 limit_min, limit_max, position,
-                                 second_axis = FALSE ){
+  stopifnot(inherits(x, "ms_chart"))
 
   options <- list( orientation = ifelse(missing(orientation), x$y_axis$orientation, orientation),
                    axis_position = ifelse( second_axis, "r", "l" ),
@@ -229,8 +209,6 @@ chart_ax_y.ms_chart <- function( x, orientation, crosses, cross_between,
   x$y_axis <- do.call(axis_options, options)
   x
 }
-
-
 
 
 axis_options <- function( orientation = "minMax", axis_position = "b",
