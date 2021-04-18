@@ -164,7 +164,7 @@ associated with the chart.</p></td>
     
 
 
-<p><img src='figures/fig_ms_linechart_1.png' width=60% /><img src='figures/fig_ms_linechart_2.png' width=60% /><img src='figures/fig_ms_linechart_3.png' width=60% /></p>
+<p><img src='figures/fig_ms_linechart_1.png' width=60% /><img src='figures/fig_ms_linechart_2.png' width=60% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='chart_settings.html'>chart_settings()</a></code>, <code><a href='chart_ax_x.html'>chart_ax_x()</a></code>, <code><a href='chart_ax_y.html'>chart_ax_y()</a></code>,
@@ -180,39 +180,50 @@ associated with the chart.</p></td>
 <span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>
   data <span class='op'>=</span> <span class='va'>us_indus_prod</span>,
   x <span class='op'>=</span> <span class='st'>"date"</span>, y <span class='op'>=</span> <span class='st'>"value"</span>,
-  group <span class='op'>=</span> <span class='st'>"type"</span><span class='op'>)</span>
+  group <span class='op'>=</span> <span class='st'>"type"</span>
+<span class='op'>)</span>
 
 <span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span>
   x <span class='op'>=</span> <span class='va'>chart_01</span>, num_fmt <span class='op'>=</span> <span class='st'>"[$-fr-FR]mmm yyyy"</span>,
-  limit_min <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>us_indus_prod</span><span class='op'>$</span><span class='va'>date</span><span class='op'>)</span>, limit_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"1992-01-01"</span><span class='op'>)</span><span class='op'>)</span>
+  limit_min <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>us_indus_prod</span><span class='op'>$</span><span class='va'>date</span><span class='op'>)</span>, limit_max <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"1992-01-01"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_data_stroke.html'>chart_data_stroke</a></span><span class='op'>(</span>
   x <span class='op'>=</span> <span class='va'>chart_01</span>,
-  values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>adjusted <span class='op'>=</span> <span class='st'>"red"</span>, unadjusted <span class='op'>=</span> <span class='st'>"gray"</span><span class='op'>)</span> <span class='op'>)</span>
+  values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>adjusted <span class='op'>=</span> <span class='st'>"red"</span>, unadjusted <span class='op'>=</span> <span class='st'>"gray"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_data_line_width.html'>chart_data_line_width</a></span><span class='op'>(</span>
   x <span class='op'>=</span> <span class='va'>chart_01</span>,
-  values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>adjusted <span class='op'>=</span> <span class='fl'>2</span>, unadjusted <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span> <span class='op'>)</span>
+  values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>adjusted <span class='op'>=</span> <span class='fl'>2</span>, unadjusted <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='op'>)</span>
 
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>chart_theme</a></span><span class='op'>(</span><span class='va'>chart_01</span>,
+  grid_major_line_x <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
+  grid_minor_line_x <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># example chart_02 -------</span>
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
   supp <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"OJ"</span>, <span class='st'>"VC"</span><span class='op'>)</span>, each <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>, levels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"OJ"</span>, <span class='st'>"VC"</span><span class='op'>)</span><span class='op'>)</span>,
   dose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"low"</span>, <span class='st'>"medium"</span>, <span class='st'>"high"</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span>, levels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"low"</span>, <span class='st'>"medium"</span>, <span class='st'>"high"</span><span class='op'>)</span><span class='op'>)</span>,
-  length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>13.23</span>, <span class='fl'>22.7</span>, <span class='fl'>26.06</span>, <span class='fl'>7.98</span>, <span class='fl'>16.77</span>, <span class='fl'>26.14</span><span class='op'>)</span>,
-  stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+  length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>13.23</span>, <span class='fl'>22.7</span>, <span class='fl'>24.06</span>, <span class='fl'>7.98</span>, <span class='fl'>16.77</span>, <span class='fl'>26.14</span><span class='op'>)</span>,
+  label <span class='op'>=</span> <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span>,
+  stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, x <span class='op'>=</span> <span class='st'>"dose"</span>,
-                         y <span class='op'>=</span> <span class='st'>"length"</span>,
-                         group <span class='op'>=</span> <span class='st'>"supp"</span><span class='op'>)</span>
-<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_y.html'>chart_ax_y</a></span><span class='op'>(</span><span class='va'>chart_02</span>, cross_between <span class='op'>=</span> <span class='st'>"between"</span>, limit_min <span class='op'>=</span> <span class='fl'>5</span>, limit_max <span class='op'>=</span> <span class='fl'>30</span>,
-                       num_fmt <span class='op'>=</span> <span class='st'>"General"</span><span class='op'>)</span>
-
-<span class='co'># example chart_03 -------</span>
-<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
-                      y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
-<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_x.html'>chart_ax_x</a></span><span class='op'>(</span><span class='va'>chart_03</span>, cross_between <span class='op'>=</span> <span class='st'>"midCat"</span>, num_fmt <span class='op'>=</span> <span class='st'>"m/d/yy"</span><span class='op'>)</span>
-
+<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'>ms_linechart</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>data</span>, x <span class='op'>=</span> <span class='st'>"dose"</span>, y <span class='op'>=</span> <span class='st'>"length"</span>,
+  group <span class='op'>=</span> <span class='st'>"supp"</span>, labels <span class='op'>=</span> <span class='st'>"label"</span>
+<span class='op'>)</span>
+<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_ax_y.html'>chart_ax_y</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>chart_02</span>, cross_between <span class='op'>=</span> <span class='st'>"between"</span>,
+  limit_min <span class='op'>=</span> <span class='fl'>5</span>, limit_max <span class='op'>=</span> <span class='fl'>30</span>,
+  num_fmt <span class='op'>=</span> <span class='st'>"General"</span>
+<span class='op'>)</span>
+<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_data_labels.html'>chart_data_labels</a></span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>chart_02</span>, position <span class='op'>=</span> <span class='st'>"l"</span>
+<span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

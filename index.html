@@ -82,7 +82,7 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to create a scatter plot.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/charts-with-mschart.html">mschart</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/">mschart</a></span><span class="op">)</span>
 <span class="va">scatter</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="reference/ms_scatterchart.html">ms_scatterchart</a></span><span class="op">(</span>
     data <span class="op">=</span> <span class="va">iris</span>, x <span class="op">=</span> <span class="st">"Sepal.Length"</span>,
@@ -97,7 +97,6 @@
 <span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">scatter</span>, location <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/ph_location_fullsize.html">ph_location_fullsize</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="st">"example.pptx"</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-example.png"></p>
 <p>At any moment, you can type <code><a href="https://rdrr.io/r/base/print.html">print(your_chart, preview = TRUE)</a></code> to preview the chart in a temporary PowerPoint file. This requires to have a PowerPoint Viewer installed on the machine.</p>
 </div>
 <div id="installation" class="section level2">

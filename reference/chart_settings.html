@@ -189,23 +189,38 @@ of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.</p></td>
 <li><p><code>ms_areachart</code>: linechart settings</p></li>
 <li><p><code>ms_scatterchart</code>: linechart settings</p></li>
 </ul>
+    <h2 class="hasAnchor" id="illustrations"><a class="anchor" href="#illustrations"></a>Illustrations</h2>
+
+    
+
+
+<p><img src='figures/fig_chart_settings_1.png' width=60% /><img src='figures/fig_chart_settings_2.png' width=60% /><img src='figures/fig_chart_settings_3.png' width=60% /></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='ms_barchart.html'>ms_barchart()</a></code>, <code><a href='ms_areachart.html'>ms_areachart()</a></code>, <code><a href='ms_scatterchart.html'>ms_scatterchart()</a></code>, <code><a href='ms_linechart.html'>ms_linechart()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_barchart.html'>ms_barchart</a></span><span class='op'>(</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>mschart</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
+
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_barchart.html'>ms_barchart</a></span><span class='op'>(</span>
   data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
   y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span>
 <span class='op'>)</span>
-<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'>chart_settings</span><span class='op'>(</span>
-  x <span class='op'>=</span> <span class='va'>chart_01</span>, dir <span class='op'>=</span> <span class='st'>"vertical"</span>,
-  grouping <span class='op'>=</span> <span class='st'>"clustered"</span>, gap_width <span class='op'>=</span> <span class='fl'>50</span>
+<span class='va'>chart_01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='set_theme.html'>chart_theme</a></span><span class='op'>(</span><span class='va'>chart_01</span>,
+  grid_major_line_x <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>,
+  grid_minor_line_x <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
 <span class='op'>)</span>
 
-<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_areachart.html'>ms_areachart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
+<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'>chart_settings</span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>chart_01</span>,
+  grouping <span class='op'>=</span> <span class='st'>"stacked"</span>, overlap <span class='op'>=</span> <span class='fl'>100</span>
+<span class='op'>)</span>
+
+
+<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_areachart.html'>ms_areachart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_ts</span>, x <span class='op'>=</span> <span class='st'>"date"</span>,
   y <span class='op'>=</span> <span class='st'>"freq"</span>, group <span class='op'>=</span> <span class='st'>"browser"</span><span class='op'>)</span>
-<span class='va'>chart_02</span> <span class='op'>&lt;-</span> <span class='fu'>chart_settings</span><span class='op'>(</span><span class='va'>chart_02</span>,
+<span class='va'>chart_03</span> <span class='op'>&lt;-</span> <span class='fu'>chart_settings</span><span class='op'>(</span><span class='va'>chart_03</span>,
   grouping <span class='op'>=</span> <span class='st'>"percentStacked"</span><span class='op'>)</span>
 </div></pre>
   </div>
