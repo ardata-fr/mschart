@@ -82,7 +82,7 @@ Use chart_theme() to modify components of the theme of a chart." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.007</span>
       </span>
     </div>
 
@@ -186,23 +186,23 @@ Use chart_theme() to modify components of the theme of a chart." />
     </tr>
     <tr>
       <th>value</th>
-      <td><p>a <code>mschart_theme</code> object.</p></td>
+      <td><p>a <code>mschart_theme()</code> object.</p></td>
     </tr>
     <tr>
       <th>axis_title, axis_title_x, axis_title_y</th>
-      <td><p>axis title formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a>)</p></td>
+      <td><p>axis title formatting properties (see <code><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text()</a></code>)</p></td>
     </tr>
     <tr>
       <th>main_title</th>
-      <td><p>title formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a>)</p></td>
+      <td><p>title formatting properties (see <code><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text()</a></code>)</p></td>
     </tr>
     <tr>
       <th>legend_text</th>
-      <td><p>legend text formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a>)</p></td>
+      <td><p>legend text formatting properties (see <code><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text()</a></code>)</p></td>
     </tr>
     <tr>
       <th>axis_text, axis_text_x, axis_text_y</th>
-      <td><p>axis text formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a>)</p></td>
+      <td><p>axis text formatting properties (see <code><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text()</a></code>)</p></td>
     </tr>
     <tr>
       <th>title_rot, title_x_rot, title_y_rot</th>
@@ -210,15 +210,15 @@ Use chart_theme() to modify components of the theme of a chart." />
     </tr>
     <tr>
       <th>axis_ticks, axis_ticks_x, axis_ticks_y</th>
-      <td><p>axis ticks formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a>)</p></td>
+      <td><p>axis ticks formatting properties (see <code><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border()</a></code>)</p></td>
     </tr>
     <tr>
       <th>grid_major_line, grid_major_line_x, grid_major_line_y</th>
-      <td><p>major grid lines formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a>)</p></td>
+      <td><p>major grid lines formatting properties (see <code><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border()</a></code>)</p></td>
     </tr>
     <tr>
       <th>grid_minor_line, grid_minor_line_x, grid_minor_line_y</th>
-      <td><p>minor grid lines formatting properties (<a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a>)</p></td>
+      <td><p>minor grid lines formatting properties (see <code><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border()</a></code>)</p></td>
     </tr>
     <tr>
       <th>date_fmt</th>
@@ -243,27 +243,38 @@ one of 'b', 'tr', 'l', 'r', 't', 'n' (for 'none').</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ms_barchart.html'>ms_barchart()</a></code>, <code><a href='ms_areachart.html'>ms_areachart()</a></code>, <code><a href='ms_scatterchart.html'>ms_scatterchart()</a></code>, <code><a href='ms_linechart.html'>ms_linechart()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/officeverse/'>officer</a></span><span class='op'>)</span>
 <span class='va'>mytheme</span> <span class='op'>&lt;-</span> <span class='fu'>mschart_theme</span><span class='op'>(</span>
   axis_title <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_text.html'>fp_text</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"red"</span>, font.size <span class='op'>=</span> <span class='fl'>24</span>, bold <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
   grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, color <span class='op'>=</span> <span class='st'>"orange"</span><span class='op'>)</span>,
-  axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>.4</span>, color <span class='op'>=</span> <span class='st'>"gray"</span><span class='op'>)</span> <span class='op'>)</span>
+  axis_ticks_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>.4</span>, color <span class='op'>=</span> <span class='st'>"gray"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 
-<span class='va'>my_bc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_barchart.html'>ms_barchart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
-                              y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span><span class='op'>)</span>
-<span class='va'>my_bc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span> <span class='va'>my_bc</span>, dir<span class='op'>=</span><span class='st'>"horizontal"</span>, grouping<span class='op'>=</span><span class='st'>"stacked"</span>,
-                                  gap_width <span class='op'>=</span> <span class='fl'>150</span>, overlap <span class='op'>=</span> <span class='fl'>100</span> <span class='op'>)</span>
+<span class='va'>my_bc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_barchart.html'>ms_barchart</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
+  y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span>
+<span class='op'>)</span>
+<span class='va'>my_bc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='chart_settings.html'>chart_settings</a></span><span class='op'>(</span><span class='va'>my_bc</span>,
+  dir <span class='op'>=</span> <span class='st'>"horizontal"</span>, grouping <span class='op'>=</span> <span class='st'>"stacked"</span>,
+  gap_width <span class='op'>=</span> <span class='fl'>150</span>, overlap <span class='op'>=</span> <span class='fl'>100</span>
+<span class='op'>)</span>
 <span class='va'>my_bc</span> <span class='op'>&lt;-</span> <span class='fu'>set_theme</span><span class='op'>(</span><span class='va'>my_bc</span>, <span class='va'>mytheme</span><span class='op'>)</span>
 
 
 
-<span class='va'>my_bc_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_barchart.html'>ms_barchart</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
-                              y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span><span class='op'>)</span>
+<span class='va'>my_bc_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ms_barchart.html'>ms_barchart</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>browser_data</span>, x <span class='op'>=</span> <span class='st'>"browser"</span>,
+  y <span class='op'>=</span> <span class='st'>"value"</span>, group <span class='op'>=</span> <span class='st'>"serie"</span>
+<span class='op'>)</span>
 <span class='va'>my_bc_2</span> <span class='op'>&lt;-</span> <span class='fu'>chart_theme</span><span class='op'>(</span><span class='va'>my_bc_2</span>,
-  grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>.5</span>, color <span class='op'>=</span> <span class='st'>"cyan"</span><span class='op'>)</span> <span class='op'>)</span>
+  grid_major_line_y <span class='op'>=</span> <span class='fu'><a href='https://davidgohel.github.io/officer/reference/fp_border.html'>fp_border</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>.5</span>, color <span class='op'>=</span> <span class='st'>"cyan"</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -277,7 +288,7 @@ one of 'b', 'tr', 'l', 'r', 't', 'n' (for 'none').</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.7.006 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.7.007 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">

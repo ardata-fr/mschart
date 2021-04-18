@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>mschart: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents — mschart • mschart</title>
+<title>Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents — mschart • mschart</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,42 @@
 
 
 
-<meta property="og:title" content="mschart: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents — mschart" />
+<meta property="og:title" content="Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents — mschart" />
 <meta property="og:description" content="It lets R users to create Microsoft Office charts from data, and
-then add title, legends, and annotations to the chart object." />
+then add title, legends, and annotations to the chart object.
+The graph produced is a Microsoft graph, which means that it can be edited in
+your Microsoft software and that the underlying data are available.
+The package will not allow you to make the same charts as with ggplot2. It
+allows only a subset of the charts possible with 'Office Chart'. The package is
+often used to industrialize graphs that are then consumed and annotated by non-R
+users.
+The following charts are the only available from all possible MS charts:
+barcharts: ms_barchart()
+line charts: ms_linechart()
+scatter plots: ms_scatterchart()
+area charts: ms_areachart()
+
+
+These functions are creating a 'chart' object, it can be customized;
+by using options specific to the chart (with chart_settings()),
+by changing the options related to the axes (with chart_ax_x() and chart_ax_y()),
+by changing the options related to the labels (with chart_data_labels()),
+by changing the colors, line widths, ... with functions
+chart_labels_text()
+chart_data_fill()
+chart_data_line_style()
+chart_data_line_width()
+chart_data_size()
+chart_data_smooth()
+chart_data_stroke()
+chart_data_symbol()
+
+by changing the general theme with function chart_theme(),
+by changing the title labels with function chart_labels().
+
+
+You can add a chart into a slide in PowerPoint with function ph_with.ms_chart().
+You can add a chart into a Word document with function body_add_chart()." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -81,7 +114,7 @@ then add title, legends, and annotations to the chart object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7.007</span>
       </span>
     </div>
 
@@ -111,7 +144,7 @@ then add title, legends, and annotations to the chart object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>mschart: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents</h1>
+    <h1>Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents</h1>
     <small class="dont-index">Source: <a href='https://github.com/ardata-fr/mschart/blob/master/R/package.R'><code>R/package.R</code></a></small>
     <div class="hidden name"><code>mschart.Rd</code></div>
     </div>
@@ -119,13 +152,7 @@ then add title, legends, and annotations to the chart object." />
     <div class="ref-description">
     <p>It lets R users to create Microsoft Office charts from data, and
 then add title, legends, and annotations to the chart object.</p>
-    </div>
-
-
-
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The graph produced is a Microsoft graph, which means that it can be edited in
+<p>The graph produced is a Microsoft graph, which means that it can be edited in
 your Microsoft software and that the underlying data are available.</p>
 <p>The package will not allow you to make the same charts as with ggplot2. It
 allows only a subset of the charts possible with 'Office Chart'. The package is
@@ -137,6 +164,30 @@ users.</p>
 <li><p>scatter plots: <code><a href='ms_scatterchart.html'>ms_scatterchart()</a></code></p></li>
 <li><p>area charts: <code><a href='ms_areachart.html'>ms_areachart()</a></code></p></li>
 </ul>
+
+<p>These functions are creating a 'chart' object, it can be customized;</p><ul>
+<li><p>by using options specific to the chart (with <code><a href='chart_settings.html'>chart_settings()</a></code>),</p></li>
+<li><p>by changing the options related to the axes (with <code><a href='chart_ax_x.html'>chart_ax_x()</a></code> and <code><a href='chart_ax_y.html'>chart_ax_y()</a></code>),</p></li>
+<li><p>by changing the options related to the labels (with <code><a href='chart_data_labels.html'>chart_data_labels()</a></code>),</p></li>
+<li><p>by changing the colors, line widths, ... with functions</p><ul>
+<li><p><code><a href='chart_labels_text.html'>chart_labels_text()</a></code></p></li>
+<li><p><code><a href='chart_data_fill.html'>chart_data_fill()</a></code></p></li>
+<li><p><code><a href='chart_data_line_style.html'>chart_data_line_style()</a></code></p></li>
+<li><p><code><a href='chart_data_line_width.html'>chart_data_line_width()</a></code></p></li>
+<li><p><code><a href='chart_data_size.html'>chart_data_size()</a></code></p></li>
+<li><p><code><a href='chart_data_smooth.html'>chart_data_smooth()</a></code></p></li>
+<li><p><code><a href='chart_data_stroke.html'>chart_data_stroke()</a></code></p></li>
+<li><p><code><a href='chart_data_symbol.html'>chart_data_symbol()</a></code></p></li>
+</ul></li>
+<li><p>by changing the general theme with function <code><a href='set_theme.html'>chart_theme()</a></code>,</p></li>
+<li><p>by changing the title labels with function <code><a href='chart_labels.html'>chart_labels()</a></code>.</p></li>
+</ul>
+
+<p>You can add a chart into a slide in PowerPoint with function <code><a href='ph_with.ms_chart.html'>ph_with.ms_chart()</a></code>.</p>
+<p>You can add a chart into a Word document with function <code><a href='body_add_chart.html'>body_add_chart()</a></code>.</p>
+    </div>
+
+
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -166,7 +217,7 @@ users.</p>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.2.7.006 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.2.7.007 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
