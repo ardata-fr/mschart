@@ -44,8 +44,6 @@ doc <- ph_with(doc, value = scatter, location = ph_location_fullsize())
 print(doc, target = "example.pptx")
 ```
 
-![](man/figures/README-example.png)
-
 At any moment, you can type `print(your_chart, preview = TRUE)` to
 preview the chart in a temporary PowerPoint file. This requires to have
 a PowerPoint Viewer installed on the machine.

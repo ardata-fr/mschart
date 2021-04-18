@@ -4,24 +4,43 @@
 #' @param x an \code{ms_chart} object.
 #' @param ... unused parameter
 #' @seealso [ms_barchart()], [ms_areachart()], [ms_scatterchart()], [ms_linechart()]
+#' @section Illustrations:
+#'
+#' \if{html}{
+#'
+#' \figure{fig_chart_settings_1.png}{options: width=60\%}
+#'
+#' \figure{fig_chart_settings_2.png}{options: width=60\%}
+#'
+#' \figure{fig_chart_settings_3.png}{options: width=60\%}
+#'
+#' }
 #' @examples
+#' library(mschart)
+#' library(officer)
+#'
 #' chart_01 <- ms_barchart(
 #'   data = browser_data, x = "browser",
 #'   y = "value", group = "serie"
 #' )
-#' chart_01 <- chart_settings(
-#'   x = chart_01, dir = "vertical",
-#'   grouping = "clustered", gap_width = 50
+#' chart_01 <- chart_theme(chart_01,
+#'   grid_major_line_x = fp_border(width = 0),
+#'   grid_minor_line_x = fp_border(width = 0)
 #' )
 #'
-#' chart_02 <- ms_areachart(data = browser_ts, x = "date",
+#' chart_02 <- chart_settings(
+#'   x = chart_01,
+#'   grouping = "stacked", overlap = 100
+#' )
+#'
+#'
+#' chart_03 <- ms_areachart(data = browser_ts, x = "date",
 #'   y = "freq", group = "browser")
-#' chart_02 <- chart_settings(chart_02,
+#' chart_03 <- chart_settings(chart_03,
 #'   grouping = "percentStacked")
 chart_settings <- function( x, ... ){
   UseMethod("chart_settings")
 }
-
 
 
 barchart_options <- function( vary_colors = FALSE, gap_width = 150,

@@ -99,7 +99,20 @@ effect.
 }
 }
 
+\section{Illustrations}{
+
+
+\if{html}{
+
+\figure{fig_chart_ax_x_1.png}{options: width=60\%}
+
+}
+}
+
 \examples{
+library(mschart)
+library(officer)
+
 chart_01 <- ms_linechart(
   data = us_indus_prod,
   x = "date", y = "value",
@@ -108,7 +121,13 @@ chart_01 <- ms_linechart(
 chart_01 <- chart_ax_x(
   x = chart_01, num_fmt = "[$-fr-FR]mmm yyyy",
   limit_min = min(us_indus_prod$date), limit_max = as.Date("1992-01-01"))
+
+chart_01 <- chart_theme(chart_01,
+  grid_major_line_x = fp_border(width = 0),
+  grid_minor_line_x = fp_border(width = 0)
+  )
 }
 \seealso{
-\code{\link[=chart_ax_y]{chart_ax_y()}}
+\code{\link[=chart_ax_y]{chart_ax_y()}}, \code{\link[=ms_areachart]{ms_areachart()}}, \code{\link[=ms_barchart]{ms_barchart()}}, \code{\link[=ms_scatterchart]{ms_scatterchart()}},
+\code{\link[=ms_linechart]{ms_linechart()}}
 }
