@@ -202,6 +202,9 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL, excel_data_setup =
   stopifnot(x %in% names(data))
   stopifnot(y %in% names(data))
 
+  if( inherits(data, "data.table") || inherits(data, "tbl_df") || inherits(data, "tbl") )
+    data <- as.data.frame(data, stringsAsFactors = FALSE)
+
   if( !is.null(group) && !(group %in% names(data)) ){
     stop("column ", shQuote(group), " could not be found in data.", call. = FALSE)
   }
