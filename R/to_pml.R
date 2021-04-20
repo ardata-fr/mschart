@@ -76,9 +76,17 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
   # sapply linec-----
-  str_series_ <- sapply( series, function(serie, template ){
-    marker_str <- get_marker_xml(serie$fill, serie$stroke, serie$symbol, serie$size )
-    sppr_str <- get_sppr_xml_line_chart(fill = serie$fill, stroke = serie$stroke, style = serie$line_style, width = serie$line_width)
+  str_series_ <- sapply( series, function(serie, has_line, has_marker ){
+    if( !has_line ){
+      line_str <- "<c:spPr><a:ln><a:noFill/></a:ln></c:spPr>"
+    } else {
+      line_properties <- fp_border(color = serie$stroke, style = serie$line_style, width = serie$line_width)
+      line_str <- ooxml_fp_border(line_properties, in_tags = c("c:spPr"))
+    }
+    if( !has_marker )
+      marker_str <- "<c:marker><c:symbol val=\"none\"/></c:marker>"
+    else marker_str <- get_marker_xml(serie$fill, serie$stroke, serie$symbol, serie$size )
+
 
     label_settings <- x$label_settings
     label_settings$labels_fp <- serie$labels_fp
@@ -92,7 +100,7 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
       sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
       sprintf("<c:order val=\"%.0f\"/>", serie$order),
       sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
-      sppr_str, marker_str,
+      line_str, marker_str,
       to_pml(label_settings, show_label = !is.null(x$label_cols)),
       "<c:cat>", to_pml(serie$x), "</c:cat>",
       "<c:val>", to_pml(serie$y), "</c:val>",
@@ -100,7 +108,10 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
       sprintf("<c:smooth val=\"%.0f\"/>", serie$smooth),
       "</c:ser>"
     )
-  })
+  },
+  has_line = has_lines[x$options$linestyle],
+  has_marker = has_markers[x$options$linestyle])
+
   str_series_ <- paste(str_series_, collapse = "")
 
   x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)

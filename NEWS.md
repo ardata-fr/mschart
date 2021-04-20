@@ -1,3 +1,10 @@
+# mschart 0.3.1
+
+## New features
+
+* Support for linechart with or without lines and with or without markers
+
+
 # mschart 0.3.0
 
 ## Issues

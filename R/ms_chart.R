@@ -45,13 +45,9 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL){
   if(!is.numeric(data[[y]])){
     stop("y column should be numeric.")
   }
+  out <- chart_settings(out)
 
-  out$axis_tag <- list(x = xtag,
-                       y = "c:valAx")
-
-  serie_names <- names(out$series_settings$symbol)
-  values <- setNames( rep( "none", length(serie_names)), serie_names )
-  out <- chart_data_symbol(out, values = values)
+  out$axis_tag <- list(x = xtag, y = "c:valAx")
 
   out
 }

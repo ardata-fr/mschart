@@ -105,9 +105,20 @@ linechart_options <- function( vary_colors = FALSE ){
 
 #' @export
 #' @describeIn chart_settings linechart settings
-chart_settings.ms_linechart <- function( x, vary_colors, ... ){
+#' @param style Style for the linechart or scatterchart type of markers. One
+#' of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.
+chart_settings.ms_linechart <- function( x, vary_colors, style = "lineMarker", ... ){
 
-  options <- linechart_options( vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors) )
+  options <- linechart_options(
+    vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors)
+  )
+
+  if( !style %in% st_scatterstyle ){
+    stop("style should be one of ", paste0(shQuote(st_scatterstyle), collapse = ", " ))
+  }
+
+
+  options$linestyle <- style
   x$options <- options
   x
 }
@@ -130,14 +141,13 @@ chart_settings.ms_areachart <- function( x, vary_colors = FALSE, grouping = "sta
 
 #' @export
 #' @describeIn chart_settings linechart settings
-#' @param scatterstyle The Style for the scatter chart. One
-#' of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.
-chart_settings.ms_scatterchart <- function( x, vary_colors = FALSE, scatterstyle = "lineMarker", ... ){
+chart_settings.ms_scatterchart <- function( x, vary_colors = FALSE, style = "marker", ... ){
 
-  if( !scatterstyle %in% st_scatterstyle ){
-    stop("scatterstyle should be one of ", paste0(shQuote(st_scatterstyle), collapse = ", " ))
+  if( !style %in% st_scatterstyle ){
+    stop("style should be one of ",
+         paste0(shQuote(st_scatterstyle), collapse = ", " ))
   }
-  options <- list(vary_colors = vary_colors, scatterstyle = scatterstyle )
+  options <- list(vary_colors = vary_colors, scatterstyle = style )
   class(options) <- "scatterchart_options"
 
   x$options <- options

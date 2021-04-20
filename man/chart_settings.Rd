@@ -12,11 +12,11 @@ chart_settings(x, ...)
 
 \method{chart_settings}{ms_barchart}(x, vary_colors, gap_width, dir, grouping, overlap, ...)
 
-\method{chart_settings}{ms_linechart}(x, vary_colors, ...)
+\method{chart_settings}{ms_linechart}(x, vary_colors, style = "lineMarker", ...)
 
 \method{chart_settings}{ms_areachart}(x, vary_colors = FALSE, grouping = "standard", ...)
 
-\method{chart_settings}{ms_scatterchart}(x, vary_colors = FALSE, scatterstyle = "lineMarker", ...)
+\method{chart_settings}{ms_scatterchart}(x, vary_colors = FALSE, style = "marker", ...)
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}
@@ -42,7 +42,7 @@ which to overlap adjacent bars. A setting of -100 creates a gap of a
 full bar width and a setting of 100 causes all the bars in a category
 to be superimposed. The default value is 0.}
 
-\item{scatterstyle}{The Style for the scatter chart. One
+\item{style}{Style for the linechart or scatterchart type of markers. One
 of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.}
 }
 \description{
