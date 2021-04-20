@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1.002</span>
       </span>
     </div>
 
@@ -128,13 +128,13 @@
 <span class='fu'>chart_settings</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>vary_colors</span>, <span class='va'>gap_width</span>, <span class='va'>dir</span>, <span class='va'>grouping</span>, <span class='va'>overlap</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ms_linechart</span>
-<span class='fu'>chart_settings</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>vary_colors</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>chart_settings</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>vary_colors</span>, style <span class='op'>=</span> <span class='st'>"lineMarker"</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ms_areachart</span>
 <span class='fu'>chart_settings</span><span class='op'>(</span><span class='va'>x</span>, vary_colors <span class='op'>=</span> <span class='cn'>FALSE</span>, grouping <span class='op'>=</span> <span class='st'>"standard"</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ms_scatterchart</span>
-<span class='fu'>chart_settings</span><span class='op'>(</span><span class='va'>x</span>, vary_colors <span class='op'>=</span> <span class='cn'>FALSE</span>, scatterstyle <span class='op'>=</span> <span class='st'>"lineMarker"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>chart_settings</span><span class='op'>(</span><span class='va'>x</span>, vary_colors <span class='op'>=</span> <span class='cn'>FALSE</span>, style <span class='op'>=</span> <span class='st'>"marker"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,8 +177,8 @@ full bar width and a setting of 100 causes all the bars in a category
 to be superimposed. The default value is 0.</p></td>
     </tr>
     <tr>
-      <th>scatterstyle</th>
-      <td><p>The Style for the scatter chart. One
+      <th>style</th>
+      <td><p>Style for the linechart or scatterchart type of markers. One
 of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.</p></td>
     </tr>
     </table>
@@ -238,7 +238,7 @@ of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.</p></td>
       <footer>
       <link href="../ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version&nbsp;0.3.1.001 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
+  <p>Version&nbsp;0.3.1.002 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src='../ardata-logo.svg' style="vertical-align:middle;height:24px;"/></a>
   </p>
 </div>
 <div class="pkgdown">
