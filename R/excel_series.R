@@ -73,7 +73,7 @@ transpose_series_bysplit <- function(x) {
         out <- cbind(out, data_label)
       }
     }
-    out <- out[do.call(order, out[c(x$x, group_names)]), ]
+    out <- out[do.call(order, out[c(group_names, x$x)]), ]
   } else {
     vars <- c(x$x, x$y, x$label_cols)
     out <- x$data[, vars]

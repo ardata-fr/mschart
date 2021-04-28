@@ -4,6 +4,9 @@
 
 * Support for linechart with or without lines and with or without markers
 
+## Issues
+
+* fix issue with scattercharts and ordering in the Excel dataset
 
 # mschart 0.3.0
 
