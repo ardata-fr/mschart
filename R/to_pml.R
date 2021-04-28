@@ -189,7 +189,7 @@ to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns =
                       sheetname = sheetname )
   str_series_ <- sapply( series, function(serie, has_line, has_marker ){
 
-    if( !has_line ){
+    if( !has_line || serie$line_style %in% "none" || serie$line_width < 1){
       line_str <- "<c:spPr><a:ln><a:noFill/></a:ln></c:spPr>"
     } else {
       line_properties <- fp_border(color = serie$stroke, style = serie$line_style, width = serie$line_width)
