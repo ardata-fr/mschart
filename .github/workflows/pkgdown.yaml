@@ -10,6 +10,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RSPM: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
 
