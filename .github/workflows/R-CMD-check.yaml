@@ -19,12 +19,13 @@ jobs:
       matrix:
         config:
           - {os: windows-latest, r: 'release'}
+          - {os: macOS-latest, r: 'release'}
           - {os: macOS-latest, r: 'devel'}
-          - {os: ubuntu-16.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          - {os: ubuntu-16.04, r: 'release'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      RSPM: ${{ matrix.config.rspm }}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
@@ -34,17 +35,6 @@ jobs:
           r-version: ${{ matrix.config.r }}
 
       - uses: r-lib/actions/setup-pandoc@master
-
-      - name: Install XQuartz
-        if: matrix.config.os == 'macOS-latest'
-        env:
-          XQUARTZ_VERSION: 2.7.11
-        run: |
-           curl -fLo /tmp/XQuartz.dmg "https://dl.bintray.com/xquartz/downloads/XQuartz-${XQUARTZ_VERSION}.dmg"
-           sudo hdiutil attach -noverify /tmp/XQuartz.dmg
-           sudo installer -pkg "/Volumes/XQuartz-${XQUARTZ_VERSION}/XQuartz.pkg" -target /
-           sudo hdiutil detach /Volumes/XQuartz-${XQUARTZ_VERSION}
-           rm /tmp/XQuartz.dmg
 
       - name: Query dependencies
         run: |
