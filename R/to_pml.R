@@ -217,6 +217,7 @@ to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns =
       "<c:xVal>", to_pml(serie$x), "</c:xVal>",
       "<c:yVal>", to_pml(serie$y), "</c:yVal>",
       label_pml,
+      sprintf("<c:smooth val=\"%.0f\"/>", serie$smooth),
       "</c:ser>"
     )
   },

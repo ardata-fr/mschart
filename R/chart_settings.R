@@ -147,6 +147,14 @@ chart_settings.ms_scatterchart <- function( x, vary_colors = FALSE, style = "mar
     stop("style should be one of ",
          paste0(shQuote(st_scatterstyle), collapse = ", " ))
   }
+
+  if(grepl("smooth", style)){
+     x <- chart_data_smooth(x, values = 1)
+  } else {
+    x <- chart_data_smooth(x, values = 0)
+  }
+
+
   options <- list(vary_colors = vary_colors, scatterstyle = style )
   class(options) <- "scatterchart_options"
 
