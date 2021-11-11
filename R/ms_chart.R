@@ -178,8 +178,7 @@ ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL){
     stop("x column should be numeric.")
   }
 
-  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels,
-                  excel_data_setup = transpose_series_bysplit)
+  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels)
   class(out) <- c("ms_scatterchart", "ms_chart")
 
   out <- chart_settings(out)
