@@ -14,6 +14,7 @@ mschart_theme(
   axis_title_y = axis_title,
   main_title = fp_text(bold = TRUE, font.size = 20),
   legend_text = fp_text(font.size = 14),
+  table_text = fp_text(bold = FALSE, font.size = 9),
   axis_text = fp_text(),
   axis_text_x = axis_text,
   axis_text_y = axis_text,
