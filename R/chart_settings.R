@@ -97,9 +97,9 @@ chart_settings.ms_barchart <- function( x, vary_colors,
 }
 
 
-linechart_options <- function( vary_colors = FALSE ){
+linechart_options <- function( vary_colors = FALSE, table = FALSE ){
 
-  out <- list(vary_colors = vary_colors, grouping = "standard" )
+  out <- list(vary_colors = vary_colors, grouping = "standard", table = table)
   class(out) <- "linechart_options"
   out
 }
@@ -108,10 +108,11 @@ linechart_options <- function( vary_colors = FALSE ){
 #' @describeIn chart_settings linechart settings
 #' @param style Style for the linechart or scatterchart type of markers. One
 #' of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.
-chart_settings.ms_linechart <- function( x, vary_colors, style = "lineMarker", ... ){
+chart_settings.ms_linechart <- function( x, vary_colors, style = "lineMarker", table, ... ){
 
   options <- linechart_options(
-    vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors)
+    vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors),
+    table = ifelse(missing(table), x$options$table, table)
   )
 
   if( !style %in% st_scatterstyle ){
@@ -129,11 +130,11 @@ chart_settings.ms_linechart <- function( x, vary_colors, style = "lineMarker", .
 
 #' @export
 #' @describeIn chart_settings linechart settings
-chart_settings.ms_areachart <- function( x, vary_colors = FALSE, grouping = "standard", ... ){
+chart_settings.ms_areachart <- function( x, vary_colors = FALSE, grouping = "standard", table = FALSE, ... ){
   if( !grouping %in% st_grouping ){
     stop("grouping should be one of ", paste0(shQuote(st_grouping), collapse = ", " ))
   }
-  options <- list(vary_colors = vary_colors, grouping = grouping )
+  options <- list(vary_colors = vary_colors, grouping = grouping, table = table )
   class(options) <- "areachart_options"
 
   x$options <- options

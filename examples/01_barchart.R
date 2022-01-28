@@ -135,3 +135,13 @@ chrt <- chart_settings(chrt,
 chrt <- chart_data_labels(chrt, position = "outEnd")
 chrt <- chart_labels_text(chrt, text_prop)
 
+# example chart 06 -------
+chrt2 <- ms_barchart(
+  data = dat_no_group,
+  x = "cut", labels = "label", y = "n"
+)
+chrt2 <- chart_settings(chrt2,
+  grouping = "clustered", table = T)
+chrt2 <- chart_data_labels(chrt2, position = "outEnd")
+chrt2 <- chart_labels_text(chrt2, text_prop)
+
