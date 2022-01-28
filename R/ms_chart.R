@@ -342,8 +342,25 @@ format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data 
                                   lab = htmlEscape(x$labels$y), rot = x$theme$title_y_rot )
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
+  txpr <- ""
+  if( !is.null( x$labels_fp )){
+    txpr <- ooxml_txpr(x$labels_fp)
+  }
+
+  if (x$options$table) {
+  table_str <- paste0(
+      "<c:dTable>",
+      sprintf("<c:showHorzBorder val=\"%s\"/>", 1),
+      sprintf("<c:showVertBorder val=\"%s\"/>", 1),
+      sprintf("<c:showOutline val=\"%s\"/>", 1),
+      sprintf("<c:showKeys val=\"%s\"/>",1),
+      txpr,
+      "</c:dTable>"
+  )}else{
+      table_str <- NULL
+    }
   ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
-  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, x_axis_str, y_axis_str, "</c:plotArea>")
+  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, x_axis_str, y_axis_str, table_str, "</c:plotArea>")
   xml_doc <- read_xml(system.file(package = "mschart", "template", "chart.xml"))
 
   node <- xml_find_first(xml_doc, "//c:plotArea")

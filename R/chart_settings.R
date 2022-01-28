@@ -45,7 +45,7 @@ chart_settings <- function( x, ... ){
 
 barchart_options <- function( vary_colors = FALSE, gap_width = 150,
                               dir = "vertical", grouping = "clustered",
-                              overlap = 0 ){
+                              overlap = 0, table = FALSE){
   # bardir <- structure(c("bar", "col"), .Names = c("horizontal", "vertical"))
   bardir <- c("horizontal", "vertical")
   if( !dir %in% bardir ){
@@ -62,7 +62,7 @@ barchart_options <- function( vary_colors = FALSE, gap_width = 150,
     stop("overlap should be between -100 and 100")
   }
 
-  out <- list(vary_colors=vary_colors, gap_width = gap_width, dir = dir, grouping = grouping, overlap = overlap )
+  out <- list(vary_colors=vary_colors, gap_width = gap_width, dir = dir, grouping = grouping, overlap = overlap, table = table)
   class(out) <- "barchart_options"
   out
 }
@@ -85,12 +85,13 @@ barchart_options <- function( vary_colors = FALSE, gap_width = 150,
 #' full bar width and a setting of 100 causes all the bars in a category
 #' to be superimposed. The default value is 0.
 chart_settings.ms_barchart <- function( x, vary_colors,
-                                        gap_width, dir, grouping, overlap, ... ){
+                                        gap_width, dir, grouping, overlap, table, ... ){
   options <- barchart_options( vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors),
                            gap_width = ifelse(missing(gap_width), x$options$gap_width, gap_width),
                            dir = ifelse(missing(dir), x$options$dir, dir),
                            grouping = ifelse(missing(grouping), x$options$grouping, grouping),
-                           overlap = ifelse(missing(overlap), x$options$overlap, overlap) )
+                           overlap = ifelse(missing(overlap), x$options$overlap, overlap),
+                           table = ifelse(missing(table), x$options$table, table))
   x$options <- options
   x
 }
