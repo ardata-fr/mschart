@@ -42,6 +42,7 @@ set_theme <- function(x, value) {
 #' @param axis_title,axis_title_x,axis_title_y axis title formatting properties (see [fp_text()])
 #' @param main_title title formatting properties (see [fp_text()])
 #' @param legend_text legend text formatting properties (see [fp_text()])
+#' @param table_text table text formatting properties (see [fp_text()])
 #' @param axis_text,axis_text_x,axis_text_y axis text formatting properties (see [fp_text()])
 #' @param title_rot,title_x_rot,title_y_rot rotation angle
 #' @param axis_ticks,axis_ticks_x,axis_ticks_y axis ticks formatting properties (see [fp_border()])

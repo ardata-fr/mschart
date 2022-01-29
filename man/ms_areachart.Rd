@@ -47,6 +47,9 @@ ac_01 <- set_theme(ac_01, mytheme)
 # example ac_02 -------
 ac_02 <- chart_settings(ac_01, grouping = "percentStacked")
 
+# example ac_03 -------
+ac_03 <- chart_settings(ac_01, grouping = "percentStacked", table = TRUE)
+ac_03 <- chart_table(ac_03, horizontal = FALSE, vertical = FALSE, outline = FALSE, show_keys = TRUE)
 }
 \seealso{
 \code{\link[=chart_settings]{chart_settings()}}, \code{\link[=chart_ax_x]{chart_ax_x()}}, \code{\link[=chart_ax_y]{chart_ax_y()}},

@@ -16,5 +16,5 @@ ac_01 <- set_theme(ac_01, mytheme)
 ac_02 <- chart_settings(ac_01, grouping = "percentStacked")
 
 # example ac_03 -------
-ac_03 <- chart_settings(ac_01, grouping = "percentStacked", table = T)
-ac_03 <- chart_table(ac_03, horizontal = F, vertical = F, outline = F, show_keys = T)
+ac_03 <- chart_settings(ac_01, grouping = "percentStacked", table = TRUE)
+ac_03 <- chart_table(ac_03, horizontal = FALSE, vertical = FALSE, outline = FALSE, show_keys = TRUE)

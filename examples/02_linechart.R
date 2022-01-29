@@ -66,8 +66,8 @@ chart_03 <- chart_settings(
 )
 
 chart_03 <- chart_table(chart_03,
-  horizontal = T, vertical = F,
-  outline = T, show_keys = F
+  horizontal = TRUE, vertical = FALSE,
+  outline = TRUE, show_keys = FALSE
 )
 
 

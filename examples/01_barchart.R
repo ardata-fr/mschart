@@ -141,7 +141,7 @@ chrt2 <- ms_barchart(
   x = "cut", labels = "label", y = "n"
 )
 chrt2 <- chart_settings(chrt2,
-  grouping = "clustered", table = T)
+  grouping = "clustered", table = TRUE)
 chrt2 <- chart_data_labels(chrt2, position = "outEnd")
 chrt2 <- chart_labels_text(chrt2, text_prop)
 

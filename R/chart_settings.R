@@ -84,6 +84,7 @@ barchart_options <- function( vary_colors = FALSE, gap_width = 150,
 #' which to overlap adjacent bars. A setting of -100 creates a gap of a
 #' full bar width and a setting of 100 causes all the bars in a category
 #' to be superimposed. The default value is 0.
+#' @param table if \code{TRUE} set a table below the barchart.
 chart_settings.ms_barchart <- function( x, vary_colors,
                                         gap_width, dir, grouping, overlap, table, ... ){
   options <- barchart_options( vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors),

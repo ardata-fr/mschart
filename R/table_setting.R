@@ -6,6 +6,7 @@
 #' @param outline write an outline in the table
 #' @param show_keys showkeys in the table
 #'
+#' @export
 chart_table <- function(x, horizontal,
                           vertical,
                           outline,

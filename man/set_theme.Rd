@@ -72,6 +72,8 @@ chart_theme(
 
 \item{legend_text}{legend text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
 
+\item{table_text}{table text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
+
 \item{axis_text, axis_text_x, axis_text_y}{axis text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
 
 \item{title_rot, title_x_rot, title_y_rot}{rotation angle}
