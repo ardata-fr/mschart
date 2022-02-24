@@ -79,6 +79,91 @@ chart_data_fill <- function(x, values){
 }
 
 #' @export
+#' @title Modify gradient
+#' @description Specify mappings from levels in the data to gradients.
+#' @param x an `ms_chart` object.
+#' @param colors `character(num of series|1)`: a set of colours values to map data values to.
+#' It is a named vector, the values will be matched based on the names.
+#' @param positions Vector of numbers that specify the positions of the colors.
+#' @param angle Specify the angle used in the gradient
+#' @param type Specify the type of gradient
+#' @examples
+#' @family Series customization functions
+chart_data_gradient <- function(x, colors, positions = NULL, angle = 90, type = NULL) {
+
+  # available types
+  types <- list(
+    "linear" = "linear",
+    "radial" = "circle",
+    "rectangular" = "rect",
+    "path" = "shape"
+  )
+
+  # check colors param
+  valid_cols <- is_valid_color(colors)
+
+  if (any(!valid_cols)) {
+    stop("invalid color(s) in argument values")
+  }
+
+  if (!(2 <= length(colors) && length(colors) <= 10)) {
+    stop(paste0(
+      "Colors list must be at least 2 values",
+      "and no more than 10"
+    ))
+  }
+
+  # check positions
+  if (!is.null(positions)) {
+    ## check length
+    if (length(colors) == length(positions)) {
+      stop("Positions must have the same size of colors")
+    }
+    ## check range of positions
+    for (x in positions) {
+      if (!(0 <= x && x <= 100)) {
+        stop(sprintf("Gradient %s position must be in the range 0-100"), x)
+      }
+    }
+  } else {
+    if (length(colors) == 2) {
+      positions <- c(0, 100)
+    }
+    if (length(colors) == 3) {
+      positions <- c(0, 50, 100)
+    }
+    if (length(colors) == 4) {
+      positions <- c(0, 33, 66, 100)
+    }
+    if (length(colors) > 4) {
+      stop("Must specify gradient positions")
+    }
+  }
+
+  if (!is.null(type)) {
+   if (type %in% names(types)){
+     types[which(names(types) == type)]
+   } else{
+     stop(sprintf("Unknow gradient type %s", type))
+   }
+  }
+
+  serie_names <- names(x$series_settings$fill)
+
+  if (length(values) == 1) {
+    values <- rep(values, length(serie_names))
+    names(values) <- serie_names
+  }
+
+  if (!all(names(values) %in% serie_names)) {
+    stop("values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
+  }
+
+  x$series_settings$fill[names(values)] <- values
+  x
+}
+
+#' @export
 #' @title Modify marker stroke colour
 #' @description Specify mappings from levels in the data to displayed marker stroke colours.
 #' @param x an `ms_chart` object.
