@@ -323,6 +323,8 @@ colour_list <- list(
 
 #' @importFrom htmltools htmlEscape
 #' @importFrom xml2 xml_attr<- xml_remove
+#' @method format ms_chart
+#' @export
 format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE){
   str_ <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname)
 
