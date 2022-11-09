@@ -2,8 +2,6 @@ library(mschart)
 library(officer)
 library(xml2)
 
-source("utils/unpack_chart.R")
-
 dat_no_group <- data.frame(
   stringsAsFactors = FALSE,
   cut = c("Fair", "Good", "Very Good", "Premium", "Ideal"),
@@ -18,10 +16,14 @@ chrt <- ms_barchart(
   x = "cut", labels = "label", y = "n"
 )
 
+xml <- format(
+  chrt,
+  sheetname = "sheet1",
+  id_x = "64451212",
+  id_y = "64453248"
+)
 
-path <- unpack_chart(chrt)
-
-chart <- read_xml(attr(path, "chart_xml"))
+chart <- read_xml(xml)
 showDataLabelsRange <- xml_find_all(chart, "//c:ser/c:dLbls/c:extLst/c:ext/c15:showDataLabelsRange")
 
 # test that no showDataLabelsRange is set to 1

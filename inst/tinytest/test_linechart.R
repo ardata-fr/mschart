@@ -2,8 +2,6 @@ library(mschart)
 library(officer)
 library(xml2)
 
-source("utils/unpack_chart.R")
-
 dat <- data.frame(
   color=c(rep("green",3), rep("unclear",3), rep("gray",3)),
   musician=c(rep(c("Robert Wyatt", "John Zorn", "Damon Albarn"),3)),
@@ -18,10 +16,14 @@ settings <- c(green = 1L, unclear = 0L, gray = 0L)
 settings <- settings[order(names(settings))]
 chart_01 <- chart_data_smooth(chart_01, values = settings )
 
+xml <- format(
+  chart_01,
+  sheetname = "sheet1",
+  id_x = "64451212",
+  id_y = "64453248"
+)
 
-path <- unpack_chart(chart_01)
-
-chart <- read_xml(attr(path, "chart_xml"))
+chart <- read_xml(xml)
 serie_names <- xml_find_all(chart, "//c:ser/c:tx/c:strRef/c:strCache/c:pt/c:v")
 serie_names <- xml_text(serie_names)
 smooth_data <- xml_find_all(chart, "//c:smooth")
