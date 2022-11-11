@@ -4,7 +4,7 @@
 \alias{ms_scatterchart}
 \title{scatterchart object}
 \usage{
-ms_scatterchart(data, x, y, group = NULL, labels = NULL)
+ms_scatterchart(data, x, y, group = NULL, labels = NULL, asis = FALSE)
 }
 \arguments{
 \item{data}{a data.frame}
@@ -19,6 +19,9 @@ ms_scatterchart(data, x, y, group = NULL, labels = NULL)
 If more than a name, only the first one will be used as label, but all
 labels (transposed if a group is used) will be available in the Excel file
 associated with the chart.}
+
+\item{asis}{bool parameter defaulting to FALSE. If TRUE the data will not be
+modified.}
 }
 \description{
 Creation of a scatterchart object that can be

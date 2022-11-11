@@ -32,9 +32,11 @@ is_valid_color = function(x) {
   })
 }
 
-pretty_num_axes <- function(x){
-  range_x <- pretty(x$data[[x$x]])
-  range_y <- pretty(x$data[[x$y]])
+pretty_num_axes <- function(x, data_x, data_y){
+  range_x <- pretty(data_x)
+  range_y <- pretty(data_y)
+  # print(range_x)
+  # print(range_y)
   x <- chart_ax_x(x, limit_min = range_x[1], limit_max = range_x[length(range_x)])
   x <- chart_ax_y(x, limit_min = range_y[1], limit_max = range_y[length(range_y)])
   x

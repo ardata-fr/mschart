@@ -32,10 +32,7 @@ axis, one of 'autoZero', 'max', 'min'.}
 \item{cross_between}{specifies how the value axis crosses the
 category axis between categories, one of 'between', 'midCat'.}
 
-\item{major_tick_mark}{tick marks position,
-one of 'cross', 'in', 'none', 'out'.}
-
-\item{minor_tick_mark}{tick marks position,
+\item{major_tick_mark, minor_tick_mark}{tick marks position,
 one of 'cross', 'in', 'none', 'out'.}
 
 \item{tick_label_pos}{ticks labels position, one of 'high',

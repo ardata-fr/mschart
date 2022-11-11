@@ -2,22 +2,35 @@
 as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
   dataset <- x$data_series
 
-  w_x <- which( names(dataset) %in% x$x )
+  # print(x_class)
+  # print(y_class)
 
-  x_serie_range <- cell_limits(ul = c(2, w_x),
-                               lr = c(nrow(dataset)+1, w_x),
-                               sheet = sheetname)
+  w_x <- which( names(dataset) %in% x$xvar )
+
+  x_serie_range <- cell_limits(
+    ul = c(2, w_x),
+    lr = c(nrow(dataset)+1, w_x),
+    sheet = sheetname
+  )
   x_serie_range <- as.range(x_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
+  # print(x_serie_range)
   x_serie <- update(x_class, region = x_serie_range, values = dataset[[x$x]])
+  # print(x_serie)
 
   label_columns <- get_label_names(x)
 
   series <- list()
 
-  w_y_values <- which(names(dataset) %in% get_series_names(x))
+  series_nams <- get_series_names(x)
+  if (x$asis) series_nams <- x$yvar
+
+  w_y_values <- which(names(dataset) %in% series_nams)
   w_l_values <- which(names(dataset) %in% label_columns)
 
   for( w_y_index in seq_along(w_y_values)){
+
+    # print(w_y_index)
+
     w_y <- w_y_values[w_y_index]
     w_l <- w_l_values[w_y_index]
     y_colname <- names(dataset)[w_y]

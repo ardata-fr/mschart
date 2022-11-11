@@ -16,6 +16,7 @@ to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FAL
            paste(shQuote(stacked_pos), collapse = ", "), ".", call. = FALSE)
     }
 
+
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
@@ -175,7 +176,7 @@ names(has_markers) <- scatterstyles
 has_lines <- c(FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)
 names(has_lines) <- scatterstyles
 
-to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, ...){
+to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, asis = FALSE, ...){
 
   if( !x$label_settings$position %in% standard_pos ){
     stop("label position issue.",
@@ -183,10 +184,23 @@ to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns =
          paste(shQuote(standard_pos), collapse = ", "), ".", call. = FALSE)
   }
 
+  if (asis)
+    series <- as_series(
+      x,
+      x_class = serie_builtin_class(sort(unname(unlist(x$data_series[x$xvar])))),
+      y_class = serie_builtin_class(sort(unname(unlist(x$data_series[x$yvar])))),
+      sheetname = sheetname
+    )
+  else
+    series <- as_series(
+      x,
+      x_class = serie_builtin_class(x$data[[x$x]]),
+      y_class = serie_builtin_class(x$data[[x$y]]),
+      sheetname = sheetname
+    )
 
-  series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
-                      y_class = serie_builtin_class(x$data[[x$y]]),
-                      sheetname = sheetname )
+  # print(series)
+
   str_series_ <- sapply( series, function(serie, has_line, has_marker ){
 
     if( !has_line || serie$line_style %in% "none" || serie$line_width < 1){
