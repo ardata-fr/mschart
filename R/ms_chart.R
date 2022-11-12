@@ -179,6 +179,9 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   stopifnot(x %in% names(data))
   stopifnot(y %in% names(data))
 
+  # if wb_data is passed, only create asis mschart output
+  if (inherits(data, "wb_data")) asis <- TRUE
+
   xvar <- x
   yvar <- y
 
