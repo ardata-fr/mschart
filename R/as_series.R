@@ -1,3 +1,4 @@
+#' @importFrom cellranger cell_limits as.cell_limits as.range ra_ref to_string
 series_wb_name <- function(dataset, idx) {
   dims <- attr(dataset, "dims")
   sheetname <- attr(dataset, "sheet")
@@ -19,17 +20,14 @@ series_wb_data <- function(dataset, idx) {
   serie_range
 }
 
-#' @importFrom cellranger cell_limits as.cell_limits as.range ra_ref to_string
 as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
   dataset <- x$data_series
 
   w_x <- which( names(dataset) %in% x$xvar )
 
-  x_serie_range <- cell_limits(
-    ul = c(2, w_x),
-    lr = c(nrow(dataset)+1, w_x),
-    sheet = sheetname
-  )
+  x_serie_range <- cell_limits(ul = c(2, w_x),
+                               lr = c(nrow(dataset)+1, w_x),
+                               sheet = sheetname)
 
   if (inherits(dataset, "wb_data")){
     x_serie_range <- series_wb_data(dataset, w_x)
@@ -52,14 +50,10 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
   w_l_values <- which(names(dataset) %in% label_columns)
 
   for( w_y_index in seq_along(w_y_values)){
-
-    # print(w_y_index)
-
     w_y <- w_y_values[w_y_index]
     w_l <- w_l_values[w_y_index]
     y_colname <- names(dataset)[w_y]
     l_colname <- names(dataset)[w_l]
-
 
     serie_name_range <- ra_ref(row_ref = 1, col_ref = w_y, sheet = sheetname)
     serie_name_range <- to_string(serie_name_range, fo = "A1")
@@ -68,7 +62,6 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
       serie_name_range <- as.range(serie_name_range, fo = "A1", strict = TRUE, sheet = TRUE)
     }
     serie_name <- str_ref(values = y_colname, region = serie_name_range)
-    # print(serie_name)
 
     y_serie_range <- cell_limits(ul = c(2, w_y), lr = c(nrow(dataset)+1, w_y),  sheet = sheetname)
 

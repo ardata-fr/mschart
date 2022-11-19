@@ -16,7 +16,6 @@ to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FAL
            paste(shQuote(stacked_pos), collapse = ", "), ".", call. = FALSE)
     }
 
-
   series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
                       y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
 
@@ -198,8 +197,6 @@ to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns =
       y_class = serie_builtin_class(x$data[[x$y]]),
       sheetname = sheetname
     )
-
-  # print(series)
 
   str_series_ <- sapply( series, function(serie, has_line, has_marker ){
 

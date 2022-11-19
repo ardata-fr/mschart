@@ -237,11 +237,7 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
 
   lbls <- list(title = NULL, x = x, y = y)
 
-  out <- list(data = data,
-              x = x,
-              y = y,
-              group = group,
-              label_cols = labels,
+  out <- list(data = data, x = x, y = y, group = group, label_cols = labels,
               theme = theme_,
               options = list(),
               x_axis = x_axis_,
@@ -366,27 +362,15 @@ format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data 
   if( is.null(x$y_axis$num_fmt) )
     x$y_axis$num_fmt <- x$theme[[x$fmt_names$y]]
 
-  x_axis_str <- axis_content_xml(
-    x$x_axis,
-    id = id_x,
-    theme = x$theme,
-    cross_id = id_y,
-    is_x = TRUE,
-    lab = htmlEscape(x$labels$x),
-    rot = x$theme$title_x_rot
-  )
+  x_axis_str <- axis_content_xml( x$x_axis, id = id_x, theme = x$theme,
+                                  cross_id = id_y, is_x = TRUE,
+                                  lab = htmlEscape(x$labels$x), rot = x$theme$title_x_rot )
 
   x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
 
-  y_axis_str <- axis_content_xml(
-    x$y_axis,
-    id = id_y,
-    theme = x$theme,
-    cross_id = id_x,
-    is_x = FALSE,
-    lab = htmlEscape(x$labels$y),
-    rot = x$theme$title_y_rot
-  )
+  y_axis_str <- axis_content_xml( x$y_axis, id = id_y, theme = x$theme,
+                                  cross_id = id_x, is_x = FALSE,
+                                  lab = htmlEscape(x$labels$y), rot = x$theme$title_y_rot )
 
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
