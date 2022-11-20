@@ -323,9 +323,10 @@ colour_list <- list(
 
 #' @importFrom htmltools htmlEscape
 #' @importFrom xml2 xml_attr<- xml_remove
-format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE){
+#' @method format ms_chart
+#' @export
+format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE, ...){
   str_ <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname)
-
 
   if( is.null(x$x_axis$num_fmt) )
     x$x_axis$num_fmt <- x$theme[[x$fmt_names$x]]
