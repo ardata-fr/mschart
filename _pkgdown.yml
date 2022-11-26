@@ -12,6 +12,7 @@ home:
 reference:
   - title: High level functions
     contents:
+    - mschart
     - starts_with("ms_")
   - title: Global settings
     contents:
@@ -32,8 +33,14 @@ reference:
     - ends_with("_theme")
   - title: Send to Microsoft Documents
     contents:
+    - print.ms_chart
     - ph_with.ms_chart
     - starts_with("body_add")
+  - title: Datasets
+    contents:
+    - browser_data
+    - browser_ts
+    - us_indus_prod
 
 navbar:
   title: mschart
