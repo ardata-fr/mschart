@@ -415,7 +415,7 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   if (!is.null(x$labels[["title"]])) {
     chartnode <- xml_find_first(xml_doc, "//c:chart")
     title_ <- "<c:title %s><c:tx><c:rich><a:bodyPr/><a:lstStyle/><a:p><a:pPr><a:defRPr/></a:pPr><a:r>%s<a:t>%s</a:t></a:r></a:p></c:rich></c:tx><c:layout/><c:overlay val=\"0\"/></c:title>"
-    title_ <- sprintf(title_, ns, format(x$theme[["main_title"]], type = "pml"), x$labels[["title"]])
+    title_ <- sprintf(title_, ns, format(x$theme[["main_title"]], type = "pml"), htmlEscape(x$labels[["title"]]))
     xml_add_child(chartnode, as_xml_document(title_), .where = 0)
   } else { # null is not enough
     atd_node <- xml_find_first(xml_doc, "//c:chart/c:autoTitleDeleted")
