@@ -6,6 +6,7 @@
 \alias{chart_settings.ms_linechart}
 \alias{chart_settings.ms_areachart}
 \alias{chart_settings.ms_scatterchart}
+\alias{chart_settings.ms_piechart}
 \title{set chart options}
 \usage{
 chart_settings(x, ...)
@@ -23,6 +24,14 @@ chart_settings(x, ...)
 )
 
 \method{chart_settings}{ms_scatterchart}(x, vary_colors = FALSE, style = "marker", ...)
+
+\method{chart_settings}{ms_piechart}(
+  x,
+  vary_colors = FALSE,
+  grouping = "standard",
+  table = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}
@@ -65,6 +74,8 @@ Set chart properties.
 \item \code{chart_settings(ms_areachart)}: linechart settings
 
 \item \code{chart_settings(ms_scatterchart)}: linechart settings
+
+\item \code{chart_settings(ms_piechart)}: linechart settings
 
 }}
 \section{Illustrations}{

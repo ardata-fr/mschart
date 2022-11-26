@@ -168,3 +168,16 @@ chart_settings.ms_scatterchart <- function(x, vary_colors = FALSE, style = "mark
   x$options <- options
   x
 }
+
+#' @export
+#' @describeIn chart_settings linechart settings
+chart_settings.ms_piechart <- function(x, vary_colors = FALSE, grouping = "standard", table = FALSE, ...) {
+  if (!grouping %in% st_grouping) {
+    stop("grouping should be one of ", paste0(shQuote(st_grouping), collapse = ", "))
+  }
+  options <- list(vary_colors = vary_colors, grouping = grouping, table = table)
+  class(options) <- "piechart_options"
+
+  x$options <- options
+  x
+}

@@ -303,3 +303,76 @@ get_sppr_xml_line_chart <- function( fill, stroke, style, width){
          line_str,
          "</c:spPr>" )
 }
+
+
+# copy of areachart
+to_pml.ms_piechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, asis = FALSE, ...){
+
+  series <- as_series(
+    x,
+    x_class = serie_builtin_class(x$data_series[[x$x]]),
+    y_class = serie_builtin_class(x$data_series[[x$y]]),
+    sheetname = sheetname
+  )
+
+  str_series_ <- sapply(series, function(serie) {
+
+    n <- length(x$data_series[[x$x]])
+
+    if (n <= length(colour_list)) {
+      fill <- colour_list[[n]]
+    } else {
+      fill <- sample(colors(), size = n, replace = TRUE)
+    }
+
+    marker_str <- vapply(
+      fill,
+      get_sppr_xml,
+      stroke = "transparent",
+      NA_character_
+    )
+
+    for (ms in seq_along(marker_str)) {
+      marker_str[ms] <- paste0(
+        sprintf("<c:dPt><c:idx val=\"%s\"/><c:bubble3D val=\"0\"/>", ms - 1),
+        marker_str[ms],
+        "</c:dPt>"
+      )
+    }
+
+    label_settings <- x$label_settings
+    label_settings$labels_fp <- serie$labels_fp
+
+    if(!is.null(x$label_cols)){
+      label_pml <- to_pml(serie$label)
+    } else label_pml <- ""
+
+    paste0(
+      "<c:ser>",
+      sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
+      sprintf("<c:order val=\"%.0f\"/>", serie$order),
+      "<c:tx>", to_pml(serie$tx), "</c:tx>",
+      paste0(marker_str, collapse = ""),
+      to_pml(label_settings, with_position = FALSE, show_label = !is.null(x$label_cols)),
+      "<c:cat>", to_pml(serie$x), "</c:cat>",
+      "<c:val>", to_pml(serie$y), "</c:val>",
+      label_pml,
+      "</c:ser>"
+    )
+  })
+
+  str_series_ <- paste(str_series_, collapse = "")
+
+  x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
+  y_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_y)
+
+  paste0(
+    "<c:pieChart>",
+    sprintf("<c:grouping val=\"%s\"/>", x$options$grouping),
+    sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
+    str_series_,
+    to_pml(x$label_settings, with_position = FALSE, show_label = !is.null(x$label_cols)),
+    x_ax_id, y_ax_id,
+    "</c:pieChart>"
+  )
+}

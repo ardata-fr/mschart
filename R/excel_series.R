@@ -81,10 +81,25 @@ transpose_series_bysplit <- function(x) {
   out
 }
 
+average_pie_series <- function(x) {
+  vars <- c(x$x, x$y)
+  group <- x$group
+  if (is.null(group)) {
+    group <- x$x
+  }
 
+  dat <- setDT(x$data)
 
+  expr <- paste0("mean(", x$y, ", na.rm = TRUE)")
+  expr <- paste("dat[,", expr, ", by = ", group, "]")
+  dat <- eval(parse(text = expr))
 
+  # setnames(dat, group, x$y)
+  setnames(dat, "V1", x$y)
 
+  out <- setDF(dat)
+  out
+}
 
 
 #' @importFrom stats as.formula

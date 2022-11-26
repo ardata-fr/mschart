@@ -44,12 +44,18 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1" ){
   series <- list()
 
   series_nams <- get_series_names(x)
+
+  if (!x$asis && inherits(x, "ms_piechart")) {
+    series_nams <- x$y
+    label_columns <- x$y
+  }
+
   if (x$asis) series_nams <- x$yvar
 
   w_y_values <- which(names(dataset) %in% series_nams)
   w_l_values <- which(names(dataset) %in% label_columns)
 
-  for( w_y_index in seq_along(w_y_values)){
+  for (w_y_index in seq_along(w_y_values)) {
     w_y <- w_y_values[w_y_index]
     w_l <- w_l_values[w_y_index]
     y_colname <- names(dataset)[w_y]

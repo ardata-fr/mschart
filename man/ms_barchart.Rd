@@ -220,6 +220,7 @@ chrt2 <- chart_labels_text(chrt2, text_prop)
 Other 'Office' chart objects: 
 \code{\link{ms_areachart}()},
 \code{\link{ms_linechart}()},
+\code{\link{ms_piechart}()},
 \code{\link{ms_scatterchart}()}
 }
 \concept{'Office' chart objects}

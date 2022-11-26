@@ -169,11 +169,36 @@ ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALS
   )
   class(out) <- c("ms_scatterchart", "ms_chart")
 
-  out <- chart_settings(out)
+  out <- chart_settings(out, vary_colors = TRUE)
 
   out
 }
 
+
+#' @title piechart object
+#' @description Creation of a piechart object that can be
+#' inserted in a 'Microsoft' document.
+#' @inheritParams ms_linechart
+#' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
+#' [chart_data_labels()], [chart_theme()], [chart_labels()]
+#' @export
+ms_piechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
+  out <- ms_chart(
+    data = data, x = x, y = y, group = group, labels = labels,
+    excel_data_setup = average_pie_series,
+    type = "pieplot", asis = asis
+  )
+  class(out) <- c("ms_piechart", "ms_chart")
+  out <- chart_settings(out, vary_colors = TRUE)
+
+  serie_names <- names(out$series_settings$colour)
+
+  values <- setNames(rep("transparent", length(serie_names)), serie_names)
+  out <- chart_data_stroke(out, values = values)
+
+  out
+}
 
 # ms_chart -----
 
@@ -219,7 +244,7 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
     data_y <- data[[y]]
   }
 
-  if (type == "areaplot" || type == "barplot") {
+  if (type == "areaplot" || type == "barplot" || type == "pieplot") {
     assert_area(data_x, data_y)
   }
 
