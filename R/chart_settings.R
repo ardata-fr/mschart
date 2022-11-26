@@ -34,35 +34,38 @@
 #' )
 #'
 #'
-#' chart_03 <- ms_areachart(data = browser_ts, x = "date",
-#'   y = "freq", group = "browser")
+#' chart_03 <- ms_areachart(
+#'   data = browser_ts, x = "date",
+#'   y = "freq", group = "browser"
+#' )
 #' chart_03 <- chart_settings(chart_03,
-#'   grouping = "percentStacked")
-chart_settings <- function( x, ... ){
+#'   grouping = "percentStacked"
+#' )
+chart_settings <- function(x, ...) {
   UseMethod("chart_settings")
 }
 
 
-barchart_options <- function( vary_colors = FALSE, gap_width = 150,
-                              dir = "vertical", grouping = "clustered",
-                              overlap = 0 ){
+barchart_options <- function(vary_colors = FALSE, gap_width = 150,
+                             dir = "vertical", grouping = "clustered",
+                             overlap = 0, table = FALSE) {
   # bardir <- structure(c("bar", "col"), .Names = c("horizontal", "vertical"))
   bardir <- c("horizontal", "vertical")
-  if( !dir %in% bardir ){
-    stop("dir should be one of ", paste0(shQuote(bardir), collapse = ", " ))
+  if (!dir %in% bardir) {
+    stop("dir should be one of ", paste0(shQuote(bardir), collapse = ", "))
   }
 
-  if( !(gap_width >= 0 && gap_width <= 500) ){
+  if (!(gap_width >= 0 && gap_width <= 500)) {
     stop("gap_width should be between 0 and 500")
   }
-  if( !grouping %in% st_bargrouping ){
-    stop("grouping should be one of ", paste0(shQuote(st_bargrouping), collapse = ", " ))
+  if (!grouping %in% st_bargrouping) {
+    stop("grouping should be one of ", paste0(shQuote(st_bargrouping), collapse = ", "))
   }
-  if( !(overlap >= -100 && overlap <= 100) ){
+  if (!(overlap >= -100 && overlap <= 100)) {
     stop("overlap should be between -100 and 100")
   }
 
-  out <- list(vary_colors=vary_colors, gap_width = gap_width, dir = dir, grouping = grouping, overlap = overlap )
+  out <- list(vary_colors = vary_colors, gap_width = gap_width, dir = dir, grouping = grouping, overlap = overlap, table = table)
   class(out) <- "barchart_options"
   out
 }
@@ -84,21 +87,24 @@ barchart_options <- function( vary_colors = FALSE, gap_width = 150,
 #' which to overlap adjacent bars. A setting of -100 creates a gap of a
 #' full bar width and a setting of 100 causes all the bars in a category
 #' to be superimposed. The default value is 0.
-chart_settings.ms_barchart <- function( x, vary_colors,
-                                        gap_width, dir, grouping, overlap, ... ){
-  options <- barchart_options( vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors),
-                           gap_width = ifelse(missing(gap_width), x$options$gap_width, gap_width),
-                           dir = ifelse(missing(dir), x$options$dir, dir),
-                           grouping = ifelse(missing(grouping), x$options$grouping, grouping),
-                           overlap = ifelse(missing(overlap), x$options$overlap, overlap) )
+#' @param table if \code{TRUE} set a table below the barchart.
+chart_settings.ms_barchart <- function(x, vary_colors,
+                                       gap_width, dir, grouping, overlap, table, ...) {
+  options <- barchart_options(
+    vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors),
+    gap_width = ifelse(missing(gap_width), x$options$gap_width, gap_width),
+    dir = ifelse(missing(dir), x$options$dir, dir),
+    grouping = ifelse(missing(grouping), x$options$grouping, grouping),
+    overlap = ifelse(missing(overlap), x$options$overlap, overlap),
+    table = ifelse(missing(table), x$options$table, table)
+  )
   x$options <- options
   x
 }
 
 
-linechart_options <- function( vary_colors = FALSE ){
-
-  out <- list(vary_colors = vary_colors, grouping = "standard" )
+linechart_options <- function(vary_colors = FALSE, table = FALSE) {
+  out <- list(vary_colors = vary_colors, grouping = "standard", table = table)
   class(out) <- "linechart_options"
   out
 }
@@ -107,14 +113,14 @@ linechart_options <- function( vary_colors = FALSE ){
 #' @describeIn chart_settings linechart settings
 #' @param style Style for the linechart or scatterchart type of markers. One
 #' of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.
-chart_settings.ms_linechart <- function( x, vary_colors, style = "lineMarker", ... ){
-
+chart_settings.ms_linechart <- function(x, vary_colors, style = "lineMarker", table, ...) {
   options <- linechart_options(
-    vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors)
+    vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors),
+    table = ifelse(missing(table), x$options$table, table)
   )
 
-  if( !style %in% st_scatterstyle ){
-    stop("style should be one of ", paste0(shQuote(st_scatterstyle), collapse = ", " ))
+  if (!style %in% st_scatterstyle) {
+    stop("style should be one of ", paste0(shQuote(st_scatterstyle), collapse = ", "))
   }
 
 
@@ -128,11 +134,11 @@ chart_settings.ms_linechart <- function( x, vary_colors, style = "lineMarker", .
 
 #' @export
 #' @describeIn chart_settings linechart settings
-chart_settings.ms_areachart <- function( x, vary_colors = FALSE, grouping = "standard", ... ){
-  if( !grouping %in% st_grouping ){
-    stop("grouping should be one of ", paste0(shQuote(st_grouping), collapse = ", " ))
+chart_settings.ms_areachart <- function(x, vary_colors = FALSE, grouping = "standard", table = FALSE, ...) {
+  if (!grouping %in% st_grouping) {
+    stop("grouping should be one of ", paste0(shQuote(st_grouping), collapse = ", "))
   }
-  options <- list(vary_colors = vary_colors, grouping = grouping )
+  options <- list(vary_colors = vary_colors, grouping = grouping, table = table)
   class(options) <- "areachart_options"
 
   x$options <- options
@@ -141,21 +147,22 @@ chart_settings.ms_areachart <- function( x, vary_colors = FALSE, grouping = "sta
 
 #' @export
 #' @describeIn chart_settings linechart settings
-chart_settings.ms_scatterchart <- function( x, vary_colors = FALSE, style = "marker", ... ){
-
-  if( !style %in% st_scatterstyle ){
-    stop("style should be one of ",
-         paste0(shQuote(st_scatterstyle), collapse = ", " ))
+chart_settings.ms_scatterchart <- function(x, vary_colors = FALSE, style = "marker", ...) {
+  if (!style %in% st_scatterstyle) {
+    stop(
+      "style should be one of ",
+      paste0(shQuote(st_scatterstyle), collapse = ", ")
+    )
   }
 
-  if(grepl("smooth", style)){
-     x <- chart_data_smooth(x, values = 1)
+  if (grepl("smooth", style)) {
+    x <- chart_data_smooth(x, values = 1)
   } else {
     x <- chart_data_smooth(x, values = 0)
   }
 
 
-  options <- list(vary_colors = vary_colors, scatterstyle = style )
+  options <- list(vary_colors = vary_colors, scatterstyle = style, table = FALSE)
   class(options) <- "scatterchart_options"
 
   x$options <- options

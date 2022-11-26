@@ -42,6 +42,7 @@ set_theme <- function(x, value) {
 #' @param axis_title,axis_title_x,axis_title_y axis title formatting properties (see [fp_text()])
 #' @param main_title title formatting properties (see [fp_text()])
 #' @param legend_text legend text formatting properties (see [fp_text()])
+#' @param table_text table text formatting properties (see [fp_text()])
 #' @param axis_text,axis_text_x,axis_text_y axis text formatting properties (see [fp_text()])
 #' @param title_rot,title_x_rot,title_y_rot rotation angle
 #' @param axis_ticks,axis_ticks_x,axis_ticks_y axis ticks formatting properties (see [fp_border()])
@@ -58,6 +59,7 @@ set_theme <- function(x, value) {
 #' @export
 mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axis_title_x = axis_title, axis_title_y = axis_title,
                           main_title = fp_text(bold = TRUE, font.size = 20), legend_text = fp_text(font.size = 14),
+                          table_text = fp_text(bold = FALSE, font.size = 9),
                           axis_text = fp_text(), axis_text_x = axis_text, axis_text_y = axis_text,
                           title_rot = 0, title_x_rot = 0, title_y_rot = 270,
                           axis_ticks = fp_border(color = "#99999999"), axis_ticks_x = axis_ticks, axis_ticks_y = axis_ticks,
@@ -65,6 +67,7 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
                           grid_minor_line = fp_border(width = 0), grid_minor_line_x = grid_minor_line, grid_minor_line_y = grid_minor_line,
                           date_fmt = "yyyy/mm/dd", str_fmt = "General", double_fmt = "#,##0.00", integer_fmt = "0", legend_position = "b") {
   stopifnot(inherits(main_title, "fp_text"))
+  stopifnot(inherits(table_text, "fp_text"))
   stopifnot(inherits(legend_text, "fp_text"))
   stopifnot(inherits(axis_title, "fp_text"))
   stopifnot(inherits(axis_title_x, "fp_text"))
@@ -100,6 +103,7 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
 
   out <- list(
     main_title = main_title, legend_text = legend_text,
+    table_text = table_text,
     axis_title_x = axis_title_x, axis_title_y = axis_title_y,
     title_rot = title_rot, title_x_rot = title_x_rot, title_y_rot = title_y_rot,
     axis_text_x = axis_text_x, axis_text_y = axis_text_y,

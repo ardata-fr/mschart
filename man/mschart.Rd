@@ -59,6 +59,8 @@ Other contributors:
 \itemize{
   \item ArData [copyright holder]
   \item YouGov [funder]
+  \item Jan Marvin Garbuszus (support for openxls2) [contributor]
+  \item Marlon Molina (added table feature) [contributor]
   \item Rokas Klydzia (custom labels) [contributor]
   \item David Camposeco \email{david.camposeco.paulsen@gmail.com} (chart_data_smooth function) [contributor]
   \item Dan Joplin (fix scatter plot data structure) [contributor]

@@ -46,3 +46,26 @@ chart_02 <- chart_ax_y(
 chart_02 <- chart_data_labels(
   x = chart_02, position = "l"
 )
+
+# example chart 03 -------
+chart_03 <- ms_linechart(
+  data = data, x = "dose", y = "length",
+  group = "supp", labels = "label"
+)
+chart_03 <- chart_ax_y(
+  x = chart_03, cross_between = "between",
+  limit_min = 5, limit_max = 30,
+  num_fmt = "General"
+)
+chart_03 <- chart_data_labels(
+  x = chart_03, position = "l"
+)
+
+chart_03 <- chart_settings(
+  x = chart_03, table = TRUE
+)
+
+chart_03 <- chart_table(chart_03,
+  horizontal = TRUE, vertical = FALSE,
+  outline = TRUE, show_keys = FALSE
+)

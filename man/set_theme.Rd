@@ -14,6 +14,7 @@ mschart_theme(
   axis_title_y = axis_title,
   main_title = fp_text(bold = TRUE, font.size = 20),
   legend_text = fp_text(font.size = 14),
+  table_text = fp_text(bold = FALSE, font.size = 9),
   axis_text = fp_text(),
   axis_text_x = axis_text,
   axis_text_y = axis_text,
@@ -70,6 +71,8 @@ chart_theme(
 \item{main_title}{title formatting properties (see \code{\link[=fp_text]{fp_text()}})}
 
 \item{legend_text}{legend text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
+
+\item{table_text}{table text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
 
 \item{axis_text, axis_text_x, axis_text_y}{axis text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
 

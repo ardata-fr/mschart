@@ -10,11 +10,17 @@
 \usage{
 chart_settings(x, ...)
 
-\method{chart_settings}{ms_barchart}(x, vary_colors, gap_width, dir, grouping, overlap, ...)
+\method{chart_settings}{ms_barchart}(x, vary_colors, gap_width, dir, grouping, overlap, table, ...)
 
-\method{chart_settings}{ms_linechart}(x, vary_colors, style = "lineMarker", ...)
+\method{chart_settings}{ms_linechart}(x, vary_colors, style = "lineMarker", table, ...)
 
-\method{chart_settings}{ms_areachart}(x, vary_colors = FALSE, grouping = "standard", ...)
+\method{chart_settings}{ms_areachart}(
+  x,
+  vary_colors = FALSE,
+  grouping = "standard",
+  table = FALSE,
+  ...
+)
 
 \method{chart_settings}{ms_scatterchart}(x, vary_colors = FALSE, style = "marker", ...)
 }
@@ -41,6 +47,8 @@ between -100 and 100, representing the percentage of the bar width by
 which to overlap adjacent bars. A setting of -100 creates a gap of a
 full bar width and a setting of 100 causes all the bars in a category
 to be superimposed. The default value is 0.}
+
+\item{table}{if \code{TRUE} set a table below the barchart.}
 
 \item{style}{Style for the linechart or scatterchart type of markers. One
 of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.}
@@ -92,10 +100,13 @@ chart_02 <- chart_settings(
 )
 
 
-chart_03 <- ms_areachart(data = browser_ts, x = "date",
-  y = "freq", group = "browser")
+chart_03 <- ms_areachart(
+  data = browser_ts, x = "date",
+  y = "freq", group = "browser"
+)
 chart_03 <- chart_settings(chart_03,
-  grouping = "percentStacked")
+  grouping = "percentStacked"
+)
 }
 \seealso{
 \code{\link[=ms_barchart]{ms_barchart()}}, \code{\link[=ms_areachart]{ms_areachart()}}, \code{\link[=ms_scatterchart]{ms_scatterchart()}}, \code{\link[=ms_linechart]{ms_linechart()}}
