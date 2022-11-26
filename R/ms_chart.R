@@ -49,13 +49,11 @@ assert_line <- function(data_y) {
 #' [chart_data_labels()], [chart_theme()], [chart_labels()]
 #' @section Illustrations:
 #'
-#' \if{html}{
+#' \if{html}{\figure{fig_ms_linechart_1.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_linechart_1.png}{options: width=60\%}
+#' \if{html}{\figure{fig_ms_linechart_2.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_linechart_2.png}{options: width=60\%}
-#'
-#' }
+#' \if{html}{\figure{fig_ms_linechart_3.png}{options: width="500"}}
 #' @examples
 #' library(officer)
 #' @example examples/02_linechart.R
@@ -89,15 +87,17 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' @export
 #' @section Illustrations:
 #'
-#' \if{html}{
+#' \if{html}{\figure{fig_ms_barchart_1.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_barchart_1.png}{options: width=60\%}
+#' \if{html}{\figure{fig_ms_barchart_2.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_barchart_2.png}{options: width=60\%}
+#' \if{html}{\figure{fig_ms_barchart_3.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_barchart_3.png}{options: width=60\%}
+#' \if{html}{\figure{fig_ms_barchart_4.png}{options: width="500"}}
 #'
-#' }
+#' \if{html}{\figure{fig_ms_barchart_5.png}{options: width="500"}}
+#'
+#' \if{html}{\figure{fig_ms_barchart_6.png}{options: width="500"}}
 #' @examples
 #' library(officer)
 #' @example examples/01_barchart.R
@@ -151,13 +151,9 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' @export
 #' @section Illustrations:
 #'
-#' \if{html}{
+#' \if{html}{\figure{fig_ms_scatterchart_1.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_scatterchart_1.png}{options: width=60\%}
-#'
-#' \figure{fig_ms_scatterchart_2.png}{options: width=60\%}
-#'
-#' }
+#' \if{html}{\figure{fig_ms_scatterchart_2.png}{options: width="500"}}
 #' @examples
 #' library(officer)
 #' @example examples/04_scatterchart.R

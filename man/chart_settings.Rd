@@ -70,15 +70,11 @@ Set chart properties.
 \section{Illustrations}{
 
 
-\if{html}{
+\if{html}{\figure{fig_chart_settings_1.png}{options: width="500"}}
 
-\figure{fig_chart_settings_1.png}{options: width=60\%}
+\if{html}{\figure{fig_chart_settings_2.png}{options: width="500"}}
 
-\figure{fig_chart_settings_2.png}{options: width=60\%}
-
-\figure{fig_chart_settings_3.png}{options: width=60\%}
-
-}
+\if{html}{\figure{fig_chart_settings_3.png}{options: width="500"}}
 }
 
 \examples{

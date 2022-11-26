@@ -6,15 +6,11 @@
 #' @seealso [ms_barchart()], [ms_areachart()], [ms_scatterchart()], [ms_linechart()]
 #' @section Illustrations:
 #'
-#' \if{html}{
+#' \if{html}{\figure{fig_chart_settings_1.png}{options: width="500"}}
 #'
-#' \figure{fig_chart_settings_1.png}{options: width=60\%}
+#' \if{html}{\figure{fig_chart_settings_2.png}{options: width="500"}}
 #'
-#' \figure{fig_chart_settings_2.png}{options: width=60\%}
-#'
-#' \figure{fig_chart_settings_3.png}{options: width=60\%}
-#'
-#' }
+#' \if{html}{\figure{fig_chart_settings_3.png}{options: width="500"}}
 #' @examples
 #' library(mschart)
 #' library(officer)
@@ -91,12 +87,12 @@ barchart_options <- function(vary_colors = FALSE, gap_width = 150,
 chart_settings.ms_barchart <- function(x, vary_colors,
                                        gap_width, dir, grouping, overlap, table, ...) {
   options <- barchart_options(
-    vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors),
-    gap_width = ifelse(missing(gap_width), x$options$gap_width, gap_width),
-    dir = ifelse(missing(dir), x$options$dir, dir),
-    grouping = ifelse(missing(grouping), x$options$grouping, grouping),
-    overlap = ifelse(missing(overlap), x$options$overlap, overlap),
-    table = ifelse(missing(table), x$options$table, table)
+    vary_colors = if(missing(vary_colors)) x$options$vary_colors else vary_colors,
+    gap_width = if(missing(gap_width)) x$options$gap_width else gap_width,
+    dir = if(missing(dir)) x$options$dir else dir,
+    grouping = if(missing(grouping)) x$options$grouping else grouping,
+    overlap = if(missing(overlap)) x$options$overlap else overlap,
+    table = if(missing(table)) x$options$table else table
   )
   x$options <- options
   x
@@ -115,8 +111,8 @@ linechart_options <- function(vary_colors = FALSE, table = FALSE) {
 #' of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.
 chart_settings.ms_linechart <- function(x, vary_colors, style = "lineMarker", table, ...) {
   options <- linechart_options(
-    vary_colors = ifelse(missing(vary_colors), x$options$vary_colors, vary_colors),
-    table = ifelse(missing(table), x$options$table, table)
+    vary_colors = if(missing(vary_colors)) x$options$vary_colors else vary_colors,
+    table = if(missing(table)) x$options$table else table
   )
 
   if (!style %in% st_scatterstyle) {

@@ -61,28 +61,18 @@
 #' @export
 #' @section Illustrations:
 #'
-#' \if{html}{
-#'
-#' \figure{fig_chart_ax_x_1.png}{options: width=60\%}
-#'
-#' }
+#' \if{html}{\figure{fig_chart_ax_x_1.png}{options: width="500"}}
 #' @examples
 #' library(mschart)
-#' library(officer)
 #'
 #' chart_01 <- ms_linechart(
 #'   data = us_indus_prod,
 #'   x = "date", y = "value",
-#'   group = "type")
+#'   group = "type"
+#' )
 #'
-#' chart_01 <- chart_ax_x(
-#'   x = chart_01, num_fmt = "[$-fr-FR]mmm yyyy",
-#'   limit_min = min(us_indus_prod$date), limit_max = as.Date("1992-01-01"))
-#'
-#' chart_01 <- chart_theme(chart_01,
-#'   grid_major_line_x = fp_border(width = 0),
-#'   grid_minor_line_x = fp_border(width = 0)
-#'   )
+#' chart_01 <- chart_ax_y(x = chart_01, limit_min = 20, limit_max = 120)
+#' chart_01
 #' @seealso [chart_ax_y()], [ms_areachart()], [ms_barchart()], [ms_scatterchart()],
 #' [ms_linechart()]
 chart_ax_x <- function( x, orientation, crosses, cross_between,
@@ -138,31 +128,24 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
 #' @inheritSection chart_ax_x num_fmt
 #' @export
 #' @section Illustrations:
-#' \if{html}{
 #'
-#' \figure{fig_chart_ax_y_1.png}{options: width=60\%}
-#'
-#' }
+#' \if{html}{\figure{fig_chart_ax_y_1.png}{options: width="500"}}
 #' @examples
-#' library(mschart)
 #' library(officer)
+#' library(mschart)
 #'
 #' chart_01 <- ms_linechart(
 #'   data = us_indus_prod,
 #'   x = "date", y = "value",
-#'   group = "type")
-#'
-#' chart_01 <- chart_ax_y(x = chart_01, limit_min = 0, limit_max = 150)
-#'
+#'   group = "type"
+#' )
+#' chart_01 <- chart_settings(chart_01, style = "marker")
 #' chart_01 <- chart_ax_x(
 #'   x = chart_01, num_fmt = "[$-fr-FR]mmm yyyy",
 #'   limit_min = min(us_indus_prod$date),
-#'   limit_max = as.Date("1992-01-01"))
-#'
-#' chart_01 <- chart_theme(chart_01,
-#'   grid_major_line_x = fp_border(width = 0),
-#'   grid_minor_line_x = fp_border(width = 0)
-#'   )
+#'   limit_max = as.Date("1992-01-01")
+#' )
+#' chart_01
 #' @seealso [chart_ax_x()], [ms_areachart()], [ms_barchart()], [ms_scatterchart()],
 #' [ms_linechart()]
 chart_ax_y <- function( x, orientation, crosses, cross_between,

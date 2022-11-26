@@ -3,6 +3,7 @@
 ## New features
 
 * Support for openxlsx2 by Jan Marvin Garbuszus
+* option to add table of data below corresponding levels by Marlon Molina
 
 # mschart 0.3.1
 
