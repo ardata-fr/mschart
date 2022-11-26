@@ -30,6 +30,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -42,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">mschart</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0.001</span>
       </span>
     </div>
 
@@ -52,12 +54,12 @@
   <a href="reference/index.html">Function reference</a>
 </li>
 <li>
-  <a href="https://ardata-fr.github.io/officeverse/">User Documentation</a>
+  <a href="https://ardata-fr.github.io/officeverse/" class="external-link">User Documentation</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ardata-fr/mschart">
+  <a href="https://github.com/ardata-fr/mschart" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -74,51 +76,51 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="mschart-r-package" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#mschart-r-package" class="anchor"></a>mschart R package</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="mschart-r-package">mschart R package<a class="anchor" aria-label="anchor" href="#mschart-r-package"></a>
+</h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<p><a href="https://github.com/ardata-fr/mschart"><img src="reference/figures/logo.png" alt="mschart logo" align="right"></a> The <code>mschart</code> package provides a framework for easily create charts for ‘Microsoft PowerPoint’ presentations and ‘Microsoft Word’ documents. It has to be used with package <a href="https://davidgohel.github.io/officer/"><code>officer</code></a> that will produce the charts in new or existing PowerPoint or Word documents. With ‘Microsoft Charts’, the data is integrated into the document and linked to the chart. The result can be edited, annotated and resized. If the data is updated in the document, the chart is also updated.</p>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<p><a href="https://github.com/ardata-fr/mschart" class="external-link"><img src="reference/figures/logo.png" alt="mschart logo" align="right"></a> The <code>mschart</code> package provides a framework for easily create charts for ‘Microsoft PowerPoint’ presentations and ‘Microsoft Word’ documents. It has to be used with package <a href="https://davidgohel.github.io/officer/" class="external-link"><code>officer</code></a> that will produce the charts in new or existing PowerPoint or Word documents. With ‘Microsoft Charts’, the data is integrated into the document and linked to the chart. The result can be edited, annotated and resized. If the data is updated in the document, the chart is also updated.</p>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <p>This is a basic example which shows you how to create a scatter plot.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/">mschart</a></span><span class="op">)</span>
-<span class="va">scatter</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="reference/ms_scatterchart.html">ms_scatterchart</a></span><span class="op">(</span>
-    data <span class="op">=</span> <span class="va">iris</span>, x <span class="op">=</span> <span class="st">"Sepal.Length"</span>,
-    y <span class="op">=</span> <span class="st">"Sepal.Width"</span>, group <span class="op">=</span> <span class="st">"Species"</span>
-  <span class="op">)</span>
-<span class="va">scatter</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/chart_settings.html">chart_settings</a></span><span class="op">(</span><span class="va">scatter</span>, scatterstyle <span class="op">=</span> <span class="st">"marker"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">mschart</a></span><span class="op">)</span></span>
+<span><span class="va">scatter</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="reference/ms_scatterchart.html">ms_scatterchart</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">iris</span>, x <span class="op">=</span> <span class="st">"Sepal.Length"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Sepal.Width"</span>, group <span class="op">=</span> <span class="st">"Species"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">scatter</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/chart_settings.html">chart_settings</a></span><span class="op">(</span><span class="va">scatter</span>, scatterstyle <span class="op">=</span> <span class="st">"marker"</span><span class="op">)</span></span></code></pre></div>
 <p>Then use package <code>officer</code> to send the object as a chart.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/">officer</a></span><span class="op">)</span>
-<span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_pptx.html">read_pptx</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/add_slide.html">add_slide</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span><span class="op">)</span>
-<span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/ph_with.html">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">scatter</span>, location <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/ph_location_fullsize.html">ph_location_fullsize</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="st">"example.pptx"</span><span class="op">)</span></code></pre></div>
-<p>At any moment, you can type <code><a href="https://rdrr.io/r/base/print.html">print(your_chart, preview = TRUE)</a></code> to preview the chart in a temporary PowerPoint file. This requires to have a PowerPoint Viewer installed on the machine.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ardata-fr.github.io/officeverse/" class="external-link">officer</a></span><span class="op">)</span></span>
+<span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/read_pptx.html" class="external-link">read_pptx</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/add_slide.html" class="external-link">add_slide</a></span><span class="op">(</span><span class="va">doc</span>, layout <span class="op">=</span> <span class="st">"Title and Content"</span>, master <span class="op">=</span> <span class="st">"Office Theme"</span><span class="op">)</span></span>
+<span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/ph_with.html" class="external-link">ph_with</a></span><span class="op">(</span><span class="va">doc</span>, value <span class="op">=</span> <span class="va">scatter</span>, location <span class="op">=</span> <span class="fu"><a href="https://davidgohel.github.io/officer/reference/ph_location_fullsize.html" class="external-link">ph_location_fullsize</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">doc</span>, target <span class="op">=</span> <span class="st">"example.pptx"</span><span class="op">)</span></span></code></pre></div>
+<p>At any moment, you can type <code>print(your_chart, preview = TRUE)</code> to preview the chart in a temporary PowerPoint file. This requires to have a PowerPoint Viewer installed on the machine.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can get the development version from GitHub:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ardata-fr/mschart"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ardata-fr/mschart"</span><span class="op">)</span></span></code></pre></div>
 <p>Or the latest version on CRAN:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"mschart"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mschart"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="contributing-to-the-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#contributing-to-the-package" class="anchor"></a>Contributing to the package</h2>
-<div id="bug-reports" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bug-reports" class="anchor"></a>Bug reports</h3>
-<p>When you file a <a href="https://github.com/ardata-fr/mschart/issues">bug report</a>, please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.</p>
+<div class="section level2">
+<h2 id="contributing-to-the-package">Contributing to the package<a class="anchor" aria-label="anchor" href="#contributing-to-the-package"></a>
+</h2>
+<div class="section level3">
+<h3 id="bug-reports">Bug reports<a class="anchor" aria-label="anchor" href="#bug-reports"></a>
+</h3>
+<p>When you file a <a href="https://github.com/ardata-fr/mschart/issues" class="external-link">bug report</a>, please spend some time making it easy for me to follow and reproduce. The more time you spend on making the bug report coherent, the more time I can dedicate to investigate the bug as opposed to the bug report.</p>
 </div>
 </div>
 </div>
@@ -126,32 +128,47 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=mschart">https://​cloud.r-project.org/​package=mschart</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/ardata-fr/mschart/">https://​github.com/​ardata-fr/​mschart/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/ardata-fr/mschart/issues">https://​github.com/​ardata-fr/​mschart/​issues</a>
-</li>
-<li>Visit <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website at <br><a href="https://www.ardata.fr">https://​www.ardata.fr</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=mschart" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/ardata-fr/mschart/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/ardata-fr/mschart/issues" class="external-link">Report a bug</a></li>
+<li>
+<a href="https://www.ardata.fr" class="external-link">Visit </a><a href="https://www.ardata.fr" class="external-link"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website</li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
+<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
 </li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing mschart</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>David Gohel <br><small class="roles"> Author, maintainer </small>  </li>
 <li>YouGov <br><small class="roles"> Funder </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/ardata-fr/mschart/actions" class="external-link"><img src="https://github.com/ardata-fr/mschart/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://CRAN.R-project.org/package=mschart" class="external-link"><img src="https://www.r-pkg.org/badges/version/mschart" alt="version"></a></li>
 </ul>
 </div>
 
@@ -161,26 +178,20 @@
 
       <footer><link href="ardata.css" rel="stylesheet">
 <div class="author">
-  <p>Version 0.3.1 - Developed by David Gohel, YouGov - proudly brought to you by <a href="http://www.ardata.fr"><img alt="ardata" src="ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
+  <p>Version 0.4.0.001 - Developed by  - proudly brought to you by <a href="http://www.ardata.fr" class="external-link"><img alt="ardata" src="ardata-logo.svg" style="vertical-align:middle;height:24px;"></a>
   </p>
 </div>
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> .</p>
 </div>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-48354045-1', 'auto');
-  ga('send', 'pageview');
-</script></footer>
+      </footer>
 </div>
 
   
 
+
+  
 
   </body>
 </html>
