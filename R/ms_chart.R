@@ -1,3 +1,30 @@
+## -- assert functions
+
+assert_area <- function(data_x, data_y){
+  if(!is.numeric(data_y)){
+    stop("y column should be numeric.")
+  }
+  check_x <- inherits(data_x, "Date") || is.character(data_x) || is.factor(data_x)
+  if(!check_x){
+    stop("x column should be a date or a categorical column.")
+  }
+}
+
+asssert_scatter <- function(data_x, data_y){
+  if(!is.numeric(data_y)){
+    stop("y column should be numeric.")
+  }
+  if(!is.numeric(data_x)){
+    stop("x column should be numeric.")
+  }
+}
+
+assert_line <- function(data_y){
+  if(!is.numeric(data_y)){
+    stop("y column should be numeric.")
+  }
+}
+
 #' @title linechart object
 #' @description Creation of a linechart object that can be
 #' inserted in a 'Microsoft' document.
@@ -14,6 +41,8 @@
 #' If more than a name, only the first one will be used as label, but all
 #' labels (transposed if a group is used) will be available in the Excel file
 #' associated with the chart.
+#' @param asis bool parameter defaulting to FALSE. If TRUE the data will not be
+#' modified.
 #' @export
 #' @family 'Office' chart objects
 #' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
@@ -30,25 +59,12 @@
 #' @examples
 #' library(officer)
 #' @example examples/02_linechart.R
-ms_linechart <- function(data, x, y, group = NULL, labels = NULL){
-  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels)
+ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE){
+  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels,
+                  type = "lineplot", asis = asis)
   out$options <- linechart_options()
   class(out) <- c("ms_linechart", "ms_chart")
-  xtag <- if(inherits(data[[x]], "Date")){
-    "c:dateAx"
-  } else if(is.character(data[[x]]) || is.factor(data[[x]])){
-    "c:catAx"
-  } else {
-    warning("using continuous data in the x-axis is not an expected representation, the next versions will prevent this.")
-    "c:valAx"
-  }
-  if(!is.numeric(data[[y]])){
-    stop("y column should be numeric.")
-  }
   out <- chart_settings(out)
-
-  out$axis_tag <- list(x = xtag, y = "c:valAx")
-
   out
 }
 
@@ -83,26 +99,13 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL){
 #' @examples
 #' library(officer)
 #' @example examples/01_barchart.R
-ms_barchart <- function(data, x, y, group = NULL, labels = NULL){
-
-  if(!is.numeric(data[[y]])){
-    stop("y column should be numeric.")
-  }
-  check_x <- inherits(data[[x]], "Date") || is.character(data[[x]]) || is.factor(data[[x]])
-  if(!check_x){
-    stop("x column should be a date or a categorical column.")
-  }
-
-  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels)
+ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE){
+  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels,
+                  type = "barplot", asis = asis)
   out$options <- barchart_options()
   class(out) <- c("ms_barchart", "ms_chart")
   out
 }
-
-
-
-
-
 
 #' @title areachart object
 #' @description Creation of an areachart object that can be
@@ -119,28 +122,12 @@ ms_barchart <- function(data, x, y, group = NULL, labels = NULL){
 #' @examples
 #' library(officer)
 #' @example examples/03_areachart.R
-ms_areachart <- function(data, x, y, group = NULL, labels = NULL){
+ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE){
 
-  if(!is.numeric(data[[y]])){
-    stop("y column should be numeric.")
-  }
-  check_x <- inherits(data[[x]], "Date") || is.character(data[[x]]) || is.factor(data[[x]])
-  if(!check_x){
-    stop("x column should be a date or a categorical column.")
-  }
-
-  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels)
+  out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels,
+                  type = "areaplot", asis = asis)
   class(out) <- c("ms_areachart", "ms_chart")
   out <- chart_settings(out)
-  xtag <- if(inherits(data[[x]], "Date")){
-    "c:dateAx"
-  } else if(is.character(data[[x]]) || is.factor(data[[x]])){
-    "c:catAx"
-  } else {
-    "c:valAx"
-  }
-
-  out$axis_tag <- list(x = xtag, y = "c:valAx")
 
   serie_names <- names(out$series_settings$colour)
   values <- setNames( rep( "transparent", length(serie_names)), serie_names )
@@ -169,21 +156,13 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL){
 #' @examples
 #' library(officer)
 #' @example examples/04_scatterchart.R
-ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL){
-
-  if(!is.numeric(data[[y]])){
-    stop("y column should be numeric.")
-  }
-  if(!is.numeric(data[[x]])){
-    stop("x column should be numeric.")
-  }
-
+ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE){
   out <- ms_chart(data = data, x = x, y = y, group = group, labels = labels,
-                  excel_data_setup = transpose_series_bysplit)
+                  excel_data_setup = transpose_series_bysplit,
+                  type = "scatterplot", asis = asis)
   class(out) <- c("ms_scatterchart", "ms_chart")
 
   out <- chart_settings(out)
-  out <- pretty_num_axes(out)
 
   out
 }
@@ -192,11 +171,19 @@ ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL){
 # ms_chart -----
 
 #' @importFrom grDevices colors
-ms_chart <- function(data, x, y, group = NULL, labels = NULL, excel_data_setup = shape_as_series){
+ms_chart <- function(data, x, y, group = NULL, labels = NULL,
+                     excel_data_setup = shape_as_series,
+                     type = NULL, asis = FALSE){
 
   stopifnot(is.data.frame(data))
   stopifnot(x %in% names(data))
   stopifnot(y %in% names(data))
+
+  # if wb_data is passed, only create asis mschart output
+  if (inherits(data, "wb_data")) asis <- TRUE
+
+  xvar <- x
+  yvar <- y
 
   if( inherits(data, "data.table") || inherits(data, "tbl_df") || inherits(data, "tbl") )
     data <- as.data.frame(data, stringsAsFactors = FALSE)
@@ -212,21 +199,40 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL, excel_data_setup =
 
   theme_ <- mschart_theme()
 
+  if (asis) data_x <- sort(unname(unlist(data[[x]])))
+  else      data_x <- data[[x]]
+
+  if (asis) data_y <- sort(unname(unlist(data[y])))
+  else      data_y <- data[[y]]
+
+  if (type == "areaplot" || type == "barplot")
+    assert_area(data_x, data_y)
+
+  if (type == "scatterplot")
+    asssert_scatter(data_x, data_y)
+
+  if (type == "lineplot")
+    assert_line(data_y)
+
+
   tryCatch({
-    x_axis_tag <- get_axis_tag(data[[x]])
+    x_axis_tag <- get_axis_tag(data_x)
     },
     error = function(e) {
-      stop("column ", shQuote(x), ": ", e$message, " [", paste(class(data[[x]]), collapse = ","), "]", call. = FALSE)
+      stop("column ", shQuote(x), ": ", e$message, " [", paste(class(data_x), collapse = ","), "]", call. = FALSE)
     })
   tryCatch({
-    y_axis_tag <- get_axis_tag(data[[y]])
+    y_axis_tag <- get_axis_tag(data_y)
     },
     error = function(e) {
-      stop("column ", shQuote(y), ": ", e$message, " [", paste(class(data[[y]]), collapse = ","), "]", call. = FALSE)
+      stop("column ", shQuote(y), ": ", e$message, " [", paste(class(data_y), collapse = ","), "]", call. = FALSE)
     })
 
   x_axis_ <- axis_options(axis_position = "b")
   y_axis_ <- axis_options(axis_position = "l")
+
+  x <- x[1]
+  y <- y[1]
 
 
   lbls <- list(title = NULL, x = x, y = y)
@@ -238,15 +244,37 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL, excel_data_setup =
               y_axis = y_axis_,
               axis_tag = list(x = x_axis_tag,
                               y = y_axis_tag),
-              fmt_names = list( x = fmt_name(data[[x]]),
-                                y = fmt_name(data[[y]]) ),
-              labels = lbls)
+              fmt_names = list( x = fmt_name(data_x),
+                                y = fmt_name(data_y) ),
+              labels = lbls,
+              asis = asis,
+              xvar = xvar,
+              yvar = yvar
+              )
   class(out) <- c("ms_chart")
   out <- chart_data_labels(out)
 
-  out$data_series <- excel_data_setup(out)
+  if (type == "areaplot" || type == "lineplot") {
+    xtag <- if(inherits(data_x, "Date")){
+      "c:dateAx"
+    } else if(is.character(data_x) || is.factor(data_x)){
+      "c:catAx"
+    } else {
+      "c:valAx"
+    }
+    out$axis_tag <- list(x = xtag, y = "c:valAx")
+  }
 
-  series_names <- get_series_names(out)
+  if (type == "scatterplot")
+    out <- pretty_num_axes(out, data_x, data_y)
+
+  if (!asis) {
+    out$data_series <- excel_data_setup(out)
+    series_names <- get_series_names(out)
+  } else {
+    out$data_series <- out$data
+    series_names <- names(out$data)[-1]
+  }
 
   if( length(series_names) <= length(colour_list) )
     palette_ <- colour_list[[length(series_names)]]
@@ -269,6 +297,7 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL, excel_data_setup =
     labels_fp = setNames(labels_fp, series_names),
     smooth = setNames(series_smooth, series_names)
     )
+
   out
 }
 
@@ -326,7 +355,7 @@ colour_list <- list(
 #' @method format ms_chart
 #' @export
 format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE, ...){
-  str_ <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname)
+  str_ <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname, asis = x$asis)
 
   if( is.null(x$x_axis$num_fmt) )
     x$x_axis$num_fmt <- x$theme[[x$fmt_names$x]]
@@ -336,11 +365,13 @@ format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data 
   x_axis_str <- axis_content_xml( x$x_axis, id = id_x, theme = x$theme,
                                   cross_id = id_y, is_x = TRUE,
                                   lab = htmlEscape(x$labels$x), rot = x$theme$title_x_rot )
+
   x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
 
   y_axis_str <- axis_content_xml( x$y_axis, id = id_y, theme = x$theme,
                                   cross_id = id_x, is_x = FALSE,
                                   lab = htmlEscape(x$labels$y), rot = x$theme$title_y_rot )
+
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
   ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
@@ -380,4 +411,3 @@ format.ms_chart  <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data 
 
   as.character(xml_doc)
 }
-

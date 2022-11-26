@@ -50,15 +50,15 @@ Set chart properties.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{ms_barchart}: barchart settings
+\item \code{chart_settings(ms_barchart)}: barchart settings
 
-\item \code{ms_linechart}: linechart settings
+\item \code{chart_settings(ms_linechart)}: linechart settings
 
-\item \code{ms_areachart}: linechart settings
+\item \code{chart_settings(ms_areachart)}: linechart settings
 
-\item \code{ms_scatterchart}: linechart settings
+\item \code{chart_settings(ms_scatterchart)}: linechart settings
+
 }}
-
 \section{Illustrations}{
 
 
