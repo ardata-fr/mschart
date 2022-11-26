@@ -1,12 +1,13 @@
 Package: mschart
 Type: Package
 Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents
-Version: 0.4
+Version: 0.4.0.001
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"), 
       email = "david.gohel@ardata.fr"),
     person(given = "ArData", role = "cph"),
     person("YouGov", role = "fnd"),
+    person("Jan Marvin", "Garbuszus", role = "ctb", comment = "support for openxls2"),
     person("Rokas", "Klydzia", role = "ctb", comment = "custom labels"),
     person("David", "Camposeco", role = "ctb", 
       email = "david.camposeco.paulsen@gmail.com", 

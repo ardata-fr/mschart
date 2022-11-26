@@ -1,3 +1,9 @@
+# mschart 0.4.0
+
+## New features
+
+* Support for openxlsx2 by Jan Marvin Garbuszus
+
 # mschart 0.3.1
 
 ## New features
