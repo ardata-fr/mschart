@@ -8,6 +8,8 @@
 ## Issues
 
 * fix issue with % in labels of the graphic
+* stop reordering data when a group is used, user is expected to 
+do it before sending the data to mschart.
 
 # mschart 0.3.1
 
