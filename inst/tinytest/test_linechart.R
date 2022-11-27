@@ -9,7 +9,6 @@ dat <- data.frame(
   stringsAsFactors=F)
 
 
-# example areachart -------
 chart_01 <- ms_linechart(data = dat, x = "musician", y = "count", group = "color")
 
 settings <- c(green = 1L, unclear = 0L, gray = 0L)
@@ -33,3 +32,14 @@ smooth_data <- smooth_data[order(names(smooth_data))]
 
 expect_equivalent(settings, smooth_data)
 
+
+if (require("doconv")) {
+  using(doconv)
+  pptx_file <- tempfile(fileext = ".pptx")
+  doc <- read_pptx()
+  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
+  doc <- ph_with(doc, value = chart_01, location = ph_location_type(type = "body"))
+  print(doc, target = pptx_file)
+
+  expect_snapshot_doc(x = pptx_file,name = "linechart-data-smooth", engine = "tinytest")
+}

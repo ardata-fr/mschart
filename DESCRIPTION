@@ -33,4 +33,4 @@ URL: https://ardata-fr.github.io/officeverse/, https://ardata-fr.github.io/mscha
 BugReports: https://github.com/ardata-fr/mschart/issues
 RoxygenNote: 7.2.2
 Roxygen: list(markdown = TRUE)
-Suggests: tinytest
+Suggests: tinytest, doconv
