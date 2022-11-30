@@ -47,6 +47,12 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1") {
   series <- list()
 
   series_nams <- get_series_names(x)
+
+  if (!x$asis && inherits(x, "ms_piechart")) {
+    series_nams <- x$y
+    label_columns <- x$y
+  }
+
   if (x$asis) series_nams <- x$yvar
 
   w_y_values <- which(names(dataset) %in% series_nams)
