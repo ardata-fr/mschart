@@ -5,8 +5,31 @@
 #' @param vertical write vertical lines in the table
 #' @param outline write an outline in the table
 #' @param show_keys showkeys in the table
-#'
 #' @export
+#' @examples
+#' data <- data.frame(
+#'   supp = factor(rep(c("OJ", "VC"), each = 3),
+#'                 levels = c("OJ", "VC")),
+#'   dose = factor(rep(c("low", "medium", "high"), 2),
+#'                 levels = c("low", "medium", "high")),
+#'   length = c(13.23, 22.7, 24.06, 7.98, 16.77, 26.14),
+#'   label = LETTERS[1:6],
+#'   stringsAsFactors = FALSE
+#' )
+#'
+#' # example chart 03 -------
+#' chart <- ms_linechart(
+#'   data = data, x = "dose", y = "length",
+#'   group = "supp", labels = "label"
+#' )
+#' chart <- chart_settings(
+#'   x = chart, table = TRUE
+#' )
+#'
+#' chart <- chart_table(chart,
+#'   horizontal = TRUE, vertical = FALSE,
+#'   outline = TRUE, show_keys = FALSE
+#' )
 chart_table <- function(x, horizontal,
                         vertical,
                         outline,
