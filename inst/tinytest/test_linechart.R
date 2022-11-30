@@ -31,15 +31,3 @@ names(smooth_data) <- serie_names
 smooth_data <- smooth_data[order(names(smooth_data))]
 
 expect_equivalent(settings, smooth_data)
-
-
-if (require("doconv")) {
-  using(doconv)
-  pptx_file <- tempfile(fileext = ".pptx")
-  doc <- read_pptx()
-  doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-  doc <- ph_with(doc, value = chart_01, location = ph_location_type(type = "body"))
-  print(doc, target = pptx_file)
-
-  expect_snapshot_doc(x = pptx_file,name = "linechart-data-smooth", engine = "tinytest")
-}
