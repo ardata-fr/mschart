@@ -316,7 +316,7 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   )
   tryCatch(
     {
-      y_l_axis_tag <- get_axis_tag(data_y)
+      y_axis_tag <- get_axis_tag(data_y)
     },
     error = function(e) {
       stop("column ", shQuote(y), ": ", e$message, " [", paste(class(data_y), collapse = ","), "]", call. = FALSE)
@@ -325,7 +325,7 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
 
   x_axis_ <- axis_options(axis_position = "b")
   x_r_axis_ <- axis_options(axis_position = "b", delete = 1L)
-  y_l_axis_ <- axis_options(axis_position = "l")
+  y_axis_ <- axis_options(axis_position = "l")
 
   x <- x[1]
   y <- y[1]
@@ -343,10 +343,10 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
     options = list(),
     x_axis = x_axis_,
     x_r_axis = x_r_axis_,
-    y_l_axis = y_l_axis_,
+    y_axis = y_axis_,
     axis_tag = list(
       x = x_axis_tag,
-      y = y_l_axis_tag
+      y = y_axis_tag
     ),
     fmt_names = list(
       x = fmt_name(data_x),
@@ -467,8 +467,8 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   if (is.null(x$x_axis$num_fmt)) {
     x$x_axis$num_fmt <- x$theme[[x$fmt_names$x]]
   }
-  if (is.null(x$y_l_axis$num_fmt)) {
-    x$y_l_axis$num_fmt <- x$theme[[x$fmt_names$y]]
+  if (is.null(x$y_axis$num_fmt)) {
+    x$y_axis$num_fmt <- x$theme[[x$fmt_names$y]]
   }
 
   x_axis_str <- axis_content_xml(
@@ -483,13 +483,13 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
 
   x_l_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
 
-  y_l_axis_str <- axis_content_xml(x$y_l_axis,
+  y_axis_str <- axis_content_xml(x$y_axis,
     id = id_y, theme = x$theme,
     cross_id = id_x, is_x = FALSE,
     lab = htmlEscape(x$labels$y), rot = x$theme$title_y_rot
   )
 
-  y_l_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_l_axis_str, x$axis_tag$y)
+  y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
   str_r <- NULL
   y_r_axis_str <- NULL
@@ -506,10 +506,10 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
       secondary = length(x$yvar)
     )
 
-    x$secondary$y_l_axis <- axis_options(axis_position = "r", crosses = "max")
+    x$secondary$y_axis <- axis_options(axis_position = "r", crosses = "max")
 
     y_r_axis_str <- axis_content_xml(
-      x$secondary$y_l_axis,
+      x$secondary$y_axis,
       id = "320476559",
       theme = x$theme,
       cross_id = "67917199",
@@ -549,7 +549,7 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
     str_l,
     str_r,
     x_l_axis_str,
-    y_l_axis_str,
+    y_axis_str,
     y_r_axis_str,
     x_r_axis_str,
     table_str,

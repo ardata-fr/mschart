@@ -216,7 +216,7 @@ to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns =
       x_class = serie_builtin_class(sort(unname(unlist(x$data_series[x$xvar])))),
       y_class = serie_builtin_class(sort(unname(unlist(x$data_series[x$yvar])))),
       sheetname = sheetname,
-      secondary = 0
+      secondary = secondary
     )
   else
     series <- as_series(
