@@ -316,7 +316,7 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   )
   tryCatch(
     {
-      y_axis_tag <- get_axis_tag(data_y)
+      y_l_axis_tag <- get_axis_tag(data_y)
     },
     error = function(e) {
       stop("column ", shQuote(y), ": ", e$message, " [", paste(class(data_y), collapse = ","), "]", call. = FALSE)
@@ -324,7 +324,8 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   )
 
   x_axis_ <- axis_options(axis_position = "b")
-  y_axis_ <- axis_options(axis_position = "l")
+  x_r_axis_ <- axis_options(axis_position = "b", delete = 1L)
+  y_l_axis_ <- axis_options(axis_position = "l")
 
   x <- x[1]
   y <- y[1]
@@ -333,14 +334,19 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   lbls <- list(title = NULL, x = x, y = y)
 
   out <- list(
-    data = data, x = x, y = y, group = group, label_cols = labels,
+    data = data,
+    x = x,
+    y = y,
+    group = group,
+    label_cols = labels,
     theme = theme_,
     options = list(),
     x_axis = x_axis_,
-    y_axis = y_axis_,
+    x_r_axis = x_r_axis_,
+    y_l_axis = y_l_axis_,
     axis_tag = list(
       x = x_axis_tag,
-      y = y_axis_tag
+      y = y_l_axis_tag
     ),
     fmt_names = list(
       x = fmt_name(data_x),
@@ -456,30 +462,74 @@ colour_list <- list(
 #' @method format ms_chart
 #' @export
 format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE, ...) {
-  str_ <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname, asis = x$asis)
+  str_l <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname, asis = x$asis, secondary = 0)
 
   if (is.null(x$x_axis$num_fmt)) {
     x$x_axis$num_fmt <- x$theme[[x$fmt_names$x]]
   }
-  if (is.null(x$y_axis$num_fmt)) {
-    x$y_axis$num_fmt <- x$theme[[x$fmt_names$y]]
+  if (is.null(x$y_l_axis$num_fmt)) {
+    x$y_l_axis$num_fmt <- x$theme[[x$fmt_names$y]]
   }
 
-  x_axis_str <- axis_content_xml(x$x_axis,
-    id = id_x, theme = x$theme,
-    cross_id = id_y, is_x = TRUE,
-    lab = htmlEscape(x$labels$x), rot = x$theme$title_x_rot
+  x_axis_str <- axis_content_xml(
+    x$x_axis,
+    id = id_x,
+    theme = x$theme,
+    cross_id = id_y,
+    is_x = TRUE,
+    lab = htmlEscape(x$labels$x),
+    rot = x$theme$title_x_rot
   )
 
-  x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
+  x_l_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
 
-  y_axis_str <- axis_content_xml(x$y_axis,
+  y_l_axis_str <- axis_content_xml(x$y_l_axis,
     id = id_y, theme = x$theme,
     cross_id = id_x, is_x = FALSE,
     lab = htmlEscape(x$labels$y), rot = x$theme$title_y_rot
   )
 
-  y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
+  y_l_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_l_axis_str, x$axis_tag$y)
+
+  str_r <- NULL
+  y_r_axis_str <- NULL
+  x_r_axis_str <- NULL
+
+  if (!is.null(x$secondary)) {
+
+    str_r <- to_pml(
+      x$secondary,
+      id_y = "320476559",
+      id_x = "67917199",
+      sheetname = sheetname,
+      asis = x$secondary$asis,
+      secondary = length(x$yvar)
+    )
+
+    x$secondary$y_l_axis <- axis_options(axis_position = "r", crosses = "max")
+
+    y_r_axis_str <- axis_content_xml(
+      x$secondary$y_l_axis,
+      id = "320476559",
+      theme = x$theme,
+      cross_id = "67917199",
+      is_x = FALSE,
+      lab = htmlEscape(x$secondary$labels$y),
+      rot = x$secondary$theme$title_y_rot
+    )
+
+    y_r_axis_str <- sprintf("<%s>%s</%s>", x$secondary$axis_tag$y, y_r_axis_str, x$secondary$axis_tag$y)
+
+    x_r_axis_str <- axis_content_xml(
+      x$secondary$x_r_axis,
+      id = "67917199",
+      theme = x$secondary$theme,
+      cross_id = "320476559",
+      is_x = TRUE,
+      lab = NULL
+    )
+    x_r_axis_str <- sprintf("<%s>%s</%s>", x$secondary$axis_tag$x, x_r_axis_str, x$secondary$axis_tag$x)
+  }
 
 
   if (inherits(x, "ms_piechart")) {
@@ -493,7 +543,19 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   sppr_str <- sppr_content_xml(x$theme, "plot")
 
   ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
-  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, x_axis_str, y_axis_str, table_str, sppr_str, "</c:plotArea>")
+
+  xml_elt <- paste0(
+    "<c:plotArea ", ns, "><c:layout/>",
+    str_l,
+    str_r,
+    x_l_axis_str,
+    y_l_axis_str,
+    y_r_axis_str,
+    x_r_axis_str,
+    table_str,
+    sppr_str,
+    "</c:plotArea>"
+  )
   xml_doc <- read_xml(system.file(package = "mschart", "template", "chart.xml"))
 
   node <- xml_find_first(xml_doc, "//c:plotArea")

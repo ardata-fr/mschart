@@ -20,7 +20,7 @@ series_wb_data <- function(dataset, idx) {
   serie_range
 }
 
-as_series <- function(x, x_class, y_class, sheetname = "sheet1") {
+as_series <- function(x, x_class, y_class, sheetname = "sheet1", secondary = NULL) {
   dataset <- x$data_series
 
   w_x <- which(names(dataset) %in% x$xvar)
@@ -89,9 +89,12 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1") {
     }
 
     ser <- list(
-      idx = length(series), order = length(series),
+      idx = length(series) + secondary,
+      order = length(series) + secondary,
       tx = serie_name,
-      x = x_serie, y = y_serie, label = label_serie,
+      x = x_serie,
+      y = y_serie,
+      label = label_serie,
       stroke = x$series_settings$colour[y_colname],
       fill = x$series_settings$fill[y_colname],
       symbol = x$series_settings$symbol[y_colname],
