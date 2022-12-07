@@ -1,7 +1,7 @@
 clustered_pos <- c("ctr", "inBase", "inEnd", "outEnd")
 stacked_pos <- c("ctr", "inBase", "inEnd")
 
-to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, ...){
+to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, secondary = 0, ...){
 
   if( "clustered" %in% x$options$grouping )
     if( !x$label_settings$position %in% clustered_pos ){
@@ -16,8 +16,13 @@ to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FAL
            paste(shQuote(stacked_pos), collapse = ", "), ".", call. = FALSE)
     }
 
-  series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
-                      y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
+  series <- as_series(
+    x,
+    x_class = serie_builtin_class(x$data[[x$x]]),
+    y_class = serie_builtin_class(x$data[[x$y]]),
+    sheetname = sheetname,
+    secondary = secondary
+  )
 
   str_series_ <- sapply( series, function(serie, template ){
     marker_str <- get_sppr_xml(serie$fill, serie$stroke, serie$line_width )
@@ -31,8 +36,8 @@ to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FAL
 
     paste0(
       "<c:ser>",
-      sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
-      sprintf("<c:order val=\"%.0f\"/>", serie$order),
+      sprintf("<c:idx val=\"%.0f\"/>", max(0, serie$idx)),
+      sprintf("<c:order val=\"%.0f\"/>", max(0, serie$order)),
       sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
       marker_str,
       "<c:invertIfNegative val=\"0\"/>",
@@ -64,7 +69,7 @@ to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FAL
 }
 
 standard_pos <- c("b", "ctr", "l", "r", "t")
-to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, ...){
+to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, secondary = 0, ...){
 
   if( !x$label_settings$position %in% standard_pos ){
     stop("label position issue.",
@@ -72,8 +77,13 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
          paste(shQuote(standard_pos), collapse = ", "), ".", call. = FALSE)
   }
 
-  series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
-                      y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
+  series <- as_series(
+    x,
+    x_class = serie_builtin_class(x$data[[x$x]]),
+    y_class = serie_builtin_class(x$data[[x$y]]),
+    sheetname = sheetname,
+    secondary = secondary
+  )
 
   # sapply linec-----
   str_series_ <- sapply( series, function(serie, has_line, has_marker ){
@@ -100,7 +110,10 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
       sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
       sprintf("<c:order val=\"%.0f\"/>", serie$order),
       sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
-      line_str, marker_str,
+      # ifelse(secondary, line_str, ""),
+      line_str,
+      marker_str,
+      # ifelse(secondary, to_pml(label_settings, show_label = !is.null(x$label_cols)), ""),
       to_pml(label_settings, show_label = !is.null(x$label_cols)),
       "<c:cat>", to_pml(serie$x), "</c:cat>",
       "<c:val>", to_pml(serie$y), "</c:val>",
@@ -127,10 +140,15 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
 }
 
 
-to_pml.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, ...){
+to_pml.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, secondary = 0, ...){
 
-  series <- as_series(x, x_class = serie_builtin_class(x$data[[x$x]]),
-                      y_class = serie_builtin_class(x$data[[x$y]]), sheetname = sheetname )
+  series <- as_series(
+    x,
+    x_class = serie_builtin_class(x$data[[x$x]]),
+    y_class = serie_builtin_class(x$data[[x$y]]),
+    sheetname = sheetname,
+    secondary = secondary
+  )
 
   str_series_ <- sapply( series, function(serie){
     marker_str <- get_sppr_xml(serie$fill, serie$stroke, serie$line_width)
@@ -175,7 +193,7 @@ names(has_markers) <- scatterstyles
 has_lines <- c(FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)
 names(has_lines) <- scatterstyles
 
-to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, asis = FALSE, ...){
+to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, asis = FALSE, secondary = 0, ...){
 
   if( !x$label_settings$position %in% standard_pos ){
     stop("label position issue.",
@@ -188,7 +206,8 @@ to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns =
       x,
       x_class = serie_builtin_class(sort(unname(unlist(x$data_series[x$xvar])))),
       y_class = serie_builtin_class(sort(unname(unlist(x$data_series[x$yvar])))),
-      sheetname = sheetname
+      sheetname = sheetname,
+      secondary = 0
     )
   else
     series <- as_series(
