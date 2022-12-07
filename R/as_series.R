@@ -20,7 +20,7 @@ series_wb_data <- function(dataset, idx) {
   serie_range
 }
 
-as_series <- function(x, x_class, y_class, sheetname = "sheet1", secondary = NULL) {
+as_series <- function(x, x_class, y_class, sheetname = "sheet1", secondary = 0) {
   dataset <- x$data_series
 
   w_x <- which(names(dataset) %in% x$xvar)
