@@ -4,7 +4,15 @@
 \alias{ms_scatterchart}
 \title{scatterchart object}
 \usage{
-ms_scatterchart(data, x, y, group = NULL, labels = NULL, asis = FALSE)
+ms_scatterchart(
+  data,
+  x,
+  y,
+  group = NULL,
+  labels = NULL,
+  asis = FALSE,
+  secondary = FALSE
+)
 }
 \arguments{
 \item{data}{a data.frame}
@@ -22,6 +30,9 @@ associated with the chart.}
 
 \item{asis}{bool parameter defaulting to FALSE. If TRUE the data will not be
 modified.}
+
+\item{secondary}{bool parameter defaulting to FALSE. If TRUE the chart is expected
+to be drawn on the right y axis.}
 }
 \description{
 Creation of a scatterchart object that can be
