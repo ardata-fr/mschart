@@ -326,8 +326,12 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   )
 
   x_axis_ <- axis_options(axis_position = "b")
-  if (secondary) x_axis_ <- axis_options(axis_position = "b", delete = 1L)
   y_axis_ <- axis_options(axis_position = "l")
+
+  if (secondary) {
+    x_axis_ <- axis_options(axis_position = "b", delete = 1L)
+    y_axis_ <- axis_options(axis_position = "r", crosses = "max")
+  }
 
   x <- x[1]
   y <- y[1]
@@ -506,8 +510,6 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
       asis = x$secondary$asis,
       secondary = length(x$yvar)
     )
-
-    x$secondary$y_axis <- axis_options(axis_position = "r", crosses = "max")
 
     y_r_axis_str <- axis_content_xml(
       x$secondary$y_axis,
