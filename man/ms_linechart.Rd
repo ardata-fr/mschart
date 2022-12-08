@@ -4,7 +4,15 @@
 \alias{ms_linechart}
 \title{Linechart object}
 \usage{
-ms_linechart(data, x, y, group = NULL, labels = NULL, asis = FALSE)
+ms_linechart(
+  data,
+  x,
+  y,
+  group = NULL,
+  labels = NULL,
+  asis = FALSE,
+  secondary = FALSE
+)
 }
 \arguments{
 \item{data}{a data.frame}
@@ -25,6 +33,9 @@ associated with the chart.}
 reshaped internally so that each series becomes a separate column. When TRUE,
 the data is used as-is and must already have one column for categories and
 one column per series.}
+
+\item{secondary}{bool parameter defaulting to FALSE. If TRUE the chart is expected
+to be drawn on the right y axis.}
 }
 \value{
 An \code{ms_chart} object.

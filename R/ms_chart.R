@@ -55,6 +55,8 @@ assert_pie <- function(data_x, data_y) {
 #' reshaped internally so that each series becomes a separate column. When TRUE,
 #' the data is used as-is and must already have one column for categories and
 #' one column per series.
+#' @param secondary bool parameter defaulting to FALSE. If TRUE the chart is expected
+#' to be drawn on the right y axis.
 #' @return An `ms_chart` object.
 #' @export
 #' @family 'Office' chart objects
@@ -70,10 +72,10 @@ assert_pie <- function(data_x, data_y) {
 #' @examples
 #' library(officer)
 #' @example examples/02_linechart.R
-ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
+ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, secondary = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "lineplot", asis = asis
+    type = "lineplot", asis = asis, secondary = secondary
   )
   out$options <- linechart_options()
   class(out) <- c("ms_linechart", "ms_chart")
@@ -115,10 +117,10 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' @examples
 #' library(officer)
 #' @example examples/01_barchart.R
-ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
+ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, secondary = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "barplot", asis = asis
+    type = "barplot", asis = asis, secondary = secondary
   )
   out$options <- barchart_options()
   class(out) <- c("ms_barchart", "ms_chart")
@@ -141,10 +143,10 @@ ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
 #' @examples
 #' library(officer)
 #' @example examples/03_areachart.R
-ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
+ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, secondary = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "areaplot", asis = asis
+    type = "areaplot", asis = asis, secondary = secondary
   )
   class(out) <- c("ms_areachart", "ms_chart")
   out <- chart_settings(out)
@@ -173,11 +175,11 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' @examples
 #' library(officer)
 #' @example examples/04_scatterchart.R
-ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
+ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, secondary = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
     excel_data_setup = transpose_series_bysplit,
-    type = "scatterplot", asis = asis
+    type = "scatterplot", asis = asis, secondary = secondary
   )
   class(out) <- c("ms_scatterchart", "ms_chart")
 
@@ -250,7 +252,7 @@ ms_piechart <- function(data, x, y, labels = NULL) {
 #' @importFrom grDevices colors
 ms_chart <- function(data, x, y, group = NULL, labels = NULL,
                      excel_data_setup = shape_as_series,
-                     type = NULL, asis = FALSE) {
+                     type = NULL, asis = FALSE, secondary = FALSE) {
   stopifnot(is.data.frame(data))
   stopifnot(x %in% names(data))
   stopifnot(y %in% names(data))
@@ -324,7 +326,7 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   )
 
   x_axis_ <- axis_options(axis_position = "b")
-  x_r_axis_ <- axis_options(axis_position = "b", delete = 1L)
+  if (secondary) x_axis_ <- axis_options(axis_position = "b", delete = 1L)
   y_axis_ <- axis_options(axis_position = "l")
 
   x <- x[1]
@@ -342,7 +344,6 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
     theme = theme_,
     options = list(),
     x_axis = x_axis_,
-    x_r_axis = x_r_axis_,
     y_axis = y_axis_,
     axis_tag = list(
       x = x_axis_tag,
@@ -521,7 +522,7 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
     y_r_axis_str <- sprintf("<%s>%s</%s>", x$secondary$axis_tag$y, y_r_axis_str, x$secondary$axis_tag$y)
 
     x_r_axis_str <- axis_content_xml(
-      x$secondary$x_r_axis,
+      x$secondary$x_axis,
       id = "67917199",
       theme = x$secondary$theme,
       cross_id = "320476559",
