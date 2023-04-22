@@ -11,7 +11,8 @@ ms_linechart(
   group = NULL,
   labels = NULL,
   asis = FALSE,
-  secondary = FALSE
+  secondary_x = FALSE,
+  secondary_y = FALSE
 )
 }
 \arguments{
@@ -31,8 +32,8 @@ associated with the chart.}
 \item{asis}{bool parameter defaulting to FALSE. If TRUE the data will not be
 modified.}
 
-\item{secondary}{bool parameter defaulting to FALSE. If TRUE the chart is expected
-to be drawn on the right y axis.}
+\item{secondary_x, secondary_y}{bool parameter defaulting to FALSE. If TRUE
+the chart is expected to be drawn on the right y axis.}
 }
 \description{
 Creation of a linechart object that can be
