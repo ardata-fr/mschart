@@ -11,7 +11,8 @@ ms_scatterchart(
   group = NULL,
   labels = NULL,
   asis = FALSE,
-  secondary = FALSE
+  secondary_y = FALSE,
+  secondary_x = FALSE
 )
 }
 \arguments{
@@ -34,8 +35,8 @@ reshaped internally so that each series becomes a separate column. When TRUE,
 the data is used as-is and must already have one column for categories and
 one column per series.}
 
-\item{secondary}{bool parameter defaulting to FALSE. If TRUE the chart is expected
-to be drawn on the right y axis.}
+\item{secondary_x, secondary_y}{bool parameter defaulting to FALSE. If TRUE
+the chart is expected to be drawn on the right y axis.}
 }
 \value{
 An \code{ms_chart} object.

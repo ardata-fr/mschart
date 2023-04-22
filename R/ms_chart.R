@@ -55,8 +55,8 @@ assert_pie <- function(data_x, data_y) {
 #' reshaped internally so that each series becomes a separate column. When TRUE,
 #' the data is used as-is and must already have one column for categories and
 #' one column per series.
-#' @param secondary bool parameter defaulting to FALSE. If TRUE the chart is expected
-#' to be drawn on the right y axis.
+#' @param secondary_x,secondary_y bool parameter defaulting to FALSE. If TRUE
+#' the chart is expected to be drawn on the right y axis.
 #' @return An `ms_chart` object.
 #' @export
 #' @family 'Office' chart objects
@@ -72,13 +72,17 @@ assert_pie <- function(data_x, data_y) {
 #' @examples
 #' library(officer)
 #' @example examples/02_linechart.R
-ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, secondary = FALSE) {
+ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
+                         secondary_x = FALSE, secondary_y = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "lineplot", asis = asis, secondary = secondary
+    type = "lineplot", asis = asis,
+    secondary_x = secondary_x, secondary_y = secondary_y
   )
   out$options <- linechart_options()
   class(out) <- c("ms_linechart", "ms_chart")
+  attr(out, "secondary_x") <- secondary_x
+  attr(out, "secondary_y") <- secondary_y
   out <- chart_settings(out)
   out
 }
@@ -117,13 +121,17 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, 
 #' @examples
 #' library(officer)
 #' @example examples/01_barchart.R
-ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, secondary = FALSE) {
+ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
+                        secondary_y = FALSE, secondary_x = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "barplot", asis = asis, secondary = secondary
+    type = "barplot", asis = asis,
+    secondary_x = secondary_x, secondary_y = secondary_y
   )
   out$options <- barchart_options()
   class(out) <- c("ms_barchart", "ms_chart")
+  attr(out, "secondary_x") <- secondary_x
+  attr(out, "secondary_y") <- secondary_y
   out
 }
 
@@ -143,12 +151,16 @@ ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, s
 #' @examples
 #' library(officer)
 #' @example examples/03_areachart.R
-ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, secondary = FALSE) {
+ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
+                         secondary_y = FALSE, secondary_x = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "areaplot", asis = asis, secondary = secondary
+    type = "areaplot", asis = asis,
+    secondary_x = secondary_x, secondary_y = secondary_y
   )
   class(out) <- c("ms_areachart", "ms_chart")
+  attr(out, "secondary_x") <- secondary_x
+  attr(out, "secondary_y") <- secondary_y
   out <- chart_settings(out)
 
   serie_names <- names(out$series_settings$colour)
@@ -175,13 +187,17 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, 
 #' @examples
 #' library(officer)
 #' @example examples/04_scatterchart.R
-ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE, secondary = FALSE) {
+ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
+                            secondary_y = FALSE, secondary_x = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
     excel_data_setup = transpose_series_bysplit,
-    type = "scatterplot", asis = asis, secondary = secondary
+    type = "scatterplot", asis = asis,
+    secondary_x = secondary_x, secondary_y = secondary_y
   )
   class(out) <- c("ms_scatterchart", "ms_chart")
+  attr(out, "secondary_x") <- secondary_x
+  attr(out, "secondary_y") <- secondary_y
 
   out <- chart_settings(out)
 
@@ -252,7 +268,8 @@ ms_piechart <- function(data, x, y, labels = NULL) {
 #' @importFrom grDevices colors
 ms_chart <- function(data, x, y, group = NULL, labels = NULL,
                      excel_data_setup = shape_as_series,
-                     type = NULL, asis = FALSE, secondary = FALSE) {
+                     type = NULL, asis = FALSE,
+                     secondary_x = FALSE, secondary_y = FALSE) {
   stopifnot(is.data.frame(data))
   stopifnot(x %in% names(data))
   stopifnot(y %in% names(data))
@@ -328,7 +345,12 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   x_axis_ <- axis_options(axis_position = "b")
   y_axis_ <- axis_options(axis_position = "l")
 
-  if (secondary) {
+  if (secondary_x) {
+    x_axis_ <- axis_options(axis_position = "b", delete = 1L)
+    y_axis_ <- axis_options(axis_position = "l", delete = 1L)
+  }
+
+  if (secondary_y) {
     x_axis_ <- axis_options(axis_position = "b", delete = 1L)
     y_axis_ <- axis_options(axis_position = "r", crosses = "max")
   }
@@ -336,8 +358,9 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   x <- x[1]
   y <- y[1]
 
-
-  lbls <- list(title = NULL, x = x, y = y)
+  lbls <- list(title = NULL)
+  if (!secondary_x)
+    lbls <- list(title = NULL, x = x, y = y)
 
   out <- list(
     data = data,
@@ -467,7 +490,7 @@ colour_list <- list(
 #' @method format ms_chart
 #' @export
 format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE, ...) {
-  str_l <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname, asis = x$asis, secondary = 0)
+  str_l <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname, asis = x$asis, secondary_y = 0)
 
   if (is.null(x$x_axis$num_fmt)) {
     x$x_axis$num_fmt <- x$theme[[x$fmt_names$x]]
@@ -496,42 +519,72 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
 
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
-  str_r <- NULL
-  y_r_axis_str <- NULL
-  x_r_axis_str <- NULL
 
-  if (!is.null(x$secondary)) {
+  secondary_x_y <- TRUE
+  if (length(x$secondary)) {
 
-    str_r <- to_pml(
-      x$secondary,
-      id_y = "320476559",
-      id_x = "67917199",
-      sheetname = sheetname,
-      asis = x$secondary$asis,
-      secondary = length(x$yvar)
-    )
+    ser_id <- length(x$yvar) + 1L
 
-    y_r_axis_str <- axis_content_xml(
-      x$secondary$y_axis,
-      id = "320476559",
-      theme = x$theme,
-      cross_id = "67917199",
-      is_x = FALSE,
-      lab = htmlEscape(x$secondary$labels$y),
-      rot = x$secondary$theme$title_y_rot
-    )
+    for (sec in seq_along(x$secondary)) {
 
-    y_r_axis_str <- sprintf("<%s>%s</%s>", x$secondary$axis_tag$y, y_r_axis_str, x$secondary$axis_tag$y)
+      # is_sec_x <- attr(x$secondary[[sec]], "secondary_x")
+      is_sec_y <- attr(x$secondary[[sec]], "secondary_y")
 
-    x_r_axis_str <- axis_content_xml(
-      x$secondary$x_axis,
-      id = "67917199",
-      theme = x$secondary$theme,
-      cross_id = "320476559",
-      is_x = TRUE,
-      lab = NULL
-    )
-    x_r_axis_str <- sprintf("<%s>%s</%s>", x$secondary$axis_tag$x, x_r_axis_str, x$secondary$axis_tag$x)
+      if (is_sec_y) {
+        x_id <- as.character(67917199)
+        y_id <- as.character(320476559)
+      } else {
+        x_id <- id_x
+        y_id <- id_y
+      }
+
+      if (secondary_x_y) {
+
+        # add only one secondary x and y axis if required
+        if (is_sec_y) {
+
+          axis_l_str <- axis_content_xml(
+            x$secondary[[sec]]$y_axis,
+            id = y_id,
+            theme = x$theme,
+            cross_id = x_id,
+            is_x = FALSE,
+            lab = htmlEscape(x$secondary[[sec]]$labels$y),
+            rot = x$secondary[[sec]]$theme$title_y_rot
+          )
+
+          x_l_axis_str <- paste0(x_l_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$y, axis_l_str, x$secondary[[sec]]$axis_tag$y))
+
+          axis_r_str <- axis_content_xml(
+            x$secondary[[sec]]$x_axis,
+            id = x_id,
+            theme = x$secondary[[sec]]$theme,
+            cross_id = y_id,
+            is_x = TRUE,
+            lab = NULL
+          )
+          y_axis_str <- paste0(y_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$x, axis_r_str, x$secondary[[sec]]$axis_tag$x))
+
+          secondary_x_y <- FALSE
+        }
+
+      }
+
+      str_l <- paste0(str_l, to_pml(
+        x$secondary[[sec]],
+        id_y = y_id,
+        id_x = x_id,
+        sheetname = sheetname,
+        asis = x$secondary[[sec]]$asis,
+        secondary_y = ser_id
+      ))
+
+
+
+      ser_id <- ser_id + length(x$secondary[[sec]]$yvar)
+
+    }
+
   }
 
 
@@ -550,11 +603,8 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   xml_elt <- paste0(
     "<c:plotArea ", ns, "><c:layout/>",
     str_l,
-    str_r,
     x_l_axis_str,
     y_axis_str,
-    y_r_axis_str,
-    x_r_axis_str,
     table_str,
     sppr_str,
     "</c:plotArea>"
