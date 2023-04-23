@@ -12,7 +12,7 @@ ms_areachart(
   labels = NULL,
   asis = FALSE,
   secondary_y = FALSE,
-  secondary_x = FALSE
+  add = FALSE
 )
 }
 \arguments{
@@ -35,8 +35,11 @@ reshaped internally so that each series becomes a separate column. When TRUE,
 the data is used as-is and must already have one column for categories and
 one column per series.}
 
-\item{secondary_x, secondary_y}{bool parameter defaulting to FALSE. If TRUE
+\item{secondary_y}{bool parameter defaulting to FALSE. If TRUE
 the chart is expected to be drawn on the right y axis.}
+
+\item{add}{logical specifying if chart should be added to an already existing
+chart; defaults to FALSE.}
 }
 \value{
 An \code{ms_chart} object.

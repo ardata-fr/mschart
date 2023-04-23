@@ -74,7 +74,7 @@ standard_pos <- c("b", "ctr", "l", "r", "t")
 
 #' @export
 #' @method to_pml ms_linechart
-to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, secondary_y = 0, secondary_x = 0, ...){
+to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, secondary_y = 0, ...){
 
   if( !x$label_settings$position %in% standard_pos ){
     stop("label position issue.",
@@ -115,10 +115,8 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
       sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
       sprintf("<c:order val=\"%.0f\"/>", serie$order),
       sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
-      # ifelse(secondary, line_str, ""),
       line_str,
       marker_str,
-      # ifelse(secondary, to_pml(label_settings, show_label = !is.null(x$label_cols)), ""),
       to_pml(label_settings, show_label = !is.null(x$label_cols)),
       "<c:cat>", to_pml(serie$x), "</c:cat>",
       "<c:val>", to_pml(serie$y), "</c:val>",
