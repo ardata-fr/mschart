@@ -44,14 +44,20 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   minor_tm <- sprintf(minor_tm, x$minor_tick_mark)
 
   grid_major_id <- paste0("grid_major_line_", ifelse(is_x, "x", "y"))
-  major_gl <- ooxml_fp_border(theme[[grid_major_id]],
-    in_tags = c("c:majorGridlines", "c:spPr")
-  )
+  major_gl <- ""
+  if (theme$grid_major_line_x$style != "none") {
+    major_gl <- ooxml_fp_border(theme[[grid_major_id]],
+      in_tags = c("c:majorGridlines", "c:spPr")
+    )
+  }
 
-  grid_minor_id <- paste0("grid_minor_line_", ifelse(is_x, "x", "y"))
-  minor_gl <- ooxml_fp_border(theme[[grid_minor_id]],
-    in_tags = c("c:minorGridlines", "c:spPr")
-  )
+  minor_gl <- ""
+  if (theme$grid_major_line_x$style != "none") {
+    grid_minor_id <- paste0("grid_minor_line_", ifelse(is_x, "x", "y"))
+    minor_gl <- ooxml_fp_border(theme[[grid_minor_id]],
+      in_tags = c("c:minorGridlines", "c:spPr")
+    )
+  }
 
   lim_max <- ""
   if (!is.null(x$limit_max)) {

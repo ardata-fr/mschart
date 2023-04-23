@@ -12,7 +12,7 @@ ms_barchart(
   labels = NULL,
   asis = FALSE,
   secondary_y = FALSE,
-  secondary_x = FALSE
+  add = FALSE
 )
 }
 \arguments{
@@ -32,8 +32,11 @@ associated with the chart.}
 \item{asis}{bool parameter defaulting to FALSE. If TRUE the data will not be
 modified.}
 
-\item{secondary_x, secondary_y}{bool parameter defaulting to FALSE. If TRUE
+\item{secondary_y}{bool parameter defaulting to FALSE. If TRUE
 the chart is expected to be drawn on the right y axis.}
+
+\item{add}{logical specifying if chart should be added to an already existing
+chart; defaults to FALSE.}
 }
 \description{
 Creation of a barchart object that can be

@@ -11,7 +11,7 @@ ms_linechart(
   group = NULL,
   labels = NULL,
   asis = FALSE,
-  secondary_x = FALSE,
+  add = FALSE,
   secondary_y = FALSE
 )
 }
@@ -32,7 +32,10 @@ associated with the chart.}
 \item{asis}{bool parameter defaulting to FALSE. If TRUE the data will not be
 modified.}
 
-\item{secondary_x, secondary_y}{bool parameter defaulting to FALSE. If TRUE
+\item{add}{logical specifying if chart should be added to an already existing
+chart; defaults to FALSE.}
+
+\item{secondary_y}{bool parameter defaulting to FALSE. If TRUE
 the chart is expected to be drawn on the right y axis.}
 }
 \description{

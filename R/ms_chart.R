@@ -43,7 +43,9 @@ assert_line <- function(data_y) {
 #' associated with the chart.
 #' @param asis bool parameter defaulting to FALSE. If TRUE the data will not be
 #' modified.
-#' @param secondary_x,secondary_y bool parameter defaulting to FALSE. If TRUE
+#' @param add logical specifying if chart should be added to an already existing
+#' chart; defaults to FALSE.
+#' @param secondary_y bool parameter defaulting to FALSE. If TRUE
 #' the chart is expected to be drawn on the right y axis.
 #' @export
 #' @family 'Office' chart objects
@@ -60,16 +62,14 @@ assert_line <- function(data_y) {
 #' library(officer)
 #' @example examples/02_linechart.R
 ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                         secondary_x = FALSE, secondary_y = FALSE) {
+                         add = FALSE, secondary_y = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
     type = "lineplot", asis = asis,
-    secondary_x = secondary_x, secondary_y = secondary_y
+    add = add, secondary_y = secondary_y
   )
   out$options <- linechart_options()
   class(out) <- c("ms_linechart", "ms_chart")
-  attr(out, "secondary_x") <- secondary_x
-  attr(out, "secondary_y") <- secondary_y
   out <- chart_settings(out)
   out
 }
@@ -108,16 +108,14 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
 #' library(officer)
 #' @example examples/01_barchart.R
 ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                        secondary_y = FALSE, secondary_x = FALSE) {
+                        secondary_y = FALSE, add = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
     type = "barplot", asis = asis,
-    secondary_x = secondary_x, secondary_y = secondary_y
+    add = add, secondary_y = secondary_y
   )
   out$options <- barchart_options()
   class(out) <- c("ms_barchart", "ms_chart")
-  attr(out, "secondary_x") <- secondary_x
-  attr(out, "secondary_y") <- secondary_y
   out
 }
 
@@ -137,15 +135,13 @@ ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
 #' library(officer)
 #' @example examples/03_areachart.R
 ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                         secondary_y = FALSE, secondary_x = FALSE) {
+                         secondary_y = FALSE, add = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
     type = "areaplot", asis = asis,
-    secondary_x = secondary_x, secondary_y = secondary_y
+    add = add, secondary_y = secondary_y
   )
   class(out) <- c("ms_areachart", "ms_chart")
-  attr(out, "secondary_x") <- secondary_x
-  attr(out, "secondary_y") <- secondary_y
   out <- chart_settings(out)
 
   serie_names <- names(out$series_settings$colour)
@@ -172,16 +168,14 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
 #' library(officer)
 #' @example examples/04_scatterchart.R
 ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                            secondary_y = FALSE, secondary_x = FALSE) {
+                            secondary_y = FALSE, add = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
     excel_data_setup = transpose_series_bysplit,
     type = "scatterplot", asis = asis,
-    secondary_x = secondary_x, secondary_y = secondary_y
+    add = add, secondary_y = secondary_y
   )
   class(out) <- c("ms_scatterchart", "ms_chart")
-  attr(out, "secondary_x") <- secondary_x
-  attr(out, "secondary_y") <- secondary_y
 
   out <- chart_settings(out)
 
@@ -195,7 +189,7 @@ ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALS
 ms_chart <- function(data, x, y, group = NULL, labels = NULL,
                      excel_data_setup = shape_as_series,
                      type = NULL, asis = FALSE,
-                     secondary_x = FALSE, secondary_y = FALSE) {
+                     add = FALSE, secondary_y = FALSE) {
   stopifnot(is.data.frame(data))
   stopifnot(x %in% names(data))
   stopifnot(y %in% names(data))
@@ -267,22 +261,28 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   x_axis_ <- axis_options(axis_position = "b")
   y_axis_ <- axis_options(axis_position = "l")
 
-  if (secondary_x) {
+  # disable additional x and y axis for add and secondary_y
+  if (add) {
     x_axis_ <- axis_options(axis_position = "b", delete = 1L)
     y_axis_ <- axis_options(axis_position = "l", delete = 1L)
   }
 
   if (secondary_y) {
+    # disable grid for secondary axis
+    theme_ <- mschart_theme(
+      grid_major_line_x = fp_border(style = "none"),
+      grid_minor_line = fp_border(style = "none")
+    )
     x_axis_ <- axis_options(axis_position = "b", delete = 1L)
     y_axis_ <- axis_options(axis_position = "r", crosses = "max")
+    if (add) y_axis_ <- axis_options(axis_position = "r", delete = 1L)
   }
 
   x <- x[1]
   y <- y[1]
 
-  lbls <- list(title = NULL)
-  if (!secondary_x)
-    lbls <- list(title = NULL, x = x, y = y)
+  lbls <- list(title = NULL, x = x, y = y)
+  if (add) lbls <- list(title = NULL)
 
   out <- list(
     data = data,
@@ -356,6 +356,9 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
     smooth = setNames(series_smooth, series_names)
   )
 
+  attr(out, "add") <- add
+  attr(out, "secondary_y") <- secondary_y
+
   out
 }
 
@@ -411,7 +414,7 @@ colour_list <- list(
 #' @method format ms_chart
 #' @export
 format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE, ...) {
-  str_l <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname, asis = x$asis, secondary_y = 0)
+  str_ <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname, asis = x$asis, secondary_y = 0)
 
   if (is.null(x$x_axis$num_fmt)) {
     x$x_axis$num_fmt <- x$theme[[x$fmt_names$x]]
@@ -430,7 +433,7 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
     rot = x$theme$title_x_rot
   )
 
-  x_l_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
+  x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
 
   y_axis_str <- axis_content_xml(x$y_axis,
     id = id_y, theme = x$theme,
@@ -440,58 +443,56 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
 
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
-
-  secondary_x_y <- TRUE
+  secondary_y <- TRUE # logical will become FALSE if secondary axis are created
+  ids <- sample(seq.int(60000000, 70000000), size = 2, replace = FALSE)
   if (length(x$secondary)) {
 
     ser_id <- length(x$yvar) + 1L
 
     for (sec in seq_along(x$secondary)) {
 
-      # is_sec_x <- attr(x$secondary[[sec]], "secondary_x")
       is_sec_y <- attr(x$secondary[[sec]], "secondary_y")
 
+      # charts reference their axis via this id
       if (is_sec_y) {
-        x_id <- as.character(67917199)
-        y_id <- as.character(320476559)
+        x_id <- as.character(ids[1])
+        y_id <- as.character(ids[2])
       } else {
         x_id <- id_x
         y_id <- id_y
       }
 
-      if (secondary_x_y) {
+      # add only one secondary x and y axis if required
+      if (secondary_y && is_sec_y) {
 
-        # add only one secondary x and y axis if required
-        if (is_sec_y) {
+        axis_l_str <- axis_content_xml(
+          x$secondary[[sec]]$y_axis,
+          id = y_id,
+          theme = x$secondary[[sec]]$theme,
+          cross_id = x_id,
+          is_x = FALSE,
+          lab = htmlEscape(x$secondary[[sec]]$labels$y),
+          rot = x$secondary[[sec]]$theme$title_y_rot
+        )
 
-          axis_l_str <- axis_content_xml(
-            x$secondary[[sec]]$y_axis,
-            id = y_id,
-            theme = x$theme,
-            cross_id = x_id,
-            is_x = FALSE,
-            lab = htmlEscape(x$secondary[[sec]]$labels$y),
-            rot = x$secondary[[sec]]$theme$title_y_rot
-          )
+        x_axis_str <- paste0(x_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$y, axis_l_str, x$secondary[[sec]]$axis_tag$y))
 
-          x_l_axis_str <- paste0(x_l_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$y, axis_l_str, x$secondary[[sec]]$axis_tag$y))
+        axis_r_str <- axis_content_xml(
+          x$secondary[[sec]]$x_axis,
+          id = x_id,
+          theme = x$secondary[[sec]]$theme,
+          cross_id = y_id,
+          is_x = TRUE,
+          lab = NULL
+        )
+        y_axis_str <- paste0(y_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$x, axis_r_str, x$secondary[[sec]]$axis_tag$x))
 
-          axis_r_str <- axis_content_xml(
-            x$secondary[[sec]]$x_axis,
-            id = x_id,
-            theme = x$secondary[[sec]]$theme,
-            cross_id = y_id,
-            is_x = TRUE,
-            lab = NULL
-          )
-          y_axis_str <- paste0(y_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$x, axis_r_str, x$secondary[[sec]]$axis_tag$x))
-
-          secondary_x_y <- FALSE
-        }
+        secondary_y <- FALSE
 
       }
 
-      str_l <- paste0(str_l, to_pml(
+      # all secondary charts
+      str_ <- paste0(str_, to_pml(
         x$secondary[[sec]],
         id_y = y_id,
         id_x = x_id,
@@ -499,8 +500,6 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
         asis = x$secondary[[sec]]$asis,
         secondary_y = ser_id
       ))
-
-
 
       ser_id <- ser_id + length(x$secondary[[sec]]$yvar)
 
@@ -513,8 +512,8 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
   xml_elt <- paste0(
     "<c:plotArea ", ns, "><c:layout/>",
-    str_l,
-    x_l_axis_str,
+    str_,
+    x_axis_str,
     y_axis_str,
     table_str,
     "</c:plotArea>"
