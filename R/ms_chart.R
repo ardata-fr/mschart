@@ -198,6 +198,44 @@ ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALS
   out
 }
 
+#' @title combochart object
+#' @description Creation of a combochart object that can be
+#' inserted in a 'Microsoft' document.
+#' @details ms_combochart only works with mschart objects created with
+#' `asis = TRUE`.
+#' @param ... mschart objects
+#' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
+#' [chart_data_labels()], [chart_theme()], [chart_labels()]
+#' @export
+ms_combochart <- function(...) {
+
+  inputs <- list(...)
+
+  out <-  NULL
+  for (i in seq_along(inputs)) {
+    if (!inherits(inputs[[i]], "ms_chart")) {
+      warning("skipping element: ", inputs[[i]])
+      next
+    }
+    is_add <- attr(inputs[[i]], "add")
+    is_sec <- attr(inputs[[i]], "secondary_y")
+
+    if (is_add || is_sec) {
+      if (is.null(out$secondary)) {
+        out$secondary <- list(inputs[[i]])
+      } else {
+        out$secondary <- append(out$secondary, list(inputs[[i]]))
+      }
+    } else {
+      if (!is.null(out))
+        warning("overwriting base chart. check `add` or `secondary_y`.")
+      out <- inputs[[i]]
+    }
+  }
+
+  out
+}
 
 #' @title Piechart object
 #' @description Creation of a piechart object that can be

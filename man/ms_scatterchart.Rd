@@ -80,6 +80,7 @@ chart_02 <- chart_settings(chart_02, scatterstyle = "marker")
 Other 'Office' chart objects: 
 \code{\link{ms_areachart}()},
 \code{\link{ms_barchart}()},
+\code{\link{ms_combochart}()},
 \code{\link{ms_linechart}()},
 \code{\link{ms_piechart}()}
 }

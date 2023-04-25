@@ -244,6 +244,7 @@ chart_06 <- chart_labels_text(chart_06, text_prop)
 
 Other 'Office' chart objects: 
 \code{\link{ms_areachart}()},
+\code{\link{ms_combochart}()},
 \code{\link{ms_linechart}()},
 \code{\link{ms_piechart}()},
 \code{\link{ms_scatterchart}()}
