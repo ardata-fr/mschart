@@ -150,7 +150,7 @@ ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
 #' library(officer)
 #' @example examples/03_areachart.R
 ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                         secondary_y = FALSE, add = FALSE) {
+                         add = FALSE, secondary_y = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
     type = "areaplot", asis = asis,
@@ -184,7 +184,7 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
 #' library(officer)
 #' @example examples/04_scatterchart.R
 ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                            secondary_y = FALSE, add = FALSE) {
+                            add = FALSE, secondary_y = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
     excel_data_setup = transpose_series_bysplit,
