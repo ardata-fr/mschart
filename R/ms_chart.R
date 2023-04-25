@@ -122,7 +122,7 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
 #' library(officer)
 #' @example examples/01_barchart.R
 ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                        secondary_y = FALSE, add = FALSE) {
+                        add = FALSE, secondary_y = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
     type = "barplot", asis = asis,
