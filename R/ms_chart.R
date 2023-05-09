@@ -205,6 +205,7 @@ ms_combochart <- function(...) {
   sec_cntr <- 0
 
   for (i in seq_along(inputs)[-1]) {
+
     if (!inherits(inputs[[i]], "ms_chart")) {
       warning("skipping element: ", inputs[[i]])
       next
@@ -220,9 +221,7 @@ ms_combochart <- function(...) {
     }
 
     # avoid additional titles
-    if (i > 1) {
-      inputs[[i]]$labels <- list(title = NULL)
-    }
+    inputs[[i]]$labels <- list(title = NULL)
 
     if (is.null(out$secondary)) {
       out$secondary <- list(inputs[[i]])
