@@ -45,14 +45,14 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
 
   grid_major_id <- paste0("grid_major_line_", ifelse(is_x, "x", "y"))
   major_gl <- ""
-  if (theme$grid_major_line_x$style != "none") {
+  if (!isFALSE(theme$grid_major_line_x)) {
     major_gl <- ooxml_fp_border(theme[[grid_major_id]],
       in_tags = c("c:majorGridlines", "c:spPr")
     )
   }
 
   minor_gl <- ""
-  if (theme$grid_major_line_x$style != "none") {
+  if (!isFALSE(theme$grid_major_line_x)) {
     grid_minor_id <- paste0("grid_minor_line_", ifelse(is_x, "x", "y"))
     minor_gl <- ooxml_fp_border(theme[[grid_minor_id]],
       in_tags = c("c:minorGridlines", "c:spPr")

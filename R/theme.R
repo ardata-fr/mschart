@@ -35,6 +35,16 @@ set_theme <- function(x, value) {
   x
 }
 
+#' helper class to check function input
+#' @param x input argument to check
+#' @param class a class to check against
+#' @keywords internal
+#' @noRd
+assert_class <- function(x, class) {
+  if (!is.logical(x) && !inherits(x, class)) {
+    stop("input must be logical or ", class, " not ", x)
+  }
+}
 
 #' @importFrom officer fp_text fp_border
 #' @description Use \code{mschart_theme()} to create a chart theme.
@@ -196,16 +206,12 @@ chart_theme <- function(x, axis_title_x, axis_title_y, main_title, legend_text,
   }
 
   if (!missing(grid_major_line_x)) {
-    if (!all(class(grid_major_line_x) %in% class(x$theme$grid_major_line_x))) {
-      stop("grid_major_line_x should be of class ", class(x$theme$grid_major_line_x))
-    }
+    assert_class(grid_major_line_x, class(x$theme$grid_major_line_x))
     x$theme$grid_major_line_x <- grid_major_line_x
   }
 
   if (!missing(grid_major_line_y)) {
-    if (!all(class(grid_major_line_y) %in% class(x$theme$grid_major_line_y))) {
-      stop("grid_major_line_y should be of class ", class(x$theme$grid_major_line_y))
-    }
+    assert_class(grid_major_line_y, class(x$theme$grid_major_line_y))
     x$theme$grid_major_line_y <- grid_major_line_y
   }
 
