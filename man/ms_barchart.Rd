@@ -4,16 +4,7 @@
 \alias{ms_barchart}
 \title{barchart object}
 \usage{
-ms_barchart(
-  data,
-  x,
-  y,
-  group = NULL,
-  labels = NULL,
-  asis = FALSE,
-  add = FALSE,
-  secondary_y = FALSE
-)
+ms_barchart(data, x, y, group = NULL, labels = NULL, asis = FALSE)
 }
 \arguments{
 \item{data}{a data.frame}
@@ -31,12 +22,6 @@ associated with the chart.}
 
 \item{asis}{bool parameter defaulting to FALSE. If TRUE the data will not be
 modified.}
-
-\item{add}{logical specifying if chart should be added to an already existing
-chart; defaults to FALSE.}
-
-\item{secondary_y}{bool parameter defaulting to FALSE. If TRUE
-the chart is expected to be drawn on the right y axis.}
 }
 \description{
 Creation of a barchart object that can be
