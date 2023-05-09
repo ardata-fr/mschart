@@ -4,16 +4,7 @@
 \alias{ms_areachart}
 \title{Areachart object}
 \usage{
-ms_areachart(
-  data,
-  x,
-  y,
-  group = NULL,
-  labels = NULL,
-  asis = FALSE,
-  add = FALSE,
-  secondary_y = FALSE
-)
+ms_areachart(data, x, y, group = NULL, labels = NULL, asis = FALSE)
 }
 \arguments{
 \item{data}{a data.frame}
@@ -34,12 +25,6 @@ associated with the chart.}
 reshaped internally so that each series becomes a separate column. When TRUE,
 the data is used as-is and must already have one column for categories and
 one column per series.}
-
-\item{add}{logical specifying if chart should be added to an already existing
-chart; defaults to FALSE.}
-
-\item{secondary_y}{bool parameter defaulting to FALSE. If TRUE
-the chart is expected to be drawn on the right y axis.}
 }
 \value{
 An \code{ms_chart} object.

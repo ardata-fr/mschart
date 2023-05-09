@@ -55,10 +55,6 @@ assert_pie <- function(data_x, data_y) {
 #' reshaped internally so that each series becomes a separate column. When TRUE,
 #' the data is used as-is and must already have one column for categories and
 #' one column per series.
-#' @param add logical specifying if chart should be added to an already existing
-#' chart; defaults to FALSE.
-#' @param secondary_y bool parameter defaulting to FALSE. If TRUE
-#' the chart is expected to be drawn on the right y axis.
 #' @return An `ms_chart` object.
 #' @export
 #' @family 'Office' chart objects
@@ -74,12 +70,10 @@ assert_pie <- function(data_x, data_y) {
 #' @examples
 #' library(officer)
 #' @example examples/02_linechart.R
-ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                         add = FALSE, secondary_y = FALSE) {
+ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "lineplot", asis = asis,
-    add = add, secondary_y = secondary_y
+    type = "lineplot", asis = asis
   )
   out$options <- linechart_options()
   class(out) <- c("ms_linechart", "ms_chart")
@@ -121,12 +115,10 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
 #' @examples
 #' library(officer)
 #' @example examples/01_barchart.R
-ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                        add = FALSE, secondary_y = FALSE) {
+ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "barplot", asis = asis,
-    add = add, secondary_y = secondary_y
+    type = "barplot", asis = asis
   )
   out$options <- barchart_options()
   class(out) <- c("ms_barchart", "ms_chart")
@@ -149,12 +141,10 @@ ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
 #' @examples
 #' library(officer)
 #' @example examples/03_areachart.R
-ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                         add = FALSE, secondary_y = FALSE) {
+ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "areaplot", asis = asis,
-    add = add, secondary_y = secondary_y
+    type = "areaplot", asis = asis
   )
   class(out) <- c("ms_areachart", "ms_chart")
   out <- chart_settings(out)
@@ -183,13 +173,11 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
 #' @examples
 #' library(officer)
 #' @example examples/04_scatterchart.R
-ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE,
-                            add = FALSE, secondary_y = FALSE) {
+ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
     excel_data_setup = transpose_series_bysplit,
-    type = "scatterplot", asis = asis,
-    add = add, secondary_y = secondary_y
+    type = "scatterplot", asis = asis
   )
   class(out) <- c("ms_scatterchart", "ms_chart")
 
@@ -212,25 +200,34 @@ ms_combochart <- function(...) {
 
   inputs <- list(...)
 
-  out <-  NULL
-  for (i in seq_along(inputs)) {
+  out <-  inputs[[1]]
+
+  sec_cntr <- 0
+
+  for (i in seq_along(inputs)[-1]) {
     if (!inherits(inputs[[i]], "ms_chart")) {
       warning("skipping element: ", inputs[[i]])
       next
     }
-    is_add <- attr(inputs[[i]], "add")
-    is_sec <- attr(inputs[[i]], "secondary_y")
 
-    if (is_add || is_sec) {
-      if (is.null(out$secondary)) {
-        out$secondary <- list(inputs[[i]])
-      } else {
-        out$secondary <- append(out$secondary, list(inputs[[i]]))
-      }
+    is_sec <- attr(inputs[[i]], "secondary_y")
+    sec_cntr <- sum(sec_cntr, is_sec)
+
+    # disable additional x and y axis for add and secondary_y
+    if ((i > 1 && is.null(is_sec)) || (sec_cntr > 1 && !is.null(sec_cntr))) {
+      inputs[[i]]$x_axis <- axis_options(axis_position = "b", delete = 1L)
+      inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
+    }
+
+    # avoid additional titles
+    if (i > 1) {
+      inputs[[i]]$labels <- list(title = NULL)
+    }
+
+    if (is.null(out$secondary)) {
+      out$secondary <- list(inputs[[i]])
     } else {
-      if (!is.null(out))
-        warning("overwriting base chart. check `add` or `secondary_y`.")
-      out <- inputs[[i]]
+      out$secondary <- append(out$secondary, list(inputs[[i]]))
     }
   }
 
@@ -300,8 +297,7 @@ ms_piechart <- function(data, x, y, labels = NULL) {
 #' @importFrom grDevices colors
 ms_chart <- function(data, x, y, group = NULL, labels = NULL,
                      excel_data_setup = shape_as_series,
-                     type = NULL, asis = FALSE,
-                     add = FALSE, secondary_y = FALSE) {
+                     type = NULL, asis = FALSE) {
   stopifnot(is.data.frame(data))
   stopifnot(x %in% names(data))
   stopifnot(y %in% names(data))
@@ -377,28 +373,10 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   x_axis_ <- axis_options(axis_position = "b")
   y_axis_ <- axis_options(axis_position = "l")
 
-  # disable additional x and y axis for add and secondary_y
-  if (add) {
-    x_axis_ <- axis_options(axis_position = "b", delete = 1L)
-    y_axis_ <- axis_options(axis_position = "l", delete = 1L)
-  }
-
-  if (secondary_y) {
-    # disable grid for secondary axis
-    theme_ <- mschart_theme(
-      grid_major_line_x = fp_border(style = "none"),
-      grid_minor_line = fp_border(style = "none")
-    )
-    x_axis_ <- axis_options(axis_position = "b", delete = 1L)
-    y_axis_ <- axis_options(axis_position = "r", crosses = "max")
-    if (add) y_axis_ <- axis_options(axis_position = "r", delete = 1L)
-  }
-
   x <- x[1]
   y <- y[1]
 
   lbls <- list(title = NULL, x = x, y = y)
-  if (add) lbls <- list(title = NULL)
 
   out <- list(
     data = data,
@@ -471,9 +449,6 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
     labels_fp = setNames(labels_fp, series_names),
     smooth = setNames(series_smooth, series_names)
   )
-
-  attr(out, "add") <- add
-  attr(out, "secondary_y") <- secondary_y
 
   out
 }
@@ -571,7 +546,7 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
       is_sec_y <- attr(x$secondary[[sec]], "secondary_y")
 
       # charts reference their axis via this id
-      if (is_sec_y) {
+      if (!is.null(is_sec_y) && is_sec_y) {
         x_id <- as.character(ids[1])
         y_id <- as.character(ids[2])
       } else {
@@ -580,7 +555,7 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
       }
 
       # add only one secondary x and y axis if required
-      if (secondary_y && is_sec_y) {
+      if (!is.null(is_sec_y) && secondary_y && is_sec_y) {
 
         axis_l_str <- axis_content_xml(
           x$secondary[[sec]]$y_axis,

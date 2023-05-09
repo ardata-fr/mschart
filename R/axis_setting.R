@@ -120,6 +120,8 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
     options$position <- position
   }
 
+  attr(x, "secondary_x") <- second_axis
+
   x$x_axis <- do.call(axis_options, options)
   x
 }
@@ -161,7 +163,6 @@ chart_ax_y <- function( x, orientation, crosses, cross_between,
   stopifnot(inherits(x, "ms_chart"))
 
   options <- list( orientation = ifelse(missing(orientation), x$y_axis$orientation, orientation),
-                   axis_position = ifelse( second_axis, "r", "l" ),
                    crosses = ifelse(missing(crosses), x$y_axis$crosses, crosses),
                    cross_between = ifelse(missing(cross_between), x$y_axis$cross_between, cross_between),
                    major_tick_mark = ifelse(missing(major_tick_mark), x$y_axis$major_tick_mark, major_tick_mark),
@@ -191,6 +192,14 @@ chart_ax_y <- function( x, orientation, crosses, cross_between,
     options$position <- x$y_axis$position
   } else if( !missing(position) ){
     options$position <- position
+  }
+
+  if (second_axis) {
+    # remove x axis for convenience
+    x$x_axis <- axis_options(axis_position = "b", delete = 1L)
+    options$axis_position <- "r"
+    options$crosses <- "max"
+    attr(x, "secondary_y") <- second_axis
   }
 
   x$y_axis <- do.call(axis_options, options)
