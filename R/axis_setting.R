@@ -87,7 +87,6 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
   stopifnot(inherits(x, "ms_chart"))
 
   options <- list( orientation = ifelse(missing(orientation), x$x_axis$orientation, orientation),
-                   axis_position = ifelse( second_axis, "r", "l" ),
                    crosses = ifelse(missing(crosses), x$x_axis$crosses, crosses),
                    cross_between = ifelse(missing(cross_between), x$x_axis$cross_between, cross_between),
                    major_tick_mark = ifelse(missing(major_tick_mark), x$x_axis$major_tick_mark, major_tick_mark),
