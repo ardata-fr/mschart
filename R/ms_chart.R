@@ -220,8 +220,11 @@ ms_combochart <- function(...) {
       inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
     }
 
-    # avoid additional titles
-    inputs[[i]]$labels <- list(title = NULL)
+    # avoid additional labels. only one axis label and one title per chart
+    # title and x axis have to be defined in the first mschart
+    lbl <- inputs[[i]]$labels
+    ylab <- if (sec_cntr > 1 && !is.null(sec_cntr)) lbl$y else NULL
+    inputs[[i]]$labels$title <- list(title = NULL, x = NULL, y = ylab)
 
     if (is.null(out$secondary)) {
       out$secondary <- list(inputs[[i]])
