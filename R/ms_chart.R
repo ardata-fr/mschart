@@ -202,7 +202,8 @@ ms_combochart <- function(...) {
 
   out <-  inputs[[1]]
 
-  sec_cntr <- 0
+  sec_cntr_x <- 0
+  sec_cntr_y <- 0
 
   for (i in seq_along(inputs)[-1]) {
 
@@ -211,20 +212,30 @@ ms_combochart <- function(...) {
       next
     }
 
-    is_sec <- attr(inputs[[i]], "secondary_y")
-    sec_cntr <- sum(sec_cntr, is_sec)
+    is_sec_x <- isTRUE(attr(inputs[[i]], "secondary_x"))
+    is_sec_y <- isTRUE(attr(inputs[[i]], "secondary_y"))
 
-    # disable additional x and y axis for add and secondary_y
-    if ((i > 1 && is.null(is_sec)) || (sec_cntr > 1 && !is.null(sec_cntr))) {
-      inputs[[i]]$x_axis <- axis_options(axis_position = "b", delete = 1L)
-      inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
-    }
+    sec_cntr_x <- sum(sec_cntr_x, is_sec_x)
+    sec_cntr_y <- sum(sec_cntr_y, is_sec_y)
 
     # avoid additional labels. only one axis label and one title per chart
     # title and x axis have to be defined in the first mschart
     lbl <- inputs[[i]]$labels
-    ylab <- if (sec_cntr > 1 && !is.null(sec_cntr)) lbl$y else NULL
-    inputs[[i]]$labels$title <- list(title = NULL, x = NULL, y = ylab)
+    xlab <- lbl$x
+    ylab <- lbl$y
+
+    # disable additional x and y axis for add and secondary_y
+    if ((i > 1 && !is_sec_y&& !is_sec_x) || (sec_cntr_y > 1 && is_sec_y)) {
+      inputs[[i]]$x_axis <- axis_options(axis_position = "b", delete = 1L)
+      inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
+      ylab <- NULL
+    } else if ((i > 1 && !is_sec_y && !is_sec_x) || (sec_cntr_x > 1 && is_sec_x)) {
+      inputs[[i]]$x_axis <- axis_options(axis_position = "t", delete = 1L)
+      inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
+      xlab <- NULL
+    }
+
+    inputs[[i]]$labels$title <- list(title = NULL, x = xlab, y = ylab)
 
     if (is.null(out$secondary)) {
       out$secondary <- list(inputs[[i]])
@@ -537,27 +548,32 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
 
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
+  secondary_x <- TRUE # logical will become FALSE if secondary axis are created
   secondary_y <- TRUE # logical will become FALSE if secondary axis are created
-  ids <- sample(seq.int(60000000, 70000000), size = 2, replace = FALSE)
+  ids <- sample(seq.int(60000000, 70000000), size = 4, replace = FALSE)
   if (length(x$secondary)) {
 
     ser_id <- length(x$yvar) + 1L
 
     for (sec in seq_along(x$secondary)) {
 
-      is_sec_y <- attr(x$secondary[[sec]], "secondary_y")
+      is_sec_x <- isTRUE(attr(x$secondary[[sec]], "secondary_x"))
+      is_sec_y <- isTRUE(attr(x$secondary[[sec]], "secondary_y"))
 
       # charts reference their axis via this id
-      if (!is.null(is_sec_y) && is_sec_y) {
+      if (is_sec_y) {
         x_id <- as.character(ids[1])
         y_id <- as.character(ids[2])
+      } else if (is_sec_x) {
+        x_id <- as.character(ids[3])
+        y_id <- as.character(ids[4])
       } else {
         x_id <- id_x
         y_id <- id_y
       }
 
       # add only one secondary x and y axis if required
-      if (!is.null(is_sec_y) && secondary_y && is_sec_y) {
+      if (secondary_y && is_sec_y) {
 
         axis_l_str <- axis_content_xml(
           x$secondary[[sec]]$y_axis,
@@ -582,6 +598,35 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
         y_axis_str <- paste0(y_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$x, axis_r_str, x$secondary[[sec]]$axis_tag$x))
 
         secondary_y <- FALSE
+
+      }
+
+      # add only one secondary x and y axis if required
+      if (secondary_x && is_sec_x) {
+
+        axis_l_str <- axis_content_xml(
+          x$secondary[[sec]]$y_axis,
+          id = y_id,
+          theme = x$secondary[[sec]]$theme,
+          cross_id = x_id,
+          is_x = FALSE,
+          lab = NULL,
+          rot = x$secondary[[sec]]$theme$title_y_rot
+        )
+
+        x_axis_str <- paste0(x_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$y, axis_l_str, x$secondary[[sec]]$axis_tag$y))
+
+        axis_r_str <- axis_content_xml(
+          x$secondary[[sec]]$x_axis,
+          id = x_id,
+          theme = x$secondary[[sec]]$theme,
+          cross_id = y_id,
+          is_x = TRUE,
+          lab = htmlEscape(x$secondary[[sec]]$labels$x),
+        )
+        y_axis_str <- paste0(y_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$x, axis_r_str, x$secondary[[sec]]$axis_tag$x))
+
+        secondary_x <- FALSE
 
       }
 

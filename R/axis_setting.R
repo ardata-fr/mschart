@@ -120,7 +120,13 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
     options$position <- position
   }
 
-  attr(x, "secondary_x") <- second_axis
+  if (second_axis) {
+    # remove y axis for convenience
+    x$y_axis <- axis_options(axis_position = "l", delete = 1L)
+    options$axis_position <- "t"
+    options$crosses <- "max"
+    attr(x, "secondary_x") <- second_axis
+  }
 
   x$x_axis <- do.call(axis_options, options)
   x
