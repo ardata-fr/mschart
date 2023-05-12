@@ -405,8 +405,10 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
 
   table_str <- table_content_xml(x)
 
+  sppr_str <- sppr_content_xml(x$theme, "plot")
+
   ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
-  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, x_axis_str, y_axis_str, table_str, "</c:plotArea>")
+  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, x_axis_str, y_axis_str, table_str, sppr_str, "</c:plotArea>")
   xml_doc <- read_xml(system.file(package = "mschart", "template", "chart.xml"))
 
   node <- xml_find_first(xml_doc, "//c:plotArea")
@@ -436,6 +438,11 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
     legend_ <- xml_find_first(xml_doc, "//c:chart/c:legend")
     xml_add_child(legend_, as_xml_document(labels_text_pr))
   }
+
+  chart_area_node <- xml_find_first(xml_doc, "//c:chartSpace")
+  chart_area_properties <- sppr_content_xml(x$theme, what = "chart", ns = ns)
+  xml_add_child(chart_area_node, as_xml_document(chart_area_properties))
+
   if (drop_ext_data) {
     xml_remove(xml_find_first(xml_doc, "//c:externalData"))
   }
