@@ -200,47 +200,56 @@ ms_combochart <- function(...) {
 
   inputs <- list(...)
 
-  out <-  inputs[[1]]
-
   sec_cntr_x <- 0
   sec_cntr_y <- 0
 
-  for (i in seq_along(inputs)[-1]) {
+  for (i in seq_along(inputs)) {
 
     if (!inherits(inputs[[i]], "ms_chart")) {
-      warning("skipping element: ", inputs[[i]])
+      warning("Skipping non ms_chart element: ", i)
       next
     }
 
-    is_sec_x <- isTRUE(attr(inputs[[i]], "secondary_x"))
-    is_sec_y <- isTRUE(attr(inputs[[i]], "secondary_y"))
-
-    sec_cntr_x <- sum(sec_cntr_x, is_sec_x)
-    sec_cntr_y <- sum(sec_cntr_y, is_sec_y)
-
-    # avoid additional labels. only one axis label and one title per chart
-    # title and x axis have to be defined in the first mschart
-    lbl <- inputs[[i]]$labels
-    xlab <- lbl$x
-    ylab <- lbl$y
-
-    # disable additional x and y axis for add and secondary_y
-    if ((i > 1 && !is_sec_y&& !is_sec_x) || (sec_cntr_y > 1 && is_sec_y)) {
-      inputs[[i]]$x_axis <- axis_options(axis_position = "b", delete = 1L)
-      inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
-      ylab <- NULL
-    } else if ((i > 1 && !is_sec_y && !is_sec_x) || (sec_cntr_x > 1 && is_sec_x)) {
-      inputs[[i]]$x_axis <- axis_options(axis_position = "t", delete = 1L)
-      inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
-      xlab <- NULL
+    if (!inputs[[i]]$asis) {
+      warning("Skipping non asis element: ", i)
+      next
     }
 
-    inputs[[i]]$labels$title <- list(title = NULL, x = xlab, y = ylab)
+    if (i == 1)
+      out <-  inputs[[1]]
 
-    if (is.null(out$secondary)) {
-      out$secondary <- list(inputs[[i]])
-    } else {
-      out$secondary <- append(out$secondary, list(inputs[[i]]))
+    if (i > 1) {
+
+      is_sec_x <- isTRUE(attr(inputs[[i]], "secondary_x"))
+      is_sec_y <- isTRUE(attr(inputs[[i]], "secondary_y"))
+
+      sec_cntr_x <- sum(sec_cntr_x, is_sec_x)
+      sec_cntr_y <- sum(sec_cntr_y, is_sec_y)
+
+      # avoid additional labels. only one axis label and one title per chart
+      # title and x axis have to be defined in the first mschart
+      lbl <- inputs[[i]]$labels
+      xlab <- lbl$x
+      ylab <- lbl$y
+
+      # disable additional x and y axis for add and secondary_y
+      if (sec_cntr_y > 1 && is_sec_y) {
+        inputs[[i]]$x_axis <- axis_options(axis_position = "b", delete = 1L)
+        inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
+        ylab <- NULL
+      } else if (sec_cntr_x > 1 && is_sec_x) {
+        inputs[[i]]$x_axis <- axis_options(axis_position = "t", delete = 1L)
+        inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
+        xlab <- NULL
+      }
+
+      inputs[[i]]$labels$title <- list(title = NULL, x = xlab, y = ylab)
+
+      if (is.null(out$secondary)) {
+        out$secondary <- list(inputs[[i]])
+      } else {
+        out$secondary <- append(out$secondary, list(inputs[[i]]))
+      }
     }
   }
 
