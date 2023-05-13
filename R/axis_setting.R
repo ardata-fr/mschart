@@ -18,7 +18,7 @@
 #' @param limit_min minimum value on the axis.
 #' @param limit_max maximum value on the axis.
 #' @param position position value that cross the other axis.
-#' @param second_axis unused
+#' @param second_axis logical to be used in `ms_combochart()`.
 #' @section num_fmt:
 #' All `%` need to be doubled, `0%%` mean "a number
 #' and percent symbol".
