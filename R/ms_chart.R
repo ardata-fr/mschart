@@ -196,6 +196,7 @@ ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALS
 #' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
 #' [chart_data_labels()], [chart_theme()], [chart_labels()]
 #' @export
+#' @example examples/05_combochart.R
 ms_combochart <- function(...) {
 
   inputs <- list(...)

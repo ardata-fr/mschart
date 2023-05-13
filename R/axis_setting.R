@@ -20,7 +20,7 @@
 #' @param limit_max maximum value on the axis. Date objects are also accepted
 #' and will be converted automatically.
 #' @param position the value at which this axis crosses the perpendicular axis.
-#' @param second_axis reserved for future use; currently ignored.
+#' @param second_axis logical to be used in `ms_combochart()`.
 #' @section num_fmt:
 #' All `%` need to be doubled, `0%%` means "a number
 #' and percent symbol".
