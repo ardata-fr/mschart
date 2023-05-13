@@ -52,7 +52,7 @@ and \code{360}.}
 
 \item{position}{position value that cross the other axis.}
 
-\item{second_axis}{unused}
+\item{second_axis}{logical to be used in \code{ms_combochart()}.}
 }
 \description{
 Define settings for a y axis.
