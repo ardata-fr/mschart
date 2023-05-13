@@ -200,8 +200,9 @@ ms_combochart <- function(...) {
 
   inputs <- list(...)
 
-  sec_cntr_x <- 0
-  sec_cntr_y <- 0
+  # write only a single additional x or y axis
+  sec_x <- TRUE
+  sec_y <- TRUE
 
   for (i in seq_along(inputs)) {
 
@@ -223,24 +224,42 @@ ms_combochart <- function(...) {
       is_sec_x <- isTRUE(attr(inputs[[i]], "secondary_x"))
       is_sec_y <- isTRUE(attr(inputs[[i]], "secondary_y"))
 
-      sec_cntr_x <- sum(sec_cntr_x, is_sec_x)
-      sec_cntr_y <- sum(sec_cntr_y, is_sec_y)
-
       # avoid additional labels. only one axis label and one title per chart
       # title and x axis have to be defined in the first mschart
       lbl <- inputs[[i]]$labels
-      xlab <- lbl$x
-      ylab <- lbl$y
+      xlab <- NULL
+      ylab <- NULL
 
-      # disable additional x and y axis for add and secondary_y
-      if (sec_cntr_y > 1 && is_sec_y) {
+      # disable additional x and y axis.
+      # TODO: it is not yet possible to draw additional x and
+      # additional y axis into a single plot because axis elements
+      # are taken only from the first two mschart elements:
+      # The base chart and the first second axis
+      if (sec_x && is_sec_x && !is_sec_y) {
+        inputs[[i]]$x_axis$delete <- 0L
+        inputs[[i]]$x_axis$axis_position <- "t"
+        inputs[[i]]$x_axis$crosses <- "max"
+
+        inputs[[i]]$y_axis$delete <- 1L
+        inputs[[i]]$y_axis$axis_position <- "l"
+        inputs[[i]]$y_axis$crosses <- "autoZero"
+
+        xlab <- lbl$x
+        sec_x <- FALSE
+      } else if (sec_y && is_sec_y && !is_sec_x) {
+        inputs[[i]]$x_axis$delete <- 1L
+        inputs[[i]]$x_axis$axis_position <- "b"
+        inputs[[i]]$x_axis$crosses <- "autoZero"
+
+        inputs[[i]]$y_axis$delete <- 0L
+        inputs[[i]]$y_axis$axis_position <- "r"
+        inputs[[i]]$y_axis$crosses <- "max"
+
+        ylab <- lbl$y
+        sec_y <- FALSE
+      } else {
+        inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
         inputs[[i]]$x_axis <- axis_options(axis_position = "b", delete = 1L)
-        inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
-        ylab <- NULL
-      } else if (sec_cntr_x > 1 && is_sec_x) {
-        inputs[[i]]$x_axis <- axis_options(axis_position = "t", delete = 1L)
-        inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
-        xlab <- NULL
       }
 
       inputs[[i]]$labels$title <- list(title = NULL, x = xlab, y = ylab)
