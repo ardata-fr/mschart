@@ -557,13 +557,14 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
 
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
-  secondary_x <- TRUE # logical will become FALSE if secondary axis are created
-  secondary_y <- TRUE # logical will become FALSE if secondary axis are created
+  secondary <- TRUE # logical will become FALSE if secondary axis are created
 
   # avoid altering the seed
   seed <- get0(".Random.seed", globalenv(), mode = "integer", inherits = FALSE)
   ids <- sample(seq.int(60000000, 70000000), size = 4, replace = FALSE)
   assign(".Random.seed", seed, globalenv())
+
+  axis_str <- paste0(x_axis_str, y_axis_str)
 
   if (length(x$secondary)) {
 
@@ -575,19 +576,19 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
       is_sec_y <- isTRUE(attr(x$secondary[[sec]], "secondary_y"))
 
       # charts reference their axis via this id
-      if (is_sec_y) {
+      if (is_sec_y || is_sec_x) {
         x_id <- as.character(ids[1])
         y_id <- as.character(ids[2])
-      } else if (is_sec_x) {
-        x_id <- as.character(ids[3])
-        y_id <- as.character(ids[4])
       } else {
         x_id <- id_x
         y_id <- id_y
       }
 
+      xlab <- if (is_sec_x && !is_sec_y) htmlEscape(x$secondary[[sec]]$labels$x) else NULL
+      ylab <- if (is_sec_y && !is_sec_x) htmlEscape(x$secondary[[sec]]$labels$y) else NULL
+
       # add only one secondary x and y axis if required
-      if (secondary_y && is_sec_y) {
+      if (secondary && (is_sec_x || is_sec_y)) {
 
         axis_l_str <- axis_content_xml(
           x$secondary[[sec]]$y_axis,
@@ -595,11 +596,11 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
           theme = x$secondary[[sec]]$theme,
           cross_id = x_id,
           is_x = FALSE,
-          lab = htmlEscape(x$secondary[[sec]]$labels$y),
+          lab = ylab,
           rot = x$secondary[[sec]]$theme$title_y_rot
         )
 
-        x_axis_str <- paste0(x_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$y, axis_l_str, x$secondary[[sec]]$axis_tag$y))
+        x_axis_str <- sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$y, axis_l_str, x$secondary[[sec]]$axis_tag$y)
 
         axis_r_str <- axis_content_xml(
           x$secondary[[sec]]$x_axis,
@@ -607,41 +608,13 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
           theme = x$secondary[[sec]]$theme,
           cross_id = y_id,
           is_x = TRUE,
-          lab = NULL
+          lab = xlab
         )
-        y_axis_str <- paste0(y_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$x, axis_r_str, x$secondary[[sec]]$axis_tag$x))
+        y_axis_str <- sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$x, axis_r_str, x$secondary[[sec]]$axis_tag$x)
 
-        secondary_y <- FALSE
+        secondary <- FALSE
 
-      }
-
-      # add only one secondary x and y axis if required
-      if (secondary_x && is_sec_x) {
-
-        axis_l_str <- axis_content_xml(
-          x$secondary[[sec]]$y_axis,
-          id = y_id,
-          theme = x$secondary[[sec]]$theme,
-          cross_id = x_id,
-          is_x = FALSE,
-          lab = NULL,
-          rot = x$secondary[[sec]]$theme$title_y_rot
-        )
-
-        x_axis_str <- paste0(x_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$y, axis_l_str, x$secondary[[sec]]$axis_tag$y))
-
-        axis_r_str <- axis_content_xml(
-          x$secondary[[sec]]$x_axis,
-          id = x_id,
-          theme = x$secondary[[sec]]$theme,
-          cross_id = y_id,
-          is_x = TRUE,
-          lab = htmlEscape(x$secondary[[sec]]$labels$x),
-        )
-        y_axis_str <- paste0(y_axis_str, sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$x, axis_r_str, x$secondary[[sec]]$axis_tag$x))
-
-        secondary_x <- FALSE
-
+        axis_str <- paste0(axis_str, x_axis_str, y_axis_str)
       }
 
       # all secondary charts
@@ -676,8 +649,7 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   xml_elt <- paste0(
     "<c:plotArea ", ns, "><c:layout/>",
     str_,
-    x_axis_str,
-    y_axis_str,
+    axis_str,
     table_str,
     sppr_str,
     "</c:plotArea>"

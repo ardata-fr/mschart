@@ -121,7 +121,7 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
 
   if (second_axis) {
     # remove y axis for convenience
-    x$y_axis <- axis_options(axis_position = "l", delete = 1L)
+    x$y_axis <- axis_options(axis_position = "l", delete = 1L, crosses = "autoZero")
     options$axis_position <- "t"
     options$crosses <- "max"
     attr(x, "secondary_x") <- second_axis
@@ -201,7 +201,7 @@ chart_ax_y <- function( x, orientation, crosses, cross_between,
 
   if (second_axis) {
     # remove x axis for convenience
-    x$x_axis <- axis_options(axis_position = "b", delete = 1L)
+    x$x_axis <- axis_options(axis_position = "b", delete = 1L, crosses = "autoZero")
     options$axis_position <- "r"
     options$crosses <- "max"
     attr(x, "secondary_y") <- second_axis
