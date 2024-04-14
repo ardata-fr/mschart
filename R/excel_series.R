@@ -64,7 +64,7 @@ dcast_data <- function(data, x, y, group) {
     dataset,
     formula = as.formula(form_str),
     fun.aggregate = function(x) {
-      x
+      x[length(x)]
     },
     fill = NA, value.var = y
   )
