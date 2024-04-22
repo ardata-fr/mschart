@@ -59,15 +59,16 @@ transpose_data <- function(data, vars, group) {
 
 dcast_data <- function(data, x, y, group) {
   dataset <- as.data.table(data)
-  form_str <- sprintf("%s ~ %s", x, group)
+  form_str <- sprintf("%s + data.table::rowid(%s, prefix = 'dcast_dummy') ~ %s", x, x, group)
+  #dataset[, c('dcast_dummy') := list(seq_len(nrow(dataset)))]
+
   out <- dcast.data.table(
     dataset,
     formula = as.formula(form_str),
-    fun.aggregate = function(x) {
-      x[length(x)]
-    },
-    fill = NA, value.var = y
+    fill = NA,
+    value.var = y
   )
+  #out$dcast_dummy <- NULL
   setDF(out)
   out
 }
@@ -92,9 +93,6 @@ transpose_series_bysplit <- function(x) {
   }
   out
 }
-
-
-
 
 
 
