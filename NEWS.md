@@ -1,8 +1,29 @@
+# mschart 0.4.1
+
+## Issues
+
+* fix issue with dcast by making sure all data are preserved.
+
+## New features
+
+* Add support to set chart and plot area color and border by Stefan Moog ;
+added four new theme arguments chart/plot_background and chart/plot_border, 
+new theme `theme_ggplot2()`.
+
+
+
 # mschart 0.4.0
 
 ## New features
 
 * Support for openxlsx2 by Jan Marvin Garbuszus
+* option to add table of data below corresponding levels by Marlon Molina
+
+## Issues
+
+* fix issue with % in labels of the graphic
+* stop reordering data when a group is used, user is expected to 
+do it before sending the data to mschart.
 
 # mschart 0.3.1
 

@@ -30,6 +30,10 @@ mschart_theme(
   grid_minor_line = fp_border(width = 0),
   grid_minor_line_x = grid_minor_line,
   grid_minor_line_y = grid_minor_line,
+  chart_background = NULL,
+  chart_border = fp_border(color = "transparent"),
+  plot_background = NULL,
+  plot_border = fp_border(color = "transparent"),
   date_fmt = "yyyy/mm/dd",
   str_fmt = "General",
   double_fmt = "#,##0.00",
@@ -54,6 +58,10 @@ chart_theme(
   grid_major_line_y,
   grid_minor_line_x,
   grid_minor_line_y,
+  chart_background,
+  chart_border,
+  plot_background,
+  plot_border,
   date_fmt,
   str_fmt,
   double_fmt,
@@ -83,6 +91,14 @@ chart_theme(
 \item{grid_major_line, grid_major_line_x, grid_major_line_y}{major grid lines formatting properties (see \code{\link[=fp_border]{fp_border()}})}
 
 \item{grid_minor_line, grid_minor_line_x, grid_minor_line_y}{minor grid lines formatting properties (see \code{\link[=fp_border]{fp_border()}})}
+
+\item{chart_background}{chart area background fill color - single character value (e.g. "#000000" or "black")}
+
+\item{chart_border}{chart area border lines formatting properties (see \code{\link[=fp_border]{fp_border()}})}
+
+\item{plot_background}{plot area background fill color - single character value (e.g. "#000000" or "black")}
+
+\item{plot_border}{plot area border lines formatting properties (see \code{\link[=fp_border]{fp_border()}})}
 
 \item{date_fmt}{date format}
 

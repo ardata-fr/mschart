@@ -1,13 +1,15 @@
 Package: mschart
 Type: Package
 Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents
-Version: 0.4.0.002
+Version: 0.4.1.002
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"), 
       email = "david.gohel@ardata.fr"),
     person(given = "ArData", role = "cph"),
     person("YouGov", role = "fnd"),
     person("Jan Marvin", "Garbuszus", role = "ctb", comment = "support for openxls2"),
+    person("Stefan", "Moog", role = "ctb", email = 'moogs@gmx.de', comment = "support to set chart and plot area color and border"),
+    person("Eli", "Daniels", role = "ctb", email = 'eli.daniels@ardata.fr'),
     person("Marlon", "Molina", role = "ctb", comment = "added table feature"),
     person("Rokas", "Klydzia", role = "ctb", comment = "custom labels"),
     person("David", "Camposeco", role = "ctb", 
@@ -25,12 +27,19 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
-Imports: stats, data.table,
- officer (>= 0.3.6), cellranger,
- writexl, grDevices, xml2 (>= 1.1.0),
- htmltools, utils
+Imports: 
+    stats,
+    data.table,
+    officer (>= 0.3.6),
+    cellranger,
+    writexl,
+    grDevices,
+    xml2 (>= 1.1.0),
+    htmltools,
+    utils,
+    scales
 URL: https://ardata-fr.github.io/officeverse/, https://ardata-fr.github.io/mschart/
 BugReports: https://github.com/ardata-fr/mschart/issues
-RoxygenNote: 7.2.2
+RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
-Suggests: tinytest
+Suggests: tinytest, doconv

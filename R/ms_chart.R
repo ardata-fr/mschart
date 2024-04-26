@@ -49,13 +49,11 @@ assert_line <- function(data_y) {
 #' [chart_data_labels()], [chart_theme()], [chart_labels()]
 #' @section Illustrations:
 #'
-#' \if{html}{
+#' \if{html}{\figure{fig_ms_linechart_1.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_linechart_1.png}{options: width=60\%}
+#' \if{html}{\figure{fig_ms_linechart_2.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_linechart_2.png}{options: width=60\%}
-#'
-#' }
+#' \if{html}{\figure{fig_ms_linechart_3.png}{options: width="500"}}
 #' @examples
 #' library(officer)
 #' @example examples/02_linechart.R
@@ -89,15 +87,17 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' @export
 #' @section Illustrations:
 #'
-#' \if{html}{
+#' \if{html}{\figure{fig_ms_barchart_1.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_barchart_1.png}{options: width=60\%}
+#' \if{html}{\figure{fig_ms_barchart_2.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_barchart_2.png}{options: width=60\%}
+#' \if{html}{\figure{fig_ms_barchart_3.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_barchart_3.png}{options: width=60\%}
+#' \if{html}{\figure{fig_ms_barchart_4.png}{options: width="500"}}
 #'
-#' }
+#' \if{html}{\figure{fig_ms_barchart_5.png}{options: width="500"}}
+#'
+#' \if{html}{\figure{fig_ms_barchart_6.png}{options: width="500"}}
 #' @examples
 #' library(officer)
 #' @example examples/01_barchart.R
@@ -151,13 +151,9 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' @export
 #' @section Illustrations:
 #'
-#' \if{html}{
+#' \if{html}{\figure{fig_ms_scatterchart_1.png}{options: width="500"}}
 #'
-#' \figure{fig_ms_scatterchart_1.png}{options: width=60\%}
-#'
-#' \figure{fig_ms_scatterchart_2.png}{options: width=60\%}
-#'
-#' }
+#' \if{html}{\figure{fig_ms_scatterchart_2.png}{options: width="500"}}
 #' @examples
 #' library(officer)
 #' @example examples/04_scatterchart.R
@@ -434,8 +430,10 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
 
   table_str <- table_content_xml(x)
 
+  sppr_str <- sppr_content_xml(x$theme, "plot")
+
   ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
-  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, x_axis_str, y_axis_str, table_str, "</c:plotArea>")
+  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, x_axis_str, y_axis_str, table_str, sppr_str, "</c:plotArea>")
   xml_doc <- read_xml(system.file(package = "mschart", "template", "chart.xml"))
 
   node <- xml_find_first(xml_doc, "//c:plotArea")
@@ -444,7 +442,7 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   if (!is.null(x$labels[["title"]])) {
     chartnode <- xml_find_first(xml_doc, "//c:chart")
     title_ <- "<c:title %s><c:tx><c:rich><a:bodyPr/><a:lstStyle/><a:p><a:pPr><a:defRPr/></a:pPr><a:r>%s<a:t>%s</a:t></a:r></a:p></c:rich></c:tx><c:layout/><c:overlay val=\"0\"/></c:title>"
-    title_ <- sprintf(title_, ns, format(x$theme[["main_title"]], type = "pml"), x$labels[["title"]])
+    title_ <- sprintf(title_, ns, format(x$theme[["main_title"]], type = "pml"), htmlEscape(x$labels[["title"]]))
     xml_add_child(chartnode, as_xml_document(title_), .where = 0)
   } else { # null is not enough
     atd_node <- xml_find_first(xml_doc, "//c:chart/c:autoTitleDeleted")
@@ -465,6 +463,11 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
     legend_ <- xml_find_first(xml_doc, "//c:chart/c:legend")
     xml_add_child(legend_, as_xml_document(labels_text_pr))
   }
+
+  chart_area_node <- xml_find_first(xml_doc, "//c:chartSpace")
+  chart_area_properties <- sppr_content_xml(x$theme, what = "chart", ns = ns)
+  xml_add_child(chart_area_node, as_xml_document(chart_area_properties))
+
   if (drop_ext_data) {
     xml_remove(xml_find_first(xml_doc, "//c:externalData"))
   }

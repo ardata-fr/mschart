@@ -2,8 +2,8 @@
 % Please edit documentation in R/package.R
 \docType{package}
 \name{mschart}
-\alias{mschart}
 \alias{mschart-package}
+\alias{mschart}
 \title{Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents}
 \description{
 It lets R users to create Microsoft Office charts from data, and
@@ -60,6 +60,8 @@ Other contributors:
   \item ArData [copyright holder]
   \item YouGov [funder]
   \item Jan Marvin Garbuszus (support for openxls2) [contributor]
+  \item Stefan Moog \email{moogs@gmx.de} (support to set chart and plot area color and border) [contributor]
+  \item Eli Daniels \email{eli.daniels@ardata.fr} [contributor]
   \item Marlon Molina (added table feature) [contributor]
   \item Rokas Klydzia (custom labels) [contributor]
   \item David Camposeco \email{david.camposeco.paulsen@gmail.com} (chart_data_smooth function) [contributor]

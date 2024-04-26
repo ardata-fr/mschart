@@ -9,7 +9,6 @@ dat <- data.frame(
   stringsAsFactors=F)
 
 
-# example areachart -------
 chart_01 <- ms_linechart(data = dat, x = "musician", y = "count", group = "color")
 
 settings <- c(green = 1L, unclear = 0L, gray = 0L)
@@ -32,4 +31,3 @@ names(smooth_data) <- serie_names
 smooth_data <- smooth_data[order(names(smooth_data))]
 
 expect_equivalent(settings, smooth_data)
-

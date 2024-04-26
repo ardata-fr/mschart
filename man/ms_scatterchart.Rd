@@ -30,13 +30,9 @@ inserted in a 'Microsoft' document.
 \section{Illustrations}{
 
 
-\if{html}{
+\if{html}{\figure{fig_ms_scatterchart_1.png}{options: width="500"}}
 
-\figure{fig_ms_scatterchart_1.png}{options: width=60\%}
-
-\figure{fig_ms_scatterchart_2.png}{options: width=60\%}
-
-}
+\if{html}{\figure{fig_ms_scatterchart_2.png}{options: width="500"}}
 }
 
 \examples{

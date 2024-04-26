@@ -313,25 +313,3 @@ chart_data_smooth <- function(x, values){
   x$series_settings$smooth[names(values)] <- values
   x
 }
-
-#' chart_labels_colors <- function(x, values){
-#'
-#'   valid_cols <- is_valid_color(values)
-#'   if( any(!valid_cols) )
-#'     stop("invalid color(s) in argument values")
-#'
-#'   serie_names <- names(x$series_settings$labels_colors)
-#'
-#'   if( length(values) == 1 ){
-#'     values <- rep(values, length(serie_names))
-#'     names(values) <- serie_names
-#'   }
-#'
-#'   if( !all(names(values) %in% serie_names ) )
-#'     stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
-#'
-#'
-#'   x$series_settings$colour[names(values)] <- values
-#'   x
-#' }
-

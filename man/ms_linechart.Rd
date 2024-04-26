@@ -35,13 +35,11 @@ trends in data at equal intervals, like months and quarters.
 \section{Illustrations}{
 
 
-\if{html}{
+\if{html}{\figure{fig_ms_linechart_1.png}{options: width="500"}}
 
-\figure{fig_ms_linechart_1.png}{options: width=60\%}
+\if{html}{\figure{fig_ms_linechart_2.png}{options: width="500"}}
 
-\figure{fig_ms_linechart_2.png}{options: width=60\%}
-
-}
+\if{html}{\figure{fig_ms_linechart_3.png}{options: width="500"}}
 }
 
 \examples{

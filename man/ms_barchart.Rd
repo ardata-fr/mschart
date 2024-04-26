@@ -40,15 +40,17 @@ Consider using a bar chart when:
 \section{Illustrations}{
 
 
-\if{html}{
+\if{html}{\figure{fig_ms_barchart_1.png}{options: width="500"}}
 
-\figure{fig_ms_barchart_1.png}{options: width=60\%}
+\if{html}{\figure{fig_ms_barchart_2.png}{options: width="500"}}
 
-\figure{fig_ms_barchart_2.png}{options: width=60\%}
+\if{html}{\figure{fig_ms_barchart_3.png}{options: width="500"}}
 
-\figure{fig_ms_barchart_3.png}{options: width=60\%}
+\if{html}{\figure{fig_ms_barchart_4.png}{options: width="500"}}
 
-}
+\if{html}{\figure{fig_ms_barchart_5.png}{options: width="500"}}
+
+\if{html}{\figure{fig_ms_barchart_6.png}{options: width="500"}}
 }
 
 \examples{
@@ -167,17 +169,17 @@ dat_groups
 
 text_prop <- fp_text(font.size = 11, color = "gray")
 
-chrt <- ms_barchart(
+chart_04 <- ms_barchart(
   data = dat_groups, x = "cut",
   labels = "label", y = "n", group = "clarity"
 )
-chrt <- chart_settings(chrt,
+chart_04 <- chart_settings(chart_04,
   grouping = "clustered", dir = "horizontal",
   gap_width = 0
 )
-chrt <- chart_data_labels(chrt, position = "outEnd")
-chrt <- chart_labels_text(chrt, text_prop)
-chrt <- chart_theme(chrt, title_x_rot = 270, title_y_rot = 0)
+chart_04 <- chart_data_labels(chart_04, position = "outEnd")
+chart_04 <- chart_labels_text(chart_04, text_prop)
+chart_04 <- chart_theme(chart_04, title_x_rot = 270, title_y_rot = 0)
 
 # example chart 05 -------
 
@@ -192,26 +194,28 @@ dat_no_group <- data.frame(
     "carat median is 0.9", "carat median is 0.5"
   )
 )
-chrt <- ms_barchart(
+chart_05 <- ms_barchart(
   data = dat_no_group,
   x = "cut", labels = "label", y = "n"
 )
-chrt <- chart_settings(chrt,
+chart_05 <- chart_settings(chart_05,
   grouping = "clustered"
 )
-chrt <- chart_data_labels(chrt, position = "outEnd")
-chrt <- chart_labels_text(chrt, text_prop)
+chart_05 <- chart_data_labels(chart_05, position = "outEnd")
+chart_05 <- chart_labels_text(chart_05, text_prop)
 
 # example chart 06 -------
-chrt2 <- ms_barchart(
+chart_06 <- ms_barchart(
   data = dat_no_group,
   x = "cut", labels = "label", y = "n"
 )
-chrt2 <- chart_settings(chrt2,
+chart_06 <- chart_settings(chart_06,
   grouping = "clustered", table = TRUE
 )
-chrt2 <- chart_data_labels(chrt2, position = "outEnd")
-chrt2 <- chart_labels_text(chrt2, text_prop)
+chart_06 <- chart_data_labels(chart_06, position = "outEnd")
+chart_06 <- chart_labels_text(chart_06, text_prop)
+
+
 }
 \seealso{
 \code{\link[=chart_settings]{chart_settings()}}, \code{\link[=chart_ax_x]{chart_ax_x()}}, \code{\link[=chart_ax_y]{chart_ax_y()}},
