@@ -1,3 +1,9 @@
+# mschart 0.4.1
+
+## Issues
+
+* fix issue with dcast by making sure all data are preserved.
+
 # mschart 0.4.0
 
 ## New features
