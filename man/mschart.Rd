@@ -2,8 +2,8 @@
 % Please edit documentation in R/package.R
 \docType{package}
 \name{mschart}
-\alias{mschart}
 \alias{mschart-package}
+\alias{mschart}
 \title{Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents}
 \description{
 It lets R users to create Microsoft Office charts from data, and
