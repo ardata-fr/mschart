@@ -4,6 +4,14 @@
 
 * fix issue with dcast by making sure all data are preserved.
 
+## New features
+
+* Add support to set chart and plot area color and border by Stefan Moog ;
+added four new theme arguments chart/plot_background and chart/plot_border, 
+new theme `theme_ggplot2()`.
+
+
+
 # mschart 0.4.0
 
 ## New features

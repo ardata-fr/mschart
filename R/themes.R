@@ -63,14 +63,15 @@ theme_ggplot2 <- function(x, base_size = 11, base_family = "Arial") {
 #'
 #' p <- theme_ggplot2(p)
 #' p <- chart_fill_ggplot2(p)
+#' @importFrom scales hue_pal
 chart_fill_ggplot2 <- function(x, stroke = TRUE) {
   if (!is.null(x$group)) {
     groups <- unique(x$data[[x$group]])
     ngroups <- length(groups)
-    pal <- scales::hue_pal()(ngroups)
+    pal <- hue_pal()(ngroups)
     names(pal) <- groups
   } else {
-    pal <- scales::hue_pal()(1)
+    pal <- hue_pal()(1)
   }
 
   x <- chart_data_fill(x, values = pal)
