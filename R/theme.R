@@ -48,6 +48,10 @@ set_theme <- function(x, value) {
 #' @param axis_ticks,axis_ticks_x,axis_ticks_y axis ticks formatting properties (see [fp_border()])
 #' @param grid_major_line,grid_major_line_x,grid_major_line_y major grid lines formatting properties (see [fp_border()])
 #' @param grid_minor_line,grid_minor_line_x,grid_minor_line_y minor grid lines formatting properties (see [fp_border()])
+#' @param plot_border plot area border lines formatting properties (see [fp_border()])
+#' @param chart_border chart area border lines formatting properties (see [fp_border()])
+#' @param plot_background plot area background fill color - single character value (e.g. "#000000" or "black")
+#' @param chart_background chart area background fill color - single character value (e.g. "#000000" or "black")
 #' @param date_fmt date format
 #' @param str_fmt string or factor format
 #' @param double_fmt double format
@@ -65,6 +69,8 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
                           axis_ticks = fp_border(color = "#99999999"), axis_ticks_x = axis_ticks, axis_ticks_y = axis_ticks,
                           grid_major_line = fp_border(color = "#99999999", style = "dashed"), grid_major_line_x = grid_major_line, grid_major_line_y = grid_major_line,
                           grid_minor_line = fp_border(width = 0), grid_minor_line_x = grid_minor_line, grid_minor_line_y = grid_minor_line,
+                          chart_background = NULL, chart_border = fp_border(color = "transparent"),
+                          plot_background = NULL, plot_border = fp_border(color = "transparent"),
                           date_fmt = "yyyy/mm/dd", str_fmt = "General", double_fmt = "#,##0.00", integer_fmt = "0", legend_position = "b") {
   stopifnot(inherits(main_title, "fp_text"))
   stopifnot(inherits(table_text, "fp_text"))
@@ -84,6 +90,8 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
   stopifnot(inherits(grid_minor_line, "fp_border"))
   stopifnot(inherits(grid_minor_line_x, "fp_border"))
   stopifnot(inherits(grid_minor_line_y, "fp_border"))
+  stopifnot(inherits(chart_border, "fp_border"))
+  stopifnot(inherits(plot_border, "fp_border"))
 
   if (title_rot < 0 && title_rot > 359) {
     stop("title_rot must be between 0 and 359")
@@ -110,6 +118,8 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
     axis_ticks_x = axis_ticks_x, axis_ticks_y = axis_ticks_y,
     grid_major_line_x = grid_major_line_x, grid_major_line_y = grid_major_line_y,
     grid_minor_line_x = grid_minor_line_x, grid_minor_line_y = grid_minor_line_y,
+    chart_background = chart_background, chart_border = chart_border,
+    plot_background = plot_background, plot_border = plot_border,
     legend_position = legend_position
   )
   class(out) <- "mschart_theme"
@@ -125,6 +135,8 @@ chart_theme <- function(x, axis_title_x, axis_title_y, main_title, legend_text,
                         axis_ticks_x, axis_ticks_y,
                         grid_major_line_x, grid_major_line_y,
                         grid_minor_line_x, grid_minor_line_y,
+                        chart_background, chart_border,
+                        plot_background, plot_border,
                         date_fmt, str_fmt, double_fmt, integer_fmt, legend_position) {
   if (!missing(axis_title_x)) {
     if (!all(class(axis_title_x) %in% class(x$theme$axis_title_x))) {
@@ -208,6 +220,20 @@ chart_theme <- function(x, axis_title_x, axis_title_y, main_title, legend_text,
       stop("grid_minor_line_y should be of class ", class(x$theme$grid_minor_line_y))
     }
     x$theme$grid_minor_line_y <- grid_minor_line_y
+  }
+
+  if (!missing(chart_border)) {
+    if (!all(class(chart_border) %in% class(x$theme$chart_border))) {
+      stop("chart_border should be of class ", class(x$theme$chart_border))
+    }
+    x$theme$chart_border <- chart_border
+  }
+
+  if (!missing(plot_border)) {
+    if (!all(class(plot_border) %in% class(x$theme$plot_border))) {
+      stop("plot_border should be of class ", class(x$theme$plot_border))
+    }
+    x$theme$plot_border <- plot_border
   }
 
   if (!missing(date_fmt)) {
