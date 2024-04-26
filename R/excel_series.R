@@ -57,15 +57,17 @@ transpose_data <- function(data, vars, group) {
 }
 
 
+#' @importFrom data.table := .N
 dcast_data <- function(data, x, y, group) {
   dataset <- as.data.table(data)
-  form_str <- sprintf("%s + data.table::rowid(%s, prefix = 'dcast_dummy') ~ %s", x, x, group)
+  dataset <- dataset[, c(".fake_id.") := list(seq_len(.N)), by = c(x, group)]
+  form_str <- sprintf("%s + .fake_id. ~ %s", x, group)
   out <- dcast.data.table(
     dataset,
     formula = as.formula(form_str),
-    fill = NA,
-    value.var = y
+    fill = NA, value.var = y
   )
+  out$.fake_id. <- NULL
   setDF(out)
   out
 }
