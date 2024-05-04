@@ -3,7 +3,7 @@ Type: Package
 Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents
 Version: 0.4.1.002
 Authors@R: c(
-    person("David", "Gohel", role = c("aut", "cre"), 
+    person("David", "Gohel", role = c("aut", "cre"),
       email = "david.gohel@ardata.fr"),
     person(given = "ArData", role = "cph"),
     person("YouGov", role = "fnd"),
@@ -12,22 +12,22 @@ Authors@R: c(
     person("Eli", "Daniels", role = "ctb", email = 'eli.daniels@ardata.fr'),
     person("Marlon", "Molina", role = "ctb", comment = "added table feature"),
     person("Rokas", "Klydzia", role = "ctb", comment = "custom labels"),
-    person("David", "Camposeco", role = "ctb", 
-      email = "david.camposeco.paulsen@gmail.com", 
+    person("David", "Camposeco", role = "ctb",
+      email = "david.camposeco.paulsen@gmail.com",
       comment = "chart_data_smooth function"),
-    person("Dan", "Joplin", role = "ctb", 
-      comment = "fix scatter plot data structure") 
+    person("Dan", "Joplin", role = "ctb",
+      comment = "fix scatter plot data structure")
     )
-Description: Create native charts for 'Microsoft PowerPoint' and 'Microsoft Word' documents. 
- These can then be edited and annotated. Functions are provided to let users create charts, modify 
- and format their content. The chart's underlying data is automatically saved within the 
- 'Word' document or 'PowerPoint' presentation. It extends package 'officer' that does 
- not contain any feature for 'Microsoft' native charts production. 
+Description: Create native charts for 'Microsoft PowerPoint' and 'Microsoft Word' documents.
+ These can then be edited and annotated. Functions are provided to let users create charts, modify
+ and format their content. The chart's underlying data is automatically saved within the
+ 'Word' document or 'PowerPoint' presentation. It extends package 'officer' that does
+ not contain any feature for 'Microsoft' native charts production.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
-Imports: 
+Imports:
     stats,
     data.table,
     officer (>= 0.3.6),
