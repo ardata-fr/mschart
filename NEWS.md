@@ -3,6 +3,7 @@
 ## Issues
 
 * fix issue with dcast by making sure all data are preserved.
+* Fix. Account for "none" linestyle set via `chart_data_line_style`. Closes #91.
 
 ## New features
 
