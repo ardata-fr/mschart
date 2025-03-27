@@ -18,7 +18,7 @@
 \description{
 produces a Microsoft Chart graphics output from R instructions
 and add the result in a PowerPoint document object produced
-by \code{\link[=read_pptx]{read_pptx()}}.
+by \code{\link[officer:read_pptx]{officer::read_pptx()}}.
 }
 \examples{
 my_barchart <- ms_barchart(data = browser_data,

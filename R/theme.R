@@ -39,17 +39,17 @@ set_theme <- function(x, value) {
 
 #' @importFrom officer fp_text fp_border
 #' @description Use \code{mschart_theme()} to create a chart theme.
-#' @param axis_title,axis_title_x,axis_title_y axis title formatting properties (see [fp_text()])
-#' @param main_title title formatting properties (see [fp_text()])
-#' @param legend_text legend text formatting properties (see [fp_text()])
-#' @param table_text table text formatting properties (see [fp_text()])
-#' @param axis_text,axis_text_x,axis_text_y axis text formatting properties (see [fp_text()])
+#' @param axis_title,axis_title_x,axis_title_y axis title formatting properties (see [officer::fp_text()])
+#' @param main_title title formatting properties (see [officer::fp_text()])
+#' @param legend_text legend text formatting properties (see [officer::fp_text()])
+#' @param table_text table text formatting properties (see [officer::fp_text()])
+#' @param axis_text,axis_text_x,axis_text_y axis text formatting properties (see [officer::fp_text()])
 #' @param title_rot,title_x_rot,title_y_rot rotation angle
-#' @param axis_ticks,axis_ticks_x,axis_ticks_y axis ticks formatting properties (see [fp_border()])
-#' @param grid_major_line,grid_major_line_x,grid_major_line_y major grid lines formatting properties (see [fp_border()])
-#' @param grid_minor_line,grid_minor_line_x,grid_minor_line_y minor grid lines formatting properties (see [fp_border()])
-#' @param plot_border plot area border lines formatting properties (see [fp_border()])
-#' @param chart_border chart area border lines formatting properties (see [fp_border()])
+#' @param axis_ticks,axis_ticks_x,axis_ticks_y axis ticks formatting properties (see [officer::fp_border()])
+#' @param grid_major_line,grid_major_line_x,grid_major_line_y major grid lines formatting properties (see [officer::fp_border()])
+#' @param grid_minor_line,grid_minor_line_x,grid_minor_line_y minor grid lines formatting properties (see [officer::fp_border()])
+#' @param plot_border plot area border lines formatting properties (see [officer::fp_border()])
+#' @param chart_border chart area border lines formatting properties (see [officer::fp_border()])
 #' @param plot_background plot area background fill color - single character value (e.g. "#000000" or "black")
 #' @param chart_background chart area background fill color - single character value (e.g. "#000000" or "black")
 #' @param date_fmt date format
