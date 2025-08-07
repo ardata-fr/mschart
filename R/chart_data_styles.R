@@ -2,9 +2,9 @@
 #' @title Modify labels font settings
 #' @description Specify mappings from levels in the data to displayed text font settings.
 #' @param x an `ms_chart` object.
-#' @param values a named list of [fp_text()] objects to map data labels to.
+#' @param values a named list of [officer::fp_text()] objects to map data labels to.
 #' It is a named list, the values will be matched based on the names.
-#' If it contains only one [fp_text()] object, it will be associated to all existing series.
+#' If it contains only one [officer::fp_text()] object, it will be associated to all existing series.
 #' @examples
 #' library(officer)
 #'

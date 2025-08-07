@@ -24,6 +24,8 @@ update.col_ref <- function(object, values = NULL, region = NULL, num_fmt = NULL,
 }
 
 
+#' @export
+#' @method to_pml str_ref
 to_pml.str_ref <- function(x, add_ns = FALSE, ...){
 
   pt_ <- "<c:pt idx=\"%.0f\"><c:v>%s</c:v></c:pt>"
@@ -59,6 +61,8 @@ num_ref <- function(values, region = NULL, num_fmt = NULL){
   x
 }
 
+#' @export
+#' @method to_pml num_ref
 to_pml.num_ref <- function(x, add_ns = FALSE, ...){
   pt_ <- "<c:pt idx=\"%.0f\"><c:v>%s</c:v></c:pt>"
   values <- character(length(x$values))
@@ -89,6 +93,8 @@ date_ref <- function(values, region = NULL, num_fmt = NULL){
   x
 }
 
+#' @export
+#' @method to_pml date_ref
 to_pml.date_ref <- function(x, add_ns = FALSE, ...){
   pt_ <- "<c:pt idx=\"%.0f\"><c:v>%.0f</c:v></c:pt>"
   values <- as.integer(x$values - as.Date("1899-12-30"))
@@ -109,6 +115,8 @@ label_ref <- function(values, region = NULL, num_fmt = NULL){
   x
 }
 
+#' @export
+#' @method to_pml label_ref
 to_pml.label_ref <- function(x, add_ns = FALSE, ...){
 
   values <- character(length(x$values))

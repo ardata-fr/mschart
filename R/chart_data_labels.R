@@ -37,6 +37,8 @@ chart_data_labels <- function(x, num_fmt = "General", position = "ctr",
   x
 }
 
+#' @export
+#' @method to_pml labels_options
 to_pml.labels_options <- function(x, add_ns = FALSE, with_position = TRUE, show_label = FALSE , ...){
 
   txpr <- ""

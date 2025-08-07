@@ -62,10 +62,11 @@ pml_chart <- function(x, value, id_x, id_y){
 #' @importFrom officer ph_with
 #' @importFrom xml2 as_xml_document
 #' @export
+#' @method ph_with ms_chart
 #' @title add a MS Chart output into a PowerPoint object
 #' @description produces a Microsoft Chart graphics output from R instructions
 #' and add the result in a PowerPoint document object produced
-#' by [read_pptx()].
+#' by [officer::read_pptx()].
 #' @param x a pptx device
 #' @param value chart object
 #' @param location a location for a placeholder.

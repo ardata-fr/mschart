@@ -74,31 +74,31 @@ chart_theme(
 
 \item{value}{a \code{\link[=mschart_theme]{mschart_theme()}} object.}
 
-\item{axis_title, axis_title_x, axis_title_y}{axis title formatting properties (see \code{\link[=fp_text]{fp_text()}})}
+\item{axis_title, axis_title_x, axis_title_y}{axis title formatting properties (see \code{\link[officer:fp_text]{officer::fp_text()}})}
 
-\item{main_title}{title formatting properties (see \code{\link[=fp_text]{fp_text()}})}
+\item{main_title}{title formatting properties (see \code{\link[officer:fp_text]{officer::fp_text()}})}
 
-\item{legend_text}{legend text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
+\item{legend_text}{legend text formatting properties (see \code{\link[officer:fp_text]{officer::fp_text()}})}
 
-\item{table_text}{table text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
+\item{table_text}{table text formatting properties (see \code{\link[officer:fp_text]{officer::fp_text()}})}
 
-\item{axis_text, axis_text_x, axis_text_y}{axis text formatting properties (see \code{\link[=fp_text]{fp_text()}})}
+\item{axis_text, axis_text_x, axis_text_y}{axis text formatting properties (see \code{\link[officer:fp_text]{officer::fp_text()}})}
 
 \item{title_rot, title_x_rot, title_y_rot}{rotation angle}
 
-\item{axis_ticks, axis_ticks_x, axis_ticks_y}{axis ticks formatting properties (see \code{\link[=fp_border]{fp_border()}})}
+\item{axis_ticks, axis_ticks_x, axis_ticks_y}{axis ticks formatting properties (see \code{\link[officer:fp_border]{officer::fp_border()}})}
 
-\item{grid_major_line, grid_major_line_x, grid_major_line_y}{major grid lines formatting properties (see \code{\link[=fp_border]{fp_border()}})}
+\item{grid_major_line, grid_major_line_x, grid_major_line_y}{major grid lines formatting properties (see \code{\link[officer:fp_border]{officer::fp_border()}})}
 
-\item{grid_minor_line, grid_minor_line_x, grid_minor_line_y}{minor grid lines formatting properties (see \code{\link[=fp_border]{fp_border()}})}
+\item{grid_minor_line, grid_minor_line_x, grid_minor_line_y}{minor grid lines formatting properties (see \code{\link[officer:fp_border]{officer::fp_border()}})}
 
 \item{chart_background}{chart area background fill color - single character value (e.g. "#000000" or "black")}
 
-\item{chart_border}{chart area border lines formatting properties (see \code{\link[=fp_border]{fp_border()}})}
+\item{chart_border}{chart area border lines formatting properties (see \code{\link[officer:fp_border]{officer::fp_border()}})}
 
 \item{plot_background}{plot area background fill color - single character value (e.g. "#000000" or "black")}
 
-\item{plot_border}{plot area border lines formatting properties (see \code{\link[=fp_border]{fp_border()}})}
+\item{plot_border}{plot area border lines formatting properties (see \code{\link[officer:fp_border]{officer::fp_border()}})}
 
 \item{date_fmt}{date format}
 
