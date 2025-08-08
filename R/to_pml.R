@@ -3,7 +3,7 @@ stacked_pos <- c("ctr", "inBase", "inEnd")
 
 #' @export
 #' @method to_pml ms_barchart
-to_pml.ms_barchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, secondary_y = 0, ...){
+to_pml.ms_barchart <- function(x, add_ns = FALSE, id_x, id_y, sheetname = "sheet1", secondary_y = 0, ...){
 
   if( "clustered" %in% x$options$grouping )
     if( !x$label_settings$position %in% clustered_pos ){
@@ -74,7 +74,7 @@ standard_pos <- c("b", "ctr", "l", "r", "t")
 
 #' @export
 #' @method to_pml ms_linechart
-to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, secondary_y = 0, ...){
+to_pml.ms_linechart <- function(x, add_ns = FALSE, id_x, id_y, sheetname = "sheet1", secondary_y = 0, ...){
 
   if( !x$label_settings$position %in% standard_pos ){
     stop("label position issue.",
@@ -145,7 +145,7 @@ to_pml.ms_linechart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FA
 
 #' @export
 #' @method to_pml ms_areachart
-to_pml.ms_areachart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, secondary_y = 0, ...){
+to_pml.ms_areachart <- function(x, add_ns = FALSE, id_x, id_y, sheetname = "sheet1", secondary_y = 0, ...){
 
   series <- as_series(
     x,
@@ -200,7 +200,7 @@ names(has_lines) <- scatterstyles
 
 #' @export
 #' @method to_pml ms_scatterchart
-to_pml.ms_scatterchart <- function(x, id_x, id_y, sheetname = "sheet1", add_ns = FALSE, asis = FALSE, secondary_y = 0, ...){
+to_pml.ms_scatterchart <- function(x, add_ns = FALSE, id_x, id_y, sheetname = "sheet1", asis = FALSE, secondary_y = 0, ...){
 
   if( !x$label_settings$position %in% standard_pos ){
     stop("label position issue.",
