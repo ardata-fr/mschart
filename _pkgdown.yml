@@ -29,6 +29,8 @@ reference:
     - starts_with("chart_data_")
     - chart_labels_text
     - chart_table
+    - chart_fill_ggplot2
+    - theme_ggplot2
   - title: Global visual settings
     contents:
     - ends_with("_theme")
