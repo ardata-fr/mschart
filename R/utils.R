@@ -40,16 +40,29 @@ pretty_num_axes <- function(x, data_x, data_y){
   x
 }
 
+wrap_in_tags <- function(out, in_tags = NULL) {
+  if( !is.null(in_tags) ){
+    begin <- paste0("<", in_tags, ">", collapse = "")
+    end <- paste0("</", rev(in_tags), ">", collapse = "")
+    out <- paste0(begin, out, end)
+  }
+  out
+}
+
 #' @importFrom grDevices rgb
-ooxml_fp_border <- function(x, in_tags = NULL ){
+ooxml_fp_border <- function(x, in_tags = NULL, none_as_empty = TRUE ){
   stopifnot(inherits(x, "fp_border"))
   colspecs <- as.list(col2rgb( x$color, alpha = TRUE )[,1] / 255)
 
   alpha <- colspecs$alpha
   is_transparent <- alpha < .0001
 
-  if( is_transparent || x$width < 0.001 || x$style %in% "none" ){
-    return("")
+  if( is_transparent || x$width < 0.001 || x$style %in% "none" ) {
+    if (none_as_empty) {
+      return("")
+    } else {
+      return(wrap_in_tags("<a:ln><a:noFill/></a:ln>", in_tags = in_tags))
+    }
   }
 
   colspecs$alpha <- NULL
@@ -71,12 +84,7 @@ ooxml_fp_border <- function(x, in_tags = NULL ){
   out <- sprintf("<a:ln algn=\"ctr\" w=\"%.0f\">", x$width * 12700)
   out <- paste0(out, solidfill, presetdash, "</a:ln>")
 
-  if( !is.null(in_tags) ){
-    begin <- paste0("<", in_tags, ">", collapse = "")
-    end <- paste0("</", rev(in_tags), ">", collapse = "")
-    out <- paste0(begin, out, end)
-  }
-  out
+  wrap_in_tags(out, in_tags = in_tags)
 }
 
 

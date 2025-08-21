@@ -86,7 +86,7 @@ to_pml.ms_linechart <- function(x, add_ns = FALSE, id_x, id_y, sheetname = "shee
       line_str <- "<c:spPr><a:ln><a:noFill/></a:ln></c:spPr>"
     } else {
       line_properties <- fp_border(color = serie$stroke, style = serie$line_style, width = serie$line_width)
-      line_str <- ooxml_fp_border(line_properties, in_tags = c("c:spPr"))
+      line_str <- ooxml_fp_border(line_properties, in_tags = c("c:spPr"), none_as_empty = FALSE)
     }
     if( !has_marker )
       marker_str <- "<c:marker><c:symbol val=\"none\"/></c:marker>"
