@@ -43,6 +43,7 @@ assert_line <- function(data_y) {
 #' associated with the chart.
 #' @param asis bool parameter defaulting to FALSE. If TRUE the data will not be
 #' modified.
+#' @param error_y_lower,error_y_upper Column names for values to use in custom error bars.
 #' @export
 #' @family 'Office' chart objects
 #' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
@@ -57,10 +58,19 @@ assert_line <- function(data_y) {
 #' @examples
 #' library(officer)
 #' @example examples/02_linechart.R
-ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
+ms_linechart <- function(
+    data,
+    x,
+    y,
+    group = NULL,
+    labels = NULL,
+    asis = FALSE,
+    error_y_lower = NULL,
+    error_y_upper = NULL) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "lineplot", asis = asis
+    type = "lineplot", asis = asis,
+    error_y_lower = error_y_lower, error_y_upper = error_y_upper
   )
   out$options <- linechart_options()
   class(out) <- c("ms_linechart", "ms_chart")
@@ -101,10 +111,19 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' @examples
 #' library(officer)
 #' @example examples/01_barchart.R
-ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
+ms_barchart <- function(
+    data,
+    x,
+    y,
+    group = NULL,
+    labels = NULL,
+    asis = FALSE,
+    error_y_lower = NULL,
+    error_y_upper = NULL) {
   out <- ms_chart(
     data = data, x = x, y = y, group = group, labels = labels,
-    type = "barplot", asis = asis
+    type = "barplot", asis = asis,
+    error_y_lower = error_y_lower, error_y_upper = error_y_upper
   )
   out$options <- barchart_options()
   class(out) <- c("ms_barchart", "ms_chart")
@@ -176,7 +195,8 @@ ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALS
 #' @importFrom grDevices colors
 ms_chart <- function(data, x, y, group = NULL, labels = NULL,
                      excel_data_setup = shape_as_series,
-                     type = NULL, asis = FALSE) {
+                     type = NULL, asis = FALSE,
+                     error_y_lower = NULL, error_y_upper = NULL) {
   stopifnot(is.data.frame(data))
   stopifnot(x %in% names(data))
   stopifnot(y %in% names(data))
@@ -191,9 +211,12 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
     data <- as.data.frame(data, stringsAsFactors = FALSE)
   }
 
-  if (!is.null(group) && !(group %in% names(data))) {
-    stop("column ", shQuote(group), " could not be found in data.", call. = FALSE)
+  for (col in list(group, error_y_lower, error_y_upper)) {
+    if (!is.null(col) && !(col %in% names(data))) {
+      stop("column ", shQuote(col), " could not be found in data.", call. = FALSE)
+    }
   }
+
   if (!is.null(labels)) {
     labs <- labels[!labels %in% names(data)]
     if (!(all(labs))) {
@@ -251,11 +274,24 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   x <- x[1]
   y <- y[1]
 
+  # Error bars -----
+  error_bar_colnames <- list(y = NULL)
+  if (!is.null(error_y_lower)) {
+    if (!is.numeric(data[[error_y_lower]])) stop("column ", shQuote(error_y_lower), " should be numeric", call. = FALSE)
+    error_bar_colnames$y$lower <- error_y_lower
+    data[[.error_bar_colname(error_y_lower, "y", "lower")]] <- data[[y]] - data[[error_y_lower]]
+  }
+  if (!is.null(error_y_upper)) {
+    if (!is.numeric(data[[error_y_upper]])) stop("column ", shQuote(error_y_upper), " should be numeric", call. = FALSE)
+    error_bar_colnames$y$upper <- error_y_upper
+    data[[.error_bar_colname(error_y_upper, "y", "upper")]] <- data[[error_y_upper]] - data[[y]]
+  }
 
   lbls <- list(title = NULL, x = x, y = y)
 
   out <- list(
     data = data, x = x, y = y, group = group, label_cols = labels,
+    error_bar_colnames = error_bar_colnames,
     theme = theme_,
     options = list(),
     x_axis = x_axis_,

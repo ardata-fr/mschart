@@ -41,6 +41,7 @@ to_pml.ms_barchart <- function(x, add_ns = FALSE, id_x, id_y, sheetname = "sheet
       to_pml(label_settings, show_label = !is.null(x$label_cols)),
       "<c:cat>", to_pml(serie$x), "</c:cat>",
       "<c:val>", to_pml(serie$y), "</c:val>",
+      to_pml(serie$error_bars$y, axis = "y"),
       label_pml,
       "</c:ser>"
     )
@@ -109,6 +110,7 @@ to_pml.ms_linechart <- function(x, add_ns = FALSE, id_x, id_y, sheetname = "shee
       to_pml(label_settings, show_label = !is.null(x$label_cols)),
       "<c:cat>", to_pml(serie$x), "</c:cat>",
       "<c:val>", to_pml(serie$y), "</c:val>",
+      to_pml(serie$error_bars$y, axis = "y"),
       label_pml,
       sprintf("<c:smooth val=\"%.0f\"/>", serie$smooth),
       "</c:ser>"
