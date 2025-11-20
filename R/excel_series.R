@@ -99,8 +99,16 @@ transpose_series_bysplit <- function(x) {
 #' @importFrom stats as.formula
 #' @importFrom data.table as.data.table dcast.data.table setorderv setnames
 shape_as_series <- function(x) {
+  error_bar_colnames <- .error_bar_colnames(x)
+  y <- c(x$y, error_bar_colnames)
+
   if (!is.null(x$group)) {
-    out <- dcast_data(data = x$data, x = x$x, y = x$y, group = x$group)
+    out <- dcast_data(data = x$data, x = x$x, y = y, group = x$group)
+    if (length(error_bar_colnames) > 0) { # the serie column names got prefixed with Y column name, so we remove the prefix
+      groups <- get_series_names(x)
+      setnames(out, old = paste(x$y, groups, sep = "_"), new = groups)
+    }
+
     if (!is.null(x$label_cols)) {
       for (lab in x$label_cols) {
         data_label <- dcast_data(data = x$data, x = x$x, y = lab, group = x$group)
@@ -110,7 +118,7 @@ shape_as_series <- function(x) {
       }
     }
   } else {
-    out <- x$data[, c(x$x, x$y, x$label_cols)]
+    out <- x$data[, c(x$x, y, x$label_cols)]
     # if( !is.null(x$label_cols)){
     #   wlabs <- which(names(out) %in% x$label_cols)
     #   names(out)[wlabs] <- paste0(label_cols, "-", names(out)[wlabs])

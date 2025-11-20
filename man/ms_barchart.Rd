@@ -4,7 +4,16 @@
 \alias{ms_barchart}
 \title{barchart object}
 \usage{
-ms_barchart(data, x, y, group = NULL, labels = NULL, asis = FALSE)
+ms_barchart(
+  data,
+  x,
+  y,
+  group = NULL,
+  labels = NULL,
+  asis = FALSE,
+  error_y_lower = NULL,
+  error_y_upper = NULL
+)
 }
 \arguments{
 \item{data}{a data.frame}
@@ -22,6 +31,8 @@ associated with the chart.}
 
 \item{asis}{bool parameter defaulting to FALSE. If TRUE the data will not be
 modified.}
+
+\item{error_y_lower, error_y_upper}{Column names for values to use in custom error bars.}
 }
 \description{
 Creation of a barchart object that can be

@@ -1,7 +1,7 @@
 Package: mschart
 Type: Package
 Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents
-Version: 0.4.1
+Version: 0.4.1.9000
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"), 
       email = "david.gohel@ardata.fr"),
@@ -16,7 +16,10 @@ Authors@R: c(
       email = "david.camposeco.paulsen@gmail.com", 
       comment = "chart_data_smooth function"),
     person("Dan", "Joplin", role = "ctb", 
-      comment = "fix scatter plot data structure") 
+      comment = "fix scatter plot data structure"),
+    person("Tymoteusz", "Makowski", role = "ctb",
+      email = "tymek.makowski@gmail.com",
+      comment = "error bars support")
     )
 Description: Create native charts for 'Microsoft PowerPoint' and 'Microsoft Word' documents. 
  These can then be edited and annotated. Functions are provided to let users create charts, modify 
