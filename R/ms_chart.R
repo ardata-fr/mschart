@@ -10,7 +10,7 @@ assert_area <- function(data_x, data_y) {
   }
 }
 
-asssert_scatter <- function(data_x, data_y) {
+assert_scatter <- function(data_x, data_y) {
   if (!is.numeric(data_y)) {
     stop("y column should be numeric.")
   }
@@ -220,7 +220,7 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   }
 
   if (type == "scatterplot") {
-    asssert_scatter(data_x, data_y)
+    assert_scatter(data_x, data_y)
   }
 
   if (type == "lineplot") {

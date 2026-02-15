@@ -6,9 +6,6 @@
 #' of data `USProdIndex` in package 'AER'.
 #'
 #' @name us_indus_prod
-#' @docType data
-#' @keywords datasets
-#' @usage data(us_indus_prod)
 #' @format A data frame with 256 rows and 3 variables
 NULL
 
@@ -21,9 +18,6 @@ NULL
 #' * value integer values
 #'
 #' @name browser_data
-#' @docType data
-#' @keywords datasets
-#' @usage data(browser_data)
 #' @format A data frame with 18 rows and 3 variables
 NULL
 
@@ -36,8 +30,5 @@ NULL
 #' * freq values in percent
 #'
 #' @name browser_ts
-#' @docType data
-#' @keywords datasets
-#' @usage data(browser_ts)
 #' @format A data frame with 36 rows and 3 variables
 NULL

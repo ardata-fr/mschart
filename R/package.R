@@ -41,6 +41,5 @@
 #'
 #'
 #' @seealso \url{https://ardata-fr.github.io/officeverse/}
-#' @docType package
 #' @name mschart
 "_PACKAGE"

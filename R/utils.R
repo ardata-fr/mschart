@@ -8,7 +8,7 @@ fmt_name <- function( x ){
     "integer_fmt"
   else if( is.double(x) )
     "double_fmt"
-  else stop("unknow type of data")
+  else stop("unknown type of data")
 
   x
 }
@@ -23,7 +23,7 @@ serie_builtin_class <- function( x ){
     num_ref(x)
   else if( is.double(x) )
     num_ref(x)
-  else stop("unknow type of data")
+  else stop("unknown type of data")
 }
 
 is_valid_color = function(x) {

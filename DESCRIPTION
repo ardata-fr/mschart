@@ -1,45 +1,54 @@
-Package: mschart
 Type: Package
-Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents
-Version: 0.4.1
+Package: mschart
+Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint'
+    Documents
+Version: 0.4.2.001
 Authors@R: c(
-    person("David", "Gohel", role = c("aut", "cre"), 
-      email = "david.gohel@ardata.fr"),
-    person(given = "ArData", role = "cph"),
+    person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
+    person("ArData", role = "cph"),
     person("YouGov", role = "fnd"),
-    person("Jan Marvin", "Garbuszus", role = "ctb", comment = "support for openxls2"),
-    person("Stefan", "Moog", role = "ctb", email = 'moogs@gmx.de', comment = "support to set chart and plot area color and border"),
-    person("Eli", "Daniels", role = "ctb", email = 'eli.daniels@ardata.fr'),
-    person("Marlon", "Molina", role = "ctb", comment = "added table feature"),
-    person("Rokas", "Klydzia", role = "ctb", comment = "custom labels"),
-    person("David", "Camposeco", role = "ctb", 
-      email = "david.camposeco.paulsen@gmail.com", 
-      comment = "chart_data_smooth function"),
-    person("Dan", "Joplin", role = "ctb", 
-      comment = "fix scatter plot data structure") 
-    )
-Description: Create native charts for 'Microsoft PowerPoint' and 'Microsoft Word' documents. 
- These can then be edited and annotated. Functions are provided to let users create charts, modify 
- and format their content. The chart's underlying data is automatically saved within the 
- 'Word' document or 'PowerPoint' presentation. It extends package 'officer' that does 
- not contain any feature for 'Microsoft' native charts production. 
+    person("Jan Marvin", "Garbuszus", role = "ctb",
+           comment = "support for openxlsx2"),
+    person("Stefan", "Moog", , "moogs@gmx.de", role = "ctb",
+           comment = "support to set chart and plot area color and border"),
+    person("Eli", "Daniels", , "eli.daniels@ardata.fr", role = "ctb"),
+    person("Marlon", "Molina", role = "ctb",
+           comment = "added table feature"),
+    person("Rokas", "Klydzia", role = "ctb",
+           comment = "custom labels"),
+    person("David", "Camposeco", , "david.camposeco.paulsen@gmail.com", role = "ctb",
+           comment = "chart_data_smooth function"),
+    person("Dan", "Joplin", role = "ctb",
+           comment = "fix scatter plot data structure")
+  )
+Description: Create native charts for 'Microsoft PowerPoint' and
+    'Microsoft Word' documents.  These can then be edited and annotated.
+    Functions are provided to let users create charts, modify and format
+    their content. The chart's underlying data is automatically saved
+    within the 'Word' document or 'PowerPoint' presentation. It extends
+    package 'officer' that does not contain any feature for 'Microsoft'
+    native charts production.
 License: MIT + file LICENSE
+URL: https://ardata-fr.github.io/officeverse/,
+    https://ardata-fr.github.io/mschart/
+BugReports: https://github.com/ardata-fr/mschart/issues
+Depends: 
+    R (>= 3.5)
+Imports: 
+    cellranger,
+    data.table,
+    grDevices,
+    htmltools,
+    officer (>= 0.6.7),
+    scales,
+    stats,
+    utils,
+    writexl,
+    xml2 (>= 1.1.0)
+Suggests: 
+    doconv,
+    tinytest
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 2.10)
-Imports: 
-    stats,
-    data.table,
-    officer (>= 0.3.6),
-    cellranger,
-    writexl,
-    grDevices,
-    xml2 (>= 1.1.0),
-    htmltools,
-    utils,
-    scales
-URL: https://ardata-fr.github.io/officeverse/, https://ardata-fr.github.io/mschart/
-BugReports: https://github.com/ardata-fr/mschart/issues
-RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
-Suggests: tinytest, doconv
+RoxygenNote: 7.3.3

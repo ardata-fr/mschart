@@ -59,7 +59,7 @@ Other contributors:
 \itemize{
   \item ArData [copyright holder]
   \item YouGov [funder]
-  \item Jan Marvin Garbuszus (support for openxls2) [contributor]
+  \item Jan Marvin Garbuszus (support for openxlsx2) [contributor]
   \item Stefan Moog \email{moogs@gmx.de} (support to set chart and plot area color and border) [contributor]
   \item Eli Daniels \email{eli.daniels@ardata.fr} [contributor]
   \item Marlon Molina (added table feature) [contributor]

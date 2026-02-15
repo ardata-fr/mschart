@@ -1,3 +1,12 @@
+# mschart 0.4.2
+
+## Changes
+
+* Minimum R version bumped to 3.5, officer to 0.6.7.
+* Fixed typos in internal code (`asssert_scatter`, `unknow`).
+* Removed deprecated roxygen tags (`@docType`, `@keywords datasets`).
+* Updated GitHub Actions to v4.
+
 # mschart 0.4.1
 
 ## Issues
