@@ -2,7 +2,7 @@
 % Please edit documentation in R/table_setting.R
 \name{chart_table}
 \alias{chart_table}
-\title{X table settings}
+\title{Data table settings}
 \usage{
 chart_table(x, horizontal, vertical, outline, show_keys)
 }
@@ -17,8 +17,12 @@ chart_table(x, horizontal, vertical, outline, show_keys)
 
 \item{show_keys}{show keys in the table}
 }
+\value{
+An \code{ms_chart} object.
+}
 \description{
-Define settings for an x table.
+Define visual settings for the data table displayed below the
+chart. Requires \code{chart_settings(x, table = TRUE)} to be called first.
 }
 \examples{
 data <- data.frame(
@@ -44,4 +48,7 @@ chart <- chart_table(chart,
   horizontal = TRUE, vertical = FALSE,
   outline = TRUE, show_keys = FALSE
 )
+}
+\seealso{
+\code{\link[=chart_settings]{chart_settings()}}
 }

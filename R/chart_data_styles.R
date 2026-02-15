@@ -20,6 +20,7 @@
 #' barchart <- chart_data_labels(barchart, show_val = TRUE)
 #' barchart <- chart_labels_text( barchart,
 #'   values = fp_text_settings )
+#' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_labels_text <- function(x, values){
 
@@ -57,6 +58,7 @@ chart_labels_text <- function(x, values){
 #'   y = "Sepal.Width",  group = "Species")
 #' my_scatter <- chart_data_fill(my_scatter,
 #'   values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
+#' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_fill <- function(x, values){
 
@@ -92,6 +94,7 @@ chart_data_fill <- function(x, values){
 #'   values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
 #' my_scatter <- chart_data_stroke(my_scatter,
 #'   values = c(virginica = "black", versicolor = "black", setosa = "black") )
+#' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_stroke <- function(x, values){
 
@@ -132,6 +135,7 @@ chart_data_stroke <- function(x, values){
 #'   values = c(virginica = "black", versicolor = "black", setosa = "black") )
 #' my_scatter <- chart_data_symbol(my_scatter,
 #'   values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
+#' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_symbol <- function(x, values){
 
@@ -172,6 +176,7 @@ chart_data_symbol <- function(x, values){
 #'   values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
 #' my_scatter <- chart_data_size(my_scatter,
 #'   values = c(virginica = 20, versicolor = 16, setosa = 20) )
+#' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_size <- function(x, values){
 
@@ -215,6 +220,7 @@ chart_data_size <- function(x, values){
 #'   values = c(virginica = 20, versicolor = 16, setosa = 20) )
 #' my_scatter <- chart_data_line_width(my_scatter,
 #'   values = c(virginica = 2, versicolor = 3, setosa = 6) )
+#' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_line_width <- function(x, values){
 
@@ -256,6 +262,7 @@ chart_data_line_width <- function(x, values){
 #'   values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
 #' my_scatter <- chart_data_line_style(my_scatter,
 #'   values = c(virginica = "solid", versicolor = "dotted", setosa = "dashed") )
+#' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_line_style <- function(x, values){
 
@@ -285,13 +292,14 @@ chart_data_line_style <- function(x, values){
 #' @param x an `ms_chart` object.
 #' @param values  `integer(num of series)`: a set of smooth values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
-#' Possible values are 0 or 1.
+#' Use `0` to disable smoothing and `1` to enable it.
 #' If it contains only one integer it will be associated to all existing series.
 #' @examples
 #' linec <- ms_linechart(data = iris, x = "Sepal.Length",
 #'   y = "Sepal.Width", group = "Species")
 #'linec <- chart_data_smooth(linec,
 #'   values = c(virginica = 0, versicolor = 0, setosa = 0) )
+#' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_smooth <- function(x, values){
   as_bool <- c(1,0)

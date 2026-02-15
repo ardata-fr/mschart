@@ -46,13 +46,18 @@ length 1).}
 \item{rotation}{rotation angle. Value should be between \code{-360}
 and \code{360}.}
 
-\item{limit_min}{minimum value on the axis.}
+\item{limit_min}{minimum value on the axis. Date objects are also accepted
+and will be converted automatically.}
 
-\item{limit_max}{maximum value on the axis.}
+\item{limit_max}{maximum value on the axis. Date objects are also accepted
+and will be converted automatically.}
 
-\item{position}{position value that crosses the other axis.}
+\item{position}{the value at which this axis crosses the perpendicular axis.}
 
-\item{second_axis}{unused}
+\item{second_axis}{reserved for future use; currently ignored.}
+}
+\value{
+An \code{ms_chart} object.
 }
 \description{
 Define settings for an x axis.

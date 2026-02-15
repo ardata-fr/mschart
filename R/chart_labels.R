@@ -3,7 +3,11 @@
 #' @description Add labels to a chart, labels can be specified for
 #' x axis, y axis and plot.
 #' @param x an `ms_chart` object.
-#' @param title,xlab,ylab Text to add
+#' @param title title of the chart (displayed above the plot area). Use NULL to remove it.
+#' @param xlab label for the x axis. Use NULL to remove it.
+#' @param ylab label for the y axis. Use NULL to remove it.
+#' @return An `ms_chart` object.
+#' @seealso [chart_data_labels()], [chart_ax_x()], [chart_ax_y()]
 #' @examples
 #' mylc <- ms_linechart(
 #'   data = browser_ts, x = "date", y = "freq",

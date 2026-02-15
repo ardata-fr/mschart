@@ -40,10 +40,25 @@ When grouping is 'standard', it should be one of 'b','ctr','l','r','t'.}
 
 \item{show_percent}{show percentages if TRUE.}
 
-\item{separator}{separator for displayed labels.}
+\item{separator}{separator between the label components (value, category
+name, series name, etc.) when multiple components are displayed.
+Default is \code{", "}.}
+}
+\value{
+An \code{ms_chart} object.
 }
 \description{
 Data labels show details about data series. This function indicates that
 data labels should be displayed. See \code{\link[=chart_labels_text]{chart_labels_text()}} for modifying
 text settings associated with labels.
+}
+\examples{
+my_bc <- ms_barchart(
+  data = browser_data, x = "browser",
+  y = "value", group = "serie"
+)
+my_bc <- chart_data_labels(my_bc, show_val = TRUE, position = "outEnd")
+}
+\seealso{
+\code{\link[=chart_labels_text]{chart_labels_text()}}, \code{\link[=chart_labels]{chart_labels()}}
 }

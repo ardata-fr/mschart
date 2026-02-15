@@ -13,6 +13,9 @@ chart_data_stroke(x, values)
 It is a named vector, the values will be matched based on the names.
 If it contains only one colour, this colour will be associated to all existing series.}
 }
+\value{
+An \code{ms_chart} object.
+}
 \description{
 Specify mappings from levels in the data to displayed marker stroke colours.
 }

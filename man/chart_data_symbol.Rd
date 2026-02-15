@@ -15,6 +15,9 @@ Possible values are: 'circle', 'dash', 'diamond', 'dot', 'none', 'plus',
 'square', 'star', 'triangle', 'x', 'auto'.
 If it contains only one symbol, this symbol will be associated to all existing series.}
 }
+\value{
+An \code{ms_chart} object.
+}
 \description{
 Specify mappings from levels in the data to displayed symbols.
 }

@@ -8,6 +8,8 @@
 #' @param pos where to add the new element relative to the cursor,
 #' one of "after", "before", "on".
 #' @param height,width height and width in inches.
+#' @return An rdocx object.
+#' @seealso [ph_with.ms_chart()]
 #' @importFrom officer body_add_xml styles_info
 #' @examples
 #' library(officer)

@@ -8,6 +8,8 @@
 #' @param percent should bars be displayed as percentages.
 #' @param gap_width gap width between bars for each category on a bar chart, as a percentage
 #' of the bar width. It can be set between 0 and 500.
+#' @return An `ms_chart` object.
+#' @seealso [chart_settings()], [ms_barchart()]
 #' @examples
 #' library(officer)
 #'

@@ -14,6 +14,9 @@ It is a named vector, the values will be matched based on the names.
 Possible values are: 'none', 'solid', 'dashed', 'dotted'.
 If it contains only one line style, this style will be associated to all existing series.}
 }
+\value{
+An \code{ms_chart} object.
+}
 \description{
 Specify mappings from levels in the data to displayed line style.
 }

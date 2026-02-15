@@ -111,6 +111,13 @@ chart_theme(
 \item{legend_position}{it specifies the position of the legend. It should be
 one of 'b', 'tr', 'l', 'r', 't', 'n' (for 'none').}
 }
+\value{
+An \code{ms_chart} object.
+
+An \code{mschart_theme} object (for \code{mschart_theme()}).
+
+An \code{ms_chart} object (for \code{set_theme()} and \code{chart_theme()}).
+}
 \description{
 Modify chart theme with function \code{set_theme}.
 
@@ -136,8 +143,6 @@ my_bc <- chart_settings(my_bc,
   gap_width = 150, overlap = 100
 )
 my_bc <- set_theme(my_bc, mytheme)
-
-
 
 my_bc_2 <- ms_barchart(
   data = browser_data, x = "browser",

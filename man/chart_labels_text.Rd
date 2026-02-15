@@ -13,6 +13,9 @@ chart_labels_text(x, values)
 It is a named list, the values will be matched based on the names.
 If it contains only one \code{\link[officer:fp_text]{officer::fp_text()}} object, it will be associated to all existing series.}
 }
+\value{
+An \code{ms_chart} object.
+}
 \description{
 Specify mappings from levels in the data to displayed text font settings.
 }

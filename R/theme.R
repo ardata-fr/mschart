@@ -21,8 +21,6 @@
 #' )
 #' my_bc <- set_theme(my_bc, mytheme)
 #'
-#'
-#'
 #' my_bc_2 <- ms_barchart(
 #'   data = browser_data, x = "browser",
 #'   y = "value", group = "serie"
@@ -30,6 +28,7 @@
 #' my_bc_2 <- chart_theme(my_bc_2,
 #'   grid_major_line_y = fp_border(width = .5, color = "cyan")
 #' )
+#' @return An `ms_chart` object.
 #' @export
 set_theme <- function(x, value) {
   x$theme <- value
@@ -59,6 +58,7 @@ set_theme <- function(x, value) {
 #' @param legend_position it specifies the position of the legend. It should be
 #' one of 'b', 'tr', 'l', 'r', 't', 'n' (for 'none').
 #' @rdname set_theme
+#' @return An `mschart_theme` object (for `mschart_theme()`).
 #' @seealso [ms_barchart()], [ms_areachart()], [ms_scatterchart()], [ms_linechart()]
 #' @export
 mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axis_title_x = axis_title, axis_title_y = axis_title,
@@ -93,15 +93,15 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
   stopifnot(inherits(chart_border, "fp_border"))
   stopifnot(inherits(plot_border, "fp_border"))
 
-  if (title_rot < 0 && title_rot > 359) {
+  if (title_rot < 0 || title_rot > 359) {
     stop("title_rot must be between 0 and 359")
   }
 
-  if (title_x_rot < 0 && title_x_rot > 359) {
+  if (title_x_rot < 0 || title_x_rot > 359) {
     stop("title_x_rot must be between 0 and 359")
   }
 
-  if (title_y_rot < 0 && title_y_rot > 359) {
+  if (title_y_rot < 0 || title_y_rot > 359) {
     stop("title_y_rot must be between 0 and 359")
   }
 
@@ -127,6 +127,7 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
 }
 
 #' @rdname set_theme
+#' @return An `ms_chart` object (for `set_theme()` and `chart_theme()`).
 #' @export
 #' @description Use \code{chart_theme()} to modify components of the theme of a chart.
 chart_theme <- function(x, axis_title_x, axis_title_y, main_title, legend_text,

@@ -18,7 +18,17 @@
 #' @param show_cat_name show categories if TRUE.
 #' @param show_serie_name show names of series if TRUE.
 #' @param show_percent show percentages if TRUE.
-#' @param separator separator for displayed labels.
+#' @param separator separator between the label components (value, category
+#' name, series name, etc.) when multiple components are displayed.
+#' Default is `", "`.
+#' @return An `ms_chart` object.
+#' @seealso [chart_labels_text()], [chart_labels()]
+#' @examples
+#' my_bc <- ms_barchart(
+#'   data = browser_data, x = "browser",
+#'   y = "value", group = "serie"
+#' )
+#' my_bc <- chart_data_labels(my_bc, show_val = TRUE, position = "outEnd")
 chart_data_labels <- function(x, num_fmt = "General", position = "ctr",
                                 show_legend_key = FALSE, show_val = FALSE,
                                 show_cat_name = FALSE, show_serie_name = FALSE,

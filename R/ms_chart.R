@@ -37,12 +37,16 @@ assert_line <- function(data_y) {
 #' @param x column name for x values.
 #' @param y column name for y values.
 #' @param group grouping column name used to split data into series. Optional.
-#' @param labels column names of columns to be used as labels for the series. Optional.
+#' @param labels column names of columns to be used as custom data labels
+#' displayed next to data points (not axis labels). Optional.
 #' If more than one name is provided, only the first one will be used as a label, but all
 #' labels (transposed if a group is used) will be available in the Excel file
 #' associated with the chart.
-#' @param asis logical parameter defaulting to FALSE. If TRUE the data will not be
-#' modified.
+#' @param asis logical parameter defaulting to FALSE. When FALSE, the data is
+#' reshaped internally so that each series becomes a separate column. When TRUE,
+#' the data is used as-is and must already have one column for categories and
+#' one column per series.
+#' @return An `ms_chart` object.
 #' @export
 #' @family 'Office' chart objects
 #' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
@@ -81,6 +85,7 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' * The axis labels are long.
 #' * The values that are shown are durations.
 #' @inheritParams ms_linechart
+#' @return An `ms_chart` object.
 #' @family 'Office' chart objects
 #' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
 #' [chart_data_labels()], [chart_theme()], [chart_labels()]
@@ -119,6 +124,7 @@ ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
 #' total value across a trend. By showing the sum of the plotted values, an area
 #' chart also shows the relationship of parts to a whole.
 #' @inheritParams ms_linechart
+#' @return An `ms_chart` object.
 #' @family 'Office' chart objects
 #' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
 #' [chart_data_labels()], [chart_theme()], [chart_labels()]
@@ -145,6 +151,7 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' @description Creation of a scatterchart object that can be
 #' inserted in a 'Microsoft' document.
 #' @inheritParams ms_linechart
+#' @return An `ms_chart` object.
 #' @family 'Office' chart objects
 #' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
 #' [chart_data_labels()], [chart_theme()], [chart_labels()]
@@ -335,6 +342,7 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
 #' @param x an \code{ms_chart} object.
 #' @param preview preview the chart in a PowerPoint document
 #' @param ... unused
+#' @return No return value, called for side effects.
 #' @export
 #' @importFrom officer read_pptx add_slide ph_location_fullsize ph_with
 #' @importFrom utils browseURL

@@ -15,13 +15,19 @@ ms_barchart(data, x, y, group = NULL, labels = NULL, asis = FALSE)
 
 \item{group}{grouping column name used to split data into series. Optional.}
 
-\item{labels}{column names of columns to be used as labels for the series. Optional.
+\item{labels}{column names of columns to be used as custom data labels
+displayed next to data points (not axis labels). Optional.
 If more than one name is provided, only the first one will be used as a label, but all
 labels (transposed if a group is used) will be available in the Excel file
 associated with the chart.}
 
-\item{asis}{logical parameter defaulting to FALSE. If TRUE the data will not be
-modified.}
+\item{asis}{logical parameter defaulting to FALSE. When FALSE, the data is
+reshaped internally so that each series becomes a separate column. When TRUE,
+the data is used as-is and must already have one column for categories and
+one column per series.}
+}
+\value{
+An \code{ms_chart} object.
 }
 \description{
 Creation of a barchart object that can be

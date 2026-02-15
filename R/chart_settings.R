@@ -3,6 +3,7 @@
 #' @description Set chart properties.
 #' @param x an \code{ms_chart} object.
 #' @param ... unused parameter
+#' @return An `ms_chart` object.
 #' @seealso [ms_barchart()], [ms_areachart()], [ms_scatterchart()], [ms_linechart()]
 #' @section Illustrations:
 #'

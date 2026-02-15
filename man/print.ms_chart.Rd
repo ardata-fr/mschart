@@ -13,6 +13,9 @@
 
 \item{...}{unused}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 An \code{ms_chart} object cannot be rendered
 in R. The default printing method will only display

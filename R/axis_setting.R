@@ -15,10 +15,12 @@
 #' @param num_fmt number formatting. See the num_fmt section for more details.
 #' @param rotation rotation angle. Value should be between `-360`
 #' and `360`.
-#' @param limit_min minimum value on the axis.
-#' @param limit_max maximum value on the axis.
-#' @param position position value that crosses the other axis.
-#' @param second_axis unused
+#' @param limit_min minimum value on the axis. Date objects are also accepted
+#' and will be converted automatically.
+#' @param limit_max maximum value on the axis. Date objects are also accepted
+#' and will be converted automatically.
+#' @param position the value at which this axis crosses the perpendicular axis.
+#' @param second_axis reserved for future use; currently ignored.
 #' @section num_fmt:
 #' All `%` need to be doubled, `0%%` means "a number
 #' and percent symbol".
@@ -58,6 +60,7 @@
 #' * `##0.0E+0`
 #' * `@`
 #'
+#' @return An `ms_chart` object.
 #' @export
 #' @section Illustrations:
 #'
@@ -126,6 +129,7 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
 #' @description Define settings for a y axis.
 #' @inheritParams chart_ax_x
 #' @inheritSection chart_ax_x num_fmt
+#' @return An `ms_chart` object.
 #' @export
 #' @section Illustrations:
 #'

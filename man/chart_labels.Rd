@@ -9,7 +9,14 @@ chart_labels(x, title = NULL, xlab = NULL, ylab = NULL)
 \arguments{
 \item{x}{an \code{ms_chart} object.}
 
-\item{title, xlab, ylab}{Text to add}
+\item{title}{title of the chart (displayed above the plot area). Use NULL to remove it.}
+
+\item{xlab}{label for the x axis. Use NULL to remove it.}
+
+\item{ylab}{label for the y axis. Use NULL to remove it.}
+}
+\value{
+An \code{ms_chart} object.
 }
 \description{
 Add labels to a chart, labels can be specified for
@@ -24,4 +31,7 @@ mylc <- chart_labels(mylc,
   title = "my title", xlab = "my x label",
   ylab = "my y label"
 )
+}
+\seealso{
+\code{\link[=chart_data_labels]{chart_data_labels()}}, \code{\link[=chart_ax_x]{chart_ax_x()}}, \code{\link[=chart_ax_y]{chart_ax_y()}}
 }

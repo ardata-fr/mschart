@@ -11,8 +11,11 @@ chart_data_smooth(x, values)
 
 \item{values}{\verb{integer(num of series)}: a set of smooth values to map data values to.
 It is a named vector, the values will be matched based on the names.
-Possible values are 0 or 1.
+Use \code{0} to disable smoothing and \code{1} to enable it.
 If it contains only one integer it will be associated to all existing series.}
+}
+\value{
+An \code{ms_chart} object.
 }
 \description{
 Specify whether lines should be smoothed, per series. This

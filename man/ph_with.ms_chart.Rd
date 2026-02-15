@@ -15,6 +15,9 @@
 
 \item{...}{Arguments to be passed to methods.}
 }
+\value{
+An rpptx object.
+}
 \description{
 Produces a Microsoft Chart graphics output from R instructions
 and adds the result in a PowerPoint document object produced
@@ -37,4 +40,7 @@ doc <- ph_with(doc, my_barchart, location = ph_location_fullsize())
 
 fileout <- tempfile(fileext = ".pptx")
 print(doc, target = fileout)
+}
+\seealso{
+\code{\link[=body_add_chart]{body_add_chart()}}
 }

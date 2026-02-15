@@ -1,10 +1,13 @@
-#' @title X table settings
-#' @description Define settings for an x table.
+#' @title Data table settings
+#' @description Define visual settings for the data table displayed below the
+#' chart. Requires `chart_settings(x, table = TRUE)` to be called first.
 #' @param x an `ms_chart` object.
 #' @param horizontal write horizontal lines in the table
 #' @param vertical write vertical lines in the table
 #' @param outline write an outline in the table
 #' @param show_keys show keys in the table
+#' @return An `ms_chart` object.
+#' @seealso [chart_settings()]
 #' @export
 #' @examples
 #' data <- data.frame(

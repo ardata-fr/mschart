@@ -18,6 +18,9 @@ one of "after", "before", "on".}
 
 \item{height, width}{height and width in inches.}
 }
+\value{
+An rdocx object.
+}
 \description{
 Add a \code{ms_chart} to an rdocx object. The graphic will be
 inserted in an empty paragraph.
@@ -32,4 +35,7 @@ my_barchart <- chart_settings( my_barchart, grouping = "stacked",
 doc <- read_docx()
 doc <- body_add_chart(doc, chart = my_barchart, style = "centered")
 print(doc, target = tempfile(fileext = ".docx"))
+}
+\seealso{
+\code{\link[=ph_with.ms_chart]{ph_with.ms_chart()}}
 }

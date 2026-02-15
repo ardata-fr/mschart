@@ -16,6 +16,9 @@ as_bar_stack(x, dir = "vertical", percent = FALSE, gap_width = 50)
 \item{gap_width}{gap width between bars for each category on a bar chart, as a percentage
 of the bar width. It can be set between 0 and 500.}
 }
+\value{
+An \code{ms_chart} object.
+}
 \description{
 Apply settings to an \code{ms_barchart} object to
 produce a stacked barchart. Options are available to use percentage
@@ -39,4 +42,7 @@ doc <- ph_with(doc, my_bar_stack_02, location = ph_location_fullsize())
 
 fileout <- tempfile(fileext = ".pptx")
 print(doc, target = fileout)
+}
+\seealso{
+\code{\link[=chart_settings]{chart_settings()}}, \code{\link[=ms_barchart]{ms_barchart()}}
 }

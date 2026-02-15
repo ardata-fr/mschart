@@ -13,6 +13,9 @@ chart_data_size(x, values)
 It is a named vector, the values will be matched based on the names.
 If it contains only one size, this size will be associated to all existing series.}
 }
+\value{
+An \code{ms_chart} object.
+}
 \description{
 Specify mappings from levels in the data to displayed size of symbols.
 }

@@ -53,6 +53,9 @@ to be superimposed. The default value is 0.}
 \item{style}{Style for the linechart or scatterchart type of markers. One
 of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.}
 }
+\value{
+An \code{ms_chart} object.
+}
 \description{
 Set chart properties.
 }
