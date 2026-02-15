@@ -26,12 +26,12 @@ new theme `theme_ggplot2()`.
 ## New features
 
 * Support for openxlsx2 by Jan Marvin Garbuszus
-* option to add table of data below corresponding levels by Marlon Molina
+* option to add a table of data below the chart by Marlon Molina
 
 ## Issues
 
 * fix issue with % in labels of the graphic
-* stop reordering data when a group is used, user is expected to 
+* stop reordering data when a group is used; the user is expected to
 do it before sending the data to mschart.
 
 # mschart 0.3.1
@@ -115,9 +115,9 @@ do it before sending the data to mschart.
 
 * added argument `legend_text` to theme function
 * legend can be dropped now
-* `ms_linechart` now accept non numeric x axis.
+* `ms_linechart` now accepts a non-numeric x axis.
 
 
 # mschart 0.2.1
 
-* Fix issue that made file *corrupted* when data has missing values
+* Fix issue that corrupted the file when data had missing values

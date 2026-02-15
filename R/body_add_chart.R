@@ -1,6 +1,6 @@
 #' @export
-#' @title add chart into a Word document
-#' @description add a `ms_chart` into an rdocx object, the graphic will be
+#' @title Add a chart to a Word document
+#' @description Add a `ms_chart` to an rdocx object. The graphic will be
 #' inserted in an empty paragraph.
 #' @param x an rdocx object
 #' @param chart an `ms_chart` object.

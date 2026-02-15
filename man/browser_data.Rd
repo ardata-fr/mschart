@@ -7,7 +7,7 @@
 A data frame with 18 rows and 3 variables
 }
 \description{
-A dataset containing 2 categorical and an integer variables:
+A dataset containing two categorical variables and one integer variable:
 }
 \details{
 \itemize{

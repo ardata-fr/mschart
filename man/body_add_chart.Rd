@@ -2,7 +2,7 @@
 % Please edit documentation in R/body_add_chart.R
 \name{body_add_chart}
 \alias{body_add_chart}
-\title{add chart into a Word document}
+\title{Add a chart to a Word document}
 \usage{
 body_add_chart(x, chart, style = NULL, pos = "after", width = 5, height = 3)
 }
@@ -19,7 +19,7 @@ one of "after", "before", "on".}
 \item{height, width}{height and width in inches.}
 }
 \description{
-add a \code{ms_chart} into an rdocx object, the graphic will be
+Add a \code{ms_chart} to an rdocx object. The graphic will be
 inserted in an empty paragraph.
 }
 \examples{

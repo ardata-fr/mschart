@@ -2,7 +2,7 @@
 % Please edit documentation in R/table_setting.R
 \name{chart_table}
 \alias{chart_table}
-\title{x table settings}
+\title{X table settings}
 \usage{
 chart_table(x, horizontal, vertical, outline, show_keys)
 }
@@ -15,7 +15,7 @@ chart_table(x, horizontal, vertical, outline, show_keys)
 
 \item{outline}{write an outline in the table}
 
-\item{show_keys}{showkeys in the table}
+\item{show_keys}{show keys in the table}
 }
 \description{
 Define settings for an x table.

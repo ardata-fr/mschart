@@ -2,25 +2,25 @@
 % Please edit documentation in R/ms_chart.R
 \name{ms_linechart}
 \alias{ms_linechart}
-\title{linechart object}
+\title{Linechart object}
 \usage{
 ms_linechart(data, x, y, group = NULL, labels = NULL, asis = FALSE)
 }
 \arguments{
 \item{data}{a data.frame}
 
-\item{x}{x colname}
+\item{x}{column name for x values.}
 
-\item{y}{y colname}
+\item{y}{column name for y values.}
 
-\item{group}{grouping colname used to split data into series. Optional.}
+\item{group}{grouping column name used to split data into series. Optional.}
 
-\item{labels}{colnames of columns to be used as labels into series. Optional.
-If more than a name, only the first one will be used as label, but all
+\item{labels}{column names of columns to be used as labels for the series. Optional.
+If more than one name is provided, only the first one will be used as a label, but all
 labels (transposed if a group is used) will be available in the Excel file
 associated with the chart.}
 
-\item{asis}{bool parameter defaulting to FALSE. If TRUE the data will not be
+\item{asis}{logical parameter defaulting to FALSE. If TRUE the data will not be
 modified.}
 }
 \description{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ph_with_chart.R
 \name{ph_with.ms_chart}
 \alias{ph_with.ms_chart}
-\title{add a MS Chart output into a PowerPoint object}
+\title{Add a MS Chart output into a PowerPoint object}
 \usage{
 \method{ph_with}{ms_chart}(x, value, location, ...)
 }
@@ -16,8 +16,8 @@
 \item{...}{Arguments to be passed to methods.}
 }
 \description{
-produces a Microsoft Chart graphics output from R instructions
-and add the result in a PowerPoint document object produced
+Produces a Microsoft Chart graphics output from R instructions
+and adds the result in a PowerPoint document object produced
 by \code{\link[officer:read_pptx]{officer::read_pptx()}}.
 }
 \examples{

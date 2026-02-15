@@ -2,7 +2,7 @@
 % Please edit documentation in R/ms_chart.R
 \name{print.ms_chart}
 \alias{print.ms_chart}
-\title{ms_chart print method}
+\title{Print method for ms_chart}
 \usage{
 \method{print}{ms_chart}(x, preview = FALSE, ...)
 }
@@ -14,9 +14,9 @@
 \item{...}{unused}
 }
 \description{
-an \code{ms_chart} object can not be rendered
+An \code{ms_chart} object cannot be rendered
 in R. The default printing method will only display
-simple informations about the object.
+simple information about the object.
 If argument \code{preview} is set to TRUE, a \code{pptx} file
 will be produced and opened with function \code{browseURL}.
 }

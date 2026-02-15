@@ -14,7 +14,7 @@ It is a named vector, the values will be matched based on the names.
 If it contains only one size, this size will be associated to all existing series.}
 }
 \description{
-Specify mappings from levels in the data to displayed line width between symbols.
+Specify mappings from levels in the data to the displayed line width.
 }
 \examples{
 my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",

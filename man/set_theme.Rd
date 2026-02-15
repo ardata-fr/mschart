@@ -4,7 +4,7 @@
 \alias{set_theme}
 \alias{mschart_theme}
 \alias{chart_theme}
-\title{set chart theme}
+\title{Set chart theme}
 \usage{
 set_theme(x, value)
 

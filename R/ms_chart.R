@@ -25,7 +25,7 @@ assert_line <- function(data_y) {
   }
 }
 
-#' @title linechart object
+#' @title Linechart object
 #' @description Creation of a linechart object that can be
 #' inserted in a 'Microsoft' document.
 #'
@@ -34,14 +34,14 @@ assert_line <- function(data_y) {
 #' continuous data over time on an evenly scaled axis, so they're ideal for showing
 #' trends in data at equal intervals, like months and quarters.
 #' @param data a data.frame
-#' @param x x colname
-#' @param y y colname
-#' @param group grouping colname used to split data into series. Optional.
-#' @param labels colnames of columns to be used as labels into series. Optional.
-#' If more than a name, only the first one will be used as label, but all
+#' @param x column name for x values.
+#' @param y column name for y values.
+#' @param group grouping column name used to split data into series. Optional.
+#' @param labels column names of columns to be used as labels for the series. Optional.
+#' If more than one name is provided, only the first one will be used as a label, but all
 #' labels (transposed if a group is used) will be available in the Excel file
 #' associated with the chart.
-#' @param asis bool parameter defaulting to FALSE. If TRUE the data will not be
+#' @param asis logical parameter defaulting to FALSE. If TRUE the data will not be
 #' modified.
 #' @export
 #' @family 'Office' chart objects
@@ -68,7 +68,7 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
   out
 }
 
-#' @title barchart object
+#' @title Barchart object
 #' @description Creation of a barchart object that can be
 #' inserted in a 'Microsoft' document.
 #'
@@ -111,7 +111,7 @@ ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
   out
 }
 
-#' @title areachart object
+#' @title Areachart object
 #' @description Creation of an areachart object that can be
 #' inserted in a 'Microsoft' document.
 #'
@@ -141,7 +141,7 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
   out
 }
 
-#' @title scatterchart object
+#' @title Scatterchart object
 #' @description Creation of a scatterchart object that can be
 #' inserted in a 'Microsoft' document.
 #' @inheritParams ms_linechart
@@ -325,10 +325,10 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   out
 }
 
-#' @title ms_chart print method
-#' @description an \code{ms_chart} object can not be rendered
+#' @title Print method for ms_chart
+#' @description An \code{ms_chart} object cannot be rendered
 #' in R. The default printing method will only display
-#' simple informations about the object.
+#' simple information about the object.
 #' If argument \code{preview} is set to TRUE, a \code{pptx} file
 #' will be produced and opened with function \code{browseURL}.
 #'

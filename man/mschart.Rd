@@ -6,7 +6,7 @@
 \alias{mschart}
 \title{Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents}
 \description{
-It lets R users to create Microsoft Office charts from data, and
+It lets R users create Microsoft Office charts from data, and
 then add title, legends, and annotations to the chart object.
 
 The graph produced is a Microsoft graph, which means that it can be edited in
@@ -17,7 +17,7 @@ allows only a subset of the charts possible with 'Office Chart'. The package is
 often used to industrialize graphs that are then consumed and annotated by non-R
 users.
 
-The following charts are the only available from all possible MS charts:
+The following chart types are available:
 \itemize{
 \item barcharts: \code{\link[=ms_barchart]{ms_barchart()}}
 \item line charts: \code{\link[=ms_linechart]{ms_linechart()}}
@@ -25,7 +25,7 @@ The following charts are the only available from all possible MS charts:
 \item area charts: \code{\link[=ms_areachart]{ms_areachart()}}
 }
 
-These functions are creating a 'chart' object, it can be customized;
+These functions create a 'chart' object that can be customized:
 \itemize{
 \item by using options specific to the chart (with \code{\link[=chart_settings]{chart_settings()}}),
 \item by changing the options related to the axes (with \code{\link[=chart_ax_x]{chart_ax_x()}} and \code{\link[=chart_ax_y]{chart_ax_y()}}),

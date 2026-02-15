@@ -1,6 +1,6 @@
 #' @export
 #' @title Modify data labels settings
-#' @description Data labels show details about data series. This function indicate that
+#' @description Data labels show details about data series. This function indicates that
 #' data labels should be displayed. See [chart_labels_text()] for modifying
 #' text settings associated with labels.
 #' @param x an `ms_chart` object.

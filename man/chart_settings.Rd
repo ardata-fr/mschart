@@ -6,7 +6,7 @@
 \alias{chart_settings.ms_linechart}
 \alias{chart_settings.ms_areachart}
 \alias{chart_settings.ms_scatterchart}
-\title{set chart options}
+\title{Set chart options}
 \usage{
 chart_settings(x, ...)
 
@@ -29,13 +29,13 @@ chart_settings(x, ...)
 
 \item{...}{unused parameter}
 
-\item{vary_colors}{if \code{TRUE} the data points in the single series are displayed the same color.}
+\item{vary_colors}{if \code{TRUE}, each data point in a single series is displayed in a different color.}
 
 \item{gap_width}{A gap appears between the bar or clustered bars for each category on a bar chart.
 The default width for this gap is 150 percent of the bar width. It can be set
 between 0 and 500 percent of the bar width.}
 
-\item{dir}{the direction of the bars in the chart, value must one of "horizontal" or "vertical".}
+\item{dir}{the direction of the bars in the chart, value must be one of "horizontal" or "vertical".}
 
 \item{grouping}{grouping for a barchart, a linechart or an area chart. must be one of "percentStacked", "clustered", "standard" or "stacked".}
 
@@ -62,9 +62,9 @@ Set chart properties.
 
 \item \code{chart_settings(ms_linechart)}: linechart settings
 
-\item \code{chart_settings(ms_areachart)}: linechart settings
+\item \code{chart_settings(ms_areachart)}: areachart settings
 
-\item \code{chart_settings(ms_scatterchart)}: linechart settings
+\item \code{chart_settings(ms_scatterchart)}: scatterchart settings
 
 }}
 \section{Illustrations}{

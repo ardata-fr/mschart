@@ -9,9 +9,9 @@ status](https://github.com/ardata-fr/mschart/workflows/R-CMD-check/badge.svg)](h
 ![cranlogs](https://cranlogs.r-pkg.org/badges/mschart)
 ![Active](http://www.repostatus.org/badges/latest/active.svg)
 
-The `mschart` package provides a framework for easily create charts for
-‘Microsoft PowerPoint’ presentations and ‘Microsoft Word’ documents. It
-has to be used with package
+The `mschart` package provides a framework for easily creating charts
+for ‘Microsoft PowerPoint’ presentations and ‘Microsoft Word’ documents.
+It has to be used with package
 [`officer`](https://davidgohel.github.io/officer/) that will produce the
 charts in new or existing PowerPoint or Word documents. With ‘Microsoft
 Charts’, the data is integrated into the document and linked to the
@@ -44,8 +44,8 @@ print(doc, target = "example.pptx")
 ```
 
 At any moment, you can type `print(your_chart, preview = TRUE)` to
-preview the chart in a temporary PowerPoint file. This requires to have
-a PowerPoint Viewer installed on the machine.
+preview the chart in a temporary PowerPoint file. This requires a
+PowerPoint Viewer to be installed on the machine.
 
 ## Installation
 
@@ -69,4 +69,4 @@ When you file a [bug
 report](https://github.com/ardata-fr/mschart/issues), please spend some
 time making it easy for me to follow and reproduce. The more time you
 spend on making the bug report coherent, the more time I can dedicate to
-investigate the bug as opposed to the bug report.
+investigating the bug as opposed to the bug report.

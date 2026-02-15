@@ -2,12 +2,12 @@
 % Please edit documentation in R/datasets.R
 \name{browser_ts}
 \alias{browser_ts}
-\title{Dummy dataset for barchart}
+\title{Dummy dataset for time series charts}
 \format{
 A data frame with 36 rows and 3 variables
 }
 \description{
-A dataset containing a date, a categorical and an integer variables:
+A dataset containing a date, a categorical, and an integer variable:
 }
 \details{
 \itemize{

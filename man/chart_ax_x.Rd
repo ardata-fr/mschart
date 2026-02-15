@@ -2,7 +2,7 @@
 % Please edit documentation in R/axis_setting.R
 \name{chart_ax_x}
 \alias{chart_ax_x}
-\title{x axis settings}
+\title{X axis settings}
 \usage{
 chart_ax_x(
   x,
@@ -41,7 +41,7 @@ one of 'cross', 'in', 'none', 'out'.}
 \item{display}{should the axis be displayed (a logical of
 length 1).}
 
-\item{num_fmt}{number formatting. See section for more details.}
+\item{num_fmt}{number formatting. See the num_fmt section for more details.}
 
 \item{rotation}{rotation angle. Value should be between \code{-360}
 and \code{360}.}
@@ -50,7 +50,7 @@ and \code{360}.}
 
 \item{limit_max}{maximum value on the axis.}
 
-\item{position}{position value that cross the other axis.}
+\item{position}{position value that crosses the other axis.}
 
 \item{second_axis}{unused}
 }
@@ -59,10 +59,10 @@ Define settings for an x axis.
 }
 \section{num_fmt}{
 
-All \verb{\%} need to be doubled, \verb{0\%\%} mean "a number
+All \verb{\%} need to be doubled, \verb{0\%\%} means "a number
 and percent symbol".
 
-From my actual knowledge, depending on some chart type
+To my current knowledge, depending on the chart type
 and options, the following values are not systematically
 used by office chart engine; i.e. when chart pre-compute
 percentages, it seems using \verb{0\%\%} will have no
@@ -72,7 +72,7 @@ effect.
 \item \code{0}: display the number with no decimal
 \item \code{0.00}: display the number with two decimals
 \item \verb{0\%\%}: display as percentages
-\item \verb{0.00\%\%}: display as percentages with two digits
+\item \verb{0.00\%\%}: display as percentages with two decimal places
 \item \verb{#,##0}
 \item \verb{#,##0.00}
 \item \code{0.00E+00}

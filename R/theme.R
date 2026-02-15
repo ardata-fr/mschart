@@ -1,4 +1,4 @@
-#' @title set chart theme
+#' @title Set chart theme
 #' @description Modify chart theme with function \code{set_theme}.
 #' @param x an `ms_chart` object.
 #' @param value a [mschart_theme()] object.

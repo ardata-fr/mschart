@@ -1,10 +1,10 @@
-#' @title x table settings
+#' @title X table settings
 #' @description Define settings for an x table.
 #' @param x an `ms_chart` object.
 #' @param horizontal write horizontal lines in the table
 #' @param vertical write vertical lines in the table
 #' @param outline write an outline in the table
-#' @param show_keys showkeys in the table
+#' @param show_keys show keys in the table
 #' @export
 #' @examples
 #' data <- data.frame(

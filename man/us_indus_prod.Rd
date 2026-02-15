@@ -10,6 +10,6 @@ A data frame with 256 rows and 3 variables
 Index of US industrial production (1985 = 100).
 }
 \details{
-This is a transformation into simple data.frame
-of data \code{USProdIndex} in package 'AER'.
+This is a transformation of the \code{USProdIndex} data
+from package 'AER' into a simple data.frame.
 }

@@ -1,4 +1,4 @@
-#' @title x axis settings
+#' @title X axis settings
 #' @description Define settings for an x axis.
 #' @param x an `ms_chart` object.
 #' @param orientation axis orientation, one of 'maxMin', 'minMax'.
@@ -12,18 +12,18 @@
 #' 'low', 'nextTo', 'none'.
 #' @param display should the axis be displayed (a logical of
 #' length 1).
-#' @param num_fmt number formatting. See section for more details.
+#' @param num_fmt number formatting. See the num_fmt section for more details.
 #' @param rotation rotation angle. Value should be between `-360`
 #' and `360`.
 #' @param limit_min minimum value on the axis.
 #' @param limit_max maximum value on the axis.
-#' @param position position value that cross the other axis.
+#' @param position position value that crosses the other axis.
 #' @param second_axis unused
 #' @section num_fmt:
-#' All `%` need to be doubled, `0%%` mean "a number
+#' All `%` need to be doubled, `0%%` means "a number
 #' and percent symbol".
 #'
-#' From my actual knowledge, depending on some chart type
+#' To my current knowledge, depending on the chart type
 #' and options, the following values are not systematically
 #' used by office chart engine; i.e. when chart pre-compute
 #' percentages, it seems using `0%%` will have no
@@ -33,7 +33,7 @@
 #' * `0`: display the number with no decimal
 #' * `0.00`: display the number with two decimals
 #' * `0%%`: display as percentages
-#' * `0.00%%`: display as percentages with two digits
+#' * `0.00%%`: display as percentages with two decimal places
 #' * `#,##0`
 #' * `#,##0.00`
 #' * `0.00E+00`
@@ -122,7 +122,7 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
 }
 
 
-#' @title y axis settings
+#' @title Y axis settings
 #' @description Define settings for a y axis.
 #' @inheritParams chart_ax_x
 #' @inheritSection chart_ax_x num_fmt

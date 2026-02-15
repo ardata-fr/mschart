@@ -43,7 +43,7 @@ When grouping is 'standard', it should be one of 'b','ctr','l','r','t'.}
 \item{separator}{separator for displayed labels.}
 }
 \description{
-Data labels show details about data series. This function indicate that
+Data labels show details about data series. This function indicates that
 data labels should be displayed. See \code{\link[=chart_labels_text]{chart_labels_text()}} for modifying
 text settings associated with labels.
 }

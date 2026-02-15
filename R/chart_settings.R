@@ -1,5 +1,5 @@
 #' @export
-#' @title set chart options
+#' @title Set chart options
 #' @description Set chart properties.
 #' @param x an \code{ms_chart} object.
 #' @param ... unused parameter
@@ -69,11 +69,11 @@ barchart_options <- function(vary_colors = FALSE, gap_width = 150,
 
 #' @export
 #' @describeIn chart_settings barchart settings
-#' @param vary_colors if \code{TRUE} the data points in the single series are displayed the same color.
+#' @param vary_colors if \code{TRUE}, each data point in a single series is displayed in a different color.
 #' @param gap_width A gap appears between the bar or clustered bars for each category on a bar chart.
 #' The default width for this gap is 150 percent of the bar width. It can be set
 #' between 0 and 500 percent of the bar width.
-#' @param dir the direction of the bars in the chart, value must one of "horizontal" or "vertical".
+#' @param dir the direction of the bars in the chart, value must be one of "horizontal" or "vertical".
 #' @param grouping grouping for a barchart, a linechart or an area chart. must be one of "percentStacked", "clustered", "standard" or "stacked".
 #' @param overlap In a bar chart having two or more series, the bars for each
 #' category are clustered together. By default, these bars are directly
@@ -129,7 +129,7 @@ chart_settings.ms_linechart <- function(x, vary_colors, style = "lineMarker", ta
 
 
 #' @export
-#' @describeIn chart_settings linechart settings
+#' @describeIn chart_settings areachart settings
 chart_settings.ms_areachart <- function(x, vary_colors = FALSE, grouping = "standard", table = FALSE, ...) {
   if (!grouping %in% st_grouping) {
     stop("grouping should be one of ", paste0(shQuote(st_grouping), collapse = ", "))
@@ -142,7 +142,7 @@ chart_settings.ms_areachart <- function(x, vary_colors = FALSE, grouping = "stan
 }
 
 #' @export
-#' @describeIn chart_settings linechart settings
+#' @describeIn chart_settings scatterchart settings
 chart_settings.ms_scatterchart <- function(x, vary_colors = FALSE, style = "marker", ...) {
   if (!style %in% st_scatterstyle) {
     stop(

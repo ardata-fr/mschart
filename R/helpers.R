@@ -1,12 +1,12 @@
 #' @export
-#' @title set a barchart as a stacked barchart
+#' @title Set a barchart as a stacked barchart
 #' @description Apply settings to an \code{ms_barchart} object to
 #' produce a stacked barchart. Options are available to use percentage
 #' instead of values and to choose if bars should be vertically or horizontally drawn.
 #' @param x an \code{\link{ms_barchart}} object
-#' @param dir the direction of the bars in the chart, value must one of "horizontal" or "vertical".
-#' @param percent should bars be in percent
-#' @param gap_width gap width between the bar for each category on a bar chart, in percent
+#' @param dir the direction of the bars in the chart, value must be one of "horizontal" or "vertical".
+#' @param percent should bars be displayed as percentages.
+#' @param gap_width gap width between bars for each category on a bar chart, as a percentage
 #' of the bar width. It can be set between 0 and 500.
 #' @examples
 #' library(officer)

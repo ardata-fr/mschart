@@ -49,7 +49,7 @@ chart_labels_text <- function(x, values){
 #' @title Modify fill colour
 #' @description Specify mappings from levels in the data to displayed fill colours.
 #' @param x an `ms_chart` object.
-#' @param values `character(num of series|1)`: a set of colours values to map data values to.
+#' @param values `character(num of series|1)`: a set of colour values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' If it contains only one colour, this colour will be associated to all existing series.
 #' @examples
@@ -82,7 +82,7 @@ chart_data_fill <- function(x, values){
 #' @title Modify marker stroke colour
 #' @description Specify mappings from levels in the data to displayed marker stroke colours.
 #' @param x an `ms_chart` object.
-#' @param values `character(num of series)`: a set of colours values to map data values to.
+#' @param values `character(num of series)`: a set of colour values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' If it contains only one colour, this colour will be associated to all existing series.
 #' @examples
@@ -196,7 +196,7 @@ chart_data_size <- function(x, values){
 
 #' @export
 #' @title Modify line width
-#' @description Specify mappings from levels in the data to displayed line width between symbols.
+#' @description Specify mappings from levels in the data to the displayed line width.
 #' @param x an `ms_chart` object.
 #' @param values `double(num of series)`: a set of size values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
@@ -280,12 +280,12 @@ chart_data_line_style <- function(x, values){
 
 #' @export
 #' @title Smooth series
-#' @description Specify mappings from levels in the data to smooth or not lines. This
+#' @description Specify whether lines should be smoothed, per series. This
 #' feature only applies to [ms_linechart()].
 #' @param x an `ms_chart` object.
 #' @param values  `integer(num of series)`: a set of smooth values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
-#' Possible values are 0 or 1
+#' Possible values are 0 or 1.
 #' If it contains only one integer it will be associated to all existing series.
 #' @examples
 #' linec <- ms_linechart(data = iris, x = "Sepal.Length",

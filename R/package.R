@@ -1,6 +1,6 @@
 #' @title Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents
 #'
-#' @description It lets R users to create Microsoft Office charts from data, and
+#' @description It lets R users create Microsoft Office charts from data, and
 #' then add title, legends, and annotations to the chart object.
 #'
 #' The graph produced is a Microsoft graph, which means that it can be edited in
@@ -11,14 +11,14 @@
 #' often used to industrialize graphs that are then consumed and annotated by non-R
 #' users.
 #'
-#' The following charts are the only available from all possible MS charts:
+#' The following chart types are available:
 #'
 #' * barcharts: [ms_barchart()]
 #' * line charts: [ms_linechart()]
 #' * scatter plots: [ms_scatterchart()]
 #' * area charts: [ms_areachart()]
 #'
-#' These functions are creating a 'chart' object, it can be customized;
+#' These functions create a 'chart' object that can be customized:
 #'
 #' * by using options specific to the chart (with [chart_settings()]),
 #' * by changing the options related to the axes (with [chart_ax_x()] and [chart_ax_y()]),
