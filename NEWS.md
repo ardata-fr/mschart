@@ -6,6 +6,7 @@
 * Fixed typos in internal code (`asssert_scatter`, `unknow`).
 * Removed deprecated roxygen tags (`@docType`, `@keywords datasets`).
 * Updated GitHub Actions to v4.
+* switch from tinytest to testthat
 
 # mschart 0.4.1
 
