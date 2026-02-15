@@ -171,3 +171,27 @@ chart_settings.ms_scatterchart <- function(x, vary_colors, style, ...) {
   x$options <- options
   x
 }
+
+
+piechart_options <- function(vary_colors = TRUE, hole_size = 0) {
+  if (!(hole_size >= 0 && hole_size <= 90)) {
+    stop("hole_size should be between 0 and 90")
+  }
+  out <- list(vary_colors = vary_colors, hole_size = hole_size)
+  class(out) <- "piechart_options"
+  out
+}
+
+#' @export
+#' @describeIn chart_settings piechart settings
+#' @param hole_size size of the hole in a doughnut chart, between 0 and 90
+#' (percent of the radius). Default 0 produces a pie chart;
+#' values above 0 produce a doughnut chart.
+chart_settings.ms_piechart <- function(x, vary_colors, hole_size, ...) {
+  options <- piechart_options(
+    vary_colors = if (missing(vary_colors)) x$options$vary_colors else vary_colors,
+    hole_size = if (missing(hole_size)) x$options$hole_size else hole_size
+  )
+  x$options <- options
+  x
+}

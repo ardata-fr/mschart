@@ -25,6 +25,15 @@ assert_line <- function(data_y) {
   }
 }
 
+assert_pie <- function(data_x, data_y) {
+  if (!is.numeric(data_y)) {
+    stop("y column should be numeric.")
+  }
+  if (is.numeric(data_x)) {
+    stop("x column should be a categorical column (character or factor).")
+  }
+}
+
 #' @title Linechart object
 #' @description Creation of a linechart object that can be
 #' inserted in a 'Microsoft' document.
@@ -178,6 +187,64 @@ ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALS
 }
 
 
+#' @title Piechart object
+#' @description Creation of a piechart object that can be
+#' inserted in a 'Microsoft' document.
+#'
+#' Pie charts show the proportion of each category as a slice
+#' of a circle. Doughnut charts are similar but have a hole
+#' in the centre. Use `chart_settings(x, hole_size = ...)` to
+#' control the hole size: 0 produces a pie chart, values
+#' above 0 produce a doughnut chart.
+#'
+#' Data must be pre-aggregated: one row per slice, no grouping
+#' column.
+#' @param data a data.frame
+#' @param x column name for categories (slices).
+#' @param y column name for values (slice sizes).
+#' @param labels column names of columns to be used as custom data labels
+#' displayed next to data points (not axis labels). Optional.
+#' If more than one name is provided, only the first one will be used as a label, but all
+#' labels (transposed if a group is used) will be available in the Excel file
+#' associated with the chart.
+#' @return An `ms_chart` object.
+#' @export
+#' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_data_labels()], [chart_theme()], [chart_labels()]
+#' @examples
+#' library(officer)
+#' library(mschart)
+#'
+#' dat <- data.frame(
+#'   browser = c("Chrome", "Firefox", "Safari", "Edge", "Other"),
+#'   value = c(64, 12, 8, 5, 11)
+#' )
+#'
+#' # Pie chart
+#' pie <- ms_piechart(data = dat, x = "browser", y = "value")
+#' pie <- chart_labels(pie, title = "Browser share")
+#'
+#' # Doughnut chart
+#' donut <- ms_piechart(data = dat, x = "browser", y = "value")
+#' donut <- chart_settings(donut, hole_size = 50)
+#' donut <- chart_labels(donut, title = "Browser share (donut)")
+ms_piechart <- function(data, x, y, labels = NULL) {
+  out <- ms_chart(
+    data = data, x = x, y = y, group = NULL, labels = labels,
+    type = "pieplot"
+  )
+  out$options <- piechart_options()
+  class(out) <- c("ms_piechart", "ms_chart")
+  out <- chart_settings(out)
+
+  serie_names <- names(out$series_settings$colour)
+  values <- setNames(rep("transparent", length(serie_names)), serie_names)
+  out <- chart_data_stroke(out, values = values)
+
+  out
+}
+
+
 # ms_chart -----
 
 #' @importFrom grDevices colors
@@ -232,6 +299,10 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
 
   if (type == "lineplot") {
     assert_line(data_y)
+  }
+
+  if (type == "pieplot") {
+    assert_pie(data_x, data_y)
   }
 
 
@@ -411,7 +482,13 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
 
 
-  table_str <- table_content_xml(x)
+  if (inherits(x, "ms_piechart")) {
+    x_axis_str <- ""
+    y_axis_str <- ""
+    table_str <- ""
+  } else {
+    table_str <- table_content_xml(x)
+  }
 
   sppr_str <- sppr_content_xml(x$theme, "plot")
 

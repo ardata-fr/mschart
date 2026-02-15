@@ -1,5 +1,11 @@
 # mschart 0.4.2
 
+## New features
+
+* New function `ms_piechart()` for pie and doughnut charts. Use
+`chart_settings(x, hole_size = ...)` to control the hole size
+(0 = pie, >0 = doughnut).
+
 ## Issues
 
 * Fixed `fmt_name()` returning the input data instead of the format

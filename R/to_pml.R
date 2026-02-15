@@ -261,6 +261,69 @@ to_pml.ms_scatterchart <- function(x, add_ns = FALSE, id_x, id_y, sheetname = "s
 
 
 
+#' @export
+#' @method to_pml ms_piechart
+to_pml.ms_piechart <- function(x, add_ns = FALSE, id_x, id_y, sheetname = "sheet1", ...) {
+
+  series <- as_series(
+    x,
+    x_class = serie_builtin_class(x$data[[x$x]]),
+    y_class = serie_builtin_class(x$data[[x$y]]),
+    sheetname = sheetname
+  )
+
+  str_series_ <- sapply(series, function(serie) {
+    n <- length(x$data[[x$x]])
+    if (n <= length(colour_list)) {
+      fills <- colour_list[[n]]
+    } else {
+      fills <- rep_len(colour_list[[length(colour_list)]], n)
+    }
+
+    dpt_str <- vapply(seq_len(n), function(i) {
+      paste0(
+        sprintf("<c:dPt><c:idx val=\"%s\"/><c:bubble3D val=\"0\"/>", i - 1),
+        get_sppr_xml(fills[i], "transparent"),
+        "</c:dPt>"
+      )
+    }, character(1))
+    dpt_str <- paste0(dpt_str, collapse = "")
+
+    label_settings <- x$label_settings
+    label_settings$labels_fp <- serie$labels_fp
+
+    label_pml <- if (!is.null(x$label_cols)) to_pml(serie$label) else ""
+
+    paste0(
+      "<c:ser>",
+      sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
+      sprintf("<c:order val=\"%.0f\"/>", serie$order),
+      "<c:tx>", to_pml(serie$tx), "</c:tx>",
+      dpt_str,
+      to_pml(label_settings, with_position = FALSE, show_label = !is.null(x$label_cols)),
+      "<c:cat>", to_pml(serie$x), "</c:cat>",
+      "<c:val>", to_pml(serie$y), "</c:val>",
+      label_pml,
+      "</c:ser>"
+    )
+  })
+  str_series_ <- paste(str_series_, collapse = "")
+
+  is_donut <- x$options$hole_size > 0
+  tag <- if (is_donut) "c:doughnutChart" else "c:pieChart"
+  hole_str <- if (is_donut) sprintf("<c:holeSize val=\"%.0f\"/>", x$options$hole_size) else ""
+
+  paste0(
+    "<", tag, ">",
+    sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
+    str_series_,
+    to_pml(x$label_settings, with_position = FALSE, show_label = !is.null(x$label_cols)),
+    hole_str,
+    "</", tag, ">"
+  )
+}
+
+
 #' @importFrom grDevices col2rgb
 get_marker_xml <- function( fill, stroke, symbol = NULL, size = NULL){
 
