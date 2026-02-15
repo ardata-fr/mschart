@@ -110,16 +110,16 @@ linechart_options <- function(vary_colors = FALSE, table = FALSE) {
 #' @describeIn chart_settings linechart settings
 #' @param style Style for the linechart or scatterchart type of markers. One
 #' of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.
-chart_settings.ms_linechart <- function(x, vary_colors, style = "lineMarker", table, ...) {
+chart_settings.ms_linechart <- function(x, vary_colors, style, table, ...) {
   options <- linechart_options(
     vary_colors = if(missing(vary_colors)) x$options$vary_colors else vary_colors,
     table = if(missing(table)) x$options$table else table
   )
 
+  style <- if(missing(style)) x$options$linestyle %||% "lineMarker" else style
   if (!style %in% st_scatterstyle) {
     stop("style should be one of ", paste0(shQuote(st_scatterstyle), collapse = ", "))
   }
-
 
   options$linestyle <- style
   x$options <- options
@@ -131,7 +131,11 @@ chart_settings.ms_linechart <- function(x, vary_colors, style = "lineMarker", ta
 
 #' @export
 #' @describeIn chart_settings areachart settings
-chart_settings.ms_areachart <- function(x, vary_colors = FALSE, grouping = "standard", table = FALSE, ...) {
+chart_settings.ms_areachart <- function(x, vary_colors, grouping, table, ...) {
+  vary_colors <- if(missing(vary_colors)) x$options$vary_colors %||% FALSE else vary_colors
+  grouping <- if(missing(grouping)) x$options$grouping %||% "standard" else grouping
+  table <- if(missing(table)) x$options$table %||% FALSE else table
+
   if (!grouping %in% st_grouping) {
     stop("grouping should be one of ", paste0(shQuote(st_grouping), collapse = ", "))
   }
@@ -144,7 +148,10 @@ chart_settings.ms_areachart <- function(x, vary_colors = FALSE, grouping = "stan
 
 #' @export
 #' @describeIn chart_settings scatterchart settings
-chart_settings.ms_scatterchart <- function(x, vary_colors = FALSE, style = "marker", ...) {
+chart_settings.ms_scatterchart <- function(x, vary_colors, style, ...) {
+  vary_colors <- if(missing(vary_colors)) x$options$vary_colors %||% FALSE else vary_colors
+  style <- if(missing(style)) x$options$scatterstyle %||% "marker" else style
+
   if (!style %in% st_scatterstyle) {
     stop(
       "style should be one of ",
@@ -157,7 +164,6 @@ chart_settings.ms_scatterchart <- function(x, vary_colors = FALSE, style = "mark
   } else {
     x <- chart_data_smooth(x, values = 0)
   }
-
 
   options <- list(vary_colors = vary_colors, scatterstyle = style, table = FALSE)
   class(options) <- "scatterchart_options"

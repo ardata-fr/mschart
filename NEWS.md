@@ -7,6 +7,10 @@ name string. Automatic axis number formatting from theme (e.g.
 `date_fmt`, `double_fmt`) now works correctly.
 * Fixed `chart_data_smooth()` using `symbol` series names instead of
 `smooth` series names to resolve series.
+* Fixed `chart_settings()` for linechart, areachart and scatterchart
+silently resetting previously set options when called with partial
+parameters. All methods now use the `if(missing())` pattern to
+preserve existing option values.
 
 
 ## Changes

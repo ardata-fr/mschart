@@ -1,3 +1,5 @@
+`%||%` <- function(x, y) if (is.null(x)) y else x
+
 fmt_name <- function( x ){
   if( inherits(x, "Date") )
     "date_fmt"
