@@ -9,7 +9,6 @@ status](https://github.com/ardata-fr/mschart/workflows/R-CMD-check/badge.svg)](h
 ![cranlogs](https://cranlogs.r-pkg.org/badges/mschart)
 ![Active](http://www.repostatus.org/badges/latest/active.svg)
 
-<a href="https://github.com/ardata-fr/mschart"><img src="man/figures/logo.png" alt="mschart logo" align="right" /></a>
 The `mschart` package provides a framework for easily create charts for
 ‘Microsoft PowerPoint’ presentations and ‘Microsoft Word’ documents. It
 has to be used with package

@@ -1,8 +1,18 @@
+url: https://ardata-fr.github.io/mschart/
+
 title: mschart
 
+development:
+  mode: auto
+
 template:
-  package: pkgardata
+  bootstrap: 5
+  theme: breeze-light
   bootswatch: simplex
+  bslib:
+    pkgdown-nav-height: 100px
+    base_font:
+      google: "Open Sans"
 
 home:
   links:
@@ -56,3 +66,13 @@ navbar:
   right:
   - icon: fa-github fa-lg
     href: https://github.com/ardata-fr/mschart
+
+footer:
+  structure:
+    left: legal
+  components:
+    legal: proudly brought to you by <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a>
+
+authors:
+  David Gohel:
+    href: https://www.ardata.fr
