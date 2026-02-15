@@ -5,6 +5,8 @@
 * Fixed `fmt_name()` returning the input data instead of the format
 name string. Automatic axis number formatting from theme (e.g.
 `date_fmt`, `double_fmt`) now works correctly.
+* Fixed `chart_data_smooth()` using `symbol` series names instead of
+`smooth` series names to resolve series.
 
 
 ## Changes

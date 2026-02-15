@@ -308,7 +308,7 @@ chart_data_smooth <- function(x, values){
     stop("smooth can only take values of 0 or 1")
   }
 
-  serie_names <- names(x$series_settings$symbol)
+  serie_names <- names(x$series_settings$smooth)
 
   if( length(values) == 1 ){
     values <- rep(values, length(serie_names))
