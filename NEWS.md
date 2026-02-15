@@ -1,5 +1,12 @@
 # mschart 0.4.2
 
+## Issues
+
+* Fixed `fmt_name()` returning the input data instead of the format
+name string. Automatic axis number formatting from theme (e.g.
+`date_fmt`, `double_fmt`) now works correctly.
+
+
 ## Changes
 
 * Minimum R version bumped to 3.5, officer to 0.6.7.

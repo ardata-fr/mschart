@@ -1,5 +1,4 @@
 fmt_name <- function( x ){
-
   if( inherits(x, "Date") )
     "date_fmt"
   else if( is.factor(x) || is.character(x) )
@@ -9,8 +8,6 @@ fmt_name <- function( x ){
   else if( is.double(x) )
     "double_fmt"
   else stop("unknown type of data")
-
-  x
 }
 
 serie_builtin_class <- function( x ){
