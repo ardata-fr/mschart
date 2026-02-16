@@ -54,7 +54,7 @@ and will be converted automatically.}
 
 \item{position}{the value at which this axis crosses the perpendicular axis.}
 
-\item{second_axis}{reserved for future use; currently ignored.}
+\item{second_axis}{logical to be used in \code{ms_combochart()}.}
 }
 \value{
 An \code{ms_chart} object.

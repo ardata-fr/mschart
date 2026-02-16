@@ -20,7 +20,7 @@
 #' @param limit_max maximum value on the axis. Date objects are also accepted
 #' and will be converted automatically.
 #' @param position the value at which this axis crosses the perpendicular axis.
-#' @param second_axis reserved for future use; currently ignored.
+#' @param second_axis logical to be used in `ms_combochart()`.
 #' @section num_fmt:
 #' All `%` need to be doubled, `0%%` means "a number
 #' and percent symbol".
@@ -87,7 +87,6 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
   stopifnot(inherits(x, "ms_chart"))
 
   options <- list( orientation = ifelse(missing(orientation), x$x_axis$orientation, orientation),
-                   axis_position = ifelse( second_axis, "r", "l" ),
                    crosses = ifelse(missing(crosses), x$x_axis$crosses, crosses),
                    cross_between = ifelse(missing(cross_between), x$x_axis$cross_between, cross_between),
                    major_tick_mark = ifelse(missing(major_tick_mark), x$x_axis$major_tick_mark, major_tick_mark),
@@ -118,6 +117,10 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
     options$position <- x$x_axis$position
   } else if( !missing(position) ){
     options$position <- position
+  }
+
+  if (second_axis) {
+    attr(x, "secondary_x") <- second_axis
   }
 
   x$x_axis <- do.call(axis_options, options)
@@ -161,7 +164,6 @@ chart_ax_y <- function( x, orientation, crosses, cross_between,
   stopifnot(inherits(x, "ms_chart"))
 
   options <- list( orientation = ifelse(missing(orientation), x$y_axis$orientation, orientation),
-                   axis_position = ifelse( second_axis, "r", "l" ),
                    crosses = ifelse(missing(crosses), x$y_axis$crosses, crosses),
                    cross_between = ifelse(missing(cross_between), x$y_axis$cross_between, cross_between),
                    major_tick_mark = ifelse(missing(major_tick_mark), x$y_axis$major_tick_mark, major_tick_mark),
@@ -191,6 +193,10 @@ chart_ax_y <- function( x, orientation, crosses, cross_between,
     options$position <- x$y_axis$position
   } else if( !missing(position) ){
     options$position <- position
+  }
+
+  if (second_axis) {
+    attr(x, "secondary_y") <- second_axis
   }
 
   x$y_axis <- do.call(axis_options, options)

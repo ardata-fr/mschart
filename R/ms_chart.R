@@ -186,6 +186,95 @@ ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALS
   out
 }
 
+#' @title combochart object
+#' @description Creation of a combochart object that can be
+#' inserted in a 'Microsoft' document.
+#' @details ms_combochart only works with mschart objects created with
+#' `asis = TRUE`.
+#' @param ... mschart objects
+#' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
+#' [chart_data_labels()], [chart_theme()], [chart_labels()]
+#' @export
+#' @example examples/05_combochart.R
+ms_combochart <- function(...) {
+
+  inputs <- list(...)
+
+  # write only a single additional x or y axis
+  sec_x <- TRUE
+  sec_y <- TRUE
+
+  for (i in seq_along(inputs)) {
+
+    if (!inherits(inputs[[i]], "ms_chart")) {
+      warning("Skipping non ms_chart element: ", i)
+      next
+    }
+
+    if (!inputs[[i]]$asis) {
+      warning("Skipping non asis element: ", i)
+      next
+    }
+
+    if (i == 1)
+      out <-  inputs[[1]]
+
+    if (i > 1) {
+
+      is_sec_x <- isTRUE(attr(inputs[[i]], "secondary_x"))
+      is_sec_y <- isTRUE(attr(inputs[[i]], "secondary_y"))
+
+      # avoid additional labels. only one axis label and one title per chart
+      # title and x axis have to be defined in the first mschart
+      lbl <- inputs[[i]]$labels
+      xlab <- NULL
+      ylab <- NULL
+
+      # disable additional x and y axis.
+      # TODO: it is not yet possible to draw additional x and
+      # additional y axis into a single plot because axis elements
+      # are taken only from the first two mschart elements:
+      # The base chart and the first second axis
+      if (sec_x && is_sec_x && !is_sec_y) {
+        inputs[[i]]$x_axis$delete <- 0L
+        inputs[[i]]$x_axis$axis_position <- "t"
+        inputs[[i]]$x_axis$crosses <- "max"
+
+        inputs[[i]]$y_axis$delete <- 1L
+        inputs[[i]]$y_axis$axis_position <- "l"
+        inputs[[i]]$y_axis$crosses <- "autoZero"
+
+        xlab <- lbl$x
+        sec_x <- FALSE
+      } else if (sec_y && is_sec_y && !is_sec_x) {
+        inputs[[i]]$x_axis$delete <- 1L
+        inputs[[i]]$x_axis$axis_position <- "b"
+        inputs[[i]]$x_axis$crosses <- "autoZero"
+
+        inputs[[i]]$y_axis$delete <- 0L
+        inputs[[i]]$y_axis$axis_position <- "r"
+        inputs[[i]]$y_axis$crosses <- "max"
+
+        ylab <- lbl$y
+        sec_y <- FALSE
+      } else {
+        inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
+        inputs[[i]]$x_axis <- axis_options(axis_position = "b", delete = 1L)
+      }
+
+      inputs[[i]]$labels$title <- list(title = NULL, x = xlab, y = ylab)
+
+      if (is.null(out$secondary)) {
+        out$secondary <- list(inputs[[i]])
+      } else {
+        out$secondary <- append(out$secondary, list(inputs[[i]]))
+      }
+    }
+  }
+
+  out
+}
 
 #' @title Piechart object
 #' @description Creation of a piechart object that can be
@@ -329,11 +418,14 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
   x <- x[1]
   y <- y[1]
 
-
   lbls <- list(title = NULL, x = x, y = y)
 
   out <- list(
-    data = data, x = x, y = y, group = group, label_cols = labels,
+    data = data,
+    x = x,
+    y = y,
+    group = group,
+    label_cols = labels,
     theme = theme_,
     options = list(),
     x_axis = x_axis_,
@@ -456,7 +548,7 @@ colour_list <- list(
 #' @method format ms_chart
 #' @export
 format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE, ...) {
-  str_ <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname, asis = x$asis)
+  str_ <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname, asis = x$asis, secondary_y = 0)
 
   if (is.null(x$x_axis$num_fmt)) {
     x$x_axis$num_fmt <- x$theme[[x$fmt_names$x]]
@@ -465,10 +557,14 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
     x$y_axis$num_fmt <- x$theme[[x$fmt_names$y]]
   }
 
-  x_axis_str <- axis_content_xml(x$x_axis,
-    id = id_x, theme = x$theme,
-    cross_id = id_y, is_x = TRUE,
-    lab = htmlEscape(x$labels$x), rot = x$theme$title_x_rot
+  x_axis_str <- axis_content_xml(
+    x$x_axis,
+    id = id_x,
+    theme = x$theme,
+    cross_id = id_y,
+    is_x = TRUE,
+    lab = htmlEscape(x$labels$x),
+    rot = x$theme$title_x_rot
   )
 
   x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
@@ -480,6 +576,82 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   )
 
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
+
+  secondary <- TRUE # logical will become FALSE if secondary axis are created
+
+  # avoid altering the seed
+  seed <- get0(".Random.seed", globalenv(), mode = "integer", inherits = FALSE)
+  ids <- sample(seq.int(60000000, 70000000), size = 4, replace = FALSE)
+  assign(".Random.seed", seed, globalenv())
+
+  axis_str <- paste0(x_axis_str, y_axis_str)
+
+  if (length(x$secondary)) {
+
+    ser_id <- length(x$yvar) + 1L
+
+    for (sec in seq_along(x$secondary)) {
+
+      is_sec_x <- isTRUE(attr(x$secondary[[sec]], "secondary_x"))
+      is_sec_y <- isTRUE(attr(x$secondary[[sec]], "secondary_y"))
+
+      # charts reference their axis via this id
+      if (is_sec_y || is_sec_x) {
+        x_id <- as.character(ids[1])
+        y_id <- as.character(ids[2])
+      } else {
+        x_id <- id_x
+        y_id <- id_y
+      }
+
+      xlab <- if (is_sec_x && !is_sec_y) htmlEscape(x$secondary[[sec]]$labels$x) else NULL
+      ylab <- if (is_sec_y && !is_sec_x) htmlEscape(x$secondary[[sec]]$labels$y) else NULL
+
+      # add only one secondary x and y axis if required
+      if (secondary && (is_sec_x || is_sec_y)) {
+
+        axis_l_str <- axis_content_xml(
+          x$secondary[[sec]]$y_axis,
+          id = y_id,
+          theme = x$secondary[[sec]]$theme,
+          cross_id = x_id,
+          is_x = FALSE,
+          lab = ylab,
+          rot = x$secondary[[sec]]$theme$title_y_rot
+        )
+
+        x_axis_str <- sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$y, axis_l_str, x$secondary[[sec]]$axis_tag$y)
+
+        axis_r_str <- axis_content_xml(
+          x$secondary[[sec]]$x_axis,
+          id = x_id,
+          theme = x$secondary[[sec]]$theme,
+          cross_id = y_id,
+          is_x = TRUE,
+          lab = xlab
+        )
+        y_axis_str <- sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$x, axis_r_str, x$secondary[[sec]]$axis_tag$x)
+
+        secondary <- FALSE
+
+        axis_str <- paste0(axis_str, x_axis_str, y_axis_str)
+      }
+
+      # all secondary charts
+      str_ <- paste0(str_, to_pml(
+        x$secondary[[sec]],
+        id_y = y_id,
+        id_x = x_id,
+        sheetname = sheetname,
+        asis = x$secondary[[sec]]$asis,
+        secondary_y = ser_id
+      ))
+
+      ser_id <- ser_id + length(x$secondary[[sec]]$yvar)
+
+    }
+
+  }
 
 
   if (inherits(x, "ms_piechart")) {
@@ -493,7 +665,15 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   sppr_str <- sppr_content_xml(x$theme, "plot")
 
   ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
-  xml_elt <- paste0("<c:plotArea ", ns, "><c:layout/>", str_, x_axis_str, y_axis_str, table_str, sppr_str, "</c:plotArea>")
+
+  xml_elt <- paste0(
+    "<c:plotArea ", ns, "><c:layout/>",
+    str_,
+    axis_str,
+    table_str,
+    sppr_str,
+    "</c:plotArea>"
+  )
   xml_doc <- read_xml(system.file(package = "mschart", "template", "chart.xml"))
 
   node <- xml_find_first(xml_doc, "//c:plotArea")
