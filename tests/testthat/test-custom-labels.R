@@ -32,3 +32,19 @@ test_that("custom labels are correctly set in barchart", {
     ignore_attr = TRUE
   )
 })
+
+test_that("custom minor/major units work", {
+
+  scatter <- ms_scatterchart(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species")
+  scatter <- chart_settings(scatter, scatterstyle = "marker")
+
+  scatter <- chart_ax_x(scatter, major_tick_mark = c("0.333" = "in"), minor_tick_mark = c("1" = "in"))
+  scatter <- chart_ax_y(scatter, major_tick_mark = c("0.333" = "in"), minor_tick_mark = c("1" = "in"))
+
+  expect_equal(scatter$y_axis$major_tick_mark, c("0.333" = "in"))
+  expect_equal(scatter$y_axis$minor_tick_mark, c("1" = "in"))
+
+  expect_equal(scatter$x_axis$major_tick_mark, c("0.333" = "in"))
+  expect_equal(scatter$x_axis$minor_tick_mark, c("1" = "in"))
+
+})
