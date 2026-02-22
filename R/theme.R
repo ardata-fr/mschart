@@ -35,6 +35,16 @@ set_theme <- function(x, value) {
   x
 }
 
+#' helper class to check function input
+#' @param x input argument to check
+#' @param class a class to check against
+#' @keywords internal
+#' @noRd
+assert_class <- function(x, class) {
+  if (!is.logical(x) && !inherits(x, class)) {
+    stop("input must be logical or ", class, " not ", x)
+  }
+}
 
 #' @importFrom officer fp_text fp_border
 #' @description Use \code{mschart_theme()} to create a chart theme.
@@ -72,6 +82,7 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
                           chart_background = NULL, chart_border = fp_border(color = "transparent"),
                           plot_background = NULL, plot_border = fp_border(color = "transparent"),
                           date_fmt = "yyyy/mm/dd", str_fmt = "General", double_fmt = "#,##0.00", integer_fmt = "0", legend_position = "b") {
+  # strict check: these must be fp_text objects
   stopifnot(inherits(main_title, "fp_text"))
   stopifnot(inherits(table_text, "fp_text"))
   stopifnot(inherits(legend_text, "fp_text"))
@@ -81,15 +92,18 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
   stopifnot(inherits(axis_text, "fp_text"))
   stopifnot(inherits(axis_text_x, "fp_text"))
   stopifnot(inherits(axis_text_y, "fp_text"))
+  # strict check: these must be fp_border objects
   stopifnot(inherits(axis_ticks, "fp_border"))
   stopifnot(inherits(axis_ticks_x, "fp_border"))
   stopifnot(inherits(axis_ticks_y, "fp_border"))
-  stopifnot(inherits(grid_major_line, "fp_border"))
-  stopifnot(inherits(grid_major_line_x, "fp_border"))
-  stopifnot(inherits(grid_major_line_y, "fp_border"))
-  stopifnot(inherits(grid_minor_line, "fp_border"))
-  stopifnot(inherits(grid_minor_line_x, "fp_border"))
-  stopifnot(inherits(grid_minor_line_y, "fp_border"))
+  # assert_class: accept fp_border or logical (FALSE to disable the grid line)
+  assert_class(grid_major_line, "fp_border")
+  assert_class(grid_major_line_x, "fp_border")
+  assert_class(grid_major_line_y, "fp_border")
+  assert_class(grid_minor_line, "fp_border")
+  assert_class(grid_minor_line_x, "fp_border")
+  assert_class(grid_minor_line_y, "fp_border")
+  # strict check: these must be fp_border objects
   stopifnot(inherits(chart_border, "fp_border"))
   stopifnot(inherits(plot_border, "fp_border"))
 
@@ -196,16 +210,12 @@ chart_theme <- function(x, axis_title_x, axis_title_y, main_title, legend_text,
   }
 
   if (!missing(grid_major_line_x)) {
-    if (!all(class(grid_major_line_x) %in% class(x$theme$grid_major_line_x))) {
-      stop("grid_major_line_x should be of class ", class(x$theme$grid_major_line_x))
-    }
+    assert_class(grid_major_line_x, class(x$theme$grid_major_line_x))
     x$theme$grid_major_line_x <- grid_major_line_x
   }
 
   if (!missing(grid_major_line_y)) {
-    if (!all(class(grid_major_line_y) %in% class(x$theme$grid_major_line_y))) {
-      stop("grid_major_line_y should be of class ", class(x$theme$grid_major_line_y))
-    }
+    assert_class(grid_major_line_y, class(x$theme$grid_major_line_y))
     x$theme$grid_major_line_y <- grid_major_line_y
   }
 

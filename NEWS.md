@@ -2,9 +2,17 @@
 
 ## New features
 
+* New function `ms_combochart()` to combine multiple chart types
+(e.g. bars + lines) with optional secondary axes. Only works with
+charts created with `asis = TRUE`. Contributed by Jan Marvin Garbuszus.
 * New function `ms_piechart()` for pie and doughnut charts. Use
 `chart_settings(x, hole_size = ...)` to control the hole size
-(0 = pie, >0 = doughnut).
+(0 = pie, >0 = doughnut). Contributed by Jan Marvin Garbuszus.
+* `chart_ax_x()` and `chart_ax_y()` gain a `second_axis` argument
+for use with `ms_combochart()`.
+* Grid lines can now be disabled by setting `grid_major_line_x`,
+`grid_major_line_y`, `grid_minor_line_x` or `grid_minor_line_y`
+to `FALSE` in `mschart_theme()` or `chart_theme()`.
 
 ## Issues
 

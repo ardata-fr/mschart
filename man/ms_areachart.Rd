@@ -72,6 +72,7 @@ ac_03 <- chart_table(
 
 Other 'Office' chart objects: 
 \code{\link{ms_barchart}()},
+\code{\link{ms_combochart}()},
 \code{\link{ms_linechart}()},
 \code{\link{ms_piechart}()},
 \code{\link{ms_scatterchart}()}

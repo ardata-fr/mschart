@@ -2,13 +2,13 @@ Type: Package
 Package: mschart
 Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint'
     Documents
-Version: 0.4.2.008
+Version: 0.4.2.009
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
     person("YouGov", role = "fnd"),
     person("Jan Marvin", "Garbuszus", role = "ctb",
-           comment = "support for openxlsx2"),
+           comment = "support for openxlsx2 and combo charts"),
     person("Stefan", "Moog", , "moogs@gmx.de", role = "ctb",
            comment = "support to set chart and plot area color and border"),
     person("Eli", "Daniels", , "eli.daniels@ardata.fr", role = "ctb"),
