@@ -16,6 +16,10 @@ to `FALSE` in `mschart_theme()` or `chart_theme()`.
 
 ## Issues
 
+* Fixed `chart_data_line_style()` not hiding lines when style is set
+to `"none"`. The generated XML now explicitly uses `<a:noFill/>` instead
+of omitting the line element, which caused Excel to apply the default
+style. Reported in #91, contributed by Stefan Moog (#99).
 * Fixed `fmt_name()` returning the input data instead of the format
 name string. Automatic axis number formatting from theme (e.g.
 `date_fmt`, `double_fmt`) now works correctly.

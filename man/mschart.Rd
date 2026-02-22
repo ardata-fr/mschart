@@ -60,7 +60,7 @@ Other contributors:
   \item ArData [copyright holder]
   \item YouGov [funder]
   \item Jan Marvin Garbuszus (support for openxlsx2 and combo charts) [contributor]
-  \item Stefan Moog \email{moogs@gmx.de} (support to set chart and plot area color and border) [contributor]
+  \item Stefan Moog \email{moogs@gmx.de} (support to set chart and plot area color and border, fix for line style none) [contributor]
   \item Eli Daniels \email{eli.daniels@ardata.fr} [contributor]
   \item Marlon Molina (added table feature) [contributor]
   \item Rokas Klydzia (custom labels) [contributor]

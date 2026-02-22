@@ -2,7 +2,7 @@ Type: Package
 Package: mschart
 Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint'
     Documents
-Version: 0.4.2.009
+Version: 0.4.2.010
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -10,7 +10,7 @@ Authors@R: c(
     person("Jan Marvin", "Garbuszus", role = "ctb",
            comment = "support for openxlsx2 and combo charts"),
     person("Stefan", "Moog", , "moogs@gmx.de", role = "ctb",
-           comment = "support to set chart and plot area color and border"),
+           comment = "support to set chart and plot area color and border, fix for line style none"),
     person("Eli", "Daniels", , "eli.daniels@ardata.fr", role = "ctb"),
     person("Marlon", "Molina", role = "ctb",
            comment = "added table feature"),

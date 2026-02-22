@@ -47,8 +47,15 @@ ooxml_fp_border <- function(x, in_tags = NULL ){
   alpha <- colspecs$alpha
   is_transparent <- alpha < .0001
 
-  if( is_transparent || x$width < 0.001 || x$style %in% "none" ){
+  no_line <- is_transparent || x$width < 0.001 || x$style %in% "none"
+  if( no_line && is.null(in_tags) ){
     return("")
+  }
+  if( no_line ){
+    out <- "<a:ln><a:noFill/></a:ln>"
+    begin <- paste0("<", in_tags, ">", collapse = "")
+    end <- paste0("</", rev(in_tags), ">", collapse = "")
+    return(paste0(begin, out, end))
   }
 
   colspecs$alpha <- NULL
