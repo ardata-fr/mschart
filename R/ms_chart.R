@@ -591,7 +591,7 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   # avoid altering the seed
   seed <- get0(".Random.seed", globalenv(), mode = "integer", inherits = FALSE)
   ids <- sample(seq.int(60000000, 70000000), size = 4, replace = FALSE)
-  assign(".Random.seed", seed, globalenv())
+  if (!is.null(seed)) assign(".Random.seed", seed, globalenv())
 
   axis_str <- paste0(x_axis_str, y_axis_str)
 
