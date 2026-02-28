@@ -8,6 +8,7 @@
 #' category axis between categories, one of 'between', 'midCat'.
 #' @param major_tick_mark,minor_tick_mark tick marks position,
 #' one of 'cross', 'in', 'none', 'out'.
+#' @param major_unit,minor_unit major and minor unit for axis
 #' @param tick_label_pos ticks labels position, one of 'high',
 #' 'low', 'nextTo', 'none'.
 #' @param display should the axis be displayed (a logical of
@@ -79,7 +80,8 @@
 #' @seealso [chart_ax_y()], [ms_areachart()], [ms_barchart()], [ms_scatterchart()],
 #' [ms_linechart()]
 chart_ax_x <- function( x, orientation, crosses, cross_between,
-                            major_tick_mark, minor_tick_mark,
+                            major_tick_mark, major_unit,
+                            minor_tick_mark, minor_unit,
                             tick_label_pos, display,
                             num_fmt, rotation,
                         limit_min, limit_max, position,
@@ -89,8 +91,10 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
   options <- list( orientation = ifelse(missing(orientation), x$x_axis$orientation, orientation),
                    crosses = ifelse(missing(crosses), x$x_axis$crosses, crosses),
                    cross_between = ifelse(missing(cross_between), x$x_axis$cross_between, cross_between),
-                   major_tick_mark = if(missing(major_tick_mark)) x$x_axis$major_tick_mark else major_tick_mark,
-                   minor_tick_mark = if(missing(minor_tick_mark)) x$x_axis$minor_tick_mark else minor_tick_mark,
+                   major_tick_mark = ifelse(missing(major_tick_mark), x$x_axis$major_tick_mark, major_tick_mark),
+                   major_unit = if(missing(major_unit)) x$x_axis$major_unit else major_unit,
+                   minor_tick_mark = ifelse(missing(minor_tick_mark), x$x_axis$minor_tick_mark, minor_tick_mark),
+                   minor_unit = if(missing(minor_unit)) x$x_axis$minor_unit else minor_unit,
                    tick_label_pos = ifelse(missing(tick_label_pos), x$x_axis$tick_label_pos, tick_label_pos),
                    delete = ifelse(missing(display), x$x_axis$delete, !display),
                    num_fmt = ifelse(missing(num_fmt), x$x_axis$num_fmt, num_fmt),
@@ -156,7 +160,8 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
 #' @seealso [chart_ax_x()], [ms_areachart()], [ms_barchart()], [ms_scatterchart()],
 #' [ms_linechart()]
 chart_ax_y <- function( x, orientation, crosses, cross_between,
-                        major_tick_mark, minor_tick_mark,
+                        major_tick_mark, major_unit,
+                        minor_tick_mark, minor_unit,
                         tick_label_pos, display,
                         num_fmt, rotation,
                         limit_min, limit_max, position,
@@ -166,8 +171,10 @@ chart_ax_y <- function( x, orientation, crosses, cross_between,
   options <- list( orientation = ifelse(missing(orientation), x$y_axis$orientation, orientation),
                    crosses = ifelse(missing(crosses), x$y_axis$crosses, crosses),
                    cross_between = ifelse(missing(cross_between), x$y_axis$cross_between, cross_between),
-                   major_tick_mark = if(missing(major_tick_mark)) x$y_axis$major_tick_mark else major_tick_mark,
-                   minor_tick_mark = if(missing(minor_tick_mark)) x$y_axis$minor_tick_mark else minor_tick_mark,
+                   major_tick_mark = ifelse(missing(major_tick_mark), x$y_axis$major_tick_mark, major_tick_mark),
+                   major_unit = if(missing(major_unit)) x$y_axis$major_unit else major_unit,
+                   minor_tick_mark = ifelse(missing(minor_tick_mark), x$y_axis$minor_tick_mark, minor_tick_mark),
+                   minor_unit = if(missing(minor_unit)) x$y_axis$minor_unit else minor_unit,
                    tick_label_pos = ifelse(missing(tick_label_pos), x$y_axis$tick_label_pos, tick_label_pos),
                    delete = ifelse(missing(display), x$y_axis$delete, !display),
                    num_fmt = ifelse(missing(num_fmt), x$y_axis$num_fmt, num_fmt),
@@ -206,7 +213,8 @@ chart_ax_y <- function( x, orientation, crosses, cross_between,
 
 axis_options <- function( orientation = "minMax", axis_position = "b",
                           crosses = "autoZero", cross_between = "between",
-                          major_tick_mark = "cross", minor_tick_mark = "none",
+                          major_tick_mark = "cross", major_unit = NULL,
+                          minor_tick_mark = "none", minor_unit = NULL,
                           tick_label_pos = "nextTo", delete = FALSE, num_fmt = "General",
                           rotation = 0, limit_min = NULL, limit_max = NULL, position = NULL ){
 
@@ -231,6 +239,11 @@ axis_options <- function( orientation = "minMax", axis_position = "b",
   if( !tick_label_pos %in% st_ticklblpos ){
     stop("tick_label_pos should be one of ", paste0(shQuote(st_ticklblpos), collapse = ", " ))
   }
+  if( (!is.null(minor_unit) && !is.numeric(minor_unit)) ||
+      (!is.null(major_unit) && !is.numeric(major_unit)) ){
+    # FIXME check dates
+    stop("major and minor unit should be numerics")
+  }
 
   out <- list(
     orientation = orientation,
@@ -240,7 +253,9 @@ axis_options <- function( orientation = "minMax", axis_position = "b",
     delete = delete,
     num_fmt = num_fmt,
     major_tick_mark = major_tick_mark,
+    major_unit = major_unit,
     minor_tick_mark = minor_tick_mark,
+    minor_unit = minor_unit,
     tick_label_pos = tick_label_pos,
     rotation = rotation,
     limit_min = limit_min,

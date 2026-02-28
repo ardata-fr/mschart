@@ -110,12 +110,12 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   labels_text_pr <- sprintf(labels_text_pr, x$rotation * 60000, rpr)
 
   major_units <- ""
-  if (!is.null(names(x$major_tick_mark))) {
-    major_units <- sprintf("<c:majorUnit val=\"%s\"/>", names(x$major_tick_mark))
+  if (!is.null(x$major_unit)) {
+    major_units <- sprintf("<c:majorUnit val=\"%s\"/>", x$major_unit)
   }
   minor_units <- ""
-  if (!is.null(names(x$minor_tick_mark))) {
-    minor_units <- sprintf("<c:minorUnit val=\"%s\"/>", names(x$minor_tick_mark))
+  if (!is.null(x$minor_unit)) {
+    minor_units <- sprintf("<c:minorUnit val=\"%s\"/>", x$minor_unit)
   }
 
   str_ <- paste0(
@@ -135,4 +135,3 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   )
   str_
 }
-

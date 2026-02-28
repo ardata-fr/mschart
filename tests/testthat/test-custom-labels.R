@@ -38,13 +38,26 @@ test_that("custom minor/major units work", {
   scatter <- ms_scatterchart(data = iris, x = "Sepal.Length", y = "Sepal.Width", group = "Species")
   scatter <- chart_settings(scatter, scatterstyle = "marker")
 
-  scatter <- chart_ax_x(scatter, major_tick_mark = c("0.333" = "in"), minor_tick_mark = c("1" = "in"))
-  scatter <- chart_ax_y(scatter, major_tick_mark = c("0.333" = "in"), minor_tick_mark = c("1" = "in"))
+  # default
+  expect_equal(scatter$y_axis$major_unit, NULL)
+  expect_equal(scatter$y_axis$minor_unit, NULL)
 
-  expect_equal(scatter$y_axis$major_tick_mark, c("0.333" = "in"))
-  expect_equal(scatter$y_axis$minor_tick_mark, c("1" = "in"))
+  # set values
+  scatter <- chart_ax_x(scatter, major_tick_mark = "in", minor_tick_mark = "in", major_unit = 0.333, minor_unit = 1)
+  scatter <- chart_ax_y(scatter, major_tick_mark = "in", minor_tick_mark = "in", major_unit = 0.333, minor_unit = 1)
 
-  expect_equal(scatter$x_axis$major_tick_mark, c("0.333" = "in"))
-  expect_equal(scatter$x_axis$minor_tick_mark, c("1" = "in"))
+  # values are available
+  expect_equal(scatter$y_axis$major_unit, 0.333)
+  expect_equal(scatter$y_axis$minor_unit, 1)
+
+  expect_equal(scatter$x_axis$major_unit, 0.333)
+  expect_equal(scatter$x_axis$minor_unit, 1)
+
+  # removal
+  scatter <- chart_ax_x(scatter, major_tick_mark = "in", minor_tick_mark = "in", major_unit = NULL, minor_unit = NULL)
+  scatter <- chart_ax_y(scatter, major_tick_mark = "in", minor_tick_mark = "in", major_unit = NULL, minor_unit = NULL)
+
+  expect_equal(scatter$y_axis$major_unit, NULL)
+  expect_equal(scatter$y_axis$minor_unit, NULL)
 
 })
