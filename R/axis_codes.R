@@ -109,6 +109,23 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   labels_text_pr <- "<c:txPr><a:bodyPr rot=\"%.0f\" vert=\"horz\"/><a:lstStyle/><a:p><a:pPr>%s</a:pPr></a:p></c:txPr>"
   labels_text_pr <- sprintf(labels_text_pr, x$rotation * 60000, rpr)
 
+  major_units <- ""
+  if (!is.null(x$major_unit)) {
+    major_units <- sprintf("<c:majorUnit val=\"%s\"/>", x$major_unit)
+  }
+  major_time_units <- ""
+  if (!is.null(x$major_time_unit)) {
+    major_time_units <- sprintf("<c:majorTimeUnit val=\"%s\"/>", x$major_time_unit)
+  }
+  minor_units <- ""
+  if (!is.null(x$minor_unit)) {
+    minor_units <- sprintf("<c:minorUnit val=\"%s\"/>", x$minor_unit)
+  }
+  minor_time_units <- ""
+  if (!is.null(x$minor_time_unit)) {
+    minor_time_units <- sprintf("<c:minorTimeUnit val=\"%s\"/>", x$minor_time_unit)
+  }
+
   str_ <- paste0(
     sprintf("<c:axId val=\"%s\"/>", id),
     scaling_str, delete, position,
@@ -119,8 +136,11 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
     axis_ticks, num_fmt,
     sprintf("<c:crossAx val=\"%s\"/>", cross_id),
     cross_at,
-    crosses
+    crosses,
+    major_units,
+    major_time_units,
+    minor_units,
+    minor_time_units
   )
   str_
 }
-
