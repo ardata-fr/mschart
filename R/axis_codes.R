@@ -113,9 +113,17 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   if (!is.null(x$major_unit)) {
     major_units <- sprintf("<c:majorUnit val=\"%s\"/>", x$major_unit)
   }
+  major_time_units <- ""
+  if (!is.null(x$major_time_unit)) {
+    major_time_units <- sprintf("<c:majorTimeUnit val=\"%s\"/>", x$major_time_unit)
+  }
   minor_units <- ""
   if (!is.null(x$minor_unit)) {
     minor_units <- sprintf("<c:minorUnit val=\"%s\"/>", x$minor_unit)
+  }
+  minor_time_units <- ""
+  if (!is.null(x$minor_time_unit)) {
+    minor_time_units <- sprintf("<c:minorTimeUnit val=\"%s\"/>", x$minor_time_unit)
   }
 
   str_ <- paste0(
@@ -130,8 +138,9 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
     cross_at,
     crosses,
     major_units,
-    minor_units
-
+    major_time_units,
+    minor_units,
+    minor_time_units
   )
   str_
 }

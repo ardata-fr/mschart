@@ -60,4 +60,39 @@ test_that("custom minor/major units work", {
   expect_equal(scatter$y_axis$major_unit, NULL)
   expect_equal(scatter$y_axis$minor_unit, NULL)
 
+
+  ## prepare time data set
+  barchart <- ms_barchart(
+    data = us_indus_prod[us_indus_prod$type == "adjusted", ],
+    x = "date",
+    y = "value"
+  )
+
+  expect_equal(barchart$y_axis$minor_unit, NULL)
+  expect_equal(barchart$y_axis$major_unit, NULL)
+  expect_equal(barchart$y_axis$minor_time_unit, NULL)
+  expect_equal(barchart$y_axis$major_time_unit, NULL)
+
+  barchart <- chart_ax_x(barchart, num_fmt = "[$-fr-FR]mmm yyyy",
+                         major_unit = 10, major_time_unit = "years",
+                         minor_unit = 5, minor_time_unit = "years",
+                         minor_tick_mark = "out")
+
+  expect_equal(barchart$x_axis$major_unit, 10)
+  expect_equal(barchart$x_axis$major_time_unit, "years")
+
+  expect_equal(barchart$x_axis$minor_unit, 5)
+  expect_equal(barchart$x_axis$minor_time_unit, "years")
+
+  barchart <- chart_ax_x(barchart, num_fmt = "[$-en-GB]mmm yyyy")
+
+  expect_equal(barchart$x_axis$major_unit, 10)
+  expect_equal(barchart$x_axis$major_time_unit, "years")
+
+  expect_equal(barchart$x_axis$minor_unit, 5)
+  expect_equal(barchart$x_axis$minor_time_unit, "years")
+
+  barchart <- chart_ax_x(barchart, minor_time_unit = NULL)
+  barchart <- chart_ax_x(barchart, major_time_unit = NULL)
+
 })

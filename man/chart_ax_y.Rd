@@ -11,8 +11,10 @@ chart_ax_y(
   cross_between,
   major_tick_mark,
   major_unit,
+  major_time_unit,
   minor_tick_mark,
   minor_unit,
+  minor_time_unit,
   tick_label_pos,
   display,
   num_fmt,
@@ -37,7 +39,10 @@ category axis between categories, one of 'between', 'midCat'.}
 \item{major_tick_mark, minor_tick_mark}{tick marks position,
 one of 'cross', 'in', 'none', 'out'.}
 
-\item{major_unit, minor_unit}{major and minor unit for axis}
+\item{major_unit, minor_unit}{major and minor unit for axis.}
+
+\item{major_time_unit, minor_time_unit}{time units major and minor for date axis,
+one of 'days', 'months', 'years'.}
 
 \item{tick_label_pos}{ticks labels position, one of 'high',
 'low', 'nextTo', 'none'.}
