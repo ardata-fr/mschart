@@ -33,10 +33,7 @@
 #'   horizontal = TRUE, vertical = FALSE,
 #'   outline = TRUE, show_keys = FALSE
 #' )
-chart_table <- function(x, horizontal,
-                        vertical,
-                        outline,
-                        show_keys) {
+chart_table <- function(x, horizontal, vertical, outline, show_keys) {
   stopifnot(inherits(x, "ms_chart"))
 
   options <- list(
@@ -51,8 +48,12 @@ chart_table <- function(x, horizontal,
 }
 
 
-table_options <- function(horizontal = TRUE, vertical = TRUE,
-                          outline = TRUE, show_keys = TRUE) {
+table_options <- function(
+  horizontal = TRUE,
+  vertical = TRUE,
+  outline = TRUE,
+  show_keys = TRUE
+) {
   if (!is.logical(horizontal)) {
     stop("horizontal should be of type logical")
   }

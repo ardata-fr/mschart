@@ -22,24 +22,27 @@
 #'   values = fp_text_settings )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_labels_text <- function(x, values){
-
+chart_labels_text <- function(x, values) {
   serie_names <- names(x$series_settings$fill)
 
-  if( inherits(values, "fp_text") ){
-    values <- rep(list(values), length(serie_names) )
+  if (inherits(values, "fp_text")) {
+    values <- rep(list(values), length(serie_names))
     values <- setNames(values, serie_names)
   }
-  if( is.null(values) || !is.list(values) || length(values) < 1 ){
+  if (is.null(values) || !is.list(values) || length(values) < 1) {
     stop("values must be a list of fp_text objects", call. = FALSE)
   }
 
-  if( !all( sapply(values, inherits, what = "fp_text") ) ){
+  if (!all(sapply(values, inherits, what = "fp_text"))) {
     stop("values must be a list of fp_text objects", call. = FALSE)
   }
 
-  if( !all(names(values) %in% serie_names ) )
-    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
+  if (!all(names(values) %in% serie_names)) {
+    stop(
+      "values's names do not match series' names: ",
+      paste0(shQuote(serie_names), collapse = ", ")
+    )
+  }
 
   x$series_settings$labels_fp[names(values)] <- values
   x
@@ -60,21 +63,25 @@ chart_labels_text <- function(x, values){
 #'   values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_data_fill <- function(x, values){
-
+chart_data_fill <- function(x, values) {
   valid_cols <- is_valid_color(values)
-  if( any(!valid_cols) )
+  if (!all(valid_cols)) {
     stop("invalid color(s) in argument values")
+  }
 
   serie_names <- names(x$series_settings$fill)
 
-  if( length(values) == 1 ){
+  if (length(values) == 1) {
     values <- rep(values, length(serie_names))
     names(values) <- serie_names
   }
 
-  if( !all(names(values) %in% serie_names ) )
-    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
+  if (!all(names(values) %in% serie_names)) {
+    stop(
+      "values's names do not match series' names: ",
+      paste0(shQuote(serie_names), collapse = ", ")
+    )
+  }
 
   x$series_settings$fill[names(values)] <- values
   x
@@ -96,22 +103,25 @@ chart_data_fill <- function(x, values){
 #'   values = c(virginica = "black", versicolor = "black", setosa = "black") )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_data_stroke <- function(x, values){
-
+chart_data_stroke <- function(x, values) {
   valid_cols <- is_valid_color(values)
-  if( any(!valid_cols) )
+  if (!all(valid_cols)) {
     stop("invalid color(s) in argument values")
+  }
 
   serie_names <- names(x$series_settings$colour)
 
-  if( length(values) == 1 ){
+  if (length(values) == 1) {
     values <- rep(values, length(serie_names))
     names(values) <- serie_names
   }
 
-  if( !all(names(values) %in% serie_names ) )
-    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
-
+  if (!all(names(values) %in% serie_names)) {
+    stop(
+      "values's names do not match series' names: ",
+      paste0(shQuote(serie_names), collapse = ", ")
+    )
+  }
 
   x$series_settings$colour[names(values)] <- values
   x
@@ -137,22 +147,27 @@ chart_data_stroke <- function(x, values){
 #'   values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_data_symbol <- function(x, values){
-
-  if( !all(values %in% st_markerstyle) ){
-    stop("values should have values matching ", paste0(shQuote(st_markerstyle), collapse = ", " ))
+chart_data_symbol <- function(x, values) {
+  if (!all(values %in% st_markerstyle)) {
+    stop(
+      "values should have values matching ",
+      paste0(shQuote(st_markerstyle), collapse = ", ")
+    )
   }
 
   serie_names <- names(x$series_settings$symbol)
 
-  if( length(values) == 1 ){
+  if (length(values) == 1) {
     values <- rep(values, length(serie_names))
     names(values) <- serie_names
   }
 
-  if( !all(names(values) %in% serie_names ) )
-    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
-
+  if (!all(names(values) %in% serie_names)) {
+    stop(
+      "values's names do not match series' names: ",
+      paste0(shQuote(serie_names), collapse = ", ")
+    )
+  }
 
   x$series_settings$symbol[names(values)] <- values
   x
@@ -178,22 +193,27 @@ chart_data_symbol <- function(x, values){
 #'   values = c(virginica = 20, versicolor = 16, setosa = 20) )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_data_size <- function(x, values){
-
-  if( !is.numeric(values) )
+chart_data_size <- function(x, values) {
+  if (!is.numeric(values)) {
     stop("values should be numeric values")
-  if( any( sign(values) < 0 ) )
+  }
+  if (any(sign(values) < 0)) {
     stop("values should not contain negative values")
+  }
 
   serie_names <- names(x$series_settings$size)
 
-  if( length(values) == 1 ){
+  if (length(values) == 1) {
     values <- rep(values, length(serie_names))
     names(values) <- serie_names
   }
 
-  if( !all(names(values) %in% serie_names ) )
-    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
+  if (!all(names(values) %in% serie_names)) {
+    stop(
+      "values's names do not match series' names: ",
+      paste0(shQuote(serie_names), collapse = ", ")
+    )
+  }
 
   x$series_settings$size[names(values)] <- values
   x
@@ -222,22 +242,27 @@ chart_data_size <- function(x, values){
 #'   values = c(virginica = 2, versicolor = 3, setosa = 6) )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_data_line_width <- function(x, values){
-
-  if( !is.numeric(values) )
+chart_data_line_width <- function(x, values) {
+  if (!is.numeric(values)) {
     stop("values should be numeric values")
-  if( any( sign(values) < 0 ) )
+  }
+  if (any(sign(values) < 0)) {
     stop("values should not contain negative values")
+  }
 
   serie_names <- names(x$series_settings$line_width)
 
-  if( length(values) == 1 ){
+  if (length(values) == 1) {
     values <- rep(values, length(serie_names))
     names(values) <- serie_names
   }
 
-  if( !all(names(values) %in% serie_names ) )
-    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
+  if (!all(names(values) %in% serie_names)) {
+    stop(
+      "values's names do not match series' names: ",
+      paste0(shQuote(serie_names), collapse = ", ")
+    )
+  }
 
   x$series_settings$line_width[names(values)] <- values
   x
@@ -264,22 +289,27 @@ chart_data_line_width <- function(x, values){
 #'   values = c(virginica = "solid", versicolor = "dotted", setosa = "dashed") )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_data_line_style <- function(x, values){
-
-  if( !all(values %in% st_linestyle) ){
-    stop("values should have values matching ", paste0(shQuote(st_linestyle), collapse = ", " ))
+chart_data_line_style <- function(x, values) {
+  if (!all(values %in% st_linestyle)) {
+    stop(
+      "values should have values matching ",
+      paste0(shQuote(st_linestyle), collapse = ", ")
+    )
   }
 
   serie_names <- names(x$series_settings$line_style)
 
-  if( length(values) == 1 ){
+  if (length(values) == 1) {
     values <- rep(values, length(serie_names))
     names(values) <- serie_names
   }
 
-  if( !all(names(values) %in% serie_names ) )
-    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
-
+  if (!all(names(values) %in% serie_names)) {
+    stop(
+      "values's names do not match series' names: ",
+      paste0(shQuote(serie_names), collapse = ", ")
+    )
+  }
 
   x$series_settings$line_style[names(values)] <- values
   x
@@ -301,22 +331,26 @@ chart_data_line_style <- function(x, values){
 #'   values = c(virginica = 0, versicolor = 0, setosa = 0) )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_data_smooth <- function(x, values){
-  as_bool <- c(1,0)
+chart_data_smooth <- function(x, values) {
+  as_bool <- c(1, 0)
 
-  if( !all(values %in% as_bool) ){
+  if (!all(values %in% as_bool)) {
     stop("smooth can only take values of 0 or 1")
   }
 
   serie_names <- names(x$series_settings$smooth)
 
-  if( length(values) == 1 ){
+  if (length(values) == 1) {
     values <- rep(values, length(serie_names))
     names(values) <- serie_names
   }
 
-  if( !all(names(values) %in% serie_names ) )
-    stop( "values's names do not match series' names: ", paste0(shQuote(serie_names), collapse = ", "))
+  if (!all(names(values) %in% serie_names)) {
+    stop(
+      "values's names do not match series' names: ",
+      paste0(shQuote(serie_names), collapse = ", ")
+    )
+  }
 
   x$series_settings$smooth[names(values)] <- values
   x

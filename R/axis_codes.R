@@ -4,12 +4,12 @@
 #' @title find the tags corresponding to the type of x
 #' that will be used as axis tag in the chart
 #' @param x a vector used as axis
-get_axis_tag <- function(x){
-  if( inherits(x, c("POSIXt", "Date")) ){
+get_axis_tag <- function(x) {
+  if (inherits(x, c("POSIXt", "Date"))) {
     axis_tag <- "c:dateAx"
-  } else if( is.factor(x) || is.character(x) ){
+  } else if (is.factor(x) || is.character(x)) {
     axis_tag <- "c:catAx"
-  } else if( is.numeric(x) ){
+  } else if (is.numeric(x)) {
     axis_tag <- "c:valAx"
   } else {
     stop("unknow type of data")
@@ -27,14 +27,27 @@ get_axis_tag <- function(x){
 #' @param is_x if TRUE, generate xml for x axis, else for y axis
 #' @param lab label for the axis
 #' @param rot rotation of title
-axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, rot = 0) {
+axis_content_xml <- function(
+  x,
+  id,
+  cross_id,
+  theme,
+  is_x = TRUE,
+  lab = NULL,
+  rot = 0
+) {
   x_title_id <- paste0("axis_title_", ifelse(is_x, "x", "y"))
 
   if (is.null(lab)) {
     title_ <- ""
   } else {
     title_ <- "<c:title><c:tx><c:rich><a:bodyPr rot=\"%.0f\" vert=\"horz\" anchor=\"ctr\"/><a:lstStyle/><a:p><a:pPr><a:defRPr/></a:pPr><a:r>%s<a:t>%s</a:t></a:r></a:p></c:rich></c:tx><c:layout/><c:overlay val=\"0\"/></c:title>"
-    title_ <- sprintf(title_, rot * 60000, format(theme[[x_title_id]], type = "pml"), lab)
+    title_ <- sprintf(
+      title_,
+      rot * 60000,
+      format(theme[[x_title_id]], type = "pml"),
+      lab
+    )
   }
 
   major_tm <- "<c:majorTickMark val=\"%s\"/>"
@@ -46,7 +59,8 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   grid_major_id <- paste0("grid_major_line_", ifelse(is_x, "x", "y"))
   major_gl <- ""
   if (!isFALSE(theme[[grid_major_id]])) {
-    major_gl <- ooxml_fp_border(theme[[grid_major_id]],
+    major_gl <- ooxml_fp_border(
+      theme[[grid_major_id]],
       in_tags = c("c:majorGridlines", "c:spPr")
     )
   }
@@ -54,7 +68,8 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   grid_minor_id <- paste0("grid_minor_line_", ifelse(is_x, "x", "y"))
   minor_gl <- ""
   if (!isFALSE(theme[[grid_minor_id]])) {
-    minor_gl <- ooxml_fp_border(theme[[grid_minor_id]],
+    minor_gl <- ooxml_fp_border(
+      theme[[grid_minor_id]],
       in_tags = c("c:minorGridlines", "c:spPr")
     )
   }
@@ -68,7 +83,12 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
     lim_min <- sprintf("<c:min val=\"%.02f\"/>", x$limit_min)
   }
 
-  scaling_str <- sprintf("<c:scaling><c:orientation val=\"%s\"/>%s%s</c:scaling>", x$orientation, lim_max, lim_min)
+  scaling_str <- sprintf(
+    "<c:scaling><c:orientation val=\"%s\"/>%s%s</c:scaling>",
+    x$orientation,
+    lim_max,
+    lim_min
+  )
   delete <- sprintf("<c:delete val=\"%.0f\"/>", x$delete)
   position <- sprintf("<c:axPos val=\"%s\"/>", x$axis_position)
   crosses <- sprintf("<c:crosses val=\"%s\"/>", x$crosses)
@@ -89,19 +109,21 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
 
   num_fmt <- ""
   if (!is.null(x$num_fmt)) {
-    num_fmt <- sprintf("<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>", x$num_fmt)
+    num_fmt <- sprintf(
+      "<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>",
+      x$num_fmt
+    )
   }
-
 
   tl_pos <- ""
   tl_pos <- "<c:tickLblPos val=\"%s\"/>"
   tl_pos <- sprintf(tl_pos, x$tick_label_pos)
 
   axis_major_ticks_id <- paste0("axis_ticks_", ifelse(is_x, "x", "y"))
-  axis_ticks <- ooxml_fp_border(theme[[axis_major_ticks_id]],
+  axis_ticks <- ooxml_fp_border(
+    theme[[axis_major_ticks_id]],
     in_tags = c("c:spPr")
   )
-
 
   labels_text_id <- paste0("axis_text_", ifelse(is_x, "x", "y"))
   rpr <- format(theme[[labels_text_id]], type = "pml")
@@ -120,30 +142,39 @@ axis_content_xml <- function(x, id, cross_id, theme, is_x = TRUE, lab = NULL, ro
   major_time_unit_str <- ""
   if (!is.null(x$major_time_unit)) {
     major_time_unit_str <- sprintf(
-      "<c:majorTimeUnit val=\"%s\"/>", x$major_time_unit
+      "<c:majorTimeUnit val=\"%s\"/>",
+      x$major_time_unit
     )
   }
   minor_time_unit_str <- ""
   if (!is.null(x$minor_time_unit)) {
     minor_time_unit_str <- sprintf(
-      "<c:minorTimeUnit val=\"%s\"/>", x$minor_time_unit
+      "<c:minorTimeUnit val=\"%s\"/>",
+      x$minor_time_unit
     )
   }
 
   str_ <- paste0(
     sprintf("<c:axId val=\"%s\"/>", id),
-    scaling_str, delete, position,
-    major_gl, minor_gl,
+    scaling_str,
+    delete,
+    position,
+    major_gl,
+    minor_gl,
     title_,
-    major_tm, minor_tm, tl_pos,
+    major_tm,
+    minor_tm,
+    tl_pos,
     labels_text_pr,
-    axis_ticks, num_fmt,
+    axis_ticks,
+    num_fmt,
     sprintf("<c:crossAx val=\"%s\"/>", cross_id),
     cross_at,
     crosses,
-    major_unit_str, minor_unit_str,
-    major_time_unit_str, minor_time_unit_str
+    major_unit_str,
+    minor_unit_str,
+    major_time_unit_str,
+    minor_time_unit_str
   )
   str_
 }
-

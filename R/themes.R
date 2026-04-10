@@ -24,17 +24,41 @@
 #' p <- chart_fill_ggplot2(p)
 theme_ggplot2 <- function(x, base_size = 11, base_family = "Arial") {
   t <- mschart_theme(
-    main_title = fp_text(color = "black", font.size = 1.2 * base_size, font.family = base_family),
-    axis_title = fp_text(color = "black", font.size = base_size, font.family = base_family),
-    axis_text = fp_text(color = "grey30", font.size = .8 * base_size, font.family = base_family),
+    main_title = fp_text(
+      color = "black",
+      font.size = 1.2 * base_size,
+      font.family = base_family
+    ),
+    axis_title = fp_text(
+      color = "black",
+      font.size = base_size,
+      font.family = base_family
+    ),
+    axis_text = fp_text(
+      color = "grey30",
+      font.size = 0.8 * base_size,
+      font.family = base_family
+    ),
     axis_ticks = fp_border(color = "grey20", width = 1, style = "solid"),
     grid_major_line_x = fp_border(color = "white", width = 1, style = "solid"),
     grid_major_line_y = fp_border(color = "white", width = 1, style = "solid"),
-    grid_minor_line_x = fp_border(color = "white", width = .5, style = "solid"),
-    grid_minor_line_y = fp_border(color = "white", width = .5, style = "solid"),
+    grid_minor_line_x = fp_border(
+      color = "white",
+      width = 0.5,
+      style = "solid"
+    ),
+    grid_minor_line_y = fp_border(
+      color = "white",
+      width = 0.5,
+      style = "solid"
+    ),
     chart_background = "white",
     plot_background = "grey92",
-    legend_text = fp_text(color = "black", font.size = base_size, font.family = base_family),
+    legend_text = fp_text(
+      color = "black",
+      font.size = base_size,
+      font.family = base_family
+    ),
     legend_position = "r"
   )
   set_theme(x, t)
@@ -75,6 +99,8 @@ chart_fill_ggplot2 <- function(x, stroke = TRUE) {
   }
 
   x <- chart_data_fill(x, values = pal)
-  if (stroke) x <- chart_data_stroke(x, values = pal)
+  if (stroke) {
+    x <- chart_data_stroke(x, values = pal)
+  }
   x
 }

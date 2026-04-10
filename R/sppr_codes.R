@@ -12,10 +12,16 @@ sppr_content_xml <- function(theme = NULL, what = "chart", ns = NULL) {
 
   if (!is.null(fill)) {
     fill_elts <- col2rgb(fill, alpha = TRUE)[, 1]
-    fill_hex <- sprintf("%02X%02X%02X", fill_elts[1], fill_elts[2], fill_elts[3])
+    fill_hex <- sprintf(
+      "%02X%02X%02X",
+      fill_elts[1],
+      fill_elts[2],
+      fill_elts[3]
+    )
     fill_str <- sprintf(
       "<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>",
-      fill_hex, fill_elts[4] / 255.0 * 100000
+      fill_hex,
+      fill_elts[4] / 255.0 * 100000
     )
   } else {
     fill_str <- NULL
@@ -23,10 +29,14 @@ sppr_content_xml <- function(theme = NULL, what = "chart", ns = NULL) {
 
   border_str <- ooxml_fp_border(border_properties)
 
-  if (!is.null(ns)) ns <- paste0(" ", ns)
+  if (!is.null(ns)) {
+    ns <- paste0(" ", ns)
+  }
 
   sppr_str <- paste0(
-    "<c:spPr", ns, ">",
+    "<c:spPr",
+    ns,
+    ">",
     fill_str,
     border_str,
     "</c:spPr>"

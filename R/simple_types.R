@@ -8,9 +8,31 @@ st_splittype <- c('auto', 'cust', 'percent', 'pos', 'val')
 
 st_lblalgn <- c('ctr', 'l', 'r')
 
-st_dlblpos <- c('bestFit', 'b', 'ctr', 'inBase', 'inEnd', 'l', 'outEnd', 'r', 't')
+st_dlblpos <- c(
+  'bestFit',
+  'b',
+  'ctr',
+  'inBase',
+  'inEnd',
+  'l',
+  'outEnd',
+  'r',
+  't'
+)
 
-st_markerstyle <- c('circle', 'dash', 'diamond', 'dot', 'none', 'plus', 'square', 'star', 'triangle', 'x', 'auto')
+st_markerstyle <- c(
+  'circle',
+  'dash',
+  'diamond',
+  'dot',
+  'none',
+  'plus',
+  'square',
+  'star',
+  'triangle',
+  'x',
+  'auto'
+)
 
 st_linestyle <- c('none', 'solid', 'dotted', 'dashed')
 
@@ -24,7 +46,14 @@ st_errvaltype <- c('cust', 'fixedVal', 'percentage', 'stdDev', 'stdErr')
 
 st_grouping <- c('percentStacked', 'standard', 'stacked')
 
-st_scatterstyle <- c('none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker')
+st_scatterstyle <- c(
+  'none',
+  'line',
+  'lineMarker',
+  'marker',
+  'smooth',
+  'smoothMarker'
+)
 
 st_radarstyle <- c('standard', 'marker', 'filled')
 
@@ -48,7 +77,17 @@ st_ticklblpos <- c('high', 'low', 'nextTo', 'none')
 
 st_timeunit <- c('days', 'months', 'years')
 
-st_builtinunit <- c('hundreds', 'thousands', 'tenThousands', 'hundredThousands', 'millions', 'tenMillions', 'hundredMillions', 'billions', 'trillions')
+st_builtinunit <- c(
+  'hundreds',
+  'thousands',
+  'tenThousands',
+  'hundredThousands',
+  'millions',
+  'tenMillions',
+  'hundredMillions',
+  'billions',
+  'trillions'
+)
 
 st_pictureformat <- c('stretch', 'stack', 'stackScale')
 

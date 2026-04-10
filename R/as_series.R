@@ -20,7 +20,13 @@ series_wb_data <- function(dataset, idx) {
   serie_range
 }
 
-as_series <- function(x, x_class, y_class, sheetname = "sheet1", secondary_y = 0) {
+as_series <- function(
+  x,
+  x_class,
+  y_class,
+  sheetname = "sheet1",
+  secondary_y = 0
+) {
   dataset <- x$data_series
 
   w_x <- which(names(dataset) %in% x$xvar)
@@ -35,7 +41,12 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1", secondary_y = 0
     x_serie_range <- series_wb_data(dataset, w_x)
   }
 
-  x_serie_range <- as.range(x_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
+  x_serie_range <- as.range(
+    x_serie_range,
+    fo = "A1",
+    strict = TRUE,
+    sheet = TRUE
+  )
   x_serie <- update(x_class, region = x_serie_range, values = dataset[[x$x]])
 
   label_columns <- get_label_names(x)
@@ -47,7 +58,9 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1", secondary_y = 0
   series <- list()
 
   series_nams <- get_series_names(x)
-  if (x$asis) series_nams <- x$yvar
+  if (x$asis) {
+    series_nams <- x$yvar
+  }
 
   w_y_values <- which(names(dataset) %in% series_nams)
   w_l_values <- which(names(dataset) %in% label_columns)
@@ -62,28 +75,63 @@ as_series <- function(x, x_class, y_class, sheetname = "sheet1", secondary_y = 0
     serie_name_range <- to_string(serie_name_range, fo = "A1")
     if (inherits(dataset, "wb_data")) {
       serie_name_range <- series_wb_name(dataset, w_y)
-      serie_name_range <- as.range(serie_name_range, fo = "A1", strict = TRUE, sheet = TRUE)
+      serie_name_range <- as.range(
+        serie_name_range,
+        fo = "A1",
+        strict = TRUE,
+        sheet = TRUE
+      )
     }
     serie_name <- str_ref(values = y_colname, region = serie_name_range)
 
-    y_serie_range <- cell_limits(ul = c(2, w_y), lr = c(nrow(dataset) + 1, w_y), sheet = sheetname)
+    y_serie_range <- cell_limits(
+      ul = c(2, w_y),
+      lr = c(nrow(dataset) + 1, w_y),
+      sheet = sheetname
+    )
 
     if (inherits(dataset, "wb_data")) {
       y_serie_range <- series_wb_data(dataset, w_y)
     }
-    y_serie_range <- as.range(y_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
+    y_serie_range <- as.range(
+      y_serie_range,
+      fo = "A1",
+      strict = TRUE,
+      sheet = TRUE
+    )
 
-    y_serie <- update(y_class, region = y_serie_range, values = dataset[[y_colname]])
+    y_serie <- update(
+      y_class,
+      region = y_serie_range,
+      values = dataset[[y_colname]]
+    )
 
     if (length(label_columns) > 0) {
-      label_serie_range <- cell_limits(ul = c(2, w_l), lr = c(nrow(dataset) + 1, w_l), sheet = sheetname)
-      label_serie_range <- as.range(label_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
+      label_serie_range <- cell_limits(
+        ul = c(2, w_l),
+        lr = c(nrow(dataset) + 1, w_l),
+        sheet = sheetname
+      )
+      label_serie_range <- as.range(
+        label_serie_range,
+        fo = "A1",
+        strict = TRUE,
+        sheet = TRUE
+      )
 
       if (inherits(dataset, "wb_data")) {
         label_serie_range <- series_wb_data(dataset, w_l)
-        label_serie_range <- as.range(label_serie_range, fo = "A1", strict = TRUE, sheet = TRUE)
+        label_serie_range <- as.range(
+          label_serie_range,
+          fo = "A1",
+          strict = TRUE,
+          sheet = TRUE
+        )
       }
-      label_serie <- label_ref(values = dataset[[l_colname]], region = label_serie_range)
+      label_serie <- label_ref(
+        values = dataset[[l_colname]],
+        region = label_serie_range
+      )
     } else {
       label_serie <- NULL
     }

@@ -43,9 +43,14 @@ chart_settings <- function(x, ...) {
 }
 
 
-barchart_options <- function(vary_colors = FALSE, gap_width = 150,
-                             dir = "vertical", grouping = "clustered",
-                             overlap = 0, table = FALSE) {
+barchart_options <- function(
+  vary_colors = FALSE,
+  gap_width = 150,
+  dir = "vertical",
+  grouping = "clustered",
+  overlap = 0,
+  table = FALSE
+) {
   # bardir <- structure(c("bar", "col"), .Names = c("horizontal", "vertical"))
   bardir <- c("horizontal", "vertical")
   if (!dir %in% bardir) {
@@ -56,13 +61,23 @@ barchart_options <- function(vary_colors = FALSE, gap_width = 150,
     stop("gap_width should be between 0 and 500")
   }
   if (!grouping %in% st_bargrouping) {
-    stop("grouping should be one of ", paste0(shQuote(st_bargrouping), collapse = ", "))
+    stop(
+      "grouping should be one of ",
+      paste0(shQuote(st_bargrouping), collapse = ", ")
+    )
   }
   if (!(overlap >= -100 && overlap <= 100)) {
     stop("overlap should be between -100 and 100")
   }
 
-  out <- list(vary_colors = vary_colors, gap_width = gap_width, dir = dir, grouping = grouping, overlap = overlap, table = table)
+  out <- list(
+    vary_colors = vary_colors,
+    gap_width = gap_width,
+    dir = dir,
+    grouping = grouping,
+    overlap = overlap,
+    table = table
+  )
   class(out) <- "barchart_options"
   out
 }
@@ -85,15 +100,27 @@ barchart_options <- function(vary_colors = FALSE, gap_width = 150,
 #' full bar width and a setting of 100 causes all the bars in a category
 #' to be superimposed. The default value is 0.
 #' @param table if \code{TRUE} set a table below the barchart.
-chart_settings.ms_barchart <- function(x, vary_colors,
-                                       gap_width, dir, grouping, overlap, table, ...) {
+chart_settings.ms_barchart <- function(
+  x,
+  vary_colors,
+  gap_width,
+  dir,
+  grouping,
+  overlap,
+  table,
+  ...
+) {
   options <- barchart_options(
-    vary_colors = if(missing(vary_colors)) x$options$vary_colors else vary_colors,
-    gap_width = if(missing(gap_width)) x$options$gap_width else gap_width,
-    dir = if(missing(dir)) x$options$dir else dir,
-    grouping = if(missing(grouping)) x$options$grouping else grouping,
-    overlap = if(missing(overlap)) x$options$overlap else overlap,
-    table = if(missing(table)) x$options$table else table
+    vary_colors = if (missing(vary_colors)) {
+      x$options$vary_colors
+    } else {
+      vary_colors
+    },
+    gap_width = if (missing(gap_width)) x$options$gap_width else gap_width,
+    dir = if (missing(dir)) x$options$dir else dir,
+    grouping = if (missing(grouping)) x$options$grouping else grouping,
+    overlap = if (missing(overlap)) x$options$overlap else overlap,
+    table = if (missing(table)) x$options$table else table
   )
   x$options <- options
   x
@@ -112,13 +139,20 @@ linechart_options <- function(vary_colors = FALSE, table = FALSE) {
 #' of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.
 chart_settings.ms_linechart <- function(x, vary_colors, style, table, ...) {
   options <- linechart_options(
-    vary_colors = if(missing(vary_colors)) x$options$vary_colors else vary_colors,
-    table = if(missing(table)) x$options$table else table
+    vary_colors = if (missing(vary_colors)) {
+      x$options$vary_colors
+    } else {
+      vary_colors
+    },
+    table = if (missing(table)) x$options$table else table
   )
 
-  style <- if(missing(style)) x$options$linestyle %||% "lineMarker" else style
+  style <- if (missing(style)) x$options$linestyle %||% "lineMarker" else style
   if (!style %in% st_scatterstyle) {
-    stop("style should be one of ", paste0(shQuote(st_scatterstyle), collapse = ", "))
+    stop(
+      "style should be one of ",
+      paste0(shQuote(st_scatterstyle), collapse = ", ")
+    )
   }
 
   options$linestyle <- style
@@ -127,17 +161,26 @@ chart_settings.ms_linechart <- function(x, vary_colors, style, table, ...) {
 }
 
 
-
-
 #' @export
 #' @describeIn chart_settings areachart settings
 chart_settings.ms_areachart <- function(x, vary_colors, grouping, table, ...) {
-  vary_colors <- if(missing(vary_colors)) x$options$vary_colors %||% FALSE else vary_colors
-  grouping <- if(missing(grouping)) x$options$grouping %||% "standard" else grouping
-  table <- if(missing(table)) x$options$table %||% FALSE else table
+  vary_colors <- if (missing(vary_colors)) {
+    x$options$vary_colors %||% FALSE
+  } else {
+    vary_colors
+  }
+  grouping <- if (missing(grouping)) {
+    x$options$grouping %||% "standard"
+  } else {
+    grouping
+  }
+  table <- if (missing(table)) x$options$table %||% FALSE else table
 
   if (!grouping %in% st_grouping) {
-    stop("grouping should be one of ", paste0(shQuote(st_grouping), collapse = ", "))
+    stop(
+      "grouping should be one of ",
+      paste0(shQuote(st_grouping), collapse = ", ")
+    )
   }
   options <- list(vary_colors = vary_colors, grouping = grouping, table = table)
   class(options) <- "areachart_options"
@@ -149,8 +192,12 @@ chart_settings.ms_areachart <- function(x, vary_colors, grouping, table, ...) {
 #' @export
 #' @describeIn chart_settings scatterchart settings
 chart_settings.ms_scatterchart <- function(x, vary_colors, style, ...) {
-  vary_colors <- if(missing(vary_colors)) x$options$vary_colors %||% FALSE else vary_colors
-  style <- if(missing(style)) x$options$scatterstyle %||% "marker" else style
+  vary_colors <- if (missing(vary_colors)) {
+    x$options$vary_colors %||% FALSE
+  } else {
+    vary_colors
+  }
+  style <- if (missing(style)) x$options$scatterstyle %||% "marker" else style
 
   if (!style %in% st_scatterstyle) {
     stop(
@@ -165,7 +212,11 @@ chart_settings.ms_scatterchart <- function(x, vary_colors, style, ...) {
     x <- chart_data_smooth(x, values = 0)
   }
 
-  options <- list(vary_colors = vary_colors, scatterstyle = style, table = FALSE)
+  options <- list(
+    vary_colors = vary_colors,
+    scatterstyle = style,
+    table = FALSE
+  )
   class(options) <- "scatterchart_options"
 
   x$options <- options
@@ -189,7 +240,11 @@ piechart_options <- function(vary_colors = TRUE, hole_size = 0) {
 #' values above 0 produce a doughnut chart.
 chart_settings.ms_piechart <- function(x, vary_colors, hole_size, ...) {
   options <- piechart_options(
-    vary_colors = if (missing(vary_colors)) x$options$vary_colors else vary_colors,
+    vary_colors = if (missing(vary_colors)) {
+      x$options$vary_colors
+    } else {
+      vary_colors
+    },
     hole_size = if (missing(hole_size)) x$options$hole_size else hole_size
   )
   x$options <- options

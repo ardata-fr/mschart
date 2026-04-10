@@ -6,7 +6,12 @@ test_that("linechart smooth settings are correctly applied", {
     stringsAsFactors = FALSE
   )
 
-  chart_01 <- ms_linechart(data = dat, x = "musician", y = "count", group = "color")
+  chart_01 <- ms_linechart(
+    data = dat,
+    x = "musician",
+    y = "count",
+    group = "color"
+  )
 
   settings <- c(green = 1L, unclear = 0L, gray = 0L)
   settings <- settings[order(names(settings))]
@@ -20,7 +25,10 @@ test_that("linechart smooth settings are correctly applied", {
   )
 
   chart <- xml2::read_xml(xml)
-  serie_names <- xml2::xml_find_all(chart, "//c:ser/c:tx/c:strRef/c:strCache/c:pt/c:v")
+  serie_names <- xml2::xml_find_all(
+    chart,
+    "//c:ser/c:tx/c:strRef/c:strCache/c:pt/c:v"
+  )
   serie_names <- xml2::xml_text(serie_names)
   smooth_data <- xml2::xml_find_all(chart, "//c:smooth")
   smooth_data <- as.integer(xml2::xml_attr(smooth_data, "val"))
@@ -41,7 +49,12 @@ test_that("linechart style=none produces noFill XML", {
   lty <- c(green = "none", unclear = "solid", gray = "dotted")
   lty <- lty[order(names(lty))]
 
-  chart_02 <- ms_linechart(data = dat, x = "musician", y = "count", group = "color")
+  chart_02 <- ms_linechart(
+    data = dat,
+    x = "musician",
+    y = "count",
+    group = "color"
+  )
   chart_02 <- chart_data_line_style(chart_02, values = lty)
 
   xml <- format(

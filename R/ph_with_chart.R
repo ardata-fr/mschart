@@ -1,30 +1,45 @@
-pml_chart <- function(x, value, id_x, id_y){
-
+pml_chart <- function(x, value, id_x, id_y) {
   charts_dir <- file.path(x$package_dir, "ppt/charts")
   xlsx_dir <- file.path(x$package_dir, "ppt/embeddings")
 
   dir.create(charts_dir, recursive = TRUE, showWarnings = FALSE)
-  dir.create(file.path(charts_dir, "_rels"), recursive = TRUE, showWarnings = FALSE)
+  dir.create(
+    file.path(charts_dir, "_rels"),
+    recursive = TRUE,
+    showWarnings = FALSE
+  )
   dir.create(xlsx_dir, recursive = TRUE, showWarnings = FALSE)
 
-  chart_file <- tempfile(tmpdir = charts_dir, pattern = "chart", fileext = ".xml")
+  chart_file <- tempfile(
+    tmpdir = charts_dir,
+    pattern = "chart",
+    fileext = ".xml"
+  )
   xlsx_file <- tempfile(tmpdir = xlsx_dir, pattern = "data", fileext = ".xlsx")
-  rel_filename <- file.path( charts_dir, "_rels", paste0(basename(chart_file), ".rels") )
+  rel_filename <- file.path(
+    charts_dir,
+    "_rels",
+    paste0(basename(chart_file), ".rels")
+  )
 
-  rel_str <- paste0("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
-                    "<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/package\" Target=\"../embeddings/%s\"/></Relationships>")
-  rel_str <- sprintf( rel_str, basename(xlsx_file) )
+  rel_str <- paste0(
+    "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
+    "<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/package\" Target=\"../embeddings/%s\"/></Relationships>"
+  )
+  rel_str <- sprintf(rel_str, basename(xlsx_file))
   writeLines(rel_str, rel_filename, useBytes = TRUE)
 
-  write_xlsx( x = list( "sheet1" = value$data_series ), path = xlsx_file)
+  write_xlsx(x = list("sheet1" = value$data_series), path = xlsx_file)
   xml_elt <- format(value, id_x = id_x, id_y = id_y)
   writeLines(xml_elt, chart_file, useBytes = TRUE)
 
   slide <- x$slide$get_slide(x$cursor)
   next_id <- slide$relationship()$get_next_id()
-  slide$relationship()$add(paste0("rId", next_id),
-                           type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart",
-                           target = paste0("../charts/", basename(chart_file) ) )
+  slide$relationship()$add(
+    paste0("rId", next_id),
+    type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart",
+    target = paste0("../charts/", basename(chart_file))
+  )
 
   reference_ <- "<c:chart xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" r:id=\"rId%.0f\"/>"
   reference_ <- sprintf(reference_, next_id)
@@ -50,8 +65,11 @@ pml_chart <- function(x, value, id_x, id_y){
     "</p:graphicFrame>"
   )
 
-  partname <- file.path( "/ppt/charts", basename(chart_file) )
-  override <- setNames("application/vnd.openxmlformats-officedocument.drawingml.chart+xml", partname )
+  partname <- file.path("/ppt/charts", basename(chart_file))
+  override <- setNames(
+    "application/vnd.openxmlformats-officedocument.drawingml.chart+xml",
+    partname
+  )
   x$content_type$add_override(value = override)
   graphic_frame
 }
@@ -90,9 +108,17 @@ pml_chart <- function(x, value, id_x, id_y){
 #'
 #' fileout <- tempfile(fileext = ".pptx")
 #' print(doc, target = fileout)
-ph_with.ms_chart <- function( x, value, location, ... ){
+ph_with.ms_chart <- function(x, value, location, ...) {
   stopifnot(inherits(x, "rpptx"))
   graphic_frame <- pml_chart(x, value, id_x = "64451712", id_y = "64453248")
-  x$content_type$add_ext(extension = "xlsx", type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-  ph_with(x = x, value = as_xml_document(graphic_frame), location = location, ... )
+  x$content_type$add_ext(
+    extension = "xlsx",
+    type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  )
+  ph_with(
+    x = x,
+    value = as_xml_document(graphic_frame),
+    location = location,
+    ...
+  )
 }

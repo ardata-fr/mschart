@@ -91,24 +91,57 @@
 #' chart_01
 #' @seealso [chart_ax_y()], [ms_areachart()], [ms_barchart()], [ms_scatterchart()],
 #' [ms_linechart()]
-chart_ax_x <- function( x, orientation, crosses, cross_between,
-                            major_tick_mark, minor_tick_mark,
-                            tick_label_pos, display,
-                            num_fmt, rotation,
-                        limit_min, limit_max, position,
-                        major_unit, minor_unit,
-                        major_time_unit, minor_time_unit,
-                        second_axis = FALSE ){
+chart_ax_x <- function(
+  x,
+  orientation,
+  crosses,
+  cross_between,
+  major_tick_mark,
+  minor_tick_mark,
+  tick_label_pos,
+  display,
+  num_fmt,
+  rotation,
+  limit_min,
+  limit_max,
+  position,
+  major_unit,
+  minor_unit,
+  major_time_unit,
+  minor_time_unit,
+  second_axis = FALSE
+) {
   stopifnot(inherits(x, "ms_chart"))
 
-  options <- list( orientation = ifelse(missing(orientation), x$x_axis$orientation, orientation),
-                   crosses = ifelse(missing(crosses), x$x_axis$crosses, crosses),
-                   cross_between = ifelse(missing(cross_between), x$x_axis$cross_between, cross_between),
-                   major_tick_mark = ifelse(missing(major_tick_mark), x$x_axis$major_tick_mark, major_tick_mark),
-                   minor_tick_mark = ifelse(missing(minor_tick_mark), x$x_axis$minor_tick_mark, minor_tick_mark),
-                   tick_label_pos = ifelse(missing(tick_label_pos), x$x_axis$tick_label_pos, tick_label_pos),
-                   delete = ifelse(missing(display), x$x_axis$delete, !display),
-                   rotation = ifelse(missing(rotation), x$x_axis$rotation, rotation)
+  options <- list(
+    orientation = ifelse(
+      missing(orientation),
+      x$x_axis$orientation,
+      orientation
+    ),
+    crosses = ifelse(missing(crosses), x$x_axis$crosses, crosses),
+    cross_between = ifelse(
+      missing(cross_between),
+      x$x_axis$cross_between,
+      cross_between
+    ),
+    major_tick_mark = ifelse(
+      missing(major_tick_mark),
+      x$x_axis$major_tick_mark,
+      major_tick_mark
+    ),
+    minor_tick_mark = ifelse(
+      missing(minor_tick_mark),
+      x$x_axis$minor_tick_mark,
+      minor_tick_mark
+    ),
+    tick_label_pos = ifelse(
+      missing(tick_label_pos),
+      x$x_axis$tick_label_pos,
+      tick_label_pos
+    ),
+    delete = ifelse(missing(display), x$x_axis$delete, !display),
+    rotation = ifelse(missing(rotation), x$x_axis$rotation, rotation)
   )
   if (missing(num_fmt)) {
     options$num_fmt <- x$x_axis$num_fmt
@@ -116,45 +149,45 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
     options$num_fmt <- num_fmt
   }
 
-  if( missing(limit_min) && !is.null(x$x_axis$limit_min) ){
+  if (missing(limit_min) && !is.null(x$x_axis$limit_min)) {
     options$limit_min <- x$x_axis$limit_min
-  } else if( !missing(limit_min) ){
-    if(inherits(limit_min, "Date")){
+  } else if (!missing(limit_min)) {
+    if (inherits(limit_min, "Date")) {
       limit_min <- as.integer(limit_min - as.Date("1899-12-30"))
     }
     options$limit_min <- limit_min
   }
-  if( missing(limit_max) && !is.null(x$x_axis$limit_max) ){
+  if (missing(limit_max) && !is.null(x$x_axis$limit_max)) {
     options$limit_max <- x$x_axis$limit_max
-  } else if( !missing(limit_max) ){
-    if(inherits(limit_max, "Date")){
+  } else if (!missing(limit_max)) {
+    if (inherits(limit_max, "Date")) {
       limit_max <- as.integer(limit_max - as.Date("1899-12-30"))
     }
     options$limit_max <- limit_max
   }
-  if( missing(position) && !is.null(x$x_axis$position) ){
+  if (missing(position) && !is.null(x$x_axis$position)) {
     options$position <- x$x_axis$position
-  } else if( !missing(position) ){
+  } else if (!missing(position)) {
     options$position <- position
   }
-  if( missing(major_unit) && !is.null(x$x_axis$major_unit) ){
+  if (missing(major_unit) && !is.null(x$x_axis$major_unit)) {
     options$major_unit <- x$x_axis$major_unit
-  } else if( !missing(major_unit) ){
+  } else if (!missing(major_unit)) {
     options$major_unit <- major_unit
   }
-  if( missing(minor_unit) && !is.null(x$x_axis$minor_unit) ){
+  if (missing(minor_unit) && !is.null(x$x_axis$minor_unit)) {
     options$minor_unit <- x$x_axis$minor_unit
-  } else if( !missing(minor_unit) ){
+  } else if (!missing(minor_unit)) {
     options$minor_unit <- minor_unit
   }
-  if( missing(major_time_unit) && !is.null(x$x_axis$major_time_unit) ){
+  if (missing(major_time_unit) && !is.null(x$x_axis$major_time_unit)) {
     options$major_time_unit <- x$x_axis$major_time_unit
-  } else if( !missing(major_time_unit) ){
+  } else if (!missing(major_time_unit)) {
     options$major_time_unit <- major_time_unit
   }
-  if( missing(minor_time_unit) && !is.null(x$x_axis$minor_time_unit) ){
+  if (missing(minor_time_unit) && !is.null(x$x_axis$minor_time_unit)) {
     options$minor_time_unit <- x$x_axis$minor_time_unit
-  } else if( !missing(minor_time_unit) ){
+  } else if (!missing(minor_time_unit)) {
     options$minor_time_unit <- minor_time_unit
   }
 
@@ -194,69 +227,102 @@ chart_ax_x <- function( x, orientation, crosses, cross_between,
 #' chart_01
 #' @seealso [chart_ax_x()], [ms_areachart()], [ms_barchart()], [ms_scatterchart()],
 #' [ms_linechart()]
-chart_ax_y <- function( x, orientation, crosses, cross_between,
-                        major_tick_mark, minor_tick_mark,
-                        tick_label_pos, display,
-                        num_fmt, rotation,
-                        limit_min, limit_max, position,
-                        major_unit, minor_unit,
-                        major_time_unit, minor_time_unit,
-                        second_axis = FALSE ){
+chart_ax_y <- function(
+  x,
+  orientation,
+  crosses,
+  cross_between,
+  major_tick_mark,
+  minor_tick_mark,
+  tick_label_pos,
+  display,
+  num_fmt,
+  rotation,
+  limit_min,
+  limit_max,
+  position,
+  major_unit,
+  minor_unit,
+  major_time_unit,
+  minor_time_unit,
+  second_axis = FALSE
+) {
   stopifnot(inherits(x, "ms_chart"))
 
-  options <- list( orientation = ifelse(missing(orientation), x$y_axis$orientation, orientation),
-                   crosses = ifelse(missing(crosses), x$y_axis$crosses, crosses),
-                   cross_between = ifelse(missing(cross_between), x$y_axis$cross_between, cross_between),
-                   major_tick_mark = ifelse(missing(major_tick_mark), x$y_axis$major_tick_mark, major_tick_mark),
-                   minor_tick_mark = ifelse(missing(minor_tick_mark), x$y_axis$minor_tick_mark, minor_tick_mark),
-                   tick_label_pos = ifelse(missing(tick_label_pos), x$y_axis$tick_label_pos, tick_label_pos),
-                   delete = ifelse(missing(display), x$y_axis$delete, !display),
-                   rotation = ifelse(missing(rotation), x$y_axis$rotation, rotation)
+  options <- list(
+    orientation = ifelse(
+      missing(orientation),
+      x$y_axis$orientation,
+      orientation
+    ),
+    crosses = ifelse(missing(crosses), x$y_axis$crosses, crosses),
+    cross_between = ifelse(
+      missing(cross_between),
+      x$y_axis$cross_between,
+      cross_between
+    ),
+    major_tick_mark = ifelse(
+      missing(major_tick_mark),
+      x$y_axis$major_tick_mark,
+      major_tick_mark
+    ),
+    minor_tick_mark = ifelse(
+      missing(minor_tick_mark),
+      x$y_axis$minor_tick_mark,
+      minor_tick_mark
+    ),
+    tick_label_pos = ifelse(
+      missing(tick_label_pos),
+      x$y_axis$tick_label_pos,
+      tick_label_pos
+    ),
+    delete = ifelse(missing(display), x$y_axis$delete, !display),
+    rotation = ifelse(missing(rotation), x$y_axis$rotation, rotation)
   )
   if (missing(num_fmt)) {
     options$num_fmt <- x$y_axis$num_fmt
   } else {
     options$num_fmt <- num_fmt
   }
-  if( missing(limit_min) && !is.null(x$y_axis$limit_min) ){
+  if (missing(limit_min) && !is.null(x$y_axis$limit_min)) {
     options$limit_min <- x$y_axis$limit_min
-  } else if( !missing(limit_min) ){
-    if(inherits(limit_min, "Date")){
+  } else if (!missing(limit_min)) {
+    if (inherits(limit_min, "Date")) {
       limit_min <- as.integer(limit_min - as.Date("1899-12-30"))
     }
     options$limit_min <- limit_min
   }
-  if( missing(limit_max) && !is.null(x$y_axis$limit_max) ){
+  if (missing(limit_max) && !is.null(x$y_axis$limit_max)) {
     options$limit_max <- x$y_axis$limit_max
-  } else if( !missing(limit_max) ){
-    if(inherits(limit_max, "Date")){
+  } else if (!missing(limit_max)) {
+    if (inherits(limit_max, "Date")) {
       limit_max <- as.integer(limit_max - as.Date("1899-12-30"))
     }
     options$limit_max <- limit_max
   }
-  if( missing(position) && !is.null(x$y_axis$position) ){
+  if (missing(position) && !is.null(x$y_axis$position)) {
     options$position <- x$y_axis$position
-  } else if( !missing(position) ){
+  } else if (!missing(position)) {
     options$position <- position
   }
-  if( missing(major_unit) && !is.null(x$y_axis$major_unit) ){
+  if (missing(major_unit) && !is.null(x$y_axis$major_unit)) {
     options$major_unit <- x$y_axis$major_unit
-  } else if( !missing(major_unit) ){
+  } else if (!missing(major_unit)) {
     options$major_unit <- major_unit
   }
-  if( missing(minor_unit) && !is.null(x$y_axis$minor_unit) ){
+  if (missing(minor_unit) && !is.null(x$y_axis$minor_unit)) {
     options$minor_unit <- x$y_axis$minor_unit
-  } else if( !missing(minor_unit) ){
+  } else if (!missing(minor_unit)) {
     options$minor_unit <- minor_unit
   }
-  if( missing(major_time_unit) && !is.null(x$y_axis$major_time_unit) ){
+  if (missing(major_time_unit) && !is.null(x$y_axis$major_time_unit)) {
     options$major_time_unit <- x$y_axis$major_time_unit
-  } else if( !missing(major_time_unit) ){
+  } else if (!missing(major_time_unit)) {
     options$major_time_unit <- major_time_unit
   }
-  if( missing(minor_time_unit) && !is.null(x$y_axis$minor_time_unit) ){
+  if (missing(minor_time_unit) && !is.null(x$y_axis$minor_time_unit)) {
     options$minor_time_unit <- x$y_axis$minor_time_unit
-  } else if( !missing(minor_time_unit) ){
+  } else if (!missing(minor_time_unit)) {
     options$minor_time_unit <- minor_time_unit
   }
 
@@ -269,34 +335,66 @@ chart_ax_y <- function( x, orientation, crosses, cross_between,
 }
 
 
-axis_options <- function( orientation = "minMax", axis_position = "b",
-                          crosses = "autoZero", cross_between = "between",
-                          major_tick_mark = "cross", minor_tick_mark = "none",
-                          tick_label_pos = "nextTo", delete = FALSE, num_fmt = NULL,
-                          rotation = 0, limit_min = NULL, limit_max = NULL, position = NULL,
-                          major_unit = NULL, minor_unit = NULL,
-                          major_time_unit = NULL, minor_time_unit = NULL ){
-
-  if( !orientation %in% st_orientation ){
-    stop("orientation should be one of ", paste0(shQuote(st_orientation), collapse = ", " ))
+axis_options <- function(
+  orientation = "minMax",
+  axis_position = "b",
+  crosses = "autoZero",
+  cross_between = "between",
+  major_tick_mark = "cross",
+  minor_tick_mark = "none",
+  tick_label_pos = "nextTo",
+  delete = FALSE,
+  num_fmt = NULL,
+  rotation = 0,
+  limit_min = NULL,
+  limit_max = NULL,
+  position = NULL,
+  major_unit = NULL,
+  minor_unit = NULL,
+  major_time_unit = NULL,
+  minor_time_unit = NULL
+) {
+  if (!orientation %in% st_orientation) {
+    stop(
+      "orientation should be one of ",
+      paste0(shQuote(st_orientation), collapse = ", ")
+    )
   }
-  if( !axis_position %in% st_axpos ){
-    stop("axis_position should be one of ", paste0(shQuote(st_axpos), collapse = ", " ))
+  if (!axis_position %in% st_axpos) {
+    stop(
+      "axis_position should be one of ",
+      paste0(shQuote(st_axpos), collapse = ", ")
+    )
   }
-  if( !crosses %in% st_crosses ){
-    stop("crosses should be one of ", paste0(shQuote(st_crosses), collapse = ", " ))
+  if (!crosses %in% st_crosses) {
+    stop(
+      "crosses should be one of ",
+      paste0(shQuote(st_crosses), collapse = ", ")
+    )
   }
-  if( !cross_between %in% st_crossbetween ){
-    stop("cross_between should be one of ", paste0(shQuote(st_crossbetween), collapse = ", " ))
+  if (!cross_between %in% st_crossbetween) {
+    stop(
+      "cross_between should be one of ",
+      paste0(shQuote(st_crossbetween), collapse = ", ")
+    )
   }
-  if( !major_tick_mark %in% st_tickmark ){
-    stop("major_tick_mark should be one of ", paste0(shQuote(st_tickmark), collapse = ", " ))
+  if (!major_tick_mark %in% st_tickmark) {
+    stop(
+      "major_tick_mark should be one of ",
+      paste0(shQuote(st_tickmark), collapse = ", ")
+    )
   }
-  if( !minor_tick_mark %in% st_tickmark ){
-    stop("minor_tick_mark should be one of ", paste0(shQuote(st_tickmark), collapse = ", " ))
+  if (!minor_tick_mark %in% st_tickmark) {
+    stop(
+      "minor_tick_mark should be one of ",
+      paste0(shQuote(st_tickmark), collapse = ", ")
+    )
   }
-  if( !tick_label_pos %in% st_ticklblpos ){
-    stop("tick_label_pos should be one of ", paste0(shQuote(st_ticklblpos), collapse = ", " ))
+  if (!tick_label_pos %in% st_ticklblpos) {
+    stop(
+      "tick_label_pos should be one of ",
+      paste0(shQuote(st_ticklblpos), collapse = ", ")
+    )
   }
 
   out <- list(
@@ -320,5 +418,4 @@ axis_options <- function( orientation = "minMax", axis_position = "b",
   )
   class(out) <- "axis_options"
   out
-
 }

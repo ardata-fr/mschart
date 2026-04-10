@@ -130,7 +130,7 @@ library(officer)
 mytheme <- mschart_theme(
   axis_title = fp_text(color = "red", font.size = 24, bold = TRUE),
   grid_major_line_y = fp_border(width = 1, color = "orange"),
-  axis_ticks_y = fp_border(width = .4, color = "gray")
+  axis_ticks_y = fp_border(width = 0.4, color = "gray")
 )
 
 
@@ -149,7 +149,7 @@ my_bc_2 <- ms_barchart(
   y = "value", group = "serie"
 )
 my_bc_2 <- chart_theme(my_bc_2,
-  grid_major_line_y = fp_border(width = .5, color = "cyan")
+  grid_major_line_y = fp_border(width = 0.5, color = "cyan")
 )
 }
 \seealso{

@@ -36,24 +36,33 @@
 #' x <- sheet_add_drawing(x, value = my_chart, sheet = "chart_sheet")
 #' print(x, target = tempfile(fileext = ".xlsx"))
 sheet_add_drawing.ms_chart <- function(
-  x, value, sheet,
-  data_start_col = 1L, data_start_row = 1L,
-  from_col = 3L, from_row = 0L,
-  to_col = 10L, to_row = 15L,
+  x,
+  value,
+  sheet,
+  data_start_col = 1L,
+  data_start_row = 1L,
+  from_col = 3L,
+  from_row = 0L,
+  to_col = 10L,
+  to_row = 15L,
   ...
 ) {
   stopifnot(inherits(x, "rxlsx"))
 
   # write chart data into the sheet
   x <- sheet_write_data(
-    x, data = value$data_series, sheet = sheet,
-    start_row = data_start_row, start_col = data_start_col
+    x,
+    data = value$data_series,
+    sheet = sheet,
+    start_row = data_start_row,
+    start_col = data_start_col
   )
 
   # generate chart XML for xlsx context
   chart_xml <- format(
     value,
-    id_x = "64451712", id_y = "64453248",
+    id_x = "64451712",
+    id_y = "64453248",
     sheetname = sheet,
     drop_ext_data = TRUE
   )
@@ -65,7 +74,8 @@ sheet_add_drawing.ms_chart <- function(
   dir.create(charts_dir, recursive = TRUE, showWarnings = FALSE)
   dir.create(
     file.path(charts_dir, "_rels"),
-    recursive = TRUE, showWarnings = FALSE
+    recursive = TRUE,
+    showWarnings = FALSE
   )
 
   existing_charts <- list.files(charts_dir, pattern = "^chart[0-9]+\\.xml$")
@@ -106,8 +116,10 @@ sheet_add_drawing.ms_chart <- function(
   chart_rid <- drw$add_chart_rel(chart_name)
   drw$add_chart_anchor(
     chart_rid,
-    from_col = from_col, from_row = from_row,
-    to_col = to_col, to_row = to_row
+    from_col = from_col,
+    from_row = from_row,
+    to_col = to_col,
+    to_row = to_row
   )
 
   invisible(x)

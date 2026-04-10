@@ -4,7 +4,9 @@ assert_area <- function(data_x, data_y) {
   if (!is.numeric(data_y)) {
     stop("y column should be numeric.")
   }
-  check_x <- inherits(data_x, "Date") || is.character(data_x) || is.factor(data_x)
+  check_x <- inherits(data_x, "Date") ||
+    is.character(data_x) ||
+    is.factor(data_x)
   if (!check_x) {
     stop("x column should be a date or a categorical column.")
   }
@@ -70,10 +72,22 @@ assert_pie <- function(data_x, data_y) {
 #' @examples
 #' library(officer)
 #' @example examples/02_linechart.R
-ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
+ms_linechart <- function(
+  data,
+  x,
+  y,
+  group = NULL,
+  labels = NULL,
+  asis = FALSE
+) {
   out <- ms_chart(
-    data = data, x = x, y = y, group = group, labels = labels,
-    type = "lineplot", asis = asis
+    data = data,
+    x = x,
+    y = y,
+    group = group,
+    labels = labels,
+    type = "lineplot",
+    asis = asis
   )
   out$options <- linechart_options()
   class(out) <- c("ms_linechart", "ms_chart")
@@ -117,8 +131,13 @@ ms_linechart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' @example examples/01_barchart.R
 ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
   out <- ms_chart(
-    data = data, x = x, y = y, group = group, labels = labels,
-    type = "barplot", asis = asis
+    data = data,
+    x = x,
+    y = y,
+    group = group,
+    labels = labels,
+    type = "barplot",
+    asis = asis
   )
   out$options <- barchart_options()
   class(out) <- c("ms_barchart", "ms_chart")
@@ -141,10 +160,22 @@ ms_barchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
 #' @examples
 #' library(officer)
 #' @example examples/03_areachart.R
-ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
+ms_areachart <- function(
+  data,
+  x,
+  y,
+  group = NULL,
+  labels = NULL,
+  asis = FALSE
+) {
   out <- ms_chart(
-    data = data, x = x, y = y, group = group, labels = labels,
-    type = "areaplot", asis = asis
+    data = data,
+    x = x,
+    y = y,
+    group = group,
+    labels = labels,
+    type = "areaplot",
+    asis = asis
   )
   class(out) <- c("ms_areachart", "ms_chart")
   out <- chart_settings(out)
@@ -173,11 +204,23 @@ ms_areachart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) 
 #' @examples
 #' library(officer)
 #' @example examples/04_scatterchart.R
-ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALSE) {
+ms_scatterchart <- function(
+  data,
+  x,
+  y,
+  group = NULL,
+  labels = NULL,
+  asis = FALSE
+) {
   out <- ms_chart(
-    data = data, x = x, y = y, group = group, labels = labels,
+    data = data,
+    x = x,
+    y = y,
+    group = group,
+    labels = labels,
     excel_data_setup = transpose_series_bysplit,
-    type = "scatterplot", asis = asis
+    type = "scatterplot",
+    asis = asis
   )
   class(out) <- c("ms_scatterchart", "ms_chart")
 
@@ -207,7 +250,6 @@ ms_scatterchart <- function(data, x, y, group = NULL, labels = NULL, asis = FALS
 #' @export
 #' @example examples/05_combochart.R
 ms_combochart <- function(...) {
-
   inputs <- list(...)
 
   # write only a single additional x or y axis
@@ -215,7 +257,6 @@ ms_combochart <- function(...) {
   sec_y <- TRUE
 
   for (i in seq_along(inputs)) {
-
     if (!inherits(inputs[[i]], "ms_chart")) {
       warning("Skipping non ms_chart element: ", i)
       next
@@ -226,11 +267,11 @@ ms_combochart <- function(...) {
       next
     }
 
-    if (i == 1)
-      out <-  inputs[[1]]
+    if (i == 1) {
+      out <- inputs[[1]]
+    }
 
     if (i > 1) {
-
       is_sec_x <- isTRUE(attr(inputs[[i]], "secondary_x"))
       is_sec_y <- isTRUE(attr(inputs[[i]], "secondary_y"))
 
@@ -328,7 +369,11 @@ ms_combochart <- function(...) {
 #' donut <- chart_labels(donut, title = "Browser share (donut)")
 ms_piechart <- function(data, x, y, labels = NULL) {
   out <- ms_chart(
-    data = data, x = x, y = y, group = NULL, labels = labels,
+    data = data,
+    x = x,
+    y = y,
+    group = NULL,
+    labels = labels,
     type = "pieplot"
   )
   out$options <- piechart_options()
@@ -346,30 +391,53 @@ ms_piechart <- function(data, x, y, labels = NULL) {
 # ms_chart -----
 
 #' @importFrom grDevices colors
-ms_chart <- function(data, x, y, group = NULL, labels = NULL,
-                     excel_data_setup = shape_as_series,
-                     type = NULL, asis = FALSE) {
+ms_chart <- function(
+  data,
+  x,
+  y,
+  group = NULL,
+  labels = NULL,
+  excel_data_setup = shape_as_series,
+  type = NULL,
+  asis = FALSE
+) {
   stopifnot(is.data.frame(data))
   stopifnot(x %in% names(data))
   stopifnot(y %in% names(data))
 
   # if wb_data is passed, only create asis mschart output
-  if (inherits(data, "wb_data")) asis <- TRUE
+  if (inherits(data, "wb_data")) {
+    asis <- TRUE
+  }
 
   xvar <- x
   yvar <- y
 
-  if (inherits(data, "data.table") || inherits(data, "tbl_df") || inherits(data, "tbl")) {
+  if (
+    inherits(data, "data.table") ||
+      inherits(data, "tbl_df") ||
+      inherits(data, "tbl")
+  ) {
     data <- as.data.frame(data, stringsAsFactors = FALSE)
   }
 
   if (!is.null(group) && !(group %in% names(data))) {
-    stop("column ", shQuote(group), " could not be found in data.", call. = FALSE)
+    stop(
+      "column ",
+      shQuote(group),
+      " could not be found in data.",
+      call. = FALSE
+    )
   }
   if (!is.null(labels)) {
     labs <- labels[!labels %in% names(data)]
     if (!(all(labs))) {
-      stop("column(s) ", paste(shQuote(labs), collapse = ", "), " could not be found in data.", call. = FALSE)
+      stop(
+        "column(s) ",
+        paste(shQuote(labs), collapse = ", "),
+        " could not be found in data.",
+        call. = FALSE
+      )
     }
   }
 
@@ -403,13 +471,21 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
     assert_pie(data_x, data_y)
   }
 
-
   tryCatch(
     {
       x_axis_tag <- get_axis_tag(data_x)
     },
     error = function(e) {
-      stop("column ", shQuote(x), ": ", e$message, " [", paste(class(data_x), collapse = ","), "]", call. = FALSE)
+      stop(
+        "column ",
+        shQuote(x),
+        ": ",
+        e$message,
+        " [",
+        paste(class(data_x), collapse = ","),
+        "]",
+        call. = FALSE
+      )
     }
   )
   tryCatch(
@@ -417,7 +493,16 @@ ms_chart <- function(data, x, y, group = NULL, labels = NULL,
       y_axis_tag <- get_axis_tag(data_y)
     },
     error = function(e) {
-      stop("column ", shQuote(y), ": ", e$message, " [", paste(class(data_y), collapse = ","), "]", call. = FALSE)
+      stop(
+        "column ",
+        shQuote(y),
+        ": ",
+        e$message,
+        " [",
+        paste(class(data_y), collapse = ","),
+        "]",
+        call. = FALSE
+      )
     }
   )
 
@@ -530,9 +615,17 @@ print.ms_chart <- function(x, preview = FALSE, ...) {
   class_val <- setdiff(class(x), "ms_chart")
   cat(sprintf("* %s object\n\n", shQuote(class_val)))
 
-  cat(sprintf("* original data [%.0f,%.0f] (sample):\n", nrow(x$data), ncol(x$data)))
+  cat(sprintf(
+    "* original data [%.0f,%.0f] (sample):\n",
+    nrow(x$data),
+    ncol(x$data)
+  ))
   print(x$data[seq_len(min(c(nrow(x$data), 5))), ])
-  cat(sprintf("\n* series data [%.0f,%.0f] (sample):\n", nrow(x$data_series), ncol(x$data_series)))
+  cat(sprintf(
+    "\n* series data [%.0f,%.0f] (sample):\n",
+    nrow(x$data_series),
+    ncol(x$data_series)
+  ))
   print(x$data_series[seq_len(min(c(nrow(x$data_series), 5))), ])
 }
 
@@ -543,12 +636,75 @@ colour_list <- list(
   c("#4477AA", "#117733", "#DDCC77", "#CC6677"),
   c("#332288", "#88CCEE", "#117733", "#DDCC77", "#CC6677"),
   c("#332288", "#88CCEE", "#117733", "#DDCC77", "#CC6677", "#AA4499"),
-  c("#332288", "#88CCEE", "#44AA99", "#117733", "#DDCC77", "#CC6677", "#AA4499"),
-  c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677", "#AA4499"),
-  c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#CC6677", "#882255", "#AA4499"),
-  c("#332288", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#882255", "#AA4499"),
-  c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#882255", "#AA4499"),
-  c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#AA4466", "#882255", "#AA4499")
+  c(
+    "#332288",
+    "#88CCEE",
+    "#44AA99",
+    "#117733",
+    "#DDCC77",
+    "#CC6677",
+    "#AA4499"
+  ),
+  c(
+    "#332288",
+    "#88CCEE",
+    "#44AA99",
+    "#117733",
+    "#999933",
+    "#DDCC77",
+    "#CC6677",
+    "#AA4499"
+  ),
+  c(
+    "#332288",
+    "#88CCEE",
+    "#44AA99",
+    "#117733",
+    "#999933",
+    "#DDCC77",
+    "#CC6677",
+    "#882255",
+    "#AA4499"
+  ),
+  c(
+    "#332288",
+    "#88CCEE",
+    "#44AA99",
+    "#117733",
+    "#999933",
+    "#DDCC77",
+    "#661100",
+    "#CC6677",
+    "#882255",
+    "#AA4499"
+  ),
+  c(
+    "#332288",
+    "#6699CC",
+    "#88CCEE",
+    "#44AA99",
+    "#117733",
+    "#999933",
+    "#DDCC77",
+    "#661100",
+    "#CC6677",
+    "#882255",
+    "#AA4499"
+  ),
+  c(
+    "#332288",
+    "#6699CC",
+    "#88CCEE",
+    "#44AA99",
+    "#117733",
+    "#999933",
+    "#DDCC77",
+    "#661100",
+    "#CC6677",
+    "#AA4466",
+    "#882255",
+    "#AA4499"
+  )
 )
 
 
@@ -556,8 +712,22 @@ colour_list <- list(
 #' @importFrom xml2 xml_attr<- xml_remove
 #' @method format ms_chart
 #' @export
-format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data = FALSE, ...) {
-  str_ <- to_pml(x, id_x = id_x, id_y = id_y, sheetname = sheetname, asis = x$asis, secondary_y = 0)
+format.ms_chart <- function(
+  x,
+  id_x,
+  id_y,
+  sheetname = "sheet1",
+  drop_ext_data = FALSE,
+  ...
+) {
+  str_ <- to_pml(
+    x,
+    id_x = id_x,
+    id_y = id_y,
+    sheetname = sheetname,
+    asis = x$asis,
+    secondary_y = 0
+  )
 
   if (is.null(x$x_axis$num_fmt)) {
     x$x_axis$num_fmt <- x$theme[[x$fmt_names$x]]
@@ -578,10 +748,14 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
 
   x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
 
-  y_axis_str <- axis_content_xml(x$y_axis,
-    id = id_y, theme = x$theme,
-    cross_id = id_x, is_x = FALSE,
-    lab = htmlEscape(x$labels$y), rot = x$theme$title_y_rot
+  y_axis_str <- axis_content_xml(
+    x$y_axis,
+    id = id_y,
+    theme = x$theme,
+    cross_id = id_x,
+    is_x = FALSE,
+    lab = htmlEscape(x$labels$y),
+    rot = x$theme$title_y_rot
   )
 
   y_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$y, y_axis_str, x$axis_tag$y)
@@ -593,11 +767,9 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   axis_str <- paste0(x_axis_str, y_axis_str)
 
   if (length(x$secondary)) {
-
     ser_id <- length(x$yvar) + 1L
 
     for (sec in seq_along(x$secondary)) {
-
       is_sec_x <- isTRUE(attr(x$secondary[[sec]], "secondary_x"))
       is_sec_y <- isTRUE(attr(x$secondary[[sec]], "secondary_y"))
 
@@ -610,12 +782,19 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
         y_id <- id_y
       }
 
-      xlab <- if (is_sec_x && !is_sec_y) htmlEscape(x$secondary[[sec]]$labels$x) else NULL
-      ylab <- if (is_sec_y && !is_sec_x) htmlEscape(x$secondary[[sec]]$labels$y) else NULL
+      xlab <- if (is_sec_x && !is_sec_y) {
+        htmlEscape(x$secondary[[sec]]$labels$x)
+      } else {
+        NULL
+      }
+      ylab <- if (is_sec_y && !is_sec_x) {
+        htmlEscape(x$secondary[[sec]]$labels$y)
+      } else {
+        NULL
+      }
 
       # add only one secondary x and y axis if required
       if (secondary && (is_sec_x || is_sec_y)) {
-
         axis_l_str <- axis_content_xml(
           x$secondary[[sec]]$y_axis,
           id = y_id,
@@ -626,7 +805,12 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
           rot = x$secondary[[sec]]$theme$title_y_rot
         )
 
-        x_axis_str <- sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$y, axis_l_str, x$secondary[[sec]]$axis_tag$y)
+        x_axis_str <- sprintf(
+          "<%s>%s</%s>",
+          x$secondary[[sec]]$axis_tag$y,
+          axis_l_str,
+          x$secondary[[sec]]$axis_tag$y
+        )
 
         axis_r_str <- axis_content_xml(
           x$secondary[[sec]]$x_axis,
@@ -636,7 +820,12 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
           is_x = TRUE,
           lab = xlab
         )
-        y_axis_str <- sprintf("<%s>%s</%s>", x$secondary[[sec]]$axis_tag$x, axis_r_str, x$secondary[[sec]]$axis_tag$x)
+        y_axis_str <- sprintf(
+          "<%s>%s</%s>",
+          x$secondary[[sec]]$axis_tag$x,
+          axis_r_str,
+          x$secondary[[sec]]$axis_tag$x
+        )
 
         secondary <- FALSE
 
@@ -644,19 +833,20 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
       }
 
       # all secondary charts
-      str_ <- paste0(str_, to_pml(
-        x$secondary[[sec]],
-        id_y = y_id,
-        id_x = x_id,
-        sheetname = sheetname,
-        asis = x$secondary[[sec]]$asis,
-        secondary_y = ser_id
-      ))
+      str_ <- paste0(
+        str_,
+        to_pml(
+          x$secondary[[sec]],
+          id_y = y_id,
+          id_x = x_id,
+          sheetname = sheetname,
+          asis = x$secondary[[sec]]$asis,
+          secondary_y = ser_id
+        )
+      )
 
       ser_id <- ser_id + length(x$secondary[[sec]]$yvar)
-
     }
-
   }
 
   if (inherits(x, "ms_piechart")) {
@@ -671,7 +861,9 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   ns <- "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\""
 
   xml_elt <- paste0(
-    "<c:plotArea ", ns, "><c:layout/>",
+    "<c:plotArea ",
+    ns,
+    "><c:layout/>",
     str_,
     axis_str,
     table_str,
@@ -686,9 +878,15 @@ format.ms_chart <- function(x, id_x, id_y, sheetname = "sheet1", drop_ext_data =
   if (!is.null(x$labels[["title"]])) {
     chartnode <- xml_find_first(xml_doc, "//c:chart")
     title_ <- "<c:title %s><c:tx><c:rich><a:bodyPr/><a:lstStyle/><a:p><a:pPr><a:defRPr/></a:pPr><a:r>%s<a:t>%s</a:t></a:r></a:p></c:rich></c:tx><c:layout/><c:overlay val=\"0\"/></c:title>"
-    title_ <- sprintf(title_, ns, format(x$theme[["main_title"]], type = "pml"), htmlEscape(x$labels[["title"]]))
+    title_ <- sprintf(
+      title_,
+      ns,
+      format(x$theme[["main_title"]], type = "pml"),
+      htmlEscape(x$labels[["title"]])
+    )
     xml_add_child(chartnode, as_xml_document(title_), .where = 0)
-  } else { # null is not enough
+  } else {
+    # null is not enough
     atd_node <- xml_find_first(xml_doc, "//c:chart/c:autoTitleDeleted")
     xml_attr(atd_node, "val") <- "1"
   }

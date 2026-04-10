@@ -9,8 +9,11 @@ test_that("custom labels are correctly set in barchart", {
   )
 
   chrt <- ms_barchart(
-    data = dat_no_group, group = "group",
-    x = "cut", labels = "label", y = "n"
+    data = dat_no_group,
+    group = "group",
+    x = "cut",
+    labels = "label",
+    y = "n"
   )
 
   xml <- format(
@@ -21,14 +24,35 @@ test_that("custom labels are correctly set in barchart", {
   )
 
   chart <- xml2::read_xml(xml)
-  showDataLabelsRange <- xml2::xml_find_all(chart, "//c:ser/c:dLbls/c:extLst/c:ext/c15:showDataLabelsRange")
+  showDataLabelsRange <- xml2::xml_find_all(
+    chart,
+    "//c:ser/c:dLbls/c:extLst/c:ext/c15:showDataLabelsRange"
+  )
 
-  expect_equal(xml2::xml_attr(showDataLabelsRange, "val"), c("1", "1"), ignore_attr = TRUE)
+  expect_equal(
+    xml2::xml_attr(showDataLabelsRange, "val"),
+    c("1", "1"),
+    ignore_attr = TRUE
+  )
 
-  label_pt <- xml2::xml_find_all(chart, "//c:ser/c:extLst/c:ext/c15:datalabelsRange/c15:dlblRangeCache/c:pt")
+  label_pt <- xml2::xml_find_all(
+    chart,
+    "//c:ser/c:extLst/c:ext/c15:datalabelsRange/c15:dlblRangeCache/c:pt"
+  )
   expect_equal(
     xml2::xml_text(label_pt),
-    c("", "\U0001f525", "\U0001f44e", "Hello \U0001f47d", "", "\U0001f603", "", "", "", ""),
+    c(
+      "",
+      "\U0001f525",
+      "\U0001f44e",
+      "Hello \U0001f47d",
+      "",
+      "\U0001f603",
+      "",
+      "",
+      "",
+      ""
+    ),
     ignore_attr = TRUE
   )
 })

@@ -65,7 +65,8 @@ dcast_data <- function(data, x, y, group) {
   out <- dcast.data.table(
     dataset,
     formula = as.formula(form_str),
-    fill = NA, value.var = y
+    fill = NA,
+    value.var = y
   )
   out$.fake_id. <- NULL
   setDF(out)
@@ -94,8 +95,6 @@ transpose_series_bysplit <- function(x) {
 }
 
 
-
-
 #' @importFrom stats as.formula
 #' @importFrom data.table as.data.table dcast.data.table setorderv setnames
 shape_as_series <- function(x) {
@@ -103,7 +102,12 @@ shape_as_series <- function(x) {
     out <- dcast_data(data = x$data, x = x$x, y = x$y, group = x$group)
     if (!is.null(x$label_cols)) {
       for (lab in x$label_cols) {
-        data_label <- dcast_data(data = x$data, x = x$x, y = lab, group = x$group)
+        data_label <- dcast_data(
+          data = x$data,
+          x = x$x,
+          y = lab,
+          group = x$group
+        )
         data_label[[1]] <- NULL
         names(data_label) <- paste0(lab, "-", names(data_label))
         out <- cbind(out, data_label)

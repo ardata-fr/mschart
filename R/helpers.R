@@ -28,18 +28,25 @@
 #'
 #' fileout <- tempfile(fileext = ".pptx")
 #' print(doc, target = fileout)
-as_bar_stack <- function(x, dir = "vertical", percent = FALSE, gap_width = 50){
-
+as_bar_stack <- function(x, dir = "vertical", percent = FALSE, gap_width = 50) {
   stopifnot(inherits(x, "ms_barchart"))
 
   grouping <- "stacked"
-  if( percent ) grouping <- "percentStacked"
+  if (percent) {
+    grouping <- "percentStacked"
+  }
 
-  x <- chart_settings( x, grouping = grouping, dir = dir, gap_width = gap_width, overlap = 100 )
-  x <- chart_data_stroke( x, values = "transparent" )
-  if( dir == "horizontal" )
-    x <- chart_theme( x = x, title_x_rot = 270, title_y_rot = 0)
+  x <- chart_settings(
+    x,
+    grouping = grouping,
+    dir = dir,
+    gap_width = gap_width,
+    overlap = 100
+  )
+  x <- chart_data_stroke(x, values = "transparent")
+  if (dir == "horizontal") {
+    x <- chart_theme(x = x, title_x_rot = 270, title_y_rot = 0)
+  }
 
   x
 }
-
