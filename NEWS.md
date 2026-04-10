@@ -2,6 +2,9 @@
 
 ## New features
 
+* New method `sheet_add_drawing.ms_chart()` to add charts to Excel
+sheets via `officer::sheet_add_drawing()`. Chart data is written
+into the sheet and referenced by the chart.
 * New function `ms_combochart()` to combine multiple chart types
 (e.g. bars + lines) with optional secondary axes. Only works with
 charts created with `asis = TRUE`. Contributed by Jan Marvin Garbuszus.

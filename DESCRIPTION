@@ -2,7 +2,7 @@ Type: Package
 Package: mschart
 Title: Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint'
     Documents
-Version: 0.4.2.010
+Version: 0.4.2.011
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -39,7 +39,7 @@ Imports:
     data.table,
     grDevices,
     htmltools,
-    officer (>= 0.6.7),
+    officer (>= 0.7.4),
     scales,
     stats,
     utils,
@@ -48,6 +48,8 @@ Imports:
 Suggests:
     doconv (>= 0.4.0),
     testthat (>= 3.0.0)
+Remotes: 
+    davidgohel/officer
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
