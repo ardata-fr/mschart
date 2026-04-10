@@ -229,6 +229,74 @@ ms_scatterchart <- function(
   out
 }
 
+#' @title Bubblechart object
+#' @description Creation of a bubblechart object that can be
+#' inserted in a 'Microsoft' document. A bubble chart is a scatter
+#' chart where each point has a third numeric dimension controlling
+#' its size.
+#' @inheritParams ms_scatterchart
+#' @param size column name for bubble size values (must be numeric)
+#' @return An `ms_chart` object.
+#' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
+#' [chart_data_labels()], [chart_theme()], [chart_labels()]
+#' @export
+#' @examples
+#' library(officer)
+#'
+#' dat <- data.frame(
+#'   x = c(1, 2, 3, 4, 5),
+#'   y = c(10, 20, 15, 25, 30),
+#'   sz = c(5, 10, 7, 15, 12),
+#'   grp = rep("s1", 5)
+#' )
+#'
+#' bubble <- ms_bubblechart(
+#'   data = dat, x = "x", y = "y",
+#'   size = "sz", group = "grp"
+#' )
+#'
+#' # adjust axes to avoid clipping extreme bubbles
+#' bubble <- chart_ax_x(bubble, limit_min = 0, limit_max = 6)
+#' bubble <- chart_ax_y(bubble, limit_min = 5, limit_max = 35)
+#' bubble
+ms_bubblechart <- function(
+  data,
+  x,
+  y,
+  size,
+  group = NULL,
+  labels = NULL,
+  asis = FALSE
+) {
+  if (!size %in% names(data)) {
+    stop("column ", shQuote(size), " not found in data", call. = FALSE)
+  }
+  if (!is.numeric(data[[size]])) {
+    stop("column ", shQuote(size), " must be numeric", call. = FALSE)
+  }
+
+  out <- ms_chart(
+    data = data,
+    x = x,
+    y = y,
+    group = group,
+    labels = labels,
+    excel_data_setup = transpose_series_bysplit,
+    type = "bubbleplot",
+    asis = asis
+  )
+  out$size <- size
+  out$size_cols <- size
+  # rebuild data_series to include size column
+  out$data_series <- transpose_series_bysplit(out)
+  class(out) <- c("ms_bubblechart", "ms_chart")
+
+  out <- chart_settings(out)
+
+  out
+}
+
 #' @title combochart object
 #' @description Creation of a combochart object that can be
 #' inserted in a 'Microsoft' document.
@@ -459,7 +527,7 @@ ms_chart <- function(
     assert_area(data_x, data_y)
   }
 
-  if (type == "scatterplot") {
+  if (type == "scatterplot" || type == "bubbleplot") {
     assert_scatter(data_x, data_y)
   }
 
@@ -551,7 +619,7 @@ ms_chart <- function(
     out$axis_tag <- list(x = xtag, y = "c:valAx")
   }
 
-  if (type == "scatterplot") {
+  if (type == "scatterplot" || type == "bubbleplot") {
     out <- pretty_num_axes(out, data_x, data_y)
   }
 

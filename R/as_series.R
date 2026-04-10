@@ -136,12 +136,40 @@ as_series <- function(
       label_serie <- NULL
     }
 
+    # bubble size series (for bubble charts)
+    bubble_size_serie <- NULL
+    if (!is.null(x$size_cols)) {
+      sz_col <- x$size_cols[1]
+      if (!is.null(x$group)) {
+        # transposed name: "sz-groupname"
+        grp_name <- sub("^.*-", "", y_colname)
+        sz_colname <- paste0(sz_col, "-", grp_name)
+      } else {
+        sz_colname <- sz_col
+      }
+      if (sz_colname %in% names(dataset)) {
+        w_sz <- which(names(dataset) == sz_colname)
+        sz_range <- cell_limits(
+          ul = c(2, w_sz),
+          lr = c(nrow(dataset) + 1, w_sz),
+          sheet = sheetname
+        )
+        sz_range <- as.range(sz_range, fo = "A1", strict = TRUE, sheet = TRUE)
+        bubble_size_serie <- update(
+          num_ref(values = numeric(0), region = ""),
+          region = sz_range,
+          values = dataset[[sz_colname]]
+        )
+      }
+    }
+
     ser <- list(
       idx = length(series) + secondary_y,
       order = length(series) + secondary_y,
       tx = serie_name,
       x = x_serie,
       y = y_serie,
+      bubble_size = bubble_size_serie,
       label = label_serie,
       stroke = x$series_settings$colour[y_colname],
       fill = x$series_settings$fill[y_colname],

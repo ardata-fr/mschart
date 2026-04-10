@@ -79,6 +79,14 @@ transpose_series_bysplit <- function(x) {
     vars <- c(x$x, x$y)
     out <- transpose_data(x$data, vars, x$group)
     group_names <- setdiff(colnames(out), x$x)
+    if (!is.null(x$size_cols)) {
+      for (sz in x$size_cols) {
+        data_sz <- transpose_data(x$data, c(x$x, sz), x$group)
+        data_sz[[1]] <- NULL
+        names(data_sz) <- paste0(sz, "-", names(data_sz))
+        out <- cbind(out, data_sz)
+      }
+    }
     if (!is.null(x$label_cols)) {
       for (lab in x$label_cols) {
         data_label <- transpose_data(x$data, c(x$x, lab), x$group)
@@ -88,7 +96,7 @@ transpose_series_bysplit <- function(x) {
       }
     }
   } else {
-    vars <- c(x$x, x$y, x$label_cols)
+    vars <- c(x$x, x$y, x$size_cols, x$label_cols)
     out <- x$data[, vars]
   }
   out

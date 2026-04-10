@@ -203,6 +203,84 @@ to_pml.ms_linechart <- function(
 
 
 #' @export
+#' @method to_pml ms_bubblechart
+to_pml.ms_bubblechart <- function(
+  x,
+  add_ns = FALSE,
+  id_x,
+  id_y,
+  sheetname = "sheet1",
+  asis = FALSE,
+  secondary_y = 0,
+  ...
+) {
+  x_class <- serie_builtin_class(x$data[[x$x]])
+  y_class <- serie_builtin_class(x$data[[x$y]])
+
+  series <- as_series(
+    x,
+    x_class = x_class,
+    y_class = y_class,
+    sheetname = sheetname,
+    secondary_y = secondary_y
+  )
+
+  label_settings <- x$label_settings
+
+  label_settings <- x$label_settings
+
+  str_series_ <- sapply(series, function(serie) {
+    sppr_str <- get_sppr_xml(serie$fill, serie$stroke, serie$line_width)
+
+    label_pml <- ""
+    if (!is.null(x$label_cols) && !is.null(serie$label)) {
+      label_pml <- to_pml(serie$label)
+    }
+
+    bubble_size_str <- ""
+    if (!is.null(serie$bubble_size)) {
+      bubble_size_str <- paste0(
+        "<c:bubbleSize>", to_pml(serie$bubble_size), "</c:bubbleSize>"
+      )
+    }
+
+    paste0(
+      "<c:ser>",
+      sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
+      sprintf("<c:order val=\"%.0f\"/>", serie$order),
+      sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
+      sppr_str,
+      to_pml(label_settings, show_label = !is.null(x$label_cols)),
+      "<c:invertIfNegative val=\"0\"/>",
+      "<c:xVal>", to_pml(serie$x), "</c:xVal>",
+      "<c:yVal>", to_pml(serie$y), "</c:yVal>",
+      bubble_size_str,
+      sprintf(
+        "<c:bubble3D val=\"%.0f\"/>",
+        x$options$bubble3D %||% 0
+      ),
+      label_pml,
+      "</c:ser>"
+    )
+  })
+
+  str_series_ <- paste(str_series_, collapse = "")
+
+  x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
+  y_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_y)
+
+  paste0(
+    "<c:bubbleChart>",
+    sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
+    str_series_,
+    to_pml(x$label_settings, !is.null(x$label_cols)),
+    x_ax_id,
+    y_ax_id,
+    "</c:bubbleChart>"
+  )
+}
+
+#' @export
 #' @method to_pml ms_areachart
 to_pml.ms_areachart <- function(
   x,

@@ -6,6 +6,7 @@
 \alias{chart_settings.ms_linechart}
 \alias{chart_settings.ms_areachart}
 \alias{chart_settings.ms_scatterchart}
+\alias{chart_settings.ms_bubblechart}
 \alias{chart_settings.ms_piechart}
 \title{Set chart options}
 \usage{
@@ -18,6 +19,8 @@ chart_settings(x, ...)
 \method{chart_settings}{ms_areachart}(x, vary_colors, grouping, table, ...)
 
 \method{chart_settings}{ms_scatterchart}(x, vary_colors, style, ...)
+
+\method{chart_settings}{ms_bubblechart}(x, vary_colors, style, bubble3D = FALSE, ...)
 
 \method{chart_settings}{ms_piechart}(x, vary_colors, hole_size, ...)
 }
@@ -50,6 +53,8 @@ to be superimposed. The default value is 0.}
 \item{style}{Style for the linechart or scatterchart type of markers. One
 of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.}
 
+\item{bubble3D}{logical, use 3D effect for bubbles.}
+
 \item{hole_size}{size of the hole in a doughnut chart, between 0 and 90
 (percent of the radius). Default 0 produces a pie chart;
 values above 0 produce a doughnut chart.}
@@ -69,6 +74,8 @@ Set chart properties.
 \item \code{chart_settings(ms_areachart)}: areachart settings
 
 \item \code{chart_settings(ms_scatterchart)}: scatterchart settings
+
+\item \code{chart_settings(ms_bubblechart)}: bubblechart settings
 
 \item \code{chart_settings(ms_piechart)}: piechart settings
 

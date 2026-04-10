@@ -2,6 +2,9 @@
 
 ## New features
 
+* New function `ms_bubblechart()` for bubble charts. A bubble chart
+is a scatter chart where each point has a third numeric dimension
+controlling its size.
 * New method `sheet_add_drawing.ms_chart()` to add charts to Excel
 sheets via `officer::sheet_add_drawing()`. Chart data is written
 into the sheet and referenced by the chart.

@@ -224,6 +224,41 @@ chart_settings.ms_scatterchart <- function(x, vary_colors, style, ...) {
 }
 
 
+#' @export
+#' @describeIn chart_settings bubblechart settings
+#' @param bubble3D logical, use 3D effect for bubbles.
+chart_settings.ms_bubblechart <- function(x, vary_colors, style,
+                                          bubble3D = FALSE, ...) {
+  vary_colors <- if (missing(vary_colors)) {
+    x$options$vary_colors %||% FALSE
+  } else {
+    vary_colors
+  }
+  style <- if (missing(style)) {
+    x$options$scatterstyle %||% "marker"
+  } else {
+    style
+  }
+
+  if (!style %in% st_scatterstyle) {
+    stop(
+      "style should be one of ",
+      paste0(shQuote(st_scatterstyle), collapse = ", ")
+    )
+  }
+
+  options <- list(
+    vary_colors = vary_colors,
+    scatterstyle = style,
+    bubble3D = bubble3D,
+    table = FALSE
+  )
+  class(options) <- "bubblechart_options"
+
+  x$options <- options
+  x
+}
+
 piechart_options <- function(vary_colors = TRUE, hole_size = 0) {
   if (!(hole_size >= 0 && hole_size <= 90)) {
     stop("hole_size should be between 0 and 90")
