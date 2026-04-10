@@ -31,6 +31,9 @@
 #' @return An `ms_chart` object.
 #' @export
 set_theme <- function(x, value) {
+  if (!inherits(value, "mschart_theme")) {
+    stop("value must be an mschart_theme object.", call. = FALSE)
+  }
   x$theme <- value
   x
 }
