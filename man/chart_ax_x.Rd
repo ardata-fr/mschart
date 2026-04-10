@@ -18,6 +18,10 @@ chart_ax_x(
   limit_min,
   limit_max,
   position,
+  major_unit,
+  minor_unit,
+  major_time_unit,
+  minor_time_unit,
   second_axis = FALSE
 )
 }
@@ -53,6 +57,16 @@ and will be converted automatically.}
 and will be converted automatically.}
 
 \item{position}{the value at which this axis crosses the perpendicular axis.}
+
+\item{major_unit}{numeric, interval between major ticks and gridlines.}
+
+\item{minor_unit}{numeric, interval between minor ticks and gridlines.}
+
+\item{major_time_unit}{time unit for major ticks on date axes,
+one of \code{"days"}, \code{"months"}, \code{"years"}.}
+
+\item{minor_time_unit}{time unit for minor ticks on date axes,
+one of \code{"days"}, \code{"months"}, \code{"years"}.}
 
 \item{second_axis}{logical to be used in \code{\link[=ms_combochart]{ms_combochart()}}.}
 }
@@ -120,6 +134,13 @@ chart_01 <- ms_linechart(
 )
 
 chart_01 <- chart_ax_y(x = chart_01, limit_min = 20, limit_max = 120)
+chart_01
+
+# control axis intervals
+chart_01 <- chart_ax_x(chart_01,
+  major_unit = 10, major_time_unit = "years"
+)
+chart_01 <- chart_ax_y(chart_01, major_unit = 20)
 chart_01
 }
 \seealso{

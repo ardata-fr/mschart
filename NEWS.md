@@ -13,6 +13,12 @@ charts created with `asis = TRUE`. Contributed by Jan Marvin Garbuszus.
 (0 = pie, >0 = doughnut). Contributed by Jan Marvin Garbuszus.
 * `chart_ax_x()` and `chart_ax_y()` gain a `second_axis` argument
 for use with `ms_combochart()`.
+* `chart_ax_x()` and `chart_ax_y()` gain `major_unit`, `minor_unit`,
+`major_time_unit` and `minor_time_unit` parameters to control axis
+interval spacing (#105).
+
+## Issues
+
 * Grid lines can now be disabled by setting `grid_major_line_x`,
 `grid_major_line_y`, `grid_minor_line_x` or `grid_minor_line_y`
 to `FALSE` in `mschart_theme()` or `chart_theme()`.

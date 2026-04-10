@@ -134,7 +134,9 @@ mschart_theme <- function(axis_title = fp_text(bold = TRUE, font.size = 16), axi
     grid_minor_line_x = grid_minor_line_x, grid_minor_line_y = grid_minor_line_y,
     chart_background = chart_background, chart_border = chart_border,
     plot_background = plot_background, plot_border = plot_border,
-    legend_position = legend_position
+    legend_position = legend_position,
+    date_fmt = date_fmt, str_fmt = str_fmt,
+    double_fmt = double_fmt, integer_fmt = integer_fmt
   )
   class(out) <- "mschart_theme"
   out
