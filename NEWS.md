@@ -5,6 +5,11 @@
 * New function `ms_bubblechart()` for bubble charts. A bubble chart
 is a scatter chart where each point has a third numeric dimension
 controlling its size.
+* New function `ms_radarchart()` for radar (spider) charts. 
+* New function `ms_stockchart()` for stock charts. Supports
+High-Low-Close (HLC) and Open-High-Low-Close (OHLC) modes.
+OHLC charts display candlestick up/down bars. Use `chart_settings()`
+to customise high-low lines and up/down bar appearance.
 * New method `sheet_add_drawing.ms_chart()` to add charts to Excel
 sheets via `officer::sheet_add_drawing()`. Chart data is written
 into the sheet and referenced by the chart.

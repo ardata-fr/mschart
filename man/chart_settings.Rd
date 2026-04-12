@@ -6,6 +6,8 @@
 \alias{chart_settings.ms_linechart}
 \alias{chart_settings.ms_areachart}
 \alias{chart_settings.ms_scatterchart}
+\alias{chart_settings.ms_stockchart}
+\alias{chart_settings.ms_radarchart}
 \alias{chart_settings.ms_bubblechart}
 \alias{chart_settings.ms_piechart}
 \title{Set chart options}
@@ -19,6 +21,19 @@ chart_settings(x, ...)
 \method{chart_settings}{ms_areachart}(x, vary_colors, grouping, table, ...)
 
 \method{chart_settings}{ms_scatterchart}(x, vary_colors, style, ...)
+
+\method{chart_settings}{ms_stockchart}(
+  x,
+  vary_colors,
+  hi_low_lines,
+  up_bars_fill,
+  up_bars_border,
+  down_bars_fill,
+  down_bars_border,
+  ...
+)
+
+\method{chart_settings}{ms_radarchart}(x, vary_colors, style, ...)
 
 \method{chart_settings}{ms_bubblechart}(x, vary_colors, style, bubble3D = FALSE, ...)
 
@@ -53,6 +68,17 @@ to be superimposed. The default value is 0.}
 \item{style}{Style for the linechart or scatterchart type of markers. One
 of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.}
 
+\item{hi_low_lines}{an \code{\link[officer:fp_border]{officer::fp_border()}} for the high-low lines.
+Set to \code{FALSE} to hide them.}
+
+\item{up_bars_fill}{fill colour for up bars (OHLC only, close > open).}
+
+\item{up_bars_border}{an \code{\link[officer:fp_border]{officer::fp_border()}} for up bar borders.}
+
+\item{down_bars_fill}{fill colour for down bars (OHLC only, close < open).}
+
+\item{down_bars_border}{an \code{\link[officer:fp_border]{officer::fp_border()}} for down bar borders.}
+
 \item{bubble3D}{logical, use 3D effect for bubbles.}
 
 \item{hole_size}{size of the hole in a doughnut chart, between 0 and 90
@@ -74,6 +100,10 @@ Set chart properties.
 \item \code{chart_settings(ms_areachart)}: areachart settings
 
 \item \code{chart_settings(ms_scatterchart)}: scatterchart settings
+
+\item \code{chart_settings(ms_stockchart)}: stockchart settings
+
+\item \code{chart_settings(ms_radarchart)}: radarchart settings
 
 \item \code{chart_settings(ms_bubblechart)}: bubblechart settings
 

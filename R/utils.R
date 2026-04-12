@@ -50,6 +50,18 @@ pretty_num_axes <- function(x, data_x, data_y) {
   x
 }
 
+#' @importFrom grDevices col2rgb rgb
+#' @noRd
+stock_fill_xml <- function(color) {
+  elts <- col2rgb(color, alpha = TRUE)[, 1]
+  hex <- sprintf("%02X%02X%02X", elts[1], elts[2], elts[3])
+  alpha <- elts[4] / 255.0 * 100000
+  sprintf(
+    "<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>",
+    hex, alpha
+  )
+}
+
 #' @importFrom grDevices rgb
 ooxml_fp_border <- function(x, in_tags = NULL) {
   stopifnot(inherits(x, "fp_border"))

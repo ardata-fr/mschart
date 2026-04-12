@@ -203,6 +203,191 @@ to_pml.ms_linechart <- function(
 
 
 #' @export
+#' @method to_pml ms_stockchart
+to_pml.ms_stockchart <- function(
+  x,
+  add_ns = FALSE,
+  id_x,
+  id_y,
+  sheetname = "sheet1",
+  secondary_y = 0,
+  ...
+) {
+  series <- as_series(
+    x,
+    x_class = serie_builtin_class(x$data[[x$x]]),
+    y_class = serie_builtin_class(x$data[["y_val"]]),
+    sheetname = sheetname,
+    secondary_y = secondary_y
+  )
+
+  str_series_ <- sapply(series, function(serie) {
+    line_properties <- fp_border(
+      color = serie$stroke,
+      style = serie$line_style,
+      width = serie$line_width
+    )
+    line_str <- ooxml_fp_border(line_properties, in_tags = c("c:spPr"))
+    marker_str <- get_marker_xml(
+      serie$fill, serie$stroke,
+      serie$symbol, serie$size
+    )
+
+    paste0(
+      "<c:ser>",
+      sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
+      sprintf("<c:order val=\"%.0f\"/>", serie$order),
+      sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
+      line_str,
+      marker_str,
+      "<c:cat>", to_pml(serie$x), "</c:cat>",
+      "<c:val>", to_pml(serie$y), "</c:val>",
+      "<c:smooth val=\"0\"/>",
+      "</c:ser>"
+    )
+  })
+
+  str_series_ <- paste(str_series_, collapse = "")
+
+  # hiLowLines
+  hi_low_str <- ""
+  if (!isFALSE(x$options$hi_low_lines)) {
+    hi_low_str <- ooxml_fp_border(
+      x$options$hi_low_lines,
+      in_tags = c("c:hiLowLines", "c:spPr")
+    )
+  }
+
+  # upDownBars (OHLC only)
+  up_down_str <- ""
+  has_open <- !is.null(x$stock_cols$open)
+  if (has_open) {
+    up_fill <- stock_fill_xml(x$options$up_bars_fill)
+    up_border <- ooxml_fp_border(x$options$up_bars_border)
+    down_fill <- stock_fill_xml(x$options$down_bars_fill)
+    down_border <- ooxml_fp_border(x$options$down_bars_border)
+
+    up_down_str <- paste0(
+      "<c:upDownBars>",
+      "<c:gapWidth val=\"150\"/>",
+      "<c:upBars><c:spPr>", up_fill, up_border, "</c:spPr></c:upBars>",
+      "<c:downBars><c:spPr>", down_fill, down_border, "</c:spPr></c:downBars>",
+      "</c:upDownBars>"
+    )
+  }
+
+  x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
+  y_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_y)
+
+  paste0(
+    "<c:stockChart>",
+    str_series_,
+    "<c:dLbls>",
+    "<c:showLegendKey val=\"0\"/>",
+    "<c:showVal val=\"0\"/>",
+    "<c:showCatName val=\"0\"/>",
+    "<c:showSerName val=\"0\"/>",
+    "<c:showPercent val=\"0\"/>",
+    "<c:showBubbleSize val=\"0\"/>",
+    "</c:dLbls>",
+    hi_low_str,
+    up_down_str,
+    x_ax_id,
+    y_ax_id,
+    "</c:stockChart>"
+  )
+}
+
+#' @export
+#' @method to_pml ms_radarchart
+to_pml.ms_radarchart <- function(
+  x,
+  add_ns = FALSE,
+  id_x,
+  id_y,
+  sheetname = "sheet1",
+  secondary_y = 0,
+  ...
+) {
+  series <- as_series(
+    x,
+    x_class = serie_builtin_class(x$data[[x$x]]),
+    y_class = serie_builtin_class(x$data[[x$y]]),
+    sheetname = sheetname,
+    secondary_y = secondary_y
+  )
+
+  has_lines <- c(
+    standard = TRUE, marker = TRUE, filled = TRUE
+  )
+  has_markers <- c(
+    standard = FALSE, marker = TRUE, filled = FALSE
+  )
+
+  str_series_ <- sapply(
+    series,
+    function(serie, has_line, has_marker) {
+      if (!has_line) {
+        line_str <- "<c:spPr><a:ln><a:noFill/></a:ln></c:spPr>"
+      } else {
+        line_properties <- fp_border(
+          color = serie$stroke,
+          style = serie$line_style,
+          width = serie$line_width
+        )
+        line_str <- ooxml_fp_border(line_properties, in_tags = c("c:spPr"))
+      }
+      if (!has_marker) {
+        marker_str <- "<c:marker><c:symbol val=\"none\"/></c:marker>"
+      } else {
+        marker_str <- get_marker_xml(
+          serie$fill, serie$stroke,
+          serie$symbol, serie$size
+        )
+      }
+
+      label_settings <- x$label_settings
+      label_settings$labels_fp <- serie$labels_fp
+
+      label_pml <- ""
+      if (!is.null(x$label_cols)) {
+        label_pml <- to_pml(serie$label)
+      }
+
+      paste0(
+        "<c:ser>",
+        sprintf("<c:idx val=\"%.0f\"/>", serie$idx),
+        sprintf("<c:order val=\"%.0f\"/>", serie$order),
+        sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
+        line_str,
+        marker_str,
+        "<c:cat>", to_pml(serie$x), "</c:cat>",
+        "<c:val>", to_pml(serie$y), "</c:val>",
+        "</c:ser>"
+      )
+    },
+    has_line = has_lines[x$options$radarstyle],
+    has_marker = has_markers[x$options$radarstyle]
+  )
+
+  str_series_ <- paste(str_series_, collapse = "")
+
+  x_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_x)
+  y_ax_id <- sprintf("<c:axId val=\"%s\"/>", id_y)
+
+  paste0(
+    "<c:radarChart>",
+    sprintf("<c:radarStyle val=\"%s\"/>", x$options$radarstyle),
+    sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
+    str_series_,
+    to_pml(x$label_settings, !is.null(x$label_cols)),
+    x_ax_id,
+    y_ax_id,
+    "</c:radarChart>"
+  )
+}
+
+#' @export
 #' @method to_pml ms_bubblechart
 to_pml.ms_bubblechart <- function(
   x,

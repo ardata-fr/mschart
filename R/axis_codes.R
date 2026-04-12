@@ -178,3 +178,26 @@ axis_content_xml <- function(
   )
   str_
 }
+
+#' @noRd
+axis_content_xml_radar <- function(x, id, cross_id, is_x = TRUE, ...) {
+  cross_between <- ""
+  if (!is_x) {
+    cross_between <- "<c:crossBetween val=\"between\"/>"
+  }
+  paste0(
+    sprintf("<c:axId val=\"%s\"/>", id),
+    sprintf(
+      "<c:scaling><c:orientation val=\"%s\"/></c:scaling>",
+      x$orientation
+    ),
+    sprintf("<c:delete val=\"%.0f\"/>", x$delete),
+    sprintf("<c:axPos val=\"%s\"/>", x$axis_position),
+    "<c:majorTickMark val=\"none\"/>",
+    "<c:minorTickMark val=\"none\"/>",
+    "<c:tickLblPos val=\"nextTo\"/>",
+    sprintf("<c:crossAx val=\"%s\"/>", cross_id),
+    "<c:crosses val=\"autoZero\"/>",
+    cross_between
+  )
+}

@@ -132,6 +132,8 @@ Other 'Office' chart objects:
 \code{\link{ms_bubblechart}()},
 \code{\link{ms_combochart}()},
 \code{\link{ms_piechart}()},
-\code{\link{ms_scatterchart}()}
+\code{\link{ms_radarchart}()},
+\code{\link{ms_scatterchart}()},
+\code{\link{ms_stockchart}()}
 }
 \concept{'Office' chart objects}

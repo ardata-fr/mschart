@@ -225,6 +225,101 @@ chart_settings.ms_scatterchart <- function(x, vary_colors, style, ...) {
 
 
 #' @export
+#' @describeIn chart_settings stockchart settings
+#' @param hi_low_lines an [officer::fp_border()] for the high-low lines.
+#' Set to `FALSE` to hide them.
+#' @param up_bars_fill fill colour for up bars (OHLC only, close > open).
+#' @param up_bars_border an [officer::fp_border()] for up bar borders.
+#' @param down_bars_fill fill colour for down bars (OHLC only, close < open).
+#' @param down_bars_border an [officer::fp_border()] for down bar borders.
+chart_settings.ms_stockchart <- function(
+  x,
+  vary_colors,
+  hi_low_lines,
+  up_bars_fill,
+  up_bars_border,
+  down_bars_fill,
+  down_bars_border,
+  ...
+) {
+  vary_colors <- if (missing(vary_colors)) {
+    x$options$vary_colors %||% FALSE
+  } else {
+    vary_colors
+  }
+  hi_low_lines <- if (missing(hi_low_lines)) {
+    x$options$hi_low_lines %||% fp_border(color = "#404040", width = 0.75)
+  } else {
+    hi_low_lines
+  }
+  up_bars_fill <- if (missing(up_bars_fill)) {
+    x$options$up_bars_fill %||% "white"
+  } else {
+    up_bars_fill
+  }
+  up_bars_border <- if (missing(up_bars_border)) {
+    x$options$up_bars_border %||% fp_border(color = "#404040", width = 0.75)
+  } else {
+    up_bars_border
+  }
+  down_bars_fill <- if (missing(down_bars_fill)) {
+    x$options$down_bars_fill %||% "#404040"
+  } else {
+    down_bars_fill
+  }
+  down_bars_border <- if (missing(down_bars_border)) {
+    x$options$down_bars_border %||% fp_border(color = "#404040", width = 0.75)
+  } else {
+    down_bars_border
+  }
+
+  options <- list(
+    vary_colors = vary_colors,
+    table = FALSE,
+    hi_low_lines = hi_low_lines,
+    up_bars_fill = up_bars_fill,
+    up_bars_border = up_bars_border,
+    down_bars_fill = down_bars_fill,
+    down_bars_border = down_bars_border
+  )
+  class(options) <- "stockchart_options"
+  x$options <- options
+  x
+}
+
+#' @export
+#' @describeIn chart_settings radarchart settings
+chart_settings.ms_radarchart <- function(x, vary_colors, style, ...) {
+  vary_colors <- if (missing(vary_colors)) {
+    x$options$vary_colors %||% FALSE
+  } else {
+    vary_colors
+  }
+  style <- if (missing(style)) {
+    x$options$radarstyle %||% "marker"
+  } else {
+    style
+  }
+
+  if (!style %in% st_radarstyle) {
+    stop(
+      "style should be one of ",
+      paste0(shQuote(st_radarstyle), collapse = ", ")
+    )
+  }
+
+  options <- list(
+    vary_colors = vary_colors,
+    radarstyle = style,
+    table = FALSE
+  )
+  class(options) <- "radarchart_options"
+
+  x$options <- options
+  x
+}
+
+#' @export
 #' @describeIn chart_settings bubblechart settings
 #' @param bubble3D logical, use 3D effect for bubbles.
 chart_settings.ms_bubblechart <- function(x, vary_colors, style,

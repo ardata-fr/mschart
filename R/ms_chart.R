@@ -229,6 +229,147 @@ ms_scatterchart <- function(
   out
 }
 
+#' @title Stockchart object
+#' @description Creation of a stock chart object that can be inserted
+#' in a 'Microsoft' document. When `open` is omitted the chart is
+#' a High-Low-Close chart. When `open` is provided it becomes an
+#' Open-High-Low-Close chart with up/down bars (candlestick).
+#' @param data a data.frame
+#' @param x column name for categories (typically dates)
+#' @param open column name for open values (optional, enables OHLC mode)
+#' @param high column name for high values
+#' @param low column name for low values
+#' @param close column name for close values
+#' @return An `ms_chart` object.
+#' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
+#' [chart_theme()], [chart_labels()]
+#' @export
+#' @examples
+#' library(officer)
+#'
+#' dat <- data.frame(
+#'   date = as.Date("2024-01-01") + 0:4,
+#'   open = c(44, 25, 38, 50, 34),
+#'   high = c(55, 57, 57, 58, 58),
+#'   low = c(11, 12, 13, 11, 25),
+#'   close = c(32, 35, 34, 35, 43)
+#' )
+#'
+#' # HLC chart
+#' stock_hlc <- ms_stockchart(
+#'   data = dat, x = "date",
+#'   high = "high", low = "low", close = "close"
+#' )
+#' stock_hlc
+#'
+#' # OHLC chart (candlestick)
+#' stock_ohlc <- ms_stockchart(
+#'   data = dat, x = "date",
+#'   open = "open", high = "high",
+#'   low = "low", close = "close"
+#' )
+#' stock_ohlc
+ms_stockchart <- function(data, x, open = NULL, high, low, close) {
+  stopifnot(is.data.frame(data))
+  all_cols <- c(x, open, high, low, close)
+  for (col in all_cols) {
+    if (!col %in% names(data)) {
+      stop("column ", shQuote(col), " not found in data", call. = FALSE)
+    }
+  }
+  num_cols <- c(open, high, low, close)
+  for (col in num_cols) {
+    if (!is.numeric(data[[col]])) {
+      stop("column ", shQuote(col), " must be numeric", call. = FALSE)
+    }
+  }
+
+  has_open <- !is.null(open)
+
+  if (has_open) {
+    series_names <- c(open, high, low, close)
+  } else {
+    series_names <- c(high, low, close)
+  }
+
+  # reshape to long format with fixed series order
+  data_long <- data.frame(
+    x_val = rep(data[[x]], length(series_names)),
+    y_val = unlist(lapply(series_names, function(s) data[[s]]),
+      use.names = FALSE
+    ),
+    group = factor(
+      rep(series_names, each = nrow(data)),
+      levels = series_names
+    ),
+    stringsAsFactors = FALSE
+  )
+  names(data_long)[1] <- x
+
+  out <- ms_chart(
+    data = data_long,
+    x = x,
+    y = "y_val",
+    group = "group",
+    type = "stockplot"
+  )
+  out$stock_cols <- if (has_open) {
+    list(open = open, high = high, low = low, close = close)
+  } else {
+    list(high = high, low = low, close = close)
+  }
+  out$axis_x_xml <- axis_content_xml
+  out$axis_y_xml <- axis_content_xml
+  class(out) <- c("ms_stockchart", "ms_chart")
+  out <- chart_settings(out)
+  out
+}
+
+#' @title Radarchart object
+#' @description Creation of a radar (spider) chart object that can be
+#' inserted in a 'Microsoft' document.
+#' @inheritParams ms_linechart
+#' @return An `ms_chart` object.
+#' @family 'Office' chart objects
+#' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
+#' [chart_data_labels()], [chart_theme()], [chart_labels()]
+#' @export
+#' @examples
+#' library(officer)
+#'
+#' dat <- data.frame(
+#'   axis = c("Sales", "Marketing", "Dev", "Support", "HR"),
+#'   s1 = c(4, 3, 5, 2, 4),
+#'   s2 = c(3, 5, 2, 4, 3)
+#' )
+#' dat_long <- data.frame(
+#'   axis = rep(dat$axis, 2),
+#'   value = c(dat$s1, dat$s2),
+#'   group = rep(c("Team A", "Team B"), each = 5)
+#' )
+#'
+#' radar <- ms_radarchart(
+#'   data = dat_long, x = "axis",
+#'   y = "value", group = "group"
+#' )
+#' radar
+ms_radarchart <- function(
+  data, x, y, group = NULL,
+  labels = NULL, asis = FALSE
+) {
+  out <- ms_chart(
+    data = data, x = x, y = y,
+    group = group, labels = labels,
+    type = "radarplot", asis = asis
+  )
+  out$axis_x_xml <- axis_content_xml_radar
+  out$axis_y_xml <- axis_content_xml_radar
+  class(out) <- c("ms_radarchart", "ms_chart")
+  out <- chart_settings(out)
+  out
+}
+
 #' @title Bubblechart object
 #' @description Creation of a bubblechart object that can be
 #' inserted in a 'Microsoft' document. A bubble chart is a scatter
@@ -286,8 +427,8 @@ ms_bubblechart <- function(
     type = "bubbleplot",
     asis = asis
   )
-  out$size <- size
   out$size_cols <- size
+  out$size <- size
   # rebuild data_series to include size column
   out$data_series <- transpose_series_bysplit(out)
   class(out) <- c("ms_bubblechart", "ms_chart")
@@ -531,7 +672,7 @@ ms_chart <- function(
     assert_scatter(data_x, data_y)
   }
 
-  if (type == "lineplot") {
+  if (type == "lineplot" || type == "radarplot" || type == "stockplot") {
     assert_line(data_y)
   }
 
@@ -603,7 +744,9 @@ ms_chart <- function(
     labels = lbls,
     asis = asis,
     xvar = xvar,
-    yvar = yvar
+    yvar = yvar,
+    axis_x_xml = axis_content_xml,
+    axis_y_xml = axis_content_xml
   )
   class(out) <- c("ms_chart")
   out <- chart_data_labels(out)
@@ -804,7 +947,7 @@ format.ms_chart <- function(
     x$y_axis$num_fmt <- x$theme[[x$fmt_names$y]]
   }
 
-  x_axis_str <- axis_content_xml(
+  x_axis_str <- x$axis_x_xml(
     x$x_axis,
     id = id_x,
     theme = x$theme,
@@ -816,7 +959,7 @@ format.ms_chart <- function(
 
   x_axis_str <- sprintf("<%s>%s</%s>", x$axis_tag$x, x_axis_str, x$axis_tag$x)
 
-  y_axis_str <- axis_content_xml(
+  y_axis_str <- x$axis_y_xml(
     x$y_axis,
     id = id_y,
     theme = x$theme,
