@@ -439,97 +439,106 @@ ms_bubblechart <- function(
 }
 
 #' @title combochart object
-#' @description Creation of a combochart object that can be
-#' inserted in a 'Microsoft' document.
-#' @details ms_combochart only works with mschart objects created with
-#' `asis = TRUE`.
+#' @description Combine several chart objects into a single chart
+#' with shared axes. Each chart must be a named argument.
 #'
-#' The title and x-axis label are taken from the first chart only;
-#' labels defined in subsequent charts are ignored.
+#' The title and x-axis label are taken from the first chart.
+#' The y-axis label of the first chart on the secondary axis is
+#' used as the secondary y-axis label.
 #'
-#' Only one secondary x-axis and one secondary y-axis are supported.
-#' The first chart with `secondary_x = TRUE` (and not `secondary_y`)
-#' gets its x-axis displayed at the top; the first chart with
-#' `secondary_y = TRUE` (and not `secondary_x`) gets its y-axis
-#' displayed on the right. Any further secondary axes are hidden.
-#' @param ... mschart objects
+#' Only one secondary y-axis (right) and one secondary x-axis (top)
+#' are supported.
+#' @param ... named `ms_chart` objects.
+#' @param secondary_y character vector of chart names to plot on
+#' the secondary (right) y-axis.
+#' @param secondary_x character vector of chart names to plot on
+#' the secondary (top) x-axis.
 #' @family 'Office' chart objects
 #' @seealso [chart_settings()], [chart_ax_x()], [chart_ax_y()],
 #' [chart_data_labels()], [chart_theme()], [chart_labels()]
 #' @export
 #' @example examples/05_combochart.R
-ms_combochart <- function(...) {
+ms_chart_combine <- function(..., secondary_y = NULL, secondary_x = NULL) {
   inputs <- list(...)
 
-  # write only a single additional x or y axis
-  sec_x <- TRUE
-  sec_y <- TRUE
-
+  if (is.null(names(inputs)) || any(names(inputs) == "")) {
+    stop("All charts must be named arguments.", call. = FALSE)
+  }
   for (i in seq_along(inputs)) {
     if (!inherits(inputs[[i]], "ms_chart")) {
-      warning("Skipping non ms_chart element: ", i)
-      next
+      stop(
+        "Argument ", shQuote(names(inputs)[i]),
+        " is not an ms_chart object.",
+        call. = FALSE
+      )
+    }
+  }
+
+  bad_y <- setdiff(secondary_y, names(inputs))
+  if (length(bad_y)) {
+    stop(
+      "secondary_y names not found: ",
+      paste(shQuote(bad_y), collapse = ", "),
+      call. = FALSE
+    )
+  }
+  bad_x <- setdiff(secondary_x, names(inputs))
+  if (length(bad_x)) {
+    stop(
+      "secondary_x names not found: ",
+      paste(shQuote(bad_x), collapse = ", "),
+      call. = FALSE
+    )
+  }
+
+  out <- inputs[[1]]
+
+  sec_y_done <- FALSE
+  sec_x_done <- FALSE
+
+  for (i in seq_along(inputs)[-1]) {
+    nm <- names(inputs)[i]
+    chart_i <- inputs[[i]]
+
+    is_sec_y <- nm %in% secondary_y
+    is_sec_x <- nm %in% secondary_x
+
+    lbl <- chart_i$labels
+    xlab <- NULL
+    ylab <- NULL
+
+    if (!sec_y_done && is_sec_y && !is_sec_x) {
+      chart_i$x_axis$delete <- 1L
+      chart_i$x_axis$axis_position <- "b"
+      chart_i$x_axis$crosses <- "autoZero"
+
+      chart_i$y_axis$delete <- 0L
+      chart_i$y_axis$axis_position <- "r"
+      chart_i$y_axis$crosses <- "max"
+
+      ylab <- lbl$y
+      sec_y_done <- TRUE
+    } else if (!sec_x_done && is_sec_x && !is_sec_y) {
+      chart_i$x_axis$delete <- 0L
+      chart_i$x_axis$axis_position <- "t"
+      chart_i$x_axis$crosses <- "max"
+
+      chart_i$y_axis$delete <- 1L
+      chart_i$y_axis$axis_position <- "l"
+      chart_i$y_axis$crosses <- "autoZero"
+
+      xlab <- lbl$x
+      sec_x_done <- TRUE
+    } else {
+      chart_i$y_axis <- axis_options(axis_position = "l", delete = 1L)
+      chart_i$x_axis <- axis_options(axis_position = "b", delete = 1L)
     }
 
-    if (!inputs[[i]]$asis) {
-      warning("Skipping non asis element: ", i)
-      next
-    }
+    attr(chart_i, "secondary_y") <- is_sec_y
+    attr(chart_i, "secondary_x") <- is_sec_x
+    chart_i$labels$title <- list(title = NULL, x = xlab, y = ylab)
 
-    if (i == 1) {
-      out <- inputs[[1]]
-    }
-
-    if (i > 1) {
-      is_sec_x <- isTRUE(attr(inputs[[i]], "secondary_x"))
-      is_sec_y <- isTRUE(attr(inputs[[i]], "secondary_y"))
-
-      # avoid additional labels. only one axis label and one title per chart
-      # title and x axis have to be defined in the first mschart
-      lbl <- inputs[[i]]$labels
-      xlab <- NULL
-      ylab <- NULL
-
-      # disable additional x and y axis.
-      # TODO: it is not yet possible to draw additional x and
-      # additional y axis into a single plot because axis elements
-      # are taken only from the first two mschart elements:
-      # The base chart and the first second axis
-      if (sec_x && is_sec_x && !is_sec_y) {
-        inputs[[i]]$x_axis$delete <- 0L
-        inputs[[i]]$x_axis$axis_position <- "t"
-        inputs[[i]]$x_axis$crosses <- "max"
-
-        inputs[[i]]$y_axis$delete <- 1L
-        inputs[[i]]$y_axis$axis_position <- "l"
-        inputs[[i]]$y_axis$crosses <- "autoZero"
-
-        xlab <- lbl$x
-        sec_x <- FALSE
-      } else if (sec_y && is_sec_y && !is_sec_x) {
-        inputs[[i]]$x_axis$delete <- 1L
-        inputs[[i]]$x_axis$axis_position <- "b"
-        inputs[[i]]$x_axis$crosses <- "autoZero"
-
-        inputs[[i]]$y_axis$delete <- 0L
-        inputs[[i]]$y_axis$axis_position <- "r"
-        inputs[[i]]$y_axis$crosses <- "max"
-
-        ylab <- lbl$y
-        sec_y <- FALSE
-      } else {
-        inputs[[i]]$y_axis <- axis_options(axis_position = "l", delete = 1L)
-        inputs[[i]]$x_axis <- axis_options(axis_position = "b", delete = 1L)
-      }
-
-      inputs[[i]]$labels$title <- list(title = NULL, x = xlab, y = ylab)
-
-      if (is.null(out$secondary)) {
-        out$secondary <- list(inputs[[i]])
-      } else {
-        out$secondary <- append(out$secondary, list(inputs[[i]]))
-      }
-    }
+    out$secondary <- append(out$secondary, list(chart_i))
   }
 
   out
@@ -936,7 +945,6 @@ format.ms_chart <- function(
     id_x = id_x,
     id_y = id_y,
     sheetname = sheetname,
-    asis = x$asis,
     secondary_y = 0
   )
 
@@ -1051,7 +1059,6 @@ format.ms_chart <- function(
           id_y = y_id,
           id_x = x_id,
           sheetname = sheetname,
-          asis = x$secondary[[sec]]$asis,
           secondary_y = ser_id
         )
       )

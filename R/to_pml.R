@@ -395,7 +395,6 @@ to_pml.ms_bubblechart <- function(
   id_x,
   id_y,
   sheetname = "sheet1",
-  asis = FALSE,
   secondary_y = 0,
   ...
 ) {
@@ -561,7 +560,6 @@ to_pml.ms_scatterchart <- function(
   id_x,
   id_y,
   sheetname = "sheet1",
-  asis = FALSE,
   secondary_y = 0,
   ...
 ) {
@@ -575,7 +573,7 @@ to_pml.ms_scatterchart <- function(
     )
   }
 
-  if (asis) {
+  if (isTRUE(x$asis)) {
     series <- as_series(
       x,
       x_class = serie_builtin_class(sort(unname(unlist(x$data_series[
@@ -777,6 +775,11 @@ get_marker_xml <- function(fill, stroke, symbol = NULL, size = NULL) {
     stroke_elts[2],
     stroke_elts[3]
   )
+
+  if (!is.null(size) && size < 1) {
+    symbol <- "none"
+    size <- 2L
+  }
 
   str_sym <- ""
   if (!is.null(symbol)) {

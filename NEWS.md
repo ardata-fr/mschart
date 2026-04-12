@@ -13,14 +13,15 @@ to customise high-low lines and up/down bar appearance.
 * New method `sheet_add_drawing.ms_chart()` to add charts to Excel
 sheets via `officer::sheet_add_drawing()`. Chart data is written
 into the sheet and referenced by the chart.
-* New function `ms_combochart()` to combine multiple chart types
-(e.g. bars + lines) with optional secondary axes. Only works with
-charts created with `asis = TRUE`. Contributed by Jan Marvin Garbuszus.
+* New function `ms_chart_combine()` to combine multiple chart types
+(e.g. bars + lines) into a single chart with optional secondary axes.
+Charts are passed as named arguments; use `secondary_y` to assign
+charts to the right-hand axis.
 * New function `ms_piechart()` for pie and doughnut charts. Use
 `chart_settings(x, hole_size = ...)` to control the hole size
 (0 = pie, >0 = doughnut). Contributed by Jan Marvin Garbuszus.
 * `chart_ax_x()` and `chart_ax_y()` gain a `second_axis` argument
-for use with `ms_combochart()`.
+for use with `ms_chart_combine()`.
 * `chart_ax_x()` and `chart_ax_y()` gain `major_unit`, `minor_unit`,
 `major_time_unit` and `minor_time_unit` parameters to control axis
 interval spacing (#105).

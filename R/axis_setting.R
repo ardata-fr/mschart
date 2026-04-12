@@ -26,7 +26,7 @@
 #' one of `"days"`, `"months"`, `"years"`.
 #' @param minor_time_unit time unit for minor ticks on date axes,
 #' one of `"days"`, `"months"`, `"years"`.
-#' @param second_axis logical to be used in [ms_combochart()].
+#' @param second_axis logical to be used in [ms_chart_combine()].
 #' @section num_fmt:
 #' All `%` need to be doubled, `0%%` means "a number
 #' and percent symbol".
@@ -119,6 +119,7 @@ chart_ax_x <- function(
       x$x_axis$orientation,
       orientation
     ),
+    axis_position = x$x_axis$axis_position,
     crosses = ifelse(missing(crosses), x$x_axis$crosses, crosses),
     cross_between = ifelse(
       missing(cross_between),
@@ -255,6 +256,7 @@ chart_ax_y <- function(
       x$y_axis$orientation,
       orientation
     ),
+    axis_position = x$y_axis$axis_position,
     crosses = ifelse(missing(crosses), x$y_axis$crosses, crosses),
     cross_between = ifelse(
       missing(cross_between),
