@@ -28,6 +28,10 @@ interval spacing (#105).
 * `chart_settings.ms_stockchart()` gains a `table` argument to display
 the data table below a stock chart, matching the behaviour already
 available on bar / line / area charts.
+* `chart_settings.ms_linechart()` gains a `grouping` argument. Line
+charts can now be stacked or percent-stacked (allowed values:
+`"standard"`, `"stacked"`, `"percentStacked"`; `"clustered"` remains
+bar-only).
 * `chart_data_fill()` gains an `update_stroke` argument, default
 `TRUE`. When the series stroke is not `"transparent"`, the stroke
 colour is now updated together with the fill, so a single call

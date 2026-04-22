@@ -90,7 +90,10 @@ barchart_options <- function(
 #' The default width for this gap is 150 percent of the bar width. It can be set
 #' between 0 and 500 percent of the bar width.
 #' @param dir the direction of the bars in the chart, value must be one of "horizontal" or "vertical".
-#' @param grouping grouping for a barchart, a linechart or an area chart. must be one of "percentStacked", "clustered", "standard" or "stacked".
+#' @param grouping grouping of the series. For a barchart one of
+#' "percentStacked", "clustered", "standard" or "stacked". For a
+#' linechart or an areachart one of "percentStacked", "standard" or
+#' "stacked" ("clustered" is bar-only).
 #' @param overlap In a bar chart having two or more series, the bars for each
 #' category are clustered together. By default, these bars are directly
 #' adjacent to each other. The bars can be made to overlap each other or
@@ -127,8 +130,16 @@ chart_settings.ms_barchart <- function(
 }
 
 
-linechart_options <- function(vary_colors = FALSE, table = FALSE) {
-  out <- list(vary_colors = vary_colors, grouping = "standard", table = table)
+linechart_options <- function(vary_colors = FALSE,
+                              grouping = "standard",
+                              table = FALSE) {
+  if (!grouping %in% st_grouping) {
+    stop(
+      "grouping should be one of ",
+      paste0(shQuote(st_grouping), collapse = ", ")
+    )
+  }
+  out <- list(vary_colors = vary_colors, grouping = grouping, table = table)
   class(out) <- "linechart_options"
   out
 }
@@ -137,12 +148,18 @@ linechart_options <- function(vary_colors = FALSE, table = FALSE) {
 #' @describeIn chart_settings linechart settings
 #' @param style Style for the linechart or scatterchart type of markers. One
 #' of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.
-chart_settings.ms_linechart <- function(x, vary_colors, style, table, ...) {
+chart_settings.ms_linechart <- function(x, vary_colors, style, grouping,
+                                        table, ...) {
   options <- linechart_options(
     vary_colors = if (missing(vary_colors)) {
       x$options$vary_colors
     } else {
       vary_colors
+    },
+    grouping = if (missing(grouping)) {
+      x$options$grouping %||% "standard"
+    } else {
+      grouping
     },
     table = if (missing(table)) x$options$table else table
   )

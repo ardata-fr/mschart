@@ -16,7 +16,7 @@ chart_settings(x, ...)
 
 \method{chart_settings}{ms_barchart}(x, vary_colors, gap_width, dir, grouping, overlap, table, ...)
 
-\method{chart_settings}{ms_linechart}(x, vary_colors, style, table, ...)
+\method{chart_settings}{ms_linechart}(x, vary_colors, style, grouping, table, ...)
 
 \method{chart_settings}{ms_areachart}(x, vary_colors, grouping, table, ...)
 
@@ -53,7 +53,10 @@ between 0 and 500 percent of the bar width.}
 
 \item{dir}{the direction of the bars in the chart, value must be one of "horizontal" or "vertical".}
 
-\item{grouping}{grouping for a barchart, a linechart or an area chart. must be one of "percentStacked", "clustered", "standard" or "stacked".}
+\item{grouping}{grouping of the series. For a barchart one of
+"percentStacked", "clustered", "standard" or "stacked". For a
+linechart or an areachart one of "percentStacked", "standard" or
+"stacked" ("clustered" is bar-only).}
 
 \item{overlap}{In a bar chart having two or more series, the bars for each
 category are clustered together. By default, these bars are directly
