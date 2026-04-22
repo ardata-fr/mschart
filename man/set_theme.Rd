@@ -118,6 +118,13 @@ chart_theme(
 
 \item{legend_position}{it specifies the position of the legend. It should be
 one of 'b', 'tr', 'l', 'r', 't', 'n' (for 'none').}
+
+\item{legend_x, legend_y, legend_w, legend_h}{optional fractions between
+0 and 1 to manually position and size the legend box within the chart
+area. Each value is a fraction of the chart width (\code{legend_x},
+\code{legend_w}) or height (\code{legend_y}, \code{legend_h}). Any \code{NULL} value
+keeps the default automatic layout; setting at least one triggers
+manual placement via \verb{<c:manualLayout>}.}
 }
 \value{
 An \code{ms_chart} object.

@@ -82,6 +82,12 @@ assert_class <- function(x, class) {
 #' @param integer_fmt integer format
 #' @param legend_position it specifies the position of the legend. It should be
 #' one of 'b', 'tr', 'l', 'r', 't', 'n' (for 'none').
+#' @param legend_x,legend_y,legend_w,legend_h optional fractions between
+#' 0 and 1 to manually position and size the legend box within the chart
+#' area. Each value is a fraction of the chart width (`legend_x`,
+#' `legend_w`) or height (`legend_y`, `legend_h`). Any `NULL` value
+#' keeps the default automatic layout; setting at least one triggers
+#' manual placement via `<c:manualLayout>`.
 #' @rdname set_theme
 #' @return An `mschart_theme` object (for `mschart_theme()`).
 #' @seealso [ms_barchart()], [ms_areachart()], [ms_scatterchart()], [ms_linechart()]
