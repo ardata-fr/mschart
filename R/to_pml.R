@@ -180,8 +180,8 @@ to_pml.ms_linechart <- function(
         "</c:ser>"
       )
     },
-    has_line = has_lines[x$options$linestyle],
-    has_marker = has_markers[x$options$linestyle]
+    has_line = has_lines[x$options$style],
+    has_marker = has_markers[x$options$style]
   )
 
   str_series_ <- paste(str_series_, collapse = "")
@@ -650,8 +650,8 @@ to_pml.ms_scatterchart <- function(
         "</c:ser>"
       )
     },
-    has_line = has_lines[x$options$scatterstyle],
-    has_marker = has_markers[x$options$scatterstyle]
+    has_line = has_lines[x$options$style],
+    has_marker = has_markers[x$options$style]
   )
 
   str_series_ <- paste(str_series_, collapse = "")
@@ -661,7 +661,7 @@ to_pml.ms_scatterchart <- function(
 
   paste0(
     "<c:scatterChart>",
-    sprintf("<c:scatterStyle val=\"%s\"/>", x$options$scatterstyle),
+    sprintf("<c:scatterStyle val=\"%s\"/>", x$options$style),
     sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
     str_series_,
     to_pml(x$label_settings, !is.null(x$label_cols)),

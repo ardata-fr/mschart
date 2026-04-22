@@ -147,7 +147,7 @@ chart_settings.ms_linechart <- function(x, vary_colors, style, table, ...) {
     table = if (missing(table)) x$options$table else table
   )
 
-  style <- if (missing(style)) x$options$linestyle %||% "lineMarker" else style
+  style <- if (missing(style)) x$options$style %||% "lineMarker" else style
   if (!style %in% st_scatterstyle) {
     stop(
       "style should be one of ",
@@ -155,7 +155,7 @@ chart_settings.ms_linechart <- function(x, vary_colors, style, table, ...) {
     )
   }
 
-  options$linestyle <- style
+  options$style <- style
   x$options <- options
   x
 }
@@ -197,7 +197,7 @@ chart_settings.ms_scatterchart <- function(x, vary_colors, style, ...) {
   } else {
     vary_colors
   }
-  style <- if (missing(style)) x$options$scatterstyle %||% "marker" else style
+  style <- if (missing(style)) x$options$style %||% "marker" else style
 
   if (!style %in% st_scatterstyle) {
     stop(
@@ -214,7 +214,7 @@ chart_settings.ms_scatterchart <- function(x, vary_colors, style, ...) {
 
   options <- list(
     vary_colors = vary_colors,
-    scatterstyle = style,
+    style = style,
     table = FALSE
   )
   class(options) <- "scatterchart_options"
@@ -330,7 +330,7 @@ chart_settings.ms_bubblechart <- function(x, vary_colors, style,
     vary_colors
   }
   style <- if (missing(style)) {
-    x$options$scatterstyle %||% "marker"
+    x$options$style %||% "marker"
   } else {
     style
   }
@@ -344,7 +344,7 @@ chart_settings.ms_bubblechart <- function(x, vary_colors, style,
 
   options <- list(
     vary_colors = vary_colors,
-    scatterstyle = style,
+    style = style,
     bubble3D = bubble3D,
     table = FALSE
   )

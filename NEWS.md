@@ -36,6 +36,9 @@ the property. The supported matrix is documented in `?mschart`.
 * `ms_scatterchart` no longer silently drops the line when `line_width`
 is below 1pt; thin lines (e.g. 0.25, 0.5, 0.75pt) are now rendered
 consistently with other chart types.
+* Fixed an example in `?chart_data_size` that passed a non-existent
+`scatterstyle` argument to `chart_settings()` (the parameter name is
+`style`).
 * Grid lines can now be disabled by setting `grid_major_line_x`,
 `grid_major_line_y`, `grid_minor_line_x` or `grid_minor_line_y`
 to `FALSE` in `mschart_theme()` or `chart_theme()`.
@@ -59,6 +62,11 @@ preserve existing option values.
 
 ## Changes
 
+* Internal options field `linestyle` (linechart) and `scatterstyle`
+(scatterchart, bubblechart) have been unified to `style`, matching
+the user-facing `chart_settings()` parameter name. No user-visible
+change; direct access to `x$options$linestyle` or
+`x$options$scatterstyle` will no longer work.
 * Minimum R version bumped to 3.5, officer to 0.6.7.
 * Fixed typos in internal code (`asssert_scatter`, `unknow`).
 * Removed deprecated roxygen tags (`@docType`, `@keywords datasets`).
