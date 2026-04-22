@@ -43,6 +43,22 @@ chart_settings <- function(x, ...) {
 }
 
 
+# Warn when a user passes `table = ...` to a chart_settings method
+# that does not support data tables. Excel only renders <c:dTable>
+# for bar / line / area / stock charts, so the arg would otherwise
+# be silently absorbed by `...` on the other types.
+warn_unsupported_table <- function(x, ...) {
+  if ("table" %in% names(list(...))) {
+    warning(
+      "`table` is not supported on '", class(x)[1],
+      "' charts and was ignored. Data tables are only available on ",
+      "'ms_barchart', 'ms_linechart', 'ms_areachart' and 'ms_stockchart'.",
+      call. = FALSE
+    )
+  }
+}
+
+
 barchart_options <- function(
   vary_colors = FALSE,
   gap_width = 150,
@@ -209,6 +225,7 @@ chart_settings.ms_areachart <- function(x, vary_colors, grouping, table, ...) {
 #' @export
 #' @describeIn chart_settings scatterchart settings
 chart_settings.ms_scatterchart <- function(x, vary_colors, style, ...) {
+  warn_unsupported_table(x, ...)
   vary_colors <- if (missing(vary_colors)) {
     x$options$vary_colors %||% FALSE
   } else {
@@ -309,6 +326,7 @@ chart_settings.ms_stockchart <- function(
 #' @export
 #' @describeIn chart_settings radarchart settings
 chart_settings.ms_radarchart <- function(x, vary_colors, style, ...) {
+  warn_unsupported_table(x, ...)
   vary_colors <- if (missing(vary_colors)) {
     x$options$vary_colors %||% FALSE
   } else {
@@ -343,6 +361,7 @@ chart_settings.ms_radarchart <- function(x, vary_colors, style, ...) {
 #' @param bubble3D logical, use 3D effect for bubbles.
 chart_settings.ms_bubblechart <- function(x, vary_colors,
                                           bubble3D = FALSE, ...) {
+  warn_unsupported_table(x, ...)
   vary_colors <- if (missing(vary_colors)) {
     x$options$vary_colors %||% FALSE
   } else {
@@ -375,6 +394,7 @@ piechart_options <- function(vary_colors = TRUE, hole_size = 0) {
 #' (percent of the radius). Default 0 produces a pie chart;
 #' values above 0 produce a doughnut chart.
 chart_settings.ms_piechart <- function(x, vary_colors, hole_size, ...) {
+  warn_unsupported_table(x, ...)
   options <- piechart_options(
     vary_colors = if (missing(vary_colors)) {
       x$options$vary_colors

@@ -32,6 +32,10 @@ available on bar / line / area charts.
 charts can now be stacked or percent-stacked (allowed values:
 `"standard"`, `"stacked"`, `"percentStacked"`; `"clustered"` remains
 bar-only).
+* Passing `table = TRUE` to `chart_settings()` on a chart type that
+does not support data tables (`ms_scatterchart`, `ms_radarchart`,
+`ms_bubblechart`, `ms_piechart`) now emits a warning. Before, the
+argument was silently absorbed by `...` and had no effect.
 * `chart_data_fill()` gains an `update_stroke` argument, default
 `TRUE`. When the series stroke is not `"transparent"`, the stroke
 colour is now updated together with the fill, so a single call
