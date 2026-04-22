@@ -32,6 +32,10 @@ available on bar / line / area charts.
 charts can now be stacked or percent-stacked (allowed values:
 `"standard"`, `"stacked"`, `"percentStacked"`; `"clustered"` remains
 bar-only).
+* `mschart_theme()` and `chart_theme()` gain `legend_x`, `legend_y`,
+`legend_w`, `legend_h` arguments to manually position and size the
+legend box. Values are fractions of the chart area between 0 and 1;
+any unset value keeps the default automatic layout (#38).
 * Passing `table = TRUE` to `chart_settings()` on a chart type that
 does not support data tables (`ms_scatterchart`, `ms_radarchart`,
 `ms_bubblechart`, `ms_piechart`) now emits a warning. Before, the

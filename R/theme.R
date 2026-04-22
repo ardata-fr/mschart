@@ -28,6 +28,18 @@
 #' my_bc_2 <- chart_theme(my_bc_2,
 #'   grid_major_line_y = fp_border(width = 0.5, color = "cyan")
 #' )
+#'
+#' # Manual legend layout: place the legend in the top-right corner
+#' # using fractions of the chart area (0 to 1).
+#' my_bc_3 <- ms_barchart(
+#'   data = browser_data, x = "browser",
+#'   y = "value", group = "serie"
+#' )
+#' my_bc_3 <- chart_theme(my_bc_3,
+#'   legend_position = "r",
+#'   legend_x = 0.80, legend_y = 0.15,
+#'   legend_w = 0.18, legend_h = 0.30
+#' )
 #' @return An `ms_chart` object.
 #' @export
 set_theme <- function(x, value) {
@@ -104,7 +116,11 @@ mschart_theme <- function(
   str_fmt = "General",
   double_fmt = "#,##0.00",
   integer_fmt = "0",
-  legend_position = "b"
+  legend_position = "b",
+  legend_x = NULL,
+  legend_y = NULL,
+  legend_w = NULL,
+  legend_h = NULL
 ) {
   # strict check: these must be fp_text objects
   stopifnot(inherits(main_title, "fp_text"))
@@ -150,6 +166,11 @@ mschart_theme <- function(
     )
   }
 
+  validate_legend_fraction(legend_x, "legend_x")
+  validate_legend_fraction(legend_y, "legend_y")
+  validate_legend_fraction(legend_w, "legend_w")
+  validate_legend_fraction(legend_h, "legend_h")
+
   out <- list(
     main_title = main_title,
     legend_text = legend_text,
@@ -175,10 +196,28 @@ mschart_theme <- function(
     date_fmt = date_fmt,
     str_fmt = str_fmt,
     double_fmt = double_fmt,
-    integer_fmt = integer_fmt
+    integer_fmt = integer_fmt,
+    legend_x = legend_x,
+    legend_y = legend_y,
+    legend_w = legend_w,
+    legend_h = legend_h
   )
   class(out) <- "mschart_theme"
   out
+}
+
+validate_legend_fraction <- function(value, name) {
+  if (is.null(value)) {
+    return(invisible(NULL))
+  }
+  if (!is.numeric(value) || length(value) != 1 || is.na(value) ||
+      value < 0 || value > 1) {
+    stop(
+      "`", name,
+      "` must be NULL or a single numeric value between 0 and 1.",
+      call. = FALSE
+    )
+  }
 }
 
 #' @rdname set_theme
@@ -210,7 +249,11 @@ chart_theme <- function(
   str_fmt,
   double_fmt,
   integer_fmt,
-  legend_position
+  legend_position,
+  legend_x,
+  legend_y,
+  legend_w,
+  legend_h
 ) {
   if (!missing(axis_title_x)) {
     if (!all(class(axis_title_x) %in% class(x$theme$axis_title_x))) {
@@ -348,6 +391,23 @@ chart_theme <- function(
       )
     }
     x$theme$legend_position <- legend_position
+  }
+
+  if (!missing(legend_x)) {
+    validate_legend_fraction(legend_x, "legend_x")
+    x$theme$legend_x <- legend_x
+  }
+  if (!missing(legend_y)) {
+    validate_legend_fraction(legend_y, "legend_y")
+    x$theme$legend_y <- legend_y
+  }
+  if (!missing(legend_w)) {
+    validate_legend_fraction(legend_w, "legend_w")
+    x$theme$legend_w <- legend_w
+  }
+  if (!missing(legend_h)) {
+    validate_legend_fraction(legend_h, "legend_h")
+    x$theme$legend_h <- legend_h
   }
 
   if (!missing(title_rot)) {

@@ -38,7 +38,11 @@ mschart_theme(
   str_fmt = "General",
   double_fmt = "#,##0.00",
   integer_fmt = "0",
-  legend_position = "b"
+  legend_position = "b",
+  legend_x = NULL,
+  legend_y = NULL,
+  legend_w = NULL,
+  legend_h = NULL
 )
 
 chart_theme(
@@ -66,7 +70,11 @@ chart_theme(
   str_fmt,
   double_fmt,
   integer_fmt,
-  legend_position
+  legend_position,
+  legend_x,
+  legend_y,
+  legend_w,
+  legend_h
 )
 }
 \arguments{
@@ -150,6 +158,18 @@ my_bc_2 <- ms_barchart(
 )
 my_bc_2 <- chart_theme(my_bc_2,
   grid_major_line_y = fp_border(width = 0.5, color = "cyan")
+)
+
+# Manual legend layout: place the legend in the top-right corner
+# using fractions of the chart area (0 to 1).
+my_bc_3 <- ms_barchart(
+  data = browser_data, x = "browser",
+  y = "value", group = "serie"
+)
+my_bc_3 <- chart_theme(my_bc_3,
+  legend_position = "r",
+  legend_x = 0.80, legend_y = 0.15,
+  legend_w = 0.18, legend_h = 0.30
 )
 }
 \seealso{

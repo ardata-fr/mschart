@@ -1132,6 +1132,30 @@ format.ms_chart <- function(
     legend_pos <- xml_find_first(xml_doc, "//c:chart/c:legend/c:legendPos")
     xml_attr(legend_pos, "val") <- x$theme[["legend_position"]]
 
+    # manual layout for the legend box (x / y / w / h, all fractional)
+    lx <- x$theme[["legend_x"]]
+    ly <- x$theme[["legend_y"]]
+    lw <- x$theme[["legend_w"]]
+    lh <- x$theme[["legend_h"]]
+    if (!is.null(lx) || !is.null(ly) || !is.null(lw) || !is.null(lh)) {
+      ns_layout <- paste(
+        "xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\"",
+        "xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\""
+      )
+      manual <- paste0(
+        "<c:layout ", ns_layout, "><c:manualLayout>",
+        "<c:xMode val=\"edge\"/>",
+        "<c:yMode val=\"edge\"/>",
+        if (!is.null(lx)) sprintf("<c:x val=\"%g\"/>", lx),
+        if (!is.null(ly)) sprintf("<c:y val=\"%g\"/>", ly),
+        if (!is.null(lw)) sprintf("<c:w val=\"%g\"/>", lw),
+        if (!is.null(lh)) sprintf("<c:h val=\"%g\"/>", lh),
+        "</c:manualLayout></c:layout>"
+      )
+      layout_node <- xml_find_first(xml_doc, "//c:chart/c:legend/c:layout")
+      xml_replace(layout_node, as_xml_document(manual))
+    }
+
     rpr <- format(x$theme[["legend_text"]], type = "pml")
     rpr <- gsub("a:rPr", "a:defRPr", rpr)
     labels_text_pr <- "<c:txPr xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:bodyPr/><a:lstStyle/><a:p><a:pPr>%s</a:pPr></a:p></c:txPr>"
