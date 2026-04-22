@@ -58,6 +58,11 @@ sheet_add_drawing.ms_chart <- function(
     start_col = data_start_col
   )
 
+  # as_series() reads these offsets to shift <c:cat>/<c:val>/<c:xVal>/
+  # <c:yVal>/<c:bubbleSize> ranges accordingly
+  value$data_start_col <- as.integer(data_start_col)
+  value$data_start_row <- as.integer(data_start_row)
+
   # generate chart XML for xlsx context
   chart_xml <- format(
     value,

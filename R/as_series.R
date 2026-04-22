@@ -29,11 +29,20 @@ as_series <- function(
 ) {
   dataset <- x$data_series
 
+  # Optional offset when the data is written to a non-default cell
+  # position in the host sheet (see sheet_add_drawing.ms_chart).
+  data_start_col <- x$data_start_col %||% 1L
+  data_start_row <- x$data_start_row %||% 1L
+  col_offset <- data_start_col - 1L
+  header_row <- data_start_row
+  first_val_row <- data_start_row + 1L
+  last_val_row <- data_start_row + nrow(dataset)
+
   w_x <- which(names(dataset) %in% x$xvar)
 
   x_serie_range <- cell_limits(
-    ul = c(2, w_x),
-    lr = c(nrow(dataset) + 1, w_x),
+    ul = c(first_val_row, w_x + col_offset),
+    lr = c(last_val_row,  w_x + col_offset),
     sheet = sheetname
   )
 
@@ -71,7 +80,9 @@ as_series <- function(
     y_colname <- names(dataset)[w_y]
     l_colname <- names(dataset)[w_l]
 
-    serie_name_range <- ra_ref(row_ref = 1, col_ref = w_y, sheet = sheetname)
+    serie_name_range <- ra_ref(row_ref = header_row,
+                               col_ref = w_y + col_offset,
+                               sheet = sheetname)
     serie_name_range <- to_string(serie_name_range, fo = "A1")
     if (inherits(dataset, "wb_data")) {
       serie_name_range <- series_wb_name(dataset, w_y)
@@ -85,8 +96,8 @@ as_series <- function(
     serie_name <- str_ref(values = y_colname, region = serie_name_range)
 
     y_serie_range <- cell_limits(
-      ul = c(2, w_y),
-      lr = c(nrow(dataset) + 1, w_y),
+      ul = c(first_val_row, w_y + col_offset),
+      lr = c(last_val_row,  w_y + col_offset),
       sheet = sheetname
     )
 
@@ -108,8 +119,8 @@ as_series <- function(
 
     if (length(label_columns) > 0) {
       label_serie_range <- cell_limits(
-        ul = c(2, w_l),
-        lr = c(nrow(dataset) + 1, w_l),
+        ul = c(first_val_row, w_l + col_offset),
+        lr = c(last_val_row,  w_l + col_offset),
         sheet = sheetname
       )
       label_serie_range <- as.range(
@@ -150,8 +161,8 @@ as_series <- function(
       if (sz_colname %in% names(dataset)) {
         w_sz <- which(names(dataset) == sz_colname)
         sz_range <- cell_limits(
-          ul = c(2, w_sz),
-          lr = c(nrow(dataset) + 1, w_sz),
+          ul = c(first_val_row, w_sz + col_offset),
+          lr = c(last_val_row,  w_sz + col_offset),
           sheet = sheetname
         )
         sz_range <- as.range(sz_range, fo = "A1", strict = TRUE, sheet = TRUE)

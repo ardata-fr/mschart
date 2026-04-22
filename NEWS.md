@@ -36,6 +36,12 @@ bar-only).
 `legend_w`, `legend_h` arguments to manually position and size the
 legend box. Values are fractions of the chart area between 0 and 1;
 any unset value keeps the default automatic layout (#38).
+* `sheet_add_drawing.ms_chart()` now honours `data_start_col` /
+`data_start_row` when building the chart XML. Previously the
+arguments shifted the written data but left the chart pointing at
+the default A1 origin, producing an empty plot. `<c:cat>`, `<c:val>`,
+`<c:xVal>`, `<c:yVal>` and `<c:bubbleSize>` ranges are now shifted
+accordingly. Default (1, 1) behaviour unchanged.
 * Passing `table = TRUE` to `chart_settings()` on a chart type that
 does not support data tables (`ms_scatterchart`, `ms_radarchart`,
 `ms_bubblechart`, `ms_piechart`) now emits a warning. Before, the
