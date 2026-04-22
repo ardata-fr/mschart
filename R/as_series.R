@@ -31,12 +31,12 @@ as_series <- function(
 
   # Optional offset when the data is written to a non-default cell
   # position in the host sheet (see sheet_add_drawing.ms_chart).
-  data_start_col <- x$data_start_col %||% 1L
-  data_start_row <- x$data_start_row %||% 1L
-  col_offset <- data_start_col - 1L
-  header_row <- data_start_row
-  first_val_row <- data_start_row + 1L
-  last_val_row <- data_start_row + nrow(dataset)
+  start_col <- x$start_col %||% 1L
+  start_row <- x$start_row %||% 1L
+  col_offset <- start_col - 1L
+  header_row <- start_row
+  first_val_row <- start_row + 1L
+  last_val_row <- start_row + nrow(dataset)
 
   w_x <- which(names(dataset) %in% x$xvar)
 

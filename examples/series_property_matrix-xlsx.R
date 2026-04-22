@@ -209,8 +209,8 @@ add_check_sheet <- function(wb, type, prop) {
   styled_ch <- apply_prop(baseline_chart(type), type, prop)
 
   wb <- sheet_add_drawing(wb, value = base_ch, sheet = label,
-    data_start_col = shared_data_col,
-    data_start_row = shared_data_row,
+    start_col = shared_data_col,
+    start_row = shared_data_row,
     from_col = baseline_anchor$from_col,
     from_row = baseline_anchor$from_row,
     to_col   = baseline_anchor$to_col,
@@ -218,8 +218,8 @@ add_check_sheet <- function(wb, type, prop) {
   )
 
   wb <- sheet_add_drawing(wb, value = styled_ch, sheet = label,
-    data_start_col = shared_data_col,
-    data_start_row = shared_data_row,
+    start_col = shared_data_col,
+    start_row = shared_data_row,
     from_col = styled_anchor$from_col,
     from_row = styled_anchor$from_row,
     to_col   = styled_anchor$to_col,

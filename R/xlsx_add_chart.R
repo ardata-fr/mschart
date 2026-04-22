@@ -7,16 +7,16 @@
 #' @param value an `ms_chart` object
 #' @param sheet sheet name where the chart and its data will be placed.
 #' The sheet must already exist (see [officer::add_sheet()]).
-#' @param data_start_col column index where chart data will be written
+#' @param start_col column index where chart data will be written
 #' (default 1, i.e. column A). When `write_data = FALSE`, this is still
 #' the cell position that the chart XML will point at, but no data is
 #' written.
-#' @param data_start_row row index where chart data will be written
+#' @param start_row row index where chart data will be written
 #' (default 1). Same semantics with `write_data = FALSE` as for
-#' `data_start_col`.
+#' `start_col`.
 #' @param write_data if `TRUE` (the default), the chart's
 #' `data_series` is written into the sheet at
-#' `(data_start_col, data_start_row)` before the chart is added.
+#' `(start_col, start_row)` before the chart is added.
 #' Pass `FALSE` when the data is already present in the sheet (for
 #' example to avoid rewriting it when several charts share the same
 #' dataset, or when inserting a chart that references data written
@@ -72,8 +72,8 @@ sheet_add_drawing.ms_chart <- function(
   x,
   value,
   sheet,
-  data_start_col = 1L,
-  data_start_row = 1L,
+  start_col = 1L,
+  start_row = 1L,
   write_data = TRUE,
   from_col = 3L,
   from_row = 0L,
@@ -90,15 +90,15 @@ sheet_add_drawing.ms_chart <- function(
       x,
       value = value$data_series,
       sheet = sheet,
-      start_row = data_start_row,
-      start_col = data_start_col
+      start_row = start_row,
+      start_col = start_col
     )
   }
 
   # as_series() reads these offsets to shift <c:cat>/<c:val>/<c:xVal>/
   # <c:yVal>/<c:bubbleSize> ranges accordingly
-  value$data_start_col <- as.integer(data_start_col)
-  value$data_start_row <- as.integer(data_start_row)
+  value$start_col <- as.integer(start_col)
+  value$start_row <- as.integer(start_row)
 
   # generate chart XML for xlsx context
   chart_xml <- format(

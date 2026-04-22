@@ -8,8 +8,8 @@
   x,
   value,
   sheet,
-  data_start_col = 1L,
-  data_start_row = 1L,
+  start_col = 1L,
+  start_row = 1L,
   write_data = TRUE,
   from_col = 3L,
   from_row = 0L,
@@ -26,18 +26,18 @@
 \item{sheet}{sheet name where the chart and its data will be placed.
 The sheet must already exist (see \code{\link[officer:add_sheet]{officer::add_sheet()}}).}
 
-\item{data_start_col}{column index where chart data will be written
+\item{start_col}{column index where chart data will be written
 (default 1, i.e. column A). When \code{write_data = FALSE}, this is still
 the cell position that the chart XML will point at, but no data is
 written.}
 
-\item{data_start_row}{row index where chart data will be written
+\item{start_row}{row index where chart data will be written
 (default 1). Same semantics with \code{write_data = FALSE} as for
-\code{data_start_col}.}
+\code{start_col}.}
 
 \item{write_data}{if \code{TRUE} (the default), the chart's
 \code{data_series} is written into the sheet at
-\verb{(data_start_col, data_start_row)} before the chart is added.
+\verb{(start_col, start_row)} before the chart is added.
 Pass \code{FALSE} when the data is already present in the sheet (for
 example to avoid rewriting it when several charts share the same
 dataset, or when inserting a chart that references data written
