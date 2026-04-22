@@ -35,7 +35,7 @@ chart_settings(x, ...)
 
 \method{chart_settings}{ms_radarchart}(x, vary_colors, style, ...)
 
-\method{chart_settings}{ms_bubblechart}(x, vary_colors, style, bubble3D = FALSE, ...)
+\method{chart_settings}{ms_bubblechart}(x, vary_colors, bubble3D = FALSE, ...)
 
 \method{chart_settings}{ms_piechart}(x, vary_colors, hole_size, ...)
 }

@@ -67,6 +67,12 @@ preserve existing option values.
 the user-facing `chart_settings()` parameter name. No user-visible
 change; direct access to `x$options$linestyle` or
 `x$options$scatterstyle` will no longer work.
+* `chart_settings.ms_bubblechart()` no longer accepts a `style`
+argument. It was validated and stored but never read during XML
+generation (bubble charts have no `<c:scatterStyle>` counterpart in
+OOXML), so any value was silently ignored. Passing `style = ...` to
+`chart_settings()` on a bubble chart now errors out instead of
+silently doing nothing.
 * Minimum R version bumped to 3.5, officer to 0.6.7.
 * Fixed typos in internal code (`asssert_scatter`, `unknow`).
 * Removed deprecated roxygen tags (`@docType`, `@keywords datasets`).
