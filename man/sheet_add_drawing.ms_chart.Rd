@@ -11,10 +11,10 @@
   start_col = 1L,
   start_row = 1L,
   write_data = TRUE,
-  from_col = 3L,
-  from_row = 0L,
-  to_col = 10L,
-  to_row = 15L,
+  left = 1,
+  top = 1,
+  width = 6,
+  height = 4,
   ...
 )
 }
@@ -43,9 +43,12 @@ example to avoid rewriting it when several charts share the same
 dataset, or when inserting a chart that references data written
 independently via \code{\link[officer:sheet_write_data]{officer::sheet_write_data()}}).}
 
-\item{from_col, from_row}{top-left anchor of the chart (0-based)}
+\item{left, top}{top-left anchor of the chart, in inches.
+Defaults to \verb{(1, 1)}. Same convention as
+\code{\link[officer:sheet_add_drawing]{officer::sheet_add_drawing()}} and \code{\link[rvg:sheet_add_drawing.dml]{rvg::sheet_add_drawing.dml()}}.}
 
-\item{to_col, to_row}{bottom-right anchor of the chart (0-based)}
+\item{width, height}{size of the chart, in inches. Defaults
+to \verb{6 x 4}.}
 
 \item{...}{unused}
 }
@@ -90,11 +93,9 @@ x <- add_sheet(x, label = "multi")
 x <- sheet_write_data(x, value = chart_a$data_series, sheet = "multi")
 x <- sheet_add_drawing(x, value = chart_a, sheet = "multi",
                        write_data = FALSE,
-                       from_col = 4L,  from_row = 0L,
-                       to_col   = 11L, to_row   = 15L)
+                       left = 3, top = 0.5, width = 5, height = 3.5)
 x <- sheet_add_drawing(x, value = chart_b, sheet = "multi",
                        write_data = FALSE,
-                       from_col = 13L, from_row = 0L,
-                       to_col   = 20L, to_row   = 15L)
+                       left = 9, top = 0.5, width = 5, height = 3.5)
 print(x, target = tempfile(fileext = ".xlsx"))
 }

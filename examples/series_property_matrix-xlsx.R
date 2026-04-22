@@ -183,20 +183,17 @@ expected_text <- function(prop) {
 }
 
 # Sheet-level data / chart placement --------------------------------------
-# The chart XML hard-codes cell ranges at default position (col 1, row 1),
-# so both charts must point to data written there. Baseline and styled
-# share the same dataset; sheet_write_data is idempotent under overwrite.
-# Geometry (Excel grid cells, 0-based for chart anchors):
-#   - shared chart data : col  1,  row 1  (first 1-3 cols, rows 1-~20)
-#   - baseline chart    : cols  5..14  x rows 1..20
-#   - styled chart      : cols 16..25  x rows 1..20
-#   - commentary cell   : col  5,  row 23
+# Both charts share the same dataset at (1, 1); sheet_write_data is
+# idempotent under overwrite. Chart placement is in inches from the
+# top-left corner of the sheet (O6: unified inch-based anchors).
+#   - shared chart data : col 1, row 1
+#   - baseline chart    : left 3   in, top 0.5 in, size 5 x 3.5 in
+#   - styled chart      : left 9   in, top 0.5 in, size 5 x 3.5 in
+#   - commentary cell   : col 5, row 23
 shared_data_col   <- 1L
 shared_data_row   <- 1L
-baseline_anchor   <- list(from_col = 5L,  from_row = 1L,
-                          to_col   = 14L, to_row   = 20L)
-styled_anchor     <- list(from_col = 16L, from_row = 1L,
-                          to_col   = 25L, to_row   = 20L)
+baseline_anchor   <- list(left = 3, top = 0.5, width = 5, height = 3.5)
+styled_anchor     <- list(left = 9, top = 0.5, width = 5, height = 3.5)
 comment_row       <- 23L
 comment_col       <- 5L
 
@@ -209,21 +206,15 @@ add_check_sheet <- function(wb, type, prop) {
   styled_ch <- apply_prop(baseline_chart(type), type, prop)
 
   wb <- sheet_add_drawing(wb, value = base_ch, sheet = label,
-    start_col = shared_data_col,
-    start_row = shared_data_row,
-    from_col = baseline_anchor$from_col,
-    from_row = baseline_anchor$from_row,
-    to_col   = baseline_anchor$to_col,
-    to_row   = baseline_anchor$to_row
+    start_col = shared_data_col, start_row = shared_data_row,
+    left   = baseline_anchor$left,   top    = baseline_anchor$top,
+    width  = baseline_anchor$width,  height = baseline_anchor$height
   )
 
   wb <- sheet_add_drawing(wb, value = styled_ch, sheet = label,
-    start_col = shared_data_col,
-    start_row = shared_data_row,
-    from_col = styled_anchor$from_col,
-    from_row = styled_anchor$from_row,
-    to_col   = styled_anchor$to_col,
-    to_row   = styled_anchor$to_row
+    start_col = shared_data_col, start_row = shared_data_row,
+    left   = styled_anchor$left,   top    = styled_anchor$top,
+    width  = styled_anchor$width,  height = styled_anchor$height
   )
 
   # commentary row: a 1-column data.frame whose column name holds the
