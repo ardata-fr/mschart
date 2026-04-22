@@ -87,7 +87,7 @@ chart_b <- ms_linechart(shared, x = "x", y = "y", group = "group")
 
 x <- read_xlsx()
 x <- add_sheet(x, label = "multi")
-x <- sheet_write_data(x, data = chart_a$data_series, sheet = "multi")
+x <- sheet_write_data(x, value = chart_a$data_series, sheet = "multi")
 x <- sheet_add_drawing(x, value = chart_a, sheet = "multi",
                        write_data = FALSE,
                        from_col = 4L,  from_row = 0L,

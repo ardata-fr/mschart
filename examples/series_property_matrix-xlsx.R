@@ -230,7 +230,7 @@ add_check_sheet <- function(wb, type, prop) {
   # label "Expected" and whose single value holds the commentary text
   commentary <- data.frame(Expected = expected_text(prop),
                            stringsAsFactors = FALSE)
-  wb <- sheet_write_data(wb, data = commentary, sheet = label,
+  wb <- sheet_write_data(wb, value = commentary, sheet = label,
     start_row = comment_row, start_col = comment_col)
 
   wb

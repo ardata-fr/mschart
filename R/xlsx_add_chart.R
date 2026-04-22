@@ -58,7 +58,7 @@
 #'
 #' x <- read_xlsx()
 #' x <- add_sheet(x, label = "multi")
-#' x <- sheet_write_data(x, data = chart_a$data_series, sheet = "multi")
+#' x <- sheet_write_data(x, value = chart_a$data_series, sheet = "multi")
 #' x <- sheet_add_drawing(x, value = chart_a, sheet = "multi",
 #'                        write_data = FALSE,
 #'                        from_col = 4L,  from_row = 0L,
@@ -88,7 +88,7 @@ sheet_add_drawing.ms_chart <- function(
   if (isTRUE(write_data)) {
     x <- sheet_write_data(
       x,
-      data = value$data_series,
+      value = value$data_series,
       sheet = sheet,
       start_row = data_start_row,
       start_col = data_start_col
