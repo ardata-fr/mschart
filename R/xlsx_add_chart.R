@@ -8,9 +8,19 @@
 #' @param sheet sheet name where the chart and its data will be placed.
 #' The sheet must already exist (see [officer::add_sheet()]).
 #' @param data_start_col column index where chart data will be written
-#' (default 1, i.e. column A)
+#' (default 1, i.e. column A). When `write_data = FALSE`, this is still
+#' the cell position that the chart XML will point at, but no data is
+#' written.
 #' @param data_start_row row index where chart data will be written
-#' (default 1)
+#' (default 1). Same semantics with `write_data = FALSE` as for
+#' `data_start_col`.
+#' @param write_data if `TRUE` (the default), the chart's
+#' `data_series` is written into the sheet at
+#' `(data_start_col, data_start_row)` before the chart is added.
+#' Pass `FALSE` when the data is already present in the sheet (for
+#' example to avoid rewriting it when several charts share the same
+#' dataset, or when inserting a chart that references data written
+#' independently via [officer::sheet_write_data()]).
 #' @param from_col,from_row top-left anchor of the chart (0-based)
 #' @param to_col,to_row bottom-right anchor of the chart (0-based)
 #' @param ... unused
@@ -35,12 +45,36 @@
 #' x <- add_sheet(x, label = "chart_sheet")
 #' x <- sheet_add_drawing(x, value = my_chart, sheet = "chart_sheet")
 #' print(x, target = tempfile(fileext = ".xlsx"))
+#'
+#' # Sharing one dataset between several charts on the same sheet:
+#' # write the data once, then add each chart with write_data = FALSE.
+#' shared <- data.frame(
+#'   x = c("A", "B", "C"),
+#'   y = c(1, 3, 2),
+#'   group = rep("serie1", 3)
+#' )
+#' chart_a <- ms_barchart(shared, x = "x", y = "y", group = "group")
+#' chart_b <- ms_linechart(shared, x = "x", y = "y", group = "group")
+#'
+#' x <- read_xlsx()
+#' x <- add_sheet(x, label = "multi")
+#' x <- sheet_write_data(x, data = chart_a$data_series, sheet = "multi")
+#' x <- sheet_add_drawing(x, value = chart_a, sheet = "multi",
+#'                        write_data = FALSE,
+#'                        from_col = 4L,  from_row = 0L,
+#'                        to_col   = 11L, to_row   = 15L)
+#' x <- sheet_add_drawing(x, value = chart_b, sheet = "multi",
+#'                        write_data = FALSE,
+#'                        from_col = 13L, from_row = 0L,
+#'                        to_col   = 20L, to_row   = 15L)
+#' print(x, target = tempfile(fileext = ".xlsx"))
 sheet_add_drawing.ms_chart <- function(
   x,
   value,
   sheet,
   data_start_col = 1L,
   data_start_row = 1L,
+  write_data = TRUE,
   from_col = 3L,
   from_row = 0L,
   to_col = 10L,
@@ -49,14 +83,17 @@ sheet_add_drawing.ms_chart <- function(
 ) {
   stopifnot(inherits(x, "rxlsx"))
 
-  # write chart data into the sheet
-  x <- sheet_write_data(
-    x,
-    data = value$data_series,
-    sheet = sheet,
-    start_row = data_start_row,
-    start_col = data_start_col
-  )
+  # write chart data into the sheet (can be skipped when the data
+  # has already been put in place by the caller)
+  if (isTRUE(write_data)) {
+    x <- sheet_write_data(
+      x,
+      data = value$data_series,
+      sheet = sheet,
+      start_row = data_start_row,
+      start_col = data_start_col
+    )
+  }
 
   # as_series() reads these offsets to shift <c:cat>/<c:val>/<c:xVal>/
   # <c:yVal>/<c:bubbleSize> ranges accordingly

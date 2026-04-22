@@ -25,7 +25,7 @@ supported <- list(
   radar   = c("fill", "colour", "symbol", "size", "line_width",
               "line_style", "labels_fp"),
   bubble  = c("fill", "colour", "line_width"),
-  pie     = "labels_fp"
+  pie     = c("fill", "colour", "line_width", "labels_fp")
 )
 
 # Test datasets (3 series where applicable) --------------------------------
@@ -89,7 +89,7 @@ series_names <- function(type) {
     bar = , line = , area = , radar = ,
     scatter = , bubble = c("s1", "s2", "s3"),
     stock   = c("high", "low", "close"),
-    pie     = "y"
+    pie     = c("A", "B", "C", "D")
   )
 }
 
@@ -99,12 +99,14 @@ series_names <- function(type) {
 prop_values <- function(prop, s, type = NULL) {
   n <- length(s)
   switch(prop,
-    fill       = setNames(c("#E66101", "#5E3C99", "#1B9E77")[seq_len(n)], s),
-    colour     = setNames(c("#000000", "#FFFFFF", "#888888")[seq_len(n)], s),
-    symbol     = setNames(c("circle", "triangle", "diamond")[seq_len(n)], s),
-    size       = setNames(c(5, 15, 25)[seq_len(n)], s),
-    line_width = setNames(c(1, 3, 6)[seq_len(n)], s),
-    line_style = setNames(c("solid", "dashed", "dotted")[seq_len(n)], s),
+    fill       = setNames(rep_len(c("#E66101", "#5E3C99", "#1B9E77",
+                                    "#999999"), n), s),
+    colour     = setNames(rep_len(c("#000000", "#FFFFFF",
+                                    "#888888", "#444444"), n), s),
+    symbol     = setNames(rep_len(c("circle", "triangle", "diamond"), n), s),
+    size       = setNames(rep_len(c(5, 15, 25), n), s),
+    line_width = setNames(rep_len(c(1, 3, 6), n), s),
+    line_style = setNames(rep_len(c("solid", "dashed", "dotted"), n), s),
     smooth     = setNames(rep(if (identical(type, "scatter")) 1 else 0, n), s),
     labels_fp  = {
       fps <- list(
@@ -112,8 +114,8 @@ prop_values <- function(prop, s, type = NULL) {
         fp_text(italic = TRUE, color = "blue", font.size = 10),
         fp_text(color = "darkgreen", font.size = 18)
       )
-      if (n == 1) setNames(fps[1], s)
-      else setNames(fps[seq_len(n)], s)
+      idx <- rep_len(seq_along(fps), n)
+      setNames(fps[idx], s)
     }
   )
 }
@@ -121,6 +123,10 @@ prop_values <- function(prop, s, type = NULL) {
 # Apply one property -------------------------------------------------------
 apply_prop <- function(ch, type, prop) {
   s <- series_names(type)
+  # pie: fill/colour/line_width are per-category, labels_fp is per-series
+  if (type == "pie" && prop == "labels_fp") {
+    s <- "y"
+  }
   v <- prop_values(prop, s, type = type)
   fn <- switch(prop,
     fill       = chart_data_fill,

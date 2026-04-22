@@ -10,6 +10,7 @@
   sheet,
   data_start_col = 1L,
   data_start_row = 1L,
+  write_data = TRUE,
   from_col = 3L,
   from_row = 0L,
   to_col = 10L,
@@ -26,10 +27,21 @@
 The sheet must already exist (see \code{\link[officer:add_sheet]{officer::add_sheet()}}).}
 
 \item{data_start_col}{column index where chart data will be written
-(default 1, i.e. column A)}
+(default 1, i.e. column A). When \code{write_data = FALSE}, this is still
+the cell position that the chart XML will point at, but no data is
+written.}
 
 \item{data_start_row}{row index where chart data will be written
-(default 1)}
+(default 1). Same semantics with \code{write_data = FALSE} as for
+\code{data_start_col}.}
+
+\item{write_data}{if \code{TRUE} (the default), the chart's
+\code{data_series} is written into the sheet at
+\verb{(data_start_col, data_start_row)} before the chart is added.
+Pass \code{FALSE} when the data is already present in the sheet (for
+example to avoid rewriting it when several charts share the same
+dataset, or when inserting a chart that references data written
+independently via \code{\link[officer:sheet_write_data]{officer::sheet_write_data()}}).}
 
 \item{from_col, from_row}{top-left anchor of the chart (0-based)}
 
@@ -61,5 +73,28 @@ my_chart <- ms_barchart(
 x <- read_xlsx()
 x <- add_sheet(x, label = "chart_sheet")
 x <- sheet_add_drawing(x, value = my_chart, sheet = "chart_sheet")
+print(x, target = tempfile(fileext = ".xlsx"))
+
+# Sharing one dataset between several charts on the same sheet:
+# write the data once, then add each chart with write_data = FALSE.
+shared <- data.frame(
+  x = c("A", "B", "C"),
+  y = c(1, 3, 2),
+  group = rep("serie1", 3)
+)
+chart_a <- ms_barchart(shared, x = "x", y = "y", group = "group")
+chart_b <- ms_linechart(shared, x = "x", y = "y", group = "group")
+
+x <- read_xlsx()
+x <- add_sheet(x, label = "multi")
+x <- sheet_write_data(x, data = chart_a$data_series, sheet = "multi")
+x <- sheet_add_drawing(x, value = chart_a, sheet = "multi",
+                       write_data = FALSE,
+                       from_col = 4L,  from_row = 0L,
+                       to_col   = 11L, to_row   = 15L)
+x <- sheet_add_drawing(x, value = chart_b, sheet = "multi",
+                       write_data = FALSE,
+                       from_col = 13L, from_row = 0L,
+                       to_col   = 20L, to_row   = 15L)
 print(x, target = tempfile(fileext = ".xlsx"))
 }
