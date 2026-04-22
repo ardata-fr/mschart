@@ -49,11 +49,11 @@
 #'
 #' | Property | bar | line | area | scatter | stock | radar | bubble | pie |
 #' |:-----------|:---:|:----:|:----:|:-------:|:-----:|:-----:|:------:|:---:|
-#' | fill       | x   | x    | x    | x       | x     | x     | x      |     |
-#' | colour     | x   | x    | x    | x       | x     | x     | x      |     |
+#' | fill       | x   | x    | x    | x       | x     | x     | x      | x   |
+#' | colour     | x   | x    | x    | x       | x     | x     | x      | x   |
 #' | symbol     |     | x    |      | x       | x     | x     |        |     |
 #' | size       |     | x    |      | x       | x     | x     |        |     |
-#' | line_width | x   | x    | x    | x       | x     | x     | x      |     |
+#' | line_width | x   | x    | x    | x       | x     | x     | x      | x   |
 #' | line_style |     | x    |      | x       | x     | x     |        |     |
 #' | smooth     |     | x    |      | x       |       |       |        |     |
 #' | labels_fp  | x   | x    | x    | x       |       | x     |        | x   |

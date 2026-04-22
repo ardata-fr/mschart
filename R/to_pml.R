@@ -691,19 +691,20 @@ to_pml.ms_piechart <- function(
   )
 
   str_series_ <- sapply(series, function(serie) {
-    n <- length(x$data[[x$x]])
-    if (n <= length(colour_list)) {
-      fills <- colour_list[[n]]
-    } else {
-      fills <- rep_len(colour_list[[length(colour_list)]], n)
-    }
+    cats <- as.character(x$data[[x$x]])
+    n <- length(cats)
 
     dpt_str <- vapply(
       seq_len(n),
       function(i) {
+        cat_i <- cats[i]
         paste0(
           sprintf("<c:dPt><c:idx val=\"%s\"/><c:bubble3D val=\"0\"/>", i - 1),
-          get_sppr_xml(fills[i], "transparent"),
+          get_sppr_xml(
+            x$series_settings$fill[[cat_i]],
+            x$series_settings$colour[[cat_i]],
+            x$series_settings$line_width[[cat_i]]
+          ),
           "</c:dPt>"
         )
       },

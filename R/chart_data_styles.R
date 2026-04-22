@@ -4,12 +4,12 @@
   fill = c(
     "ms_barchart", "ms_linechart", "ms_areachart",
     "ms_scatterchart", "ms_stockchart",
-    "ms_radarchart", "ms_bubblechart"
+    "ms_radarchart", "ms_bubblechart", "ms_piechart"
   ),
   colour = c(
     "ms_barchart", "ms_linechart", "ms_areachart",
     "ms_scatterchart", "ms_stockchart",
-    "ms_radarchart", "ms_bubblechart"
+    "ms_radarchart", "ms_bubblechart", "ms_piechart"
   ),
   symbol = c(
     "ms_linechart", "ms_scatterchart",
@@ -22,7 +22,7 @@
   line_width = c(
     "ms_barchart", "ms_linechart", "ms_areachart",
     "ms_scatterchart", "ms_stockchart",
-    "ms_radarchart", "ms_bubblechart"
+    "ms_radarchart", "ms_bubblechart", "ms_piechart"
   ),
   line_style = c(
     "ms_linechart", "ms_scatterchart",
@@ -78,7 +78,7 @@ check_series_property <- function(x, property) {
 #' @family Series customization functions
 chart_labels_text <- function(x, values) {
   check_series_property(x, "labels_fp")
-  serie_names <- names(x$series_settings$fill)
+  serie_names <- names(x$series_settings$labels_fp)
 
   if (inherits(values, "fp_text")) {
     values <- rep(list(values), length(serie_names))

@@ -55,11 +55,11 @@ chart type. The following table shows which properties are
 supported. A warning is emitted when a property is set on
 a chart type that does not support it.\tabular{lcccccccc}{
    Property \tab bar \tab line \tab area \tab scatter \tab stock \tab radar \tab bubble \tab pie \cr
-   fill \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab  \cr
-   colour \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab  \cr
+   fill \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab x \cr
+   colour \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab x \cr
    symbol \tab  \tab x \tab  \tab x \tab x \tab x \tab  \tab  \cr
    size \tab  \tab x \tab  \tab x \tab x \tab x \tab  \tab  \cr
-   line_width \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab  \cr
+   line_width \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab x \cr
    line_style \tab  \tab x \tab  \tab x \tab x \tab x \tab  \tab  \cr
    smooth \tab  \tab x \tab  \tab x \tab  \tab  \tab  \tab  \cr
    labels_fp \tab x \tab x \tab x \tab x \tab  \tab x \tab  \tab x \cr

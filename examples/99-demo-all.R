@@ -226,8 +226,14 @@ chart_pie <- ms_piechart(data = pie_data, x = "category", y = "value")
 chart_pie <- chart_settings(chart_pie,
   vary_colors = TRUE, hole_size = 50
 )
-chart_pie <- chart_data_fill(chart_pie, values = c(value = "#4E79A7"))
-chart_pie <- chart_data_stroke(chart_pie, values = c(value = "#FFFFFF"))
+chart_pie <- chart_data_fill(chart_pie, values = c(
+  Desktop = "#4E79A7", Mobile = "#F28E2B",
+  Tablet = "#E15759", Other = "#76B7B2"
+))
+chart_pie <- chart_data_stroke(chart_pie, values = c(
+  Desktop = "#FFFFFF", Mobile = "#FFFFFF",
+  Tablet = "#FFFFFF", Other = "#FFFFFF"
+))
 chart_pie <- chart_data_labels(chart_pie,
   show_val = TRUE, show_cat_name = TRUE, show_percent = TRUE,
   separator = "\n"

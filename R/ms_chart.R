@@ -598,9 +598,25 @@ ms_piechart <- function(data, x, y, labels = NULL) {
   class(out) <- c("ms_piechart", "ms_chart")
   out <- chart_settings(out)
 
-  serie_names <- names(out$series_settings$colour)
-  values <- setNames(rep("transparent", length(serie_names)), serie_names)
-  out <- chart_data_stroke(out, values = values)
+  # pie charts style slices, not series -- replace the series-level
+  # fill/colour/line_width with per-category vectors so chart_data_fill(),
+  # chart_data_stroke() and chart_data_line_width() target individual
+  # slices.
+  cat_values <- data[[x]]
+  cat_names <- if (is.factor(cat_values)) {
+    levels(cat_values)
+  } else {
+    as.character(unique(cat_values))
+  }
+  n <- length(cat_names)
+  if (n <= length(colour_list)) {
+    pal <- colour_list[[n]]
+  } else {
+    pal <- rep_len(colour_list[[length(colour_list)]], n)
+  }
+  out$series_settings$fill <- setNames(pal, cat_names)
+  out$series_settings$colour <- setNames(rep("transparent", n), cat_names)
+  out$series_settings$line_width <- setNames(rep(2, n), cat_names)
 
   out
 }
