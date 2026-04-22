@@ -18,6 +18,10 @@
 #'   ylab = "my y label"
 #' )
 chart_labels <- function(x, title = NULL, xlab = NULL, ylab = NULL) {
+  validate_label(title, "title")
+  validate_label(xlab, "xlab")
+  validate_label(ylab, "ylab")
+
   if (!is.null(title)) {
     x$labels[["title"]] <- title
   } else {
@@ -36,4 +40,17 @@ chart_labels <- function(x, title = NULL, xlab = NULL, ylab = NULL) {
     x$labels[["y"]] <- NULL
   }
   x
+}
+
+validate_label <- function(value, name) {
+  if (is.null(value)) {
+    return(invisible(NULL))
+  }
+  if (!is.character(value) || length(value) != 1 || is.na(value)) {
+    stop(
+      "`", name, "` must be NULL or a single non-NA character string.",
+      call. = FALSE
+    )
+  }
+  invisible(NULL)
 }

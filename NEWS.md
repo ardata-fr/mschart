@@ -36,6 +36,10 @@ bar-only).
 does not support data tables (`ms_scatterchart`, `ms_radarchart`,
 `ms_bubblechart`, `ms_piechart`) now emits a warning. Before, the
 argument was silently absorbed by `...` and had no effect.
+* `chart_labels()` now validates its `title`, `xlab` and `ylab`
+arguments: each must be `NULL` or a single non-NA character string.
+Previously, passing a numeric, multi-length vector, `NA`, or a list
+would silently produce broken XML.
 * `chart_data_fill()` gains an `update_stroke` argument, default
 `TRUE`. When the series stroke is not `"transparent"`, the stroke
 colour is now updated together with the fill, so a single call
