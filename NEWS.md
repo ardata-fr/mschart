@@ -33,6 +33,9 @@ the property. The supported matrix is documented in `?mschart`.
   
 ## Issues
 
+* `ms_scatterchart` no longer silently drops the line when `line_width`
+is below 1pt; thin lines (e.g. 0.25, 0.5, 0.75pt) are now rendered
+consistently with other chart types.
 * Grid lines can now be disabled by setting `grid_major_line_x`,
 `grid_major_line_y`, `grid_minor_line_x` or `grid_minor_line_y`
 to `FALSE` in `mschart_theme()` or `chart_theme()`.

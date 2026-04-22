@@ -188,8 +188,7 @@ expected_text <- function(prop) {
     line_width = paste(
       "Attendu : serie 1 fine (1), serie 2 epaisse (3),",
       "serie 3 tres epaisse (6).",
-      "Epaisseurs egales = line_width n'est pas applique.",
-      "(scatter masque la ligne si line_width < 1.)"
+      "Epaisseurs egales = line_width n'est pas applique."
     ),
     line_style = paste(
       "Attendu : serie 1 solide, serie 2 tirets (dashed), serie 3 pointilles (dotted).",
