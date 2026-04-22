@@ -181,3 +181,21 @@ chart_06 <- chart_settings(chart_06,
 chart_06 <- chart_data_labels(chart_06, position = "outEnd")
 chart_06 <- chart_labels_text(chart_06, text_prop)
 # print(chart_06, preview = TRUE)
+
+
+# example chart 07 -------
+# Series order (and therefore legend order) follows the levels of
+# the `group` factor. Convert the column to a factor with the desired
+# level order before passing it to ms_barchart().
+ordered_data <- browser_data
+ordered_data$serie <- factor(ordered_data$serie,
+  levels = c("serie3", "serie1", "serie2")
+)
+chart_07 <- ms_barchart(
+  data = ordered_data, x = "browser",
+  y = "value", group = "serie"
+)
+chart_07 <- chart_labels(chart_07,
+  title = "Series and legend ordered via factor levels"
+)
+# print(chart_07, preview = TRUE)
