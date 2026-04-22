@@ -235,6 +235,7 @@ chart_settings.ms_scatterchart <- function(x, vary_colors, style, ...) {
 chart_settings.ms_stockchart <- function(
   x,
   vary_colors,
+  table,
   hi_low_lines,
   up_bars_fill,
   up_bars_border,
@@ -247,6 +248,7 @@ chart_settings.ms_stockchart <- function(
   } else {
     vary_colors
   }
+  table <- if (missing(table)) x$options$table %||% FALSE else table
   hi_low_lines <- if (missing(hi_low_lines)) {
     x$options$hi_low_lines %||% fp_border(color = "#404040", width = 0.75)
   } else {
@@ -275,7 +277,7 @@ chart_settings.ms_stockchart <- function(
 
   options <- list(
     vary_colors = vary_colors,
-    table = FALSE,
+    table = table,
     hi_low_lines = hi_low_lines,
     up_bars_fill = up_bars_fill,
     up_bars_border = up_bars_border,

@@ -25,6 +25,7 @@ chart_settings(x, ...)
 \method{chart_settings}{ms_stockchart}(
   x,
   vary_colors,
+  table,
   hi_low_lines,
   up_bars_fill,
   up_bars_border,

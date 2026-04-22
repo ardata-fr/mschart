@@ -25,6 +25,9 @@ for use with `ms_chart_combine()`.
 * `chart_ax_x()` and `chart_ax_y()` gain `major_unit`, `minor_unit`,
 `major_time_unit` and `minor_time_unit` parameters to control axis
 interval spacing (#105).
+* `chart_settings.ms_stockchart()` gains a `table` argument to display
+the data table below a stock chart, matching the behaviour already
+available on bar / line / area charts.
 * Series styling functions (`chart_data_fill()`, `chart_data_stroke()`,
 `chart_data_symbol()`, `chart_data_size()`, `chart_data_line_width()`,
 `chart_data_line_style()`, `chart_data_smooth()`, `chart_labels_text()`)
