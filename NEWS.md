@@ -28,6 +28,14 @@ interval spacing (#105).
 * `chart_settings.ms_stockchart()` gains a `table` argument to display
 the data table below a stock chart, matching the behaviour already
 available on bar / line / area charts.
+* `chart_data_fill()` gains an `update_stroke` argument, default
+`TRUE`. When the series stroke is not `"transparent"`, the stroke
+colour is now updated together with the fill, so a single call
+produces a filled shape and a matching border. Pass
+`update_stroke = FALSE` to keep the current stroke colours untouched
+and manage them independently via `chart_data_stroke()`. Series
+whose stroke was set to `"transparent"` by the constructor
+(`ms_areachart()`, `ms_piechart()`) are preserved as is.
 * Series styling functions (`chart_data_fill()`, `chart_data_stroke()`,
 `chart_data_symbol()`, `chart_data_size()`, `chart_data_line_width()`,
 `chart_data_line_style()`, `chart_data_smooth()`, `chart_labels_text()`)

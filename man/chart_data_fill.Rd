@@ -4,7 +4,7 @@
 \alias{chart_data_fill}
 \title{Modify fill colour}
 \usage{
-chart_data_fill(x, values)
+chart_data_fill(x, values, update_stroke = TRUE)
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}
@@ -12,6 +12,15 @@ chart_data_fill(x, values)
 \item{values}{\verb{character(num of series|1)}: a set of colour values to map data values to.
 It is a named vector, the values will be matched based on the names.
 If it contains only one colour, this colour will be associated to all existing series.}
+
+\item{update_stroke}{if \code{TRUE} (the default), the series stroke
+colour is also updated to \code{values}, so that the filled shape
+and its border match. Series whose stroke was set to
+\code{"transparent"} (for example by the \code{ms_areachart()} and
+\code{ms_piechart()} constructors) are left untouched to preserve that
+deliberate "no border" default. Set to \code{FALSE} to keep the current
+stroke colours untouched and manage them independently via
+\code{\link[=chart_data_stroke]{chart_data_stroke()}}.}
 }
 \value{
 An \code{ms_chart} object.

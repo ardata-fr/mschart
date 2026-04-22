@@ -111,6 +111,14 @@ chart_labels_text <- function(x, values) {
 #' @param values `character(num of series|1)`: a set of colour values to map data values to.
 #' It is a named vector, the values will be matched based on the names.
 #' If it contains only one colour, this colour will be associated to all existing series.
+#' @param update_stroke if `TRUE` (the default), the series stroke
+#' colour is also updated to `values`, so that the filled shape
+#' and its border match. Series whose stroke was set to
+#' `"transparent"` (for example by the `ms_areachart()` and
+#' `ms_piechart()` constructors) are left untouched to preserve that
+#' deliberate "no border" default. Set to `FALSE` to keep the current
+#' stroke colours untouched and manage them independently via
+#' [chart_data_stroke()].
 #' @examples
 #' my_scatter <- ms_scatterchart(data = iris, x = "Sepal.Length",
 #'   y = "Sepal.Width",  group = "Species")
@@ -118,7 +126,7 @@ chart_labels_text <- function(x, values) {
 #'   values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_data_fill <- function(x, values) {
+chart_data_fill <- function(x, values, update_stroke = TRUE) {
   check_series_property(x, "fill")
   valid_cols <- is_valid_color(values)
   if (!all(valid_cols)) {
@@ -140,6 +148,15 @@ chart_data_fill <- function(x, values) {
   }
 
   x$series_settings$fill[names(values)] <- values
+
+  if (isTRUE(update_stroke)) {
+    current <- x$series_settings$colour[names(values)]
+    to_update <- names(values)[current != "transparent"]
+    if (length(to_update) > 0) {
+      x$series_settings$colour[to_update] <- values[to_update]
+    }
+  }
+
   x
 }
 
