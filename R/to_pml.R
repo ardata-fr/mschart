@@ -361,6 +361,9 @@ to_pml.ms_radarchart <- function(
         sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
         line_str,
         marker_str,
+        to_pml(label_settings,
+               with_position = FALSE,
+               show_label = !is.null(x$label_cols)),
         "<c:cat>", to_pml(serie$x), "</c:cat>",
         "<c:val>", to_pml(serie$y), "</c:val>",
         "</c:ser>"
@@ -380,7 +383,9 @@ to_pml.ms_radarchart <- function(
     sprintf("<c:radarStyle val=\"%s\"/>", x$options$radarstyle),
     sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
     str_series_,
-    to_pml(x$label_settings, !is.null(x$label_cols)),
+    to_pml(x$label_settings,
+           with_position = FALSE,
+           show_label = !is.null(x$label_cols)),
     x_ax_id,
     y_ax_id,
     "</c:radarChart>"
@@ -409,12 +414,11 @@ to_pml.ms_bubblechart <- function(
     secondary_y = secondary_y
   )
 
-  label_settings <- x$label_settings
-
-  label_settings <- x$label_settings
-
   str_series_ <- sapply(series, function(serie) {
     sppr_str <- get_sppr_xml(serie$fill, serie$stroke, serie$line_width)
+
+    label_settings <- x$label_settings
+    label_settings$labels_fp <- serie$labels_fp
 
     label_pml <- ""
     if (!is.null(x$label_cols) && !is.null(serie$label)) {

@@ -48,6 +48,24 @@ These functions create a 'chart' object that can be customized:
 You can add a chart into a slide in PowerPoint with function \code{\link[=ph_with.ms_chart]{ph_with.ms_chart()}}.
 
 You can add a chart into a Word document with function \code{\link[=body_add_chart]{body_add_chart()}}.
+\subsection{Series styling properties by chart type}{
+
+Not all series styling properties have an effect on every
+chart type. The following table shows which properties are
+supported. A warning is emitted when a property is set on
+a chart type that does not support it.\tabular{lcccccccc}{
+   Property \tab bar \tab line \tab area \tab scatter \tab stock \tab radar \tab bubble \tab pie \cr
+   fill \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab  \cr
+   colour \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab  \cr
+   symbol \tab  \tab x \tab  \tab x \tab x \tab x \tab  \tab  \cr
+   size \tab  \tab x \tab  \tab x \tab x \tab x \tab  \tab  \cr
+   line_width \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab  \cr
+   line_style \tab  \tab x \tab  \tab x \tab x \tab x \tab  \tab  \cr
+   smooth \tab  \tab x \tab  \tab x \tab  \tab  \tab  \tab  \cr
+   labels_fp \tab x \tab x \tab x \tab x \tab  \tab x \tab  \tab x \cr
+}
+
+}
 }
 \seealso{
 \url{https://ardata-fr.github.io/officeverse/}

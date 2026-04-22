@@ -20,6 +20,7 @@ chart_01 <- chart_ax_y(
   x = chart_01, cross_between = "midCat",
   major_tick_mark = "in"
 )
+# print(chart_01, preview = TRUE)
 
 
 # example chart 02 -------
@@ -32,6 +33,7 @@ dat <- data.frame(
 chart_02 <- ms_barchart(data = dat, x = "Species", y = "mean")
 chart_02 <- chart_settings(x = chart_02, dir = "horizontal")
 chart_02 <- chart_theme(x = chart_02, title_x_rot = 270, title_y_rot = 0)
+# print(chart_02, preview = TRUE)
 
 
 
@@ -66,8 +68,27 @@ chart_03 <- chart_data_labels(chart_03,
   position = "ctr",
   show_val = TRUE
 )
-chart_03 <- chart_labels_text(chart_03, fp_text(color = "white", bold = TRUE, font.size = 9))
-
+chart_03 <- chart_labels_text(chart_03,
+  fp_text(color = "white", bold = TRUE, font.size = 9)
+)
+chart_03 <- chart_data_fill(chart_03,
+  values = c(
+    serie1 = "#4477AA",
+    serie2 = "#CC6677",
+    serie3 = "#DDCC77"
+  )
+)
+chart_03 <- chart_data_stroke(chart_03,
+  values = c(
+    serie1 = "#223B55",
+    serie2 = "#66333C",
+    serie3 = "#6F663C"
+  )
+)
+chart_03 <- chart_data_line_width(chart_03,
+  values = c(serie1 = 2, serie2 = 2, serie3 = 2)
+)
+# print(chart_03, preview = TRUE)
 
 # example chart 04 -------
 
@@ -123,6 +144,7 @@ chart_04 <- chart_settings(chart_04,
 chart_04 <- chart_data_labels(chart_04, position = "outEnd")
 chart_04 <- chart_labels_text(chart_04, text_prop)
 chart_04 <- chart_theme(chart_04, title_x_rot = 270, title_y_rot = 0)
+# print(chart_04, preview = TRUE)
 
 # example chart 05 -------
 
@@ -146,6 +168,7 @@ chart_05 <- chart_settings(chart_05,
 )
 chart_05 <- chart_data_labels(chart_05, position = "outEnd")
 chart_05 <- chart_labels_text(chart_05, text_prop)
+# print(chart_05, preview = TRUE)
 
 # example chart 06 -------
 chart_06 <- ms_barchart(
@@ -157,5 +180,4 @@ chart_06 <- chart_settings(chart_06,
 )
 chart_06 <- chart_data_labels(chart_06, position = "outEnd")
 chart_06 <- chart_labels_text(chart_06, text_prop)
-
-
+# print(chart_06, preview = TRUE)

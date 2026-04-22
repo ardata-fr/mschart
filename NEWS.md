@@ -25,7 +25,12 @@ for use with `ms_chart_combine()`.
 * `chart_ax_x()` and `chart_ax_y()` gain `major_unit`, `minor_unit`,
 `major_time_unit` and `minor_time_unit` parameters to control axis
 interval spacing (#105).
-
+* Series styling functions (`chart_data_fill()`, `chart_data_stroke()`,
+`chart_data_symbol()`, `chart_data_size()`, `chart_data_line_width()`,
+`chart_data_line_style()`, `chart_data_smooth()`, `chart_labels_text()`)
+now emit a warning when applied to a chart type that does not support
+the property. The supported matrix is documented in `?mschart`.
+  
 ## Issues
 
 * Grid lines can now be disabled by setting `grid_major_line_x`,

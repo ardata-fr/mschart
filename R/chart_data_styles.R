@@ -1,3 +1,57 @@
+# Properties supported by each chart type
+# (verified against to_pml methods)
+.series_property_support <- list(
+  fill = c(
+    "ms_barchart", "ms_linechart", "ms_areachart",
+    "ms_scatterchart", "ms_stockchart",
+    "ms_radarchart", "ms_bubblechart"
+  ),
+  colour = c(
+    "ms_barchart", "ms_linechart", "ms_areachart",
+    "ms_scatterchart", "ms_stockchart",
+    "ms_radarchart", "ms_bubblechart"
+  ),
+  symbol = c(
+    "ms_linechart", "ms_scatterchart",
+    "ms_stockchart", "ms_radarchart"
+  ),
+  size = c(
+    "ms_linechart", "ms_scatterchart",
+    "ms_stockchart", "ms_radarchart"
+  ),
+  line_width = c(
+    "ms_barchart", "ms_linechart", "ms_areachart",
+    "ms_scatterchart", "ms_stockchart",
+    "ms_radarchart", "ms_bubblechart"
+  ),
+  line_style = c(
+    "ms_linechart", "ms_scatterchart",
+    "ms_stockchart", "ms_radarchart"
+  ),
+  smooth = c(
+    "ms_linechart", "ms_scatterchart"
+  ),
+  labels_fp = c(
+    "ms_barchart", "ms_linechart", "ms_areachart",
+    "ms_scatterchart", "ms_radarchart", "ms_piechart"
+  )
+)
+
+check_series_property <- function(x, property) {
+  chart_type <- class(x)[1]
+  supported <- .series_property_support[[property]]
+  if (!is.null(supported) &&
+    !chart_type %in% supported) {
+    warning(
+      sprintf(
+        "'%s' property has no effect on '%s' charts.",
+        property, chart_type
+      ),
+      call. = FALSE
+    )
+  }
+}
+
 #' @export
 #' @title Modify labels font settings
 #' @description Specify mappings from levels in the data to displayed text font settings.
@@ -23,6 +77,7 @@
 #' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_labels_text <- function(x, values) {
+  check_series_property(x, "labels_fp")
   serie_names <- names(x$series_settings$fill)
 
   if (inherits(values, "fp_text")) {
@@ -64,6 +119,7 @@ chart_labels_text <- function(x, values) {
 #' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_fill <- function(x, values) {
+  check_series_property(x, "fill")
   valid_cols <- is_valid_color(values)
   if (!all(valid_cols)) {
     stop("invalid color(s) in argument values")
@@ -104,6 +160,7 @@ chart_data_fill <- function(x, values) {
 #' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_stroke <- function(x, values) {
+  check_series_property(x, "colour")
   valid_cols <- is_valid_color(values)
   if (!all(valid_cols)) {
     stop("invalid color(s) in argument values")
@@ -148,6 +205,7 @@ chart_data_stroke <- function(x, values) {
 #' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_symbol <- function(x, values) {
+  check_series_property(x, "symbol")
   if (!all(values %in% st_markerstyle)) {
     stop(
       "values should have values matching ",
@@ -194,6 +252,7 @@ chart_data_symbol <- function(x, values) {
 #' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_size <- function(x, values) {
+  check_series_property(x, "size")
   if (!is.numeric(values)) {
     stop("values should be numeric values")
   }
@@ -243,6 +302,7 @@ chart_data_size <- function(x, values) {
 #' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_line_width <- function(x, values) {
+  check_series_property(x, "line_width")
   if (!is.numeric(values)) {
     stop("values should be numeric values")
   }
@@ -290,6 +350,7 @@ chart_data_line_width <- function(x, values) {
 #' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_line_style <- function(x, values) {
+  check_series_property(x, "line_style")
   if (!all(values %in% st_linestyle)) {
     stop(
       "values should have values matching ",
@@ -332,6 +393,7 @@ chart_data_line_style <- function(x, values) {
 #' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_smooth <- function(x, values) {
+  check_series_property(x, "smooth")
   as_bool <- c(1, 0)
 
   if (!all(values %in% as_bool)) {

@@ -40,6 +40,24 @@
 #' You can add a chart into a Word document with function [body_add_chart()].
 #'
 #'
+#' ## Series styling properties by chart type
+#'
+#' Not all series styling properties have an effect on every
+#' chart type. The following table shows which properties are
+#' supported. A warning is emitted when a property is set on
+#' a chart type that does not support it.
+#'
+#' | Property | bar | line | area | scatter | stock | radar | bubble | pie |
+#' |:-----------|:---:|:----:|:----:|:-------:|:-----:|:-----:|:------:|:---:|
+#' | fill       | x   | x    | x    | x       | x     | x     | x      |     |
+#' | colour     | x   | x    | x    | x       | x     | x     | x      |     |
+#' | symbol     |     | x    |      | x       | x     | x     |        |     |
+#' | size       |     | x    |      | x       | x     | x     |        |     |
+#' | line_width | x   | x    | x    | x       | x     | x     | x      |     |
+#' | line_style |     | x    |      | x       | x     | x     |        |     |
+#' | smooth     |     | x    |      | x       |       |       |        |     |
+#' | labels_fp  | x   | x    | x    | x       |       | x     |        | x   |
+#'
 #' @seealso \url{https://ardata-fr.github.io/officeverse/}
 #' @name mschart
 "_PACKAGE"
