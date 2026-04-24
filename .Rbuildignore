@@ -8,3 +8,5 @@
 ^inst/vtests\.Rmd$
 ^\.github$
 ^inst/mediasrc$
+^\.positai$
+^\.claude$

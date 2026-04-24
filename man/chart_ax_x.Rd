@@ -21,8 +21,7 @@ chart_ax_x(
   major_unit,
   minor_unit,
   major_time_unit,
-  minor_time_unit,
-  second_axis = FALSE
+  minor_time_unit
 )
 }
 \arguments{
@@ -67,8 +66,6 @@ one of \code{"days"}, \code{"months"}, \code{"years"}.}
 
 \item{minor_time_unit}{time unit for minor ticks on date axes,
 one of \code{"days"}, \code{"months"}, \code{"years"}.}
-
-\item{second_axis}{logical to be used in \code{\link[=ms_chart_combine]{ms_chart_combine()}}.}
 }
 \value{
 An \code{ms_chart} object.

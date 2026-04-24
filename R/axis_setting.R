@@ -26,7 +26,6 @@
 #' one of `"days"`, `"months"`, `"years"`.
 #' @param minor_time_unit time unit for minor ticks on date axes,
 #' one of `"days"`, `"months"`, `"years"`.
-#' @param second_axis logical to be used in [ms_chart_combine()].
 #' @section num_fmt:
 #' All `%` need to be doubled, `0%%` means "a number
 #' and percent symbol".
@@ -108,8 +107,7 @@ chart_ax_x <- function(
   major_unit,
   minor_unit,
   major_time_unit,
-  minor_time_unit,
-  second_axis = FALSE
+  minor_time_unit
 ) {
   stopifnot(inherits(x, "ms_chart"))
 
@@ -192,10 +190,6 @@ chart_ax_x <- function(
     options$minor_time_unit <- minor_time_unit
   }
 
-  if (second_axis) {
-    attr(x, "secondary_x") <- second_axis
-  }
-
   x$x_axis <- do.call(axis_options, options)
   x
 }
@@ -245,8 +239,7 @@ chart_ax_y <- function(
   major_unit,
   minor_unit,
   major_time_unit,
-  minor_time_unit,
-  second_axis = FALSE
+  minor_time_unit
 ) {
   stopifnot(inherits(x, "ms_chart"))
 
@@ -326,10 +319,6 @@ chart_ax_y <- function(
     options$minor_time_unit <- x$y_axis$minor_time_unit
   } else if (!missing(minor_time_unit)) {
     options$minor_time_unit <- minor_time_unit
-  }
-
-  if (second_axis) {
-    attr(x, "secondary_y") <- second_axis
   }
 
   x$y_axis <- do.call(axis_options, options)
