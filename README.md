@@ -10,26 +10,30 @@ status](https://github.com/ardata-fr/mschart/workflows/R-CMD-check/badge.svg)](h
 ![Active](http://www.repostatus.org/badges/latest/active.svg)
 
 The `mschart` package provides a framework for easily creating charts
-for ‘Microsoft PowerPoint’ presentations and ‘Microsoft Word’ documents.
-It has to be used with package
+for ‘Microsoft PowerPoint’ presentations, ‘Microsoft Word’ documents and
+‘Microsoft Excel’ workbooks. It has to be used with package
 [`officer`](https://davidgohel.github.io/officer/) that will produce the
-charts in new or existing PowerPoint or Word documents. With ‘Microsoft
-Charts’, the data is integrated into the document and linked to the
-chart. The result can be edited, annotated and resized. If the data is
-updated in the document, the chart is also updated.
+charts in new or existing PowerPoint, Word or Excel files. With
+‘Microsoft Charts’, the data is integrated into the document and linked
+to the chart. The result can be edited, annotated and resized. If the
+data is updated in the document, the chart is also updated.
 
 ## Example
 
-This is a basic example which shows you how to create a scatter plot.
+This is a basic example which shows you how to create a bar chart.
 
 ``` r
 library(mschart)
-scatter <-
-  ms_scatterchart(
-    data = iris, x = "Sepal.Length",
-    y = "Sepal.Width", group = "Species"
-  )
-scatter <- chart_settings(scatter, scatterstyle = "marker")
+
+sales <- data.frame(
+  quarter = rep(c("Q1", "Q2", "Q3", "Q4"), each = 2),
+  revenue = c(12, 9, 15, 11, 18, 14, 21, 17),
+  region  = rep(c("EU", "US"), times = 4)
+)
+
+bars <- ms_barchart(
+  data = sales, x = "quarter", y = "revenue", group = "region"
+)
 ```
 
 Then use package `officer` to send the object as a chart.
@@ -38,9 +42,35 @@ Then use package `officer` to send the object as a chart.
 library(officer)
 doc <- read_pptx()
 doc <- add_slide(doc, layout = "Title and Content", master = "Office Theme")
-doc <- ph_with(doc, value = scatter, location = ph_location_fullsize())
+doc <- ph_with(doc, value = bars, location = ph_location_fullsize())
 
 print(doc, target = "example.pptx")
+```
+
+The same chart object can be dropped into an Excel sheet with
+`officer::sheet_add_drawing()`. By default the chart’s underlying data
+is written next to the chart automatically.
+
+You can also write the data first with `officer::sheet_write_data()` and
+ask the chart to reuse it by passing `write_data = FALSE`. This is
+useful when the data should appear at a specific position, or when
+several charts share the same dataset:
+
+``` r
+wb <- read_xlsx()
+wb <- add_sheet(wb, label = "sales")
+
+# 1. Write the data on the sheet at the desired position.
+wb <- sheet_write_data(wb, sheet = "sales", value = bars$data_series,
+                       start_col = 1, start_row = 1)
+
+# 2. Add the chart and tell it to reference the data already in place.
+wb <- sheet_add_drawing(wb, sheet = "sales", value = bars,
+                        write_data = FALSE,
+                        start_col = 1, start_row = 1,
+                        left = 5, top = 0.5, width = 6, height = 4)
+
+print(wb, target = "example.xlsx")
 ```
 
 At any moment, you can type `print(your_chart, preview = TRUE)` to
