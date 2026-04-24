@@ -1,113 +1,67 @@
 # mschart 0.4.2
 
+## Highlights
+
+* Four new chart types: pie / doughnut (`ms_piechart()`), bubble
+  (`ms_bubblechart()`), radar (`ms_radarchart()`) and stock charts with
+  HLC and OHLC candlesticks (`ms_stockchart()`).
+* Combine several chart types (e.g. bars + lines) on a single chart,
+  with optional secondary axis, via `ms_chart_combine()`.
+* Drop a chart into an Excel sheet with `officer::sheet_add_drawing()`;
+  chart data is written into the sheet and linked automatically.
+
 ## New features
 
-* New function `ms_bubblechart()` for bubble charts. A bubble chart
-is a scatter chart where each point has a third numeric dimension
-controlling its size.
-* New function `ms_radarchart()` for radar (spider) charts. 
-* New function `ms_stockchart()` for stock charts. Supports
-High-Low-Close (HLC) and Open-High-Low-Close (OHLC) modes.
-OHLC charts display candlestick up/down bars. Use `chart_settings()`
-to customise high-low lines and up/down bar appearance.
-* New method `sheet_add_drawing.ms_chart()` to add charts to Excel
-sheets via `officer::sheet_add_drawing()`. Chart data is written
-into the sheet and referenced by the chart.
-* New function `ms_chart_combine()` to combine multiple chart types
-(e.g. bars + lines) into a single chart with optional secondary axes.
-Charts are passed as named arguments; use `secondary_y` to assign
-charts to the right-hand axis.
-* New function `ms_piechart()` for pie and doughnut charts. Use
-`chart_settings(x, hole_size = ...)` to control the hole size
-(0 = pie, >0 = doughnut). Contributed by Jan Marvin Garbuszus.
-* `chart_ax_x()` and `chart_ax_y()` gain a `second_axis` argument
-for use with `ms_chart_combine()`.
-* `chart_ax_x()` and `chart_ax_y()` gain `major_unit`, `minor_unit`,
-`major_time_unit` and `minor_time_unit` parameters to control axis
-interval spacing (#105).
-* `chart_settings.ms_stockchart()` gains a `table` argument to display
-the data table below a stock chart, matching the behaviour already
-available on bar / line / area charts.
-* `chart_settings.ms_linechart()` gains a `grouping` argument. Line
-charts can now be stacked or percent-stacked (allowed values:
-`"standard"`, `"stacked"`, `"percentStacked"`; `"clustered"` remains
-bar-only).
-* `mschart_theme()` and `chart_theme()` gain `legend_x`, `legend_y`,
-`legend_w`, `legend_h` arguments to manually position and size the
-legend box. Values are fractions of the chart area between 0 and 1;
-any unset value keeps the default automatic layout (#38).
-* `sheet_add_drawing.ms_chart()` honours `start_col` / `start_row`:
-the cell-range references in the chart XML are now shifted to match
-the data position in the sheet.
-* Passing `table = TRUE` to `chart_settings()` on a chart type that
-does not support data tables (`ms_scatterchart`, `ms_radarchart`,
-`ms_bubblechart`, `ms_piechart`) now emits a warning. Before, the
-argument was silently absorbed by `...` and had no effect.
-* `chart_labels()` now validates its `title`, `xlab` and `ylab`
-arguments: each must be `NULL` or a single non-NA character string.
-Previously, passing a numeric, multi-length vector, `NA`, or a list
-would silently produce broken XML.
-* `chart_data_fill()` gains an `update_stroke` argument, default
-`TRUE`. When the series stroke is not `"transparent"`, the stroke
-colour is now updated together with the fill, so a single call
-produces a filled shape and a matching border. Pass
-`update_stroke = FALSE` to keep the current stroke colours untouched
-and manage them independently via `chart_data_stroke()`. Series
-whose stroke was set to `"transparent"` by the constructor
-(`ms_areachart()`, `ms_piechart()`) are preserved as is.
-* Series styling functions (`chart_data_fill()`, `chart_data_stroke()`,
-`chart_data_symbol()`, `chart_data_size()`, `chart_data_line_width()`,
-`chart_data_line_style()`, `chart_data_smooth()`, `chart_labels_text()`)
-now emit a warning when applied to a chart type that does not support
-the property. The supported matrix is documented in `?mschart`.
-  
-## Issues
+### Charts
 
-* `ms_scatterchart` no longer silently drops the line when `line_width`
-is below 1pt; thin lines (e.g. 0.25, 0.5, 0.75pt) are now rendered
-consistently with other chart types.
-* Fixed an example in `?chart_data_size` that passed a non-existent
-`scatterstyle` argument to `chart_settings()` (the parameter name is
-`style`).
-* Grid lines can now be disabled by setting `grid_major_line_x`,
-`grid_major_line_y`, `grid_minor_line_x` or `grid_minor_line_y`
-to `FALSE` in `mschart_theme()` or `chart_theme()`.
+* Line charts can now be stacked or percent-stacked
+  (`chart_settings(grouping = ...)`).
+* Stock charts gain the data-table option already available on
+  bar / line / area charts (`chart_settings(table = TRUE)`).
 
-## Issues
+### Axes, theme and legend
 
-* Fixed `chart_data_line_style()` not hiding lines when style is set
-to `"none"`. The generated XML now explicitly uses `<a:noFill/>` instead
-of omitting the line element, which caused Excel to apply the default
-style. Reported in #91, contributed by Stefan Moog (#99).
-* Fixed `fmt_name()` returning the input data instead of the format
-name string. Automatic axis number formatting from theme (e.g.
-`date_fmt`, `double_fmt`) now works correctly.
-* Fixed `chart_data_smooth()` using `symbol` series names instead of
-`smooth` series names to resolve series.
-* Fixed `chart_settings()` for linechart, areachart and scatterchart
-silently resetting previously set options when called with partial
-parameters. All methods now use the `if(missing())` pattern to
-preserve existing option values.
+* Control axis interval spacing via `major_unit`, `minor_unit`,
+  `major_time_unit` and `minor_time_unit` (#105).
+* Position and size the legend manually with `legend_x`, `legend_y`,
+  `legend_w`, `legend_h` in `mschart_theme()` / `chart_theme()` (#38).
+* Disable grid lines by setting `grid_major_line_x` / `_y` or
+  `grid_minor_line_x` / `_y` to `FALSE`.
 
+### Series styling
 
-## Changes
+* `chart_data_fill()` updates the matching stroke colour by default,
+  so one call produces a filled shape with a matching border. Opt out
+  with `update_stroke = FALSE`.
 
-* Internal options field `linestyle` (linechart) and `scatterstyle`
-(scatterchart, bubblechart) have been unified to `style`, matching
-the user-facing `chart_settings()` parameter name. No user-visible
-change; direct access to `x$options$linestyle` or
-`x$options$scatterstyle` will no longer work.
-* `chart_settings.ms_bubblechart()` no longer accepts a `style`
-argument. It was validated and stored but never read during XML
-generation (bubble charts have no `<c:scatterStyle>` counterpart in
-OOXML), so any value was silently ignored. Passing `style = ...` to
-`chart_settings()` on a bubble chart now errors out instead of
-silently doing nothing.
-* Minimum R version bumped to 3.5, officer to 0.6.7.
-* Fixed typos in internal code (`asssert_scatter`, `unknow`).
-* Removed deprecated roxygen tags (`@docType`, `@keywords datasets`).
-* Updated GitHub Actions to v4.
-* switch from tinytest to testthat
+### Validation and warnings
+
+* Series styling functions now warn when applied to a chart type that
+  does not support the property (see `?mschart` for the supported
+  matrix).
+* `chart_settings(table = TRUE)` warns instead of being silently
+  ignored on chart types without a data table (scatter, radar, bubble,
+  pie).
+* `chart_labels()` validates `title`, `xlab` and `ylab`: each must be
+  `NULL` or a single non-NA string.
+
+## Bug fixes
+
+* Thin lines below 1pt (0.25, 0.5, 0.75) are rendered on
+  `ms_scatterchart` like on other chart types.
+* `chart_data_line_style("none")` actually hides the line (#91, #99,
+  thanks Stefan Moog).
+* Theme number formats (`date_fmt`, `double_fmt`, ...) are applied to
+  axes again.
+* `chart_data_smooth()` resolves the right series.
+* `chart_settings()` no longer resets unrelated options when called
+  with partial parameters (linechart, areachart, scatterchart).
+* Fixed example in `?chart_data_size`.
+
+## Breaking changes
+
+* `chart_settings()` on `ms_bubblechart` no longer accepts `style` —
+  it was silently ignored before. Remove the argument from your code.
 
 # mschart 0.4.1
 
