@@ -45,7 +45,7 @@ independently via \code{\link[officer:sheet_write_data]{officer::sheet_write_dat
 
 \item{left, top}{top-left anchor of the chart, in inches.
 Defaults to \verb{(1, 1)}. Same convention as
-\code{\link[officer:sheet_add_drawing]{officer::sheet_add_drawing()}} and \code{\link[rvg:sheet_add_drawing.dml]{rvg::sheet_add_drawing.dml()}}.}
+\code{\link[officer:sheet_add_drawing]{officer::sheet_add_drawing()}} and \code{rvg::sheet_add_drawing.dml()}.}
 
 \item{width, height}{size of the chart, in inches. Defaults
 to \verb{6 x 4}.}

@@ -23,7 +23,7 @@
 #' independently via [officer::sheet_write_data()]).
 #' @param left,top top-left anchor of the chart, in inches.
 #'   Defaults to `(1, 1)`. Same convention as
-#'   [officer::sheet_add_drawing()] and [rvg::sheet_add_drawing.dml()].
+#'   [officer::sheet_add_drawing()] and `rvg::sheet_add_drawing.dml()`.
 #' @param width,height size of the chart, in inches. Defaults
 #'   to `6 x 4`.
 #' @param ... unused
