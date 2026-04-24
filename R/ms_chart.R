@@ -438,7 +438,7 @@ ms_bubblechart <- function(
   out
 }
 
-#' @title combochart object
+#' @title Combined chart object
 #' @description Combine several chart objects into a single chart
 #' with shared axes. Each chart must be a named argument.
 #'

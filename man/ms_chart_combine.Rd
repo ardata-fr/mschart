@@ -2,7 +2,7 @@
 % Please edit documentation in R/ms_chart.R
 \name{ms_chart_combine}
 \alias{ms_chart_combine}
-\title{combochart object}
+\title{Combined chart object}
 \usage{
 ms_chart_combine(..., secondary_y = NULL, secondary_x = NULL)
 }

@@ -4,7 +4,7 @@
 \name{mschart}
 \alias{mschart-package}
 \alias{mschart}
-\title{Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents}
+\title{Chart Generation for 'Microsoft Word', 'Microsoft Excel' and 'Microsoft PowerPoint' Documents}
 \description{
 It lets R users create Microsoft Office charts from data, and
 then add title, legends, and annotations to the chart object.
@@ -19,11 +19,18 @@ users.
 
 The following chart types are available:
 \itemize{
-\item barcharts: \code{\link[=ms_barchart]{ms_barchart()}}
+\item bar charts: \code{\link[=ms_barchart]{ms_barchart()}}
 \item line charts: \code{\link[=ms_linechart]{ms_linechart()}}
 \item scatter plots: \code{\link[=ms_scatterchart]{ms_scatterchart()}}
 \item area charts: \code{\link[=ms_areachart]{ms_areachart()}}
+\item pie and doughnut charts: \code{\link[=ms_piechart]{ms_piechart()}}
+\item bubble charts: \code{\link[=ms_bubblechart]{ms_bubblechart()}}
+\item radar (spider) charts: \code{\link[=ms_radarchart]{ms_radarchart()}}
+\item stock charts (HLC and OHLC): \code{\link[=ms_stockchart]{ms_stockchart()}}
 }
+
+Several chart types can be combined on a single chart, with an
+optional secondary axis, using \code{\link[=ms_chart_combine]{ms_chart_combine()}}.
 
 These functions create a 'chart' object that can be customized:
 \itemize{
@@ -48,6 +55,8 @@ These functions create a 'chart' object that can be customized:
 You can add a chart into a slide in PowerPoint with function \code{\link[=ph_with.ms_chart]{ph_with.ms_chart()}}.
 
 You can add a chart into a Word document with function \code{\link[=body_add_chart]{body_add_chart()}}.
+
+You can add a chart into an Excel sheet with function \code{\link[=sheet_add_drawing.ms_chart]{sheet_add_drawing.ms_chart()}}.
 \subsection{Series styling properties by chart type}{
 
 Not all series styling properties have an effect on every

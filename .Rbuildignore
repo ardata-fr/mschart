@@ -6,6 +6,7 @@
 ^cran-comments\.md$
 ^_pkgdown\.yml$
 ^inst/vtests\.Rmd$
+^revdep$
 ^\.github$
 ^inst/mediasrc$
 ^\.positai$

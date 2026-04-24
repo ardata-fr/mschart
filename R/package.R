@@ -1,4 +1,4 @@
-#' @title Chart Generation for 'Microsoft Word' and 'Microsoft PowerPoint' Documents
+#' @title Chart Generation for 'Microsoft Word', 'Microsoft Excel' and 'Microsoft PowerPoint' Documents
 #'
 #' @description It lets R users create Microsoft Office charts from data, and
 #' then add title, legends, and annotations to the chart object.
@@ -13,10 +13,17 @@
 #'
 #' The following chart types are available:
 #'
-#' * barcharts: [ms_barchart()]
+#' * bar charts: [ms_barchart()]
 #' * line charts: [ms_linechart()]
 #' * scatter plots: [ms_scatterchart()]
 #' * area charts: [ms_areachart()]
+#' * pie and doughnut charts: [ms_piechart()]
+#' * bubble charts: [ms_bubblechart()]
+#' * radar (spider) charts: [ms_radarchart()]
+#' * stock charts (HLC and OHLC): [ms_stockchart()]
+#'
+#' Several chart types can be combined on a single chart, with an
+#' optional secondary axis, using [ms_chart_combine()].
 #'
 #' These functions create a 'chart' object that can be customized:
 #'
@@ -38,6 +45,8 @@
 #' You can add a chart into a slide in PowerPoint with function [ph_with.ms_chart()].
 #'
 #' You can add a chart into a Word document with function [body_add_chart()].
+#'
+#' You can add a chart into an Excel sheet with function [sheet_add_drawing.ms_chart()].
 #'
 #'
 #' ## Series styling properties by chart type
