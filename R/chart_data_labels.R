@@ -78,7 +78,8 @@ to_pml.labels_options <- function(
 
   str_ <- paste0(
     "<c:dLbls>",
-    sprintf("<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>", x$num_fmt),
+    sprintf("<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>",
+            htmlEscape(x$num_fmt, attribute = TRUE)),
     txpr,
     if (with_position) sprintf("<c:dLblPos val=\"%s\"/>", x$position),
     sprintf("<c:showLegendKey val=\"%.0f\"/>", x$show_legend_key),

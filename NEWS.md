@@ -1,4 +1,13 @@
-# mschart 0.4.2
+# mschart 0.4.4
+
+## Bug fixes
+
+* Custom `num_fmt` strings containing XML metacharacters (e.g. the
+  `[>=1000]` conditional Excel format) no longer break chart XML
+  generation; they are escaped automatically (#98).
+
+
+# mschart 0.4.3
 
 ## Highlights
 

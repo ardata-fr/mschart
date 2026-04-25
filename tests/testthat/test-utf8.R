@@ -36,3 +36,24 @@ test_that("UTF-8 characters in chart titles and data", {
     ignore_attr = TRUE
   )
 })
+
+test_that("num_fmt with XML metacharacters does not break chart XML (#98)", {
+  fmt <- '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+
+  chart <- ms_barchart(
+    data = browser_data, x = "browser", y = "value", group = "serie"
+  )
+  chart <- chart_ax_y(chart, num_fmt = fmt)
+
+  xml <- format(
+    chart, sheetname = "sheet1",
+    id_x = "64451212", id_y = "64453248"
+  )
+
+  doc <- xml2::read_xml(xml)
+  code <- xml2::xml_attr(
+    xml2::xml_find_first(doc, "//c:valAx/c:numFmt"),
+    "formatCode"
+  )
+  expect_equal(code, fmt)
+})

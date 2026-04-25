@@ -49,7 +49,7 @@ to_pml.str_ref <- function(x, add_ns = FALSE, ...) {
 
   num_fmt <- ""
   if (!is.null(x$num_fmt)) {
-    num_fmt <- sprintf("<c:formatCode>%s</c:formatCode>", x$num_fmt)
+    num_fmt <- sprintf("<c:formatCode>%s</c:formatCode>", htmlEscape(x$num_fmt))
   }
   pml_ <- "<c:strRef><c:f>%s</c:f><c:strCache>%s<c:ptCount val=\"%.0f\"/>%s</c:strCache></c:strRef>"
 
@@ -88,7 +88,7 @@ to_pml.num_ref <- function(x, add_ns = FALSE, ...) {
   pt_ <- paste0(pt_[!is.na(x$values)], collapse = "")
   num_fmt <- ""
   if (!is.null(x$num_fmt)) {
-    num_fmt <- sprintf("<c:formatCode>%s</c:formatCode>", x$num_fmt)
+    num_fmt <- sprintf("<c:formatCode>%s</c:formatCode>", htmlEscape(x$num_fmt))
   }
   pml_ <- "<c:numRef><c:f>%s</c:f><c:numCache>%s<c:ptCount val=\"%.0f\"/>%s</c:numCache></c:numRef>"
   sprintf(pml_, x$region, num_fmt, length(values), pt_)

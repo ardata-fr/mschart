@@ -111,7 +111,7 @@ axis_content_xml <- function(
   if (!is.null(x$num_fmt)) {
     num_fmt <- sprintf(
       "<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>",
-      x$num_fmt
+      htmlEscape(x$num_fmt, attribute = TRUE)
     )
   }
 
