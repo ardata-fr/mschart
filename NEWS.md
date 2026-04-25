@@ -5,6 +5,9 @@
 * Custom `num_fmt` strings containing XML metacharacters (e.g. the
   `[>=1000]` conditional Excel format) no longer break chart XML
   generation; they are escaped automatically (#98).
+* `ms_stockchart()` no longer fails when the `x` column is literally
+  named `group` (or `x_val` / `y_val`). Internal column names now use
+  a `.mschart_` prefix to avoid collisions with user data.
 
 
 # mschart 0.4.3

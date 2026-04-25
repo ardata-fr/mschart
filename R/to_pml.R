@@ -216,7 +216,7 @@ to_pml.ms_stockchart <- function(
   series <- as_series(
     x,
     x_class = serie_builtin_class(x$data[[x$x]]),
-    y_class = serie_builtin_class(x$data[["y_val"]]),
+    y_class = serie_builtin_class(x$data[[".mschart_y"]]),
     sheetname = sheetname,
     secondary_y = secondary_y
   )

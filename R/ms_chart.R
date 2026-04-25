@@ -293,25 +293,28 @@ ms_stockchart <- function(data, x, open = NULL, high, low, close) {
     series_names <- c(high, low, close)
   }
 
-  # reshape to long format with fixed series order
+  # reshape to long format with fixed series order; internal column
+  # names use the .mschart_ prefix to avoid collision with user data
+  # (e.g. an x column literally named "group").
   data_long <- data.frame(
-    x_val = rep(data[[x]], length(series_names)),
-    y_val = unlist(lapply(series_names, function(s) data[[s]]),
+    .mschart_x = rep(data[[x]], length(series_names)),
+    .mschart_y = unlist(lapply(series_names, function(s) data[[s]]),
       use.names = FALSE
     ),
-    group = factor(
+    .mschart_group = factor(
       rep(series_names, each = nrow(data)),
       levels = series_names
     ),
-    stringsAsFactors = FALSE
+    stringsAsFactors = FALSE,
+    check.names = FALSE
   )
   names(data_long)[1] <- x
 
   out <- ms_chart(
     data = data_long,
     x = x,
-    y = "y_val",
-    group = "group",
+    y = ".mschart_y",
+    group = ".mschart_group",
     type = "stockplot"
   )
   out$stock_cols <- if (has_open) {
