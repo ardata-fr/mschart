@@ -16,7 +16,7 @@ template:
 
 home:
   links:
-  - text: 'Visit <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website'
+  - text: 'Visit ArData website'
     href: https://www.ardata.fr
 
 reference:
@@ -48,6 +48,7 @@ reference:
     contents:
     - print.ms_chart
     - ph_with.ms_chart
+    - sheet_add_drawing.ms_chart
     - starts_with("body_add")
   - title: Datasets
     contents:
@@ -71,7 +72,7 @@ footer:
   structure:
     left: legal
   components:
-    legal: proudly brought to you by <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a>
+    legal: proudly brought to you by <a href="https://www.ardata.fr">ArData</a>
 
 authors:
   David Gohel:
