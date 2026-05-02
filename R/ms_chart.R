@@ -494,6 +494,38 @@ ms_chart_combine <- function(..., secondary_y = NULL, secondary_x = NULL) {
     )
   }
 
+  both <- intersect(secondary_x, secondary_y)
+  if (length(both)) {
+    stop(
+      "Chart(s) ", paste(shQuote(both), collapse = ", "),
+      " cannot be on both secondary_x and secondary_y; ",
+      "this combination is not supported.",
+      call. = FALSE
+    )
+  }
+  if (length(secondary_y) > 1L) {
+    stop("Only one chart can be placed on secondary_y.", call. = FALSE)
+  }
+  if (length(secondary_x) > 1L) {
+    stop("Only one chart can be placed on secondary_x.", call. = FALSE)
+  }
+  if (length(secondary_y) > 0L && length(secondary_x) > 0L) {
+    stop(
+      "Combining secondary_y and secondary_x in the same chart is not ",
+      "supported: Office charts use at most two axes (one secondary ",
+      "y or one secondary x).",
+      call. = FALSE
+    )
+  }
+  primary_nm <- names(inputs)[1]
+  if (primary_nm %in% c(secondary_y, secondary_x)) {
+    stop(
+      "The primary chart ", shQuote(primary_nm),
+      " cannot be referenced in secondary_y or secondary_x.",
+      call. = FALSE
+    )
+  }
+
   out <- inputs[[1]]
 
   sec_y_done <- FALSE
@@ -542,6 +574,113 @@ ms_chart_combine <- function(..., secondary_y = NULL, secondary_x = NULL) {
     chart_i$labels$title <- list(title = NULL, x = xlab, y = ylab)
 
     out$secondary <- append(out$secondary, list(chart_i))
+  }
+
+  # Build the embedded sheet that backs all sub-charts.
+  #
+  # Two regimes coexist:
+  #
+  # * shared_x: secondary uses the same x column name as the primary.
+  #   Charts share one x column; we merge by x and validate identical
+  #   x values. This is the historical case (secondary_y on shared
+  #   categories).
+  #
+  # * independent_x: secondary uses a different x column name. Each
+  #   chart keeps its own x column in the embedded sheet, and rows are
+  #   aligned by position with NA padding when lengths differ. Used
+  #   when a chart is placed on the secondary x axis with its own
+  #   range (e.g. two scatter clouds with disjoint x scales).
+  primary_x  <- out$x
+  primary_ds <- out$data_series
+  existing_cols <- names(primary_ds)
+  combined_ds <- primary_ds
+
+  pad_to <- function(df, n) {
+    if (nrow(df) >= n) return(df)
+    extra <- df[rep(NA_integer_, n - nrow(df)), , drop = FALSE]
+    rbind(df, extra)
+  }
+
+  for (i in seq_along(out$secondary)) {
+    sec    <- out$secondary[[i]]
+    sec_nm <- names(inputs)[i + 1L]
+
+    shared_x <- identical(sec$x, primary_x)
+    sec_y <- setdiff(names(sec$data_series), sec$x)
+
+    collision <- intersect(sec_y, existing_cols)
+    if (length(collision)) {
+      stop(
+        "Combined charts use the same column name(s) for different series: ",
+        paste(shQuote(collision), collapse = ", "),
+        ". Each series needs a distinct column in the embedded sheet; ",
+        "duplicate or rename the column in one of the charts before combining.",
+        call. = FALSE
+      )
+    }
+
+    if (shared_x) {
+      px <- combined_ds[[primary_x]]
+      sx <- sec$data_series[[primary_x]]
+      if (length(px) != length(sx) || !setequal(px, sx)) {
+        stop(
+          "Combined charts sharing an x column must share the same x values. ",
+          "Chart ", shQuote(sec_nm),
+          " has different x values from the primary chart.",
+          call. = FALSE
+        )
+      }
+      combined_ds <- merge(combined_ds, sec$data_series,
+                           by = primary_x, sort = FALSE)
+      existing_cols <- c(existing_cols, sec_y)
+    } else {
+      # independent x: cbind with NA padding to align row counts.
+      if (inherits(combined_ds, "wb_data") ||
+            inherits(sec$data_series, "wb_data")) {
+        stop(
+          "Combining charts with independent x columns is not supported ",
+          "when the data is a 'wb_data' object (asis mode). ",
+          "Use the same x column name across charts in this mode.",
+          call. = FALSE
+        )
+      }
+      x_collision <- sec$x %in% existing_cols
+      if (x_collision) {
+        stop(
+          "Chart ", shQuote(sec_nm), " uses x column ", shQuote(sec$x),
+          " which collides with an existing column in the embedded sheet. ",
+          "Rename the x column in one of the charts before combining.",
+          call. = FALSE
+        )
+      }
+      n <- max(nrow(combined_ds), nrow(sec$data_series))
+      combined_ds <- cbind(
+        pad_to(combined_ds, n),
+        pad_to(sec$data_series, n)
+      )
+      existing_cols <- c(existing_cols, sec$x, sec_y)
+    }
+  }
+
+  # preserve primary's row order (merge may reorder)
+  m <- match(primary_ds[[primary_x]], combined_ds[[primary_x]])
+  m <- m[!is.na(m)]
+  if (length(m) == nrow(combined_ds)) {
+    combined_ds <- combined_ds[m, , drop = FALSE]
+  } else {
+    # independent_x path may have padded the primary x with NAs;
+    # keep the natural order from the cbind above.
+    combined_ds <- combined_ds[
+      c(m, setdiff(seq_len(nrow(combined_ds)), m)), ,
+      drop = FALSE
+    ]
+  }
+  rownames(combined_ds) <- NULL
+
+  # propagate to all charts so as_series() resolves correct positions
+  out$data_series <- combined_ds
+  for (i in seq_along(out$secondary)) {
+    out$secondary[[i]]$data_series <- combined_ds
   }
 
   out
@@ -1005,7 +1144,7 @@ format.ms_chart <- function(
   axis_str <- paste0(x_axis_str, y_axis_str)
 
   if (length(x$secondary)) {
-    ser_id <- length(x$yvar) + 1L
+    ser_id <- length(get_series_names(x)) + 1L
 
     for (sec in seq_along(x$secondary)) {
       is_sec_x <- isTRUE(attr(x$secondary[[sec]], "secondary_x"))
@@ -1082,7 +1221,7 @@ format.ms_chart <- function(
         )
       )
 
-      ser_id <- ser_id + length(x$secondary[[sec]]$yvar)
+      ser_id <- ser_id + length(get_series_names(x$secondary[[sec]]))
     }
   }
 

@@ -8,6 +8,11 @@
 * `ms_stockchart()` no longer fails when the `x` column is literally
   named `group` (or `x_val` / `y_val`). Internal column names now use
   a `.mschart_` prefix to avoid collisions with user data.
+* `ms_chart_combine()` supports independent x ranges via `secondary_x`
+  (top axis), in addition to the existing `secondary_y` mode.
+* `ms_chart_combine()` no longer produces files PowerPoint refuses to
+  open, and reports clear errors on incompatible inputs (column
+  collisions, x mismatches, unsupported axis combinations).
 
 
 # mschart 0.4.3

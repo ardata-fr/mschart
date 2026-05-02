@@ -112,6 +112,45 @@ test_that("scatterchart visual snapshot", {
   )
 })
 
+test_that("combine bar+line visual snapshot", {
+  skip_if_not_installed("doconv")
+  skip_if_not(doconv::msoffice_available())
+  require(doconv)
+  local_edition(3L)
+
+  combine_data <- data.frame(
+    browser = rep(c("Android", "Chrome", "Firefox", "IE", "Opera", "Safari"),
+                  each = 3),
+    serie   = rep(c("v1", "v2", "v3"), times = 6),
+    value   = c(80, 90, 77, 150, 140, 131,
+                50, 60, 52, 60, 70, 62,
+                40, 50, 42, 55, 65, 55)
+  )
+  target <- data.frame(
+    browser = unique(combine_data$browser),
+    cible   = 220
+  )
+
+  bars <- ms_barchart(combine_data, x = "browser",
+                      y = "value", group = "serie") |>
+    as_bar_stack()
+
+  line <- ms_linechart(target, x = "browser", y = "cible") |>
+    chart_data_stroke(values = "#D62728") |>
+    chart_data_line_width(values = 2) |>
+    chart_data_symbol(values = "none")
+
+  combo <- ms_chart_combine(bars = bars, target = line)
+
+  doc <- officer::read_pptx()
+  doc <- officer::add_slide(doc, layout = "Title and Content",
+                            master = "Office Theme")
+  doc <- officer::ph_with(doc, combo,
+                          location = officer::ph_location_fullsize())
+  expect_snapshot_doc(x = doc, name = "visual-combine-bar-line",
+                      engine = "testthat")
+})
+
 test_that("pie visual snapshot", {
   skip_if_not_installed("doconv")
   skip_if_not(doconv::msoffice_available())

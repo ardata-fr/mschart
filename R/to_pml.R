@@ -594,7 +594,8 @@ to_pml.ms_scatterchart <- function(
       x,
       x_class = serie_builtin_class(x$data[[x$x]]),
       y_class = serie_builtin_class(x$data[[x$y]]),
-      sheetname = sheetname
+      sheetname = sheetname,
+      secondary_y = secondary_y
     )
   }
 
