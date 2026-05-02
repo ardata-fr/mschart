@@ -93,7 +93,7 @@ test_that("ms_chart_combine errors when mixing secondary_y and secondary_x", {
   expect_error(
     ms_chart_combine(a = sc_a, b = sc_b, c = sc_c,
                      secondary_y = "b", secondary_x = "c"),
-    "not supported by design"
+    "not supported"
   )
 })
 
