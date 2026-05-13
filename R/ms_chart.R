@@ -298,7 +298,8 @@ ms_stockchart <- function(data, x, open = NULL, high, low, close) {
   # (e.g. an x column literally named "group").
   data_long <- data.frame(
     .mschart_x = rep(data[[x]], length(series_names)),
-    .mschart_y = unlist(lapply(series_names, function(s) data[[s]]),
+    .mschart_y = unlist(
+      lapply(series_names, function(s) data[[s]]),
       use.names = FALSE
     ),
     .mschart_group = factor(
@@ -358,13 +359,21 @@ ms_stockchart <- function(data, x, open = NULL, high, low, close) {
 #' )
 #' radar
 ms_radarchart <- function(
-  data, x, y, group = NULL,
-  labels = NULL, asis = FALSE
+  data,
+  x,
+  y,
+  group = NULL,
+  labels = NULL,
+  asis = FALSE
 ) {
   out <- ms_chart(
-    data = data, x = x, y = y,
-    group = group, labels = labels,
-    type = "radarplot", asis = asis
+    data = data,
+    x = x,
+    y = y,
+    group = group,
+    labels = labels,
+    type = "radarplot",
+    asis = asis
   )
   out$axis_x_xml <- axis_content_xml_radar
   out$axis_y_xml <- axis_content_xml_radar
@@ -470,7 +479,8 @@ ms_chart_combine <- function(..., secondary_y = NULL, secondary_x = NULL) {
   for (i in seq_along(inputs)) {
     if (!inherits(inputs[[i]], "ms_chart")) {
       stop(
-        "Argument ", shQuote(names(inputs)[i]),
+        "Argument ",
+        shQuote(names(inputs)[i]),
         " is not an ms_chart object.",
         call. = FALSE
       )
@@ -497,7 +507,8 @@ ms_chart_combine <- function(..., secondary_y = NULL, secondary_x = NULL) {
   both <- intersect(secondary_x, secondary_y)
   if (length(both)) {
     stop(
-      "Chart(s) ", paste(shQuote(both), collapse = ", "),
+      "Chart(s) ",
+      paste(shQuote(both), collapse = ", "),
       " cannot be on both secondary_x and secondary_y; ",
       "this combination is not supported.",
       call. = FALSE
@@ -520,7 +531,8 @@ ms_chart_combine <- function(..., secondary_y = NULL, secondary_x = NULL) {
   primary_nm <- names(inputs)[1]
   if (primary_nm %in% c(secondary_y, secondary_x)) {
     stop(
-      "The primary chart ", shQuote(primary_nm),
+      "The primary chart ",
+      shQuote(primary_nm),
       " cannot be referenced in secondary_y or secondary_x.",
       call. = FALSE
     )
@@ -590,19 +602,21 @@ ms_chart_combine <- function(..., secondary_y = NULL, secondary_x = NULL) {
   #   aligned by position with NA padding when lengths differ. Used
   #   when a chart is placed on the secondary x axis with its own
   #   range (e.g. two scatter clouds with disjoint x scales).
-  primary_x  <- out$x
+  primary_x <- out$x
   primary_ds <- out$data_series
   existing_cols <- names(primary_ds)
   combined_ds <- primary_ds
 
   pad_to <- function(df, n) {
-    if (nrow(df) >= n) return(df)
+    if (nrow(df) >= n) {
+      return(df)
+    }
     extra <- df[rep(NA_integer_, n - nrow(df)), , drop = FALSE]
     rbind(df, extra)
   }
 
   for (i in seq_along(out$secondary)) {
-    sec    <- out$secondary[[i]]
+    sec <- out$secondary[[i]]
     sec_nm <- names(inputs)[i + 1L]
 
     shared_x <- identical(sec$x, primary_x)
@@ -625,18 +639,25 @@ ms_chart_combine <- function(..., secondary_y = NULL, secondary_x = NULL) {
       if (length(px) != length(sx) || !setequal(px, sx)) {
         stop(
           "Combined charts sharing an x column must share the same x values. ",
-          "Chart ", shQuote(sec_nm),
+          "Chart ",
+          shQuote(sec_nm),
           " has different x values from the primary chart.",
           call. = FALSE
         )
       }
-      combined_ds <- merge(combined_ds, sec$data_series,
-                           by = primary_x, sort = FALSE)
+      combined_ds <- merge(
+        combined_ds,
+        sec$data_series,
+        by = primary_x,
+        sort = FALSE
+      )
       existing_cols <- c(existing_cols, sec_y)
     } else {
       # independent x: cbind with NA padding to align row counts.
-      if (inherits(combined_ds, "wb_data") ||
-            inherits(sec$data_series, "wb_data")) {
+      if (
+        inherits(combined_ds, "wb_data") ||
+          inherits(sec$data_series, "wb_data")
+      ) {
         stop(
           "Combining charts with independent x columns is not supported ",
           "when the data is a 'wb_data' object (asis mode). ",
@@ -647,7 +668,10 @@ ms_chart_combine <- function(..., secondary_y = NULL, secondary_x = NULL) {
       x_collision <- sec$x %in% existing_cols
       if (x_collision) {
         stop(
-          "Chart ", shQuote(sec_nm), " uses x column ", shQuote(sec$x),
+          "Chart ",
+          shQuote(sec_nm),
+          " uses x column ",
+          shQuote(sec$x),
           " which collides with an existing column in the embedded sheet. ",
           "Rename the x column in one of the charts before combining.",
           call. = FALSE
@@ -671,7 +695,8 @@ ms_chart_combine <- function(..., secondary_y = NULL, secondary_x = NULL) {
     # independent_x path may have padded the primary x with NAs;
     # keep the natural order from the cbind above.
     combined_ds <- combined_ds[
-      c(m, setdiff(seq_len(nrow(combined_ds)), m)), ,
+      c(m, setdiff(seq_len(nrow(combined_ds)), m)),
+      ,
       drop = FALSE
     ]
   }
@@ -1285,7 +1310,9 @@ format.ms_chart <- function(
         "xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\""
       )
       manual <- paste0(
-        "<c:layout ", ns_layout, "><c:manualLayout>",
+        "<c:layout ",
+        ns_layout,
+        "><c:manualLayout>",
         "<c:xMode val=\"edge\"/>",
         "<c:yMode val=\"edge\"/>",
         if (!is.null(lx)) sprintf("<c:x val=\"%g\"/>", lx),

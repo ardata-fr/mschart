@@ -2,9 +2,12 @@
 % Please edit documentation in R/axis_setting.R
 \name{chart_ax_x}
 \alias{chart_ax_x}
+\alias{chart_ax_x.default}
 \title{X axis settings}
 \usage{
-chart_ax_x(
+chart_ax_x(x, ...)
+
+\method{chart_ax_x}{default}(
   x,
   orientation,
   crosses,
@@ -21,11 +24,14 @@ chart_ax_x(
   major_unit,
   minor_unit,
   major_time_unit,
-  minor_time_unit
+  minor_time_unit,
+  ...
 )
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}
+
+\item{...}{arguments passed to S3 methods.}
 
 \item{orientation}{axis orientation, one of 'maxMin', 'minMax'.}
 
@@ -71,7 +77,9 @@ one of \code{"days"}, \code{"months"}, \code{"years"}.}
 An \code{ms_chart} object.
 }
 \description{
-Define settings for an x axis.
+Define settings for an x axis. S3 generic; the
+\code{default} method is documented below. ChartEx charts have a leaner
+set of supported options - see the package documentation.
 }
 \section{num_fmt}{
 

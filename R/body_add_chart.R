@@ -52,11 +52,22 @@ body_add_chart <- function(
     paste0(basename(chart_file), ".rels")
   )
 
+  extra_rels <- chart_extra_parts(
+    chart,
+    charts_dir,
+    x$content_type,
+    "/word/charts"
+  )
   rel_str <- paste0(
     "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
-    "<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/package\" Target=\"../embeddings/%s\"/></Relationships>"
+    "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">",
+    sprintf(
+      "<Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/package\" Target=\"../embeddings/%s\"/>",
+      basename(xlsx_file)
+    ),
+    extra_rels,
+    "</Relationships>"
   )
-  rel_str <- sprintf(rel_str, basename(xlsx_file))
   writeLines(rel_str, rel_filename, useBytes = TRUE)
 
   id_x = "64451712"
@@ -68,11 +79,10 @@ body_add_chart <- function(
   next_id <- x$doc_obj$relationship()$get_next_id()
   x$doc_obj$relationship()$add(
     paste0("rId", next_id),
-    type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart",
+    type = chart_part_rel_type(chart),
     target = paste0("charts/", basename(chart_file))
   )
-  reference_ <- "<c:chart xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" r:id=\"rId%.0f\"/>"
-  reference_ <- sprintf(reference_, next_id)
+  reference_ <- chart_reference_xml(chart, next_id)
 
   drawing_str <- paste0(
     "<w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\">",
@@ -85,7 +95,7 @@ body_add_chart <- function(
     "<wp:docPr id=\"\" name=\"\"/>",
     "<wp:cNvGraphicFramePr/>",
     "<a:graphic xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\">",
-    "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/chart\">",
+    sprintf("<a:graphicData uri=\"%s\">", chart_graphicdata_uri(chart)),
     reference_,
     "</a:graphicData>",
     "</a:graphic>",
@@ -113,10 +123,7 @@ body_add_chart <- function(
   )
 
   partname <- file.path("/word/charts", basename(chart_file))
-  override <- setNames(
-    "application/vnd.openxmlformats-officedocument.drawingml.chart+xml",
-    partname
-  )
+  override <- setNames(chart_part_content_type(chart), partname)
   x$content_type$add_override(value = override)
   x$content_type$add_ext(
     extension = "xlsx",

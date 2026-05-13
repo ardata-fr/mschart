@@ -1,4 +1,19 @@
-# mschart 0.4.4
+# mschart 0.5.0
+
+## Highlights
+
+* Seven new chart types built on Office's chartEx family (Office
+  2016+): box-and-whisker (`ms_boxplotchart()`), funnel
+  (`ms_funnelchart()`), histogram (`ms_histogramchart()`), pareto
+  (`ms_paretochart()`), sunburst (`ms_sunburstchart()`), treemap
+  (`ms_treemapchart()`) and waterfall (`ms_waterfallchart()`).
+
+* Place a chart on an Excel sheet anchored to cells. Pass
+  `anchor = "B2:H20"` to `sheet_add_drawing()` to anchor between two
+  cells (Excel's default "move and size with cells"), or
+  `anchor = "B2"` to anchor to a single cell (move only). Omit
+  `anchor` for absolute placement. `edit_as` controls what Excel does
+  when rows or columns are resized.
 
 ## Bug fixes
 

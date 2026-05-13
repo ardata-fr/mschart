@@ -43,6 +43,21 @@ chart_settings <- function(x, ...) {
 }
 
 
+#' @export
+#' @describeIn chart_settings fallback for chartEx types that expose no
+#' settings (funnel, histogram, sunburst, treemap, waterfall). Replaces
+#' the default `no applicable method` error with a discoverable message.
+chart_settings.ms_chart_ex <- function(x, ...) {
+  stop(
+    sprintf(
+      "`chart_settings()` has no options for chart of class %s",
+      shQuote(class(x)[1])
+    ),
+    call. = FALSE
+  )
+}
+
+
 # Warn when a user passes `table = ...` to a chart_settings method
 # that does not support data tables. Excel only renders <c:dTable>
 # for bar / line / area / stock charts, so the arg would otherwise
@@ -50,7 +65,8 @@ chart_settings <- function(x, ...) {
 warn_unsupported_table <- function(x, ...) {
   if ("table" %in% names(list(...))) {
     warning(
-      "`table` is not supported on '", class(x)[1],
+      "`table` is not supported on '",
+      class(x)[1],
       "' charts and was ignored. Data tables are only available on ",
       "'ms_barchart', 'ms_linechart', 'ms_areachart' and 'ms_stockchart'.",
       call. = FALSE
@@ -146,9 +162,11 @@ chart_settings.ms_barchart <- function(
 }
 
 
-linechart_options <- function(vary_colors = FALSE,
-                              grouping = "standard",
-                              table = FALSE) {
+linechart_options <- function(
+  vary_colors = FALSE,
+  grouping = "standard",
+  table = FALSE
+) {
   if (!grouping %in% st_grouping) {
     stop(
       "grouping should be one of ",
@@ -164,8 +182,14 @@ linechart_options <- function(vary_colors = FALSE,
 #' @describeIn chart_settings linechart settings
 #' @param style Style for the linechart or scatterchart type of markers. One
 #' of 'none', 'line', 'lineMarker', 'marker', 'smooth', 'smoothMarker'.
-chart_settings.ms_linechart <- function(x, vary_colors, style, grouping,
-                                        table, ...) {
+chart_settings.ms_linechart <- function(
+  x,
+  vary_colors,
+  style,
+  grouping,
+  table,
+  ...
+) {
   options <- linechart_options(
     vary_colors = if (missing(vary_colors)) {
       x$options$vary_colors
@@ -359,8 +383,12 @@ chart_settings.ms_radarchart <- function(x, vary_colors, style, ...) {
 #' @export
 #' @describeIn chart_settings bubblechart settings
 #' @param bubble3D logical, use 3D effect for bubbles.
-chart_settings.ms_bubblechart <- function(x, vary_colors,
-                                          bubble3D = FALSE, ...) {
+chart_settings.ms_bubblechart <- function(
+  x,
+  vary_colors,
+  bubble3D = FALSE,
+  ...
+) {
   warn_unsupported_table(x, ...)
   vary_colors <- if (missing(vary_colors)) {
     x$options$vary_colors %||% FALSE
@@ -404,5 +432,40 @@ chart_settings.ms_piechart <- function(x, vary_colors, hole_size, ...) {
     hole_size = if (missing(hole_size)) x$options$hole_size else hole_size
   )
   x$options <- options
+  x
+}
+
+#' @export
+#' @describeIn chart_settings paretochart settings
+#' @param line stroke for the cumulative percentage line. One of:
+#'   `NULL` (default, matches Excel-native: theme `accent5` colour
+#'   scaled to chart palette), `FALSE` to suppress the line override
+#'   (line then depends on the chartstyle sidecar and may render as
+#'   invisible), or an [officer::fp_border()].
+chart_settings.ms_paretochart <- function(x, line, ...) {
+  warn_unsupported_table(x, ...)
+  line <- if (missing(line)) x$options$line else line
+  if (!is.null(line) && !isFALSE(line) && !inherits(line, "fp_border")) {
+    stop(
+      "`line` must be NULL, FALSE or an officer::fp_border object",
+      call. = FALSE
+    )
+  }
+  x$options <- list(line = line)
+  x
+}
+
+#' @export
+#' @describeIn chart_settings boxplotchart settings
+chart_settings.ms_boxplotchart <- function(x, line, ...) {
+  warn_unsupported_table(x, ...)
+  line <- if (missing(line)) x$options$line else line
+  if (!is.null(line) && !isFALSE(line) && !inherits(line, "fp_border")) {
+    stop(
+      "`line` must be NULL, FALSE or an officer::fp_border object",
+      call. = FALSE
+    )
+  }
+  x$options$line <- line
   x
 }

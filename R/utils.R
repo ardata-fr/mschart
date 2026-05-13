@@ -58,7 +58,8 @@ stock_fill_xml <- function(color) {
   alpha <- elts[4] / 255.0 * 100000
   sprintf(
     "<a:solidFill><a:srgbClr val=\"%s\"><a:alpha val=\"%.0f\"/></a:srgbClr></a:solidFill>",
-    hex, alpha
+    hex,
+    alpha
   )
 }
 

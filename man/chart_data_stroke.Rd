@@ -4,7 +4,7 @@
 \alias{chart_data_stroke}
 \title{Modify marker stroke colour}
 \usage{
-chart_data_stroke(x, values)
+chart_data_stroke(x, values, ...)
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}
@@ -12,6 +12,8 @@ chart_data_stroke(x, values)
 \item{values}{\verb{character(num of series)}: a set of colour values to map data values to.
 It is a named vector, the values will be matched based on the names.
 If it contains only one colour, this colour will be associated to all existing series.}
+
+\item{...}{arguments passed to S3 methods.}
 }
 \value{
 An \code{ms_chart} object.
@@ -28,13 +30,13 @@ my_scatter <- chart_data_stroke(my_scatter,
   values = c(virginica = "black", versicolor = "black", setosa = "black") )
 }
 \seealso{
-Other Series customization functions: 
-\code{\link{chart_data_fill}()},
-\code{\link{chart_data_line_style}()},
-\code{\link{chart_data_line_width}()},
-\code{\link{chart_data_size}()},
-\code{\link{chart_data_smooth}()},
-\code{\link{chart_data_symbol}()},
-\code{\link{chart_labels_text}()}
+Other Series customization functions:
+\code{\link[=chart_data_fill]{chart_data_fill()}},
+\code{\link[=chart_data_line_style]{chart_data_line_style()}},
+\code{\link[=chart_data_line_width]{chart_data_line_width()}},
+\code{\link[=chart_data_size]{chart_data_size()}},
+\code{\link[=chart_data_smooth]{chart_data_smooth()}},
+\code{\link[=chart_data_symbol]{chart_data_symbol()}},
+\code{\link[=chart_labels_text]{chart_labels_text()}}
 }
 \concept{Series customization functions}

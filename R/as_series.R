@@ -42,7 +42,7 @@ as_series <- function(
 
   x_serie_range <- cell_limits(
     ul = c(first_val_row, w_x + col_offset),
-    lr = c(last_val_row,  w_x + col_offset),
+    lr = c(last_val_row, w_x + col_offset),
     sheet = sheetname
   )
 
@@ -80,9 +80,11 @@ as_series <- function(
     y_colname <- names(dataset)[w_y]
     l_colname <- names(dataset)[w_l]
 
-    serie_name_range <- ra_ref(row_ref = header_row,
-                               col_ref = w_y + col_offset,
-                               sheet = sheetname)
+    serie_name_range <- ra_ref(
+      row_ref = header_row,
+      col_ref = w_y + col_offset,
+      sheet = sheetname
+    )
     serie_name_range <- to_string(serie_name_range, fo = "A1")
     if (inherits(dataset, "wb_data")) {
       serie_name_range <- series_wb_name(dataset, w_y)
@@ -97,7 +99,7 @@ as_series <- function(
 
     y_serie_range <- cell_limits(
       ul = c(first_val_row, w_y + col_offset),
-      lr = c(last_val_row,  w_y + col_offset),
+      lr = c(last_val_row, w_y + col_offset),
       sheet = sheetname
     )
 
@@ -120,7 +122,7 @@ as_series <- function(
     if (length(label_columns) > 0) {
       label_serie_range <- cell_limits(
         ul = c(first_val_row, w_l + col_offset),
-        lr = c(last_val_row,  w_l + col_offset),
+        lr = c(last_val_row, w_l + col_offset),
         sheet = sheetname
       )
       label_serie_range <- as.range(
@@ -162,7 +164,7 @@ as_series <- function(
         w_sz <- which(names(dataset) == sz_colname)
         sz_range <- cell_limits(
           ul = c(first_val_row, w_sz + col_offset),
-          lr = c(last_val_row,  w_sz + col_offset),
+          lr = c(last_val_row, w_sz + col_offset),
           sheet = sheetname
         )
         sz_range <- as.range(sz_range, fo = "A1", strict = TRUE, sheet = TRUE)

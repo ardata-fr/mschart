@@ -2,7 +2,7 @@ Type: Package
 Package: mschart
 Title: Chart Generation for 'Microsoft Word', 'Microsoft Excel' and
     'Microsoft PowerPoint' Documents
-Version: 0.4.4.003
+Version: 0.5.0.003
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -39,12 +39,13 @@ Imports:
     data.table,
     grDevices,
     htmltools,
-    officer (>= 0.7.4),
+    officer (>= 0.7.5),
     scales,
     stats,
     utils,
     writexl,
     xml2 (>= 1.1.0)
+Remotes: davidgohel/officer
 Suggests:
     doconv (>= 0.4.0),
     testthat (>= 3.0.0)
@@ -52,4 +53,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.0.0

@@ -41,13 +41,18 @@ test_that("num_fmt with XML metacharacters does not break chart XML (#98)", {
   fmt <- '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
 
   chart <- ms_barchart(
-    data = browser_data, x = "browser", y = "value", group = "serie"
+    data = browser_data,
+    x = "browser",
+    y = "value",
+    group = "serie"
   )
   chart <- chart_ax_y(chart, num_fmt = fmt)
 
   xml <- format(
-    chart, sheetname = "sheet1",
-    id_x = "64451212", id_y = "64453248"
+    chart,
+    sheetname = "sheet1",
+    id_x = "64451212",
+    id_y = "64453248"
   )
 
   doc <- xml2::read_xml(xml)

@@ -2,50 +2,79 @@
 # (verified against to_pml methods)
 .series_property_support <- list(
   fill = c(
-    "ms_barchart", "ms_linechart", "ms_areachart",
-    "ms_scatterchart", "ms_stockchart",
-    "ms_radarchart", "ms_bubblechart", "ms_piechart"
+    "ms_barchart",
+    "ms_linechart",
+    "ms_areachart",
+    "ms_scatterchart",
+    "ms_stockchart",
+    "ms_radarchart",
+    "ms_bubblechart",
+    "ms_piechart"
   ),
   colour = c(
-    "ms_barchart", "ms_linechart", "ms_areachart",
-    "ms_scatterchart", "ms_stockchart",
-    "ms_radarchart", "ms_bubblechart", "ms_piechart"
+    "ms_barchart",
+    "ms_linechart",
+    "ms_areachart",
+    "ms_scatterchart",
+    "ms_stockchart",
+    "ms_radarchart",
+    "ms_bubblechart",
+    "ms_piechart"
   ),
   symbol = c(
-    "ms_linechart", "ms_scatterchart",
-    "ms_stockchart", "ms_radarchart"
+    "ms_linechart",
+    "ms_scatterchart",
+    "ms_stockchart",
+    "ms_radarchart"
   ),
   size = c(
-    "ms_linechart", "ms_scatterchart",
-    "ms_stockchart", "ms_radarchart"
+    "ms_linechart",
+    "ms_scatterchart",
+    "ms_stockchart",
+    "ms_radarchart"
   ),
   line_width = c(
-    "ms_barchart", "ms_linechart", "ms_areachart",
-    "ms_scatterchart", "ms_stockchart",
-    "ms_radarchart", "ms_bubblechart", "ms_piechart"
+    "ms_barchart",
+    "ms_linechart",
+    "ms_areachart",
+    "ms_scatterchart",
+    "ms_stockchart",
+    "ms_radarchart",
+    "ms_bubblechart",
+    "ms_piechart"
   ),
   line_style = c(
-    "ms_linechart", "ms_scatterchart",
-    "ms_stockchart", "ms_radarchart"
+    "ms_linechart",
+    "ms_scatterchart",
+    "ms_stockchart",
+    "ms_radarchart"
   ),
   smooth = c(
-    "ms_linechart", "ms_scatterchart"
+    "ms_linechart",
+    "ms_scatterchart"
   ),
   labels_fp = c(
-    "ms_barchart", "ms_linechart", "ms_areachart",
-    "ms_scatterchart", "ms_radarchart", "ms_piechart"
+    "ms_barchart",
+    "ms_linechart",
+    "ms_areachart",
+    "ms_scatterchart",
+    "ms_radarchart",
+    "ms_piechart"
   )
 )
 
 check_series_property <- function(x, property) {
   chart_type <- class(x)[1]
   supported <- .series_property_support[[property]]
-  if (!is.null(supported) &&
-    !chart_type %in% supported) {
+  if (
+    !is.null(supported) &&
+      !chart_type %in% supported
+  ) {
     warning(
       sprintf(
         "'%s' property has no effect on '%s' charts.",
-        property, chart_type
+        property,
+        chart_type
       ),
       call. = FALSE
     )
@@ -76,7 +105,11 @@ check_series_property <- function(x, property) {
 #'   values = fp_text_settings )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_labels_text <- function(x, values) {
+chart_labels_text <- function(x, values) UseMethod("chart_labels_text")
+
+#' @export
+#' @method chart_labels_text default
+chart_labels_text.default <- function(x, values) {
   check_series_property(x, "labels_fp")
   serie_names <- names(x$series_settings$labels_fp)
 
@@ -103,6 +136,20 @@ chart_labels_text <- function(x, values) {
   x
 }
 
+#' @export
+#' @method chart_labels_text ms_chart_ex
+chart_labels_text.ms_chart_ex <- function(x, values) {
+  if (!inherits(values, "fp_text")) {
+    stop(
+      "for chartEx charts, 'values' must be a single fp_text object",
+      call. = FALSE
+    )
+  }
+  cur <- x$cx_data_labels %||% list()
+  cur$fp <- values
+  x$cx_data_labels <- cur
+  x
+}
 
 #' @export
 #' @title Modify fill colour
@@ -127,6 +174,12 @@ chart_labels_text <- function(x, values) {
 #' @return An `ms_chart` object.
 #' @family Series customization functions
 chart_data_fill <- function(x, values, update_stroke = TRUE) {
+  UseMethod("chart_data_fill")
+}
+
+#' @export
+#' @method chart_data_fill default
+chart_data_fill.default <- function(x, values, update_stroke = TRUE) {
   check_series_property(x, "fill")
   valid_cols <- is_valid_color(values)
   if (!all(valid_cols)) {
@@ -161,6 +214,66 @@ chart_data_fill <- function(x, values, update_stroke = TRUE) {
 }
 
 #' @export
+#' @method chart_data_fill ms_chart_ex
+chart_data_fill.ms_chart_ex <- function(x, values, update_stroke = TRUE) {
+  if (is.null(values) || length(values) == 0L) {
+    stop("values must be a non-empty character vector of colors", call. = FALSE)
+  }
+  if (!is.character(values)) {
+    stop("values must be a character vector of colors", call. = FALSE)
+  }
+  # Validate every color now so we fail fast.
+  for (v in values) {
+    cx_color_hex(v)
+  }
+
+  ds <- x$data_series
+  n <- nrow(ds)
+  per <- rep(NA_character_, n)
+
+  if (length(values) == 1L && is.null(names(values))) {
+    per[] <- cx_color_hex(values)
+  } else if (!is.null(names(values))) {
+    cat_col <- cx_fill_cat_column(x)
+    if (is.na(cat_col)) {
+      stop(
+        "named-vector fill is not supported for ",
+        class(x)[1],
+        " (use a single color instead)",
+        call. = FALSE
+      )
+    }
+    cats <- as.character(ds[[cat_col]])
+    unknown <- setdiff(names(values), unique(cats))
+    if (length(unknown)) {
+      stop(
+        "values' names not found in '",
+        cat_col,
+        "': ",
+        paste(shQuote(unknown), collapse = ", "),
+        call. = FALSE
+      )
+    }
+    for (nm in names(values)) {
+      per[cats == nm] <- cx_color_hex(values[[nm]])
+    }
+  } else if (length(values) == n) {
+    per <- vapply(values, cx_color_hex, character(1))
+  } else {
+    stop(
+      "unnamed `values` must have length 1 or nrow(data_series) (",
+      n,
+      "); got ",
+      length(values),
+      call. = FALSE
+    )
+  }
+
+  x$cx_fill_per_point <- per
+  x
+}
+
+#' @export
 #' @title Modify marker stroke colour
 #' @description Specify mappings from levels in the data to displayed marker stroke colours.
 #' @param x an `ms_chart` object.
@@ -176,7 +289,12 @@ chart_data_fill <- function(x, values, update_stroke = TRUE) {
 #'   values = c(virginica = "black", versicolor = "black", setosa = "black") )
 #' @return An `ms_chart` object.
 #' @family Series customization functions
-chart_data_stroke <- function(x, values) {
+#' @param ... arguments passed to S3 methods.
+chart_data_stroke <- function(x, values, ...) UseMethod("chart_data_stroke")
+
+#' @export
+#' @method chart_data_stroke default
+chart_data_stroke.default <- function(x, values, ...) {
   check_series_property(x, "colour")
   valid_cols <- is_valid_color(values)
   if (!all(valid_cols)) {
@@ -198,6 +316,66 @@ chart_data_stroke <- function(x, values) {
   }
 
   x$series_settings$colour[names(values)] <- values
+  x
+}
+
+#' @export
+#' @method chart_data_stroke ms_chart_ex
+chart_data_stroke.ms_chart_ex <- function(x, values, width = 0.75, ...) {
+  if (is.null(values) || length(values) == 0L) {
+    stop("values must be a non-empty character vector of colors", call. = FALSE)
+  }
+  if (!is.character(values)) {
+    stop("values must be a character vector of colors", call. = FALSE)
+  }
+  for (v in values) {
+    cx_color_hex(v)
+  }
+
+  ds <- x$data_series
+  n <- nrow(ds)
+  per <- rep(NA_character_, n)
+
+  if (length(values) == 1L && is.null(names(values))) {
+    per[] <- cx_color_hex(values)
+  } else if (!is.null(names(values))) {
+    cat_col <- cx_fill_cat_column(x)
+    if (is.na(cat_col)) {
+      stop(
+        "named-vector stroke is not supported for ",
+        class(x)[1],
+        " (use a single color instead)",
+        call. = FALSE
+      )
+    }
+    cats <- as.character(ds[[cat_col]])
+    unknown <- setdiff(names(values), unique(cats))
+    if (length(unknown)) {
+      stop(
+        "values' names not found in '",
+        cat_col,
+        "': ",
+        paste(shQuote(unknown), collapse = ", "),
+        call. = FALSE
+      )
+    }
+    for (nm in names(values)) {
+      per[cats == nm] <- cx_color_hex(values[[nm]])
+    }
+  } else if (length(values) == n) {
+    per <- vapply(values, cx_color_hex, character(1))
+  } else {
+    stop(
+      "unnamed `values` must have length 1 or nrow(data_series) (",
+      n,
+      "); got ",
+      length(values),
+      call. = FALSE
+    )
+  }
+
+  x$cx_stroke_per_point <- per
+  x$cx_stroke_width <- width
   x
 }
 

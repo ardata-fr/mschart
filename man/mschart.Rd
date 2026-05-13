@@ -82,6 +82,11 @@ a chart type that does not support it.\tabular{lcccccccc}{
 \author{
 \strong{Maintainer}: David Gohel \email{david.gohel@ardata.fr}
 
+Authors:
+\itemize{
+  \item David Gohel \email{david.gohel@ardata.fr}
+}
+
 Other contributors:
 \itemize{
   \item ArData [copyright holder]

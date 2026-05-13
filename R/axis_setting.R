@@ -1,6 +1,13 @@
 #' @title X axis settings
-#' @description Define settings for an x axis.
+#' @description Define settings for an x axis. S3 generic; the
+#' `default` method is documented below. ChartEx charts have a leaner
+#' set of supported options - see the package documentation.
 #' @param x an `ms_chart` object.
+#' @param ... arguments passed to S3 methods.
+#' @export
+chart_ax_x <- function(x, ...) UseMethod("chart_ax_x")
+
+#' @rdname chart_ax_x
 #' @param orientation axis orientation, one of 'maxMin', 'minMax'.
 #' @param crosses specifies how the axis crosses the perpendicular
 #' axis, one of 'autoZero', 'max', 'min'.
@@ -90,7 +97,9 @@
 #' chart_01
 #' @seealso [chart_ax_y()], [ms_areachart()], [ms_barchart()], [ms_scatterchart()],
 #' [ms_linechart()]
-chart_ax_x <- function(
+#' @export
+#' @method chart_ax_x default
+chart_ax_x.default <- function(
   x,
   orientation,
   crosses,
@@ -107,7 +116,8 @@ chart_ax_x <- function(
   major_unit,
   minor_unit,
   major_time_unit,
-  minor_time_unit
+  minor_time_unit,
+  ...
 ) {
   stopifnot(inherits(x, "ms_chart"))
 
@@ -196,11 +206,20 @@ chart_ax_x <- function(
 
 
 #' @title Y axis settings
-#' @description Define settings for a y axis.
+#' @description Define settings for a y axis. S3 generic; the
+#' `default` method is documented below. ChartEx charts have a leaner
+#' set of supported options - see the package documentation.
+#' @param x an `ms_chart` object.
+#' @param ... arguments passed to S3 methods.
+#' @export
+chart_ax_y <- function(x, ...) UseMethod("chart_ax_y")
+
+#' @rdname chart_ax_y
 #' @inheritParams chart_ax_x
 #' @inheritSection chart_ax_x num_fmt
 #' @return An `ms_chart` object.
 #' @export
+#' @method chart_ax_y default
 #' @section Illustrations:
 #'
 #' \if{html}{\figure{fig_chart_ax_y_1.png}{options: width="500"}}
@@ -222,7 +241,7 @@ chart_ax_x <- function(
 #' chart_01
 #' @seealso [chart_ax_x()], [ms_areachart()], [ms_barchart()], [ms_scatterchart()],
 #' [ms_linechart()]
-chart_ax_y <- function(
+chart_ax_y.default <- function(
   x,
   orientation,
   crosses,
@@ -239,7 +258,8 @@ chart_ax_y <- function(
   major_unit,
   minor_unit,
   major_time_unit,
-  minor_time_unit
+  minor_time_unit,
+  ...
 ) {
   stopifnot(inherits(x, "ms_chart"))
 
@@ -409,4 +429,87 @@ axis_options <- function(
   )
   class(out) <- "axis_options"
   out
+}
+
+# --- chart_ax_x / chart_ax_y for chartEx (cx:) charts ---------------------
+# chartEx axes are leaner than classic c: axes - many options (orientation,
+# crosses, ticks, ...) are determined by the layoutId or not honoured by
+# Office. Supported: num_fmt, limit_min/max, major_grid/minor_grid (TRUE
+# to keep, FALSE to hide).
+cx_axis_options <- function(
+  num_fmt = NULL,
+  limit_min = NULL,
+  limit_max = NULL,
+  major_grid = NULL,
+  minor_grid = NULL
+) {
+  list(
+    num_fmt = num_fmt,
+    limit_min = limit_min,
+    limit_max = limit_max,
+    major_grid = major_grid,
+    minor_grid = minor_grid
+  )
+}
+
+#' @export
+#' @method chart_ax_x ms_chart_ex
+chart_ax_x.ms_chart_ex <- function(
+  x,
+  num_fmt = NULL,
+  limit_min = NULL,
+  limit_max = NULL,
+  major_grid = NULL,
+  minor_grid = NULL,
+  ...
+) {
+  cur <- x$cx_axis_x %||% list()
+  if (!is.null(num_fmt)) {
+    cur$num_fmt <- num_fmt
+  }
+  if (!is.null(limit_min)) {
+    cur$limit_min <- limit_min
+  }
+  if (!is.null(limit_max)) {
+    cur$limit_max <- limit_max
+  }
+  if (!is.null(major_grid)) {
+    cur$major_grid <- major_grid
+  }
+  if (!is.null(minor_grid)) {
+    cur$minor_grid <- minor_grid
+  }
+  x$cx_axis_x <- cur
+  x
+}
+
+#' @export
+#' @method chart_ax_y ms_chart_ex
+chart_ax_y.ms_chart_ex <- function(
+  x,
+  num_fmt = NULL,
+  limit_min = NULL,
+  limit_max = NULL,
+  major_grid = NULL,
+  minor_grid = NULL,
+  ...
+) {
+  cur <- x$cx_axis_y %||% list()
+  if (!is.null(num_fmt)) {
+    cur$num_fmt <- num_fmt
+  }
+  if (!is.null(limit_min)) {
+    cur$limit_min <- limit_min
+  }
+  if (!is.null(limit_max)) {
+    cur$limit_max <- limit_max
+  }
+  if (!is.null(major_grid)) {
+    cur$major_grid <- major_grid
+  }
+  if (!is.null(minor_grid)) {
+    cur$minor_grid <- minor_grid
+  }
+  x$cx_axis_y <- cur
+  x
 }

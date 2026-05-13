@@ -2,6 +2,7 @@
 % Please edit documentation in R/chart_settings.R
 \name{chart_settings}
 \alias{chart_settings}
+\alias{chart_settings.ms_chart_ex}
 \alias{chart_settings.ms_barchart}
 \alias{chart_settings.ms_linechart}
 \alias{chart_settings.ms_areachart}
@@ -10,9 +11,13 @@
 \alias{chart_settings.ms_radarchart}
 \alias{chart_settings.ms_bubblechart}
 \alias{chart_settings.ms_piechart}
+\alias{chart_settings.ms_paretochart}
+\alias{chart_settings.ms_boxplotchart}
 \title{Set chart options}
 \usage{
 chart_settings(x, ...)
+
+\method{chart_settings}{ms_chart_ex}(x, ...)
 
 \method{chart_settings}{ms_barchart}(x, vary_colors, gap_width, dir, grouping, overlap, table, ...)
 
@@ -39,6 +44,10 @@ chart_settings(x, ...)
 \method{chart_settings}{ms_bubblechart}(x, vary_colors, bubble3D = FALSE, ...)
 
 \method{chart_settings}{ms_piechart}(x, vary_colors, hole_size, ...)
+
+\method{chart_settings}{ms_paretochart}(x, line, ...)
+
+\method{chart_settings}{ms_boxplotchart}(x, line, ...)
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}
@@ -88,6 +97,12 @@ Set to \code{FALSE} to hide them.}
 \item{hole_size}{size of the hole in a doughnut chart, between 0 and 90
 (percent of the radius). Default 0 produces a pie chart;
 values above 0 produce a doughnut chart.}
+
+\item{line}{stroke for the cumulative percentage line. One of:
+\code{NULL} (default, matches Excel-native: theme \code{accent5} colour
+scaled to chart palette), \code{FALSE} to suppress the line override
+(line then depends on the chartstyle sidecar and may render as
+invisible), or an \code{\link[officer:fp_border]{officer::fp_border()}}.}
 }
 \value{
 An \code{ms_chart} object.
@@ -97,6 +112,10 @@ Set chart properties.
 }
 \section{Methods (by class)}{
 \itemize{
+\item \code{chart_settings(ms_chart_ex)}: fallback for chartEx types that expose no
+settings (funnel, histogram, sunburst, treemap, waterfall). Replaces
+the default \verb{no applicable method} error with a discoverable message.
+
 \item \code{chart_settings(ms_barchart)}: barchart settings
 
 \item \code{chart_settings(ms_linechart)}: linechart settings
@@ -112,6 +131,10 @@ Set chart properties.
 \item \code{chart_settings(ms_bubblechart)}: bubblechart settings
 
 \item \code{chart_settings(ms_piechart)}: piechart settings
+
+\item \code{chart_settings(ms_paretochart)}: paretochart settings
+
+\item \code{chart_settings(ms_boxplotchart)}: boxplotchart settings
 
 }}
 \section{Illustrations}{

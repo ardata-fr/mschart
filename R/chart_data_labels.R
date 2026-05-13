@@ -1,9 +1,14 @@
 #' @export
 #' @title Modify data labels settings
-#' @description Data labels show details about data series. This function indicates that
-#' data labels should be displayed. See [chart_labels_text()] for modifying
-#' text settings associated with labels.
+#' @description Data labels show details about data series. S3 generic;
+#' the `default` method is documented below. ChartEx charts honor a
+#' leaner set of options.
 #' @param x an `ms_chart` object.
+#' @param ... arguments passed to S3 methods.
+#' @seealso [chart_labels_text()], [chart_labels()]
+chart_data_labels <- function(x, ...) UseMethod("chart_data_labels")
+
+#' @rdname chart_data_labels
 #' @param num_fmt `character(1)`: number formatting specifies number format properties which
 #' indicate how to format and render the numeric values. It can be "General", "0.00", "#,##0",
 #' "#,##0.00", "mm-dd-yy", "m/d/yy h:mm", etc.
@@ -22,14 +27,15 @@
 #' name, series name, etc.) when multiple components are displayed.
 #' Default is `", "`.
 #' @return An `ms_chart` object.
-#' @seealso [chart_labels_text()], [chart_labels()]
+#' @export
+#' @method chart_data_labels default
 #' @examples
 #' my_bc <- ms_barchart(
 #'   data = browser_data, x = "browser",
 #'   y = "value", group = "serie"
 #' )
 #' my_bc <- chart_data_labels(my_bc, show_val = TRUE, position = "outEnd")
-chart_data_labels <- function(
+chart_data_labels.default <- function(
   x,
   num_fmt = "General",
   position = "ctr",
@@ -38,7 +44,8 @@ chart_data_labels <- function(
   show_cat_name = FALSE,
   show_serie_name = FALSE,
   show_percent = FALSE,
-  separator = ", "
+  separator = ", ",
+  ...
 ) {
   if (!position %in% st_dlblpos) {
     stop(
@@ -78,8 +85,10 @@ to_pml.labels_options <- function(
 
   str_ <- paste0(
     "<c:dLbls>",
-    sprintf("<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>",
-            htmlEscape(x$num_fmt, attribute = TRUE)),
+    sprintf(
+      "<c:numFmt formatCode=\"%s\" sourceLinked=\"0\"/>",
+      htmlEscape(x$num_fmt, attribute = TRUE)
+    ),
     txpr,
     if (with_position) sprintf("<c:dLblPos val=\"%s\"/>", x$position),
     sprintf("<c:showLegendKey val=\"%.0f\"/>", x$show_legend_key),
@@ -103,4 +112,35 @@ to_pml.labels_options <- function(
   )
 
   str_
+}
+
+#' @export
+#' @method chart_data_labels ms_chart_ex
+chart_data_labels.ms_chart_ex <- function(
+  x,
+  show_val = NULL,
+  show_cat = NULL,
+  show_serie = NULL,
+  position = NULL,
+  num_fmt = NULL,
+  ...
+) {
+  cur <- x$cx_data_labels %||% list()
+  if (!is.null(show_val)) {
+    cur$show_val <- isTRUE(show_val)
+  }
+  if (!is.null(show_cat)) {
+    cur$show_cat <- isTRUE(show_cat)
+  }
+  if (!is.null(show_serie)) {
+    cur$show_serie <- isTRUE(show_serie)
+  }
+  if (!is.null(position)) {
+    cur$position <- position
+  }
+  if (!is.null(num_fmt)) {
+    cur$num_fmt <- num_fmt
+  }
+  x$cx_data_labels <- cur
+  x
 }

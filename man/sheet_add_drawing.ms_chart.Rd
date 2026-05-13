@@ -15,6 +15,8 @@
   top = 1,
   width = 6,
   height = 4,
+  anchor = NULL,
+  edit_as = c("twoCell", "oneCell", "absolute"),
   ...
 )
 }
@@ -44,11 +46,24 @@ dataset, or when inserting a chart that references data written
 independently via \code{\link[officer:sheet_write_data]{officer::sheet_write_data()}}).}
 
 \item{left, top}{top-left anchor of the chart, in inches.
-Defaults to \verb{(1, 1)}. Same convention as
-\code{\link[officer:sheet_add_drawing]{officer::sheet_add_drawing()}} and \code{rvg::sheet_add_drawing.dml()}.}
+Defaults to \verb{(1, 1)}. Used when \code{anchor = NULL}. Same convention
+as \code{\link[officer:sheet_add_drawing]{officer::sheet_add_drawing()}} and \code{rvg::sheet_add_drawing.dml()}.}
 
 \item{width, height}{size of the chart, in inches. Defaults
-to \verb{6 x 4}.}
+to \verb{6 x 4}. Used when \code{anchor = NULL} or when \code{anchor} is a single
+cell reference.}
+
+\item{anchor}{optional Excel cell-based anchor. Either \code{NULL} (the
+default; absolute placement via \code{left}/\code{top}/\code{width}/\code{height}), a
+single cell reference like \code{"B2"} (the chart is anchored to that
+cell and keeps \code{width}/\code{height}, i.e. "Move but don't size with
+cells"), or a range like \code{"B2:H20"} (the chart is anchored from
+the first cell to the second, i.e. Excel's default "Move and size
+with cells").}
+
+\item{edit_as}{one of \code{"twoCell"}, \code{"oneCell"}, \code{"absolute"}. Sets
+the \code{editAs} attribute on \verb{<xdr:twoCellAnchor>}. Ignored unless
+\code{anchor} is a range.}
 
 \item{...}{unused}
 }

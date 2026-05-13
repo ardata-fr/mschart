@@ -22,11 +22,17 @@ pml_chart <- function(x, value, id_x, id_y) {
     paste0(basename(chart_file), ".rels")
   )
 
+  extra_rels <- chart_extra_parts(value, charts_dir, x$content_type)
   rel_str <- paste0(
     "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
-    "<Relationships  xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/package\" Target=\"../embeddings/%s\"/></Relationships>"
+    "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">",
+    sprintf(
+      "<Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/package\" Target=\"../embeddings/%s\"/>",
+      basename(xlsx_file)
+    ),
+    extra_rels,
+    "</Relationships>"
   )
-  rel_str <- sprintf(rel_str, basename(xlsx_file))
   writeLines(rel_str, rel_filename, useBytes = TRUE)
 
   write_xlsx(x = list("sheet1" = value$data_series), path = xlsx_file)
@@ -37,12 +43,11 @@ pml_chart <- function(x, value, id_x, id_y) {
   next_id <- slide$relationship()$get_next_id()
   slide$relationship()$add(
     paste0("rId", next_id),
-    type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart",
+    type = chart_part_rel_type(value),
     target = paste0("../charts/", basename(chart_file))
   )
 
-  reference_ <- "<c:chart xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" r:id=\"rId%.0f\"/>"
-  reference_ <- sprintf(reference_, next_id)
+  reference_ <- chart_reference_xml(value, next_id)
   graphic_frame <- paste0(
     "<p:graphicFrame ",
     "xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" ",
@@ -58,7 +63,7 @@ pml_chart <- function(x, value, id_x, id_y) {
     "<a:ext cx=\"0\" cy=\"0\"/>",
     "</p:xfrm>",
     "<a:graphic>",
-    "<a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/chart\">",
+    sprintf("<a:graphicData uri=\"%s\">", chart_graphicdata_uri(value)),
     reference_,
     "</a:graphicData>",
     "</a:graphic>",
@@ -66,10 +71,7 @@ pml_chart <- function(x, value, id_x, id_y) {
   )
 
   partname <- file.path("/ppt/charts", basename(chart_file))
-  override <- setNames(
-    "application/vnd.openxmlformats-officedocument.drawingml.chart+xml",
-    partname
-  )
+  override <- setNames(chart_part_content_type(value), partname)
   x$content_type$add_override(value = override)
   graphic_frame
 }

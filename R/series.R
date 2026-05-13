@@ -10,6 +10,7 @@ str_ref <- function(values, region = NULL, num_fmt = NULL) {
 }
 
 #' @importFrom stats update
+#' @export
 update.col_ref <- function(
   object,
   values = NULL,

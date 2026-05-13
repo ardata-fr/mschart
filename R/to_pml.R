@@ -229,8 +229,10 @@ to_pml.ms_stockchart <- function(
     )
     line_str <- ooxml_fp_border(line_properties, in_tags = c("c:spPr"))
     marker_str <- get_marker_xml(
-      serie$fill, serie$stroke,
-      serie$symbol, serie$size
+      serie$fill,
+      serie$stroke,
+      serie$symbol,
+      serie$size
     )
 
     paste0(
@@ -240,8 +242,12 @@ to_pml.ms_stockchart <- function(
       sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
       line_str,
       marker_str,
-      "<c:cat>", to_pml(serie$x), "</c:cat>",
-      "<c:val>", to_pml(serie$y), "</c:val>",
+      "<c:cat>",
+      to_pml(serie$x),
+      "</c:cat>",
+      "<c:val>",
+      to_pml(serie$y),
+      "</c:val>",
       "<c:smooth val=\"0\"/>",
       "</c:ser>"
     )
@@ -270,8 +276,14 @@ to_pml.ms_stockchart <- function(
     up_down_str <- paste0(
       "<c:upDownBars>",
       "<c:gapWidth val=\"150\"/>",
-      "<c:upBars><c:spPr>", up_fill, up_border, "</c:spPr></c:upBars>",
-      "<c:downBars><c:spPr>", down_fill, down_border, "</c:spPr></c:downBars>",
+      "<c:upBars><c:spPr>",
+      up_fill,
+      up_border,
+      "</c:spPr></c:upBars>",
+      "<c:downBars><c:spPr>",
+      down_fill,
+      down_border,
+      "</c:spPr></c:downBars>",
       "</c:upDownBars>"
     )
   }
@@ -318,10 +330,14 @@ to_pml.ms_radarchart <- function(
   )
 
   has_lines <- c(
-    standard = TRUE, marker = TRUE, filled = TRUE
+    standard = TRUE,
+    marker = TRUE,
+    filled = TRUE
   )
   has_markers <- c(
-    standard = FALSE, marker = TRUE, filled = FALSE
+    standard = FALSE,
+    marker = TRUE,
+    filled = FALSE
   )
 
   str_series_ <- sapply(
@@ -341,8 +357,10 @@ to_pml.ms_radarchart <- function(
         marker_str <- "<c:marker><c:symbol val=\"none\"/></c:marker>"
       } else {
         marker_str <- get_marker_xml(
-          serie$fill, serie$stroke,
-          serie$symbol, serie$size
+          serie$fill,
+          serie$stroke,
+          serie$symbol,
+          serie$size
         )
       }
 
@@ -361,11 +379,17 @@ to_pml.ms_radarchart <- function(
         sprintf("<c:tx>%s</c:tx>", to_pml(serie$tx)),
         line_str,
         marker_str,
-        to_pml(label_settings,
-               with_position = FALSE,
-               show_label = !is.null(x$label_cols)),
-        "<c:cat>", to_pml(serie$x), "</c:cat>",
-        "<c:val>", to_pml(serie$y), "</c:val>",
+        to_pml(
+          label_settings,
+          with_position = FALSE,
+          show_label = !is.null(x$label_cols)
+        ),
+        "<c:cat>",
+        to_pml(serie$x),
+        "</c:cat>",
+        "<c:val>",
+        to_pml(serie$y),
+        "</c:val>",
         "</c:ser>"
       )
     },
@@ -383,9 +407,11 @@ to_pml.ms_radarchart <- function(
     sprintf("<c:radarStyle val=\"%s\"/>", x$options$radarstyle),
     sprintf("<c:varyColors val=\"%.0f\"/>", x$options$vary_colors),
     str_series_,
-    to_pml(x$label_settings,
-           with_position = FALSE,
-           show_label = !is.null(x$label_cols)),
+    to_pml(
+      x$label_settings,
+      with_position = FALSE,
+      show_label = !is.null(x$label_cols)
+    ),
     x_ax_id,
     y_ax_id,
     "</c:radarChart>"
@@ -428,7 +454,9 @@ to_pml.ms_bubblechart <- function(
     bubble_size_str <- ""
     if (!is.null(serie$bubble_size)) {
       bubble_size_str <- paste0(
-        "<c:bubbleSize>", to_pml(serie$bubble_size), "</c:bubbleSize>"
+        "<c:bubbleSize>",
+        to_pml(serie$bubble_size),
+        "</c:bubbleSize>"
       )
     }
 
@@ -440,8 +468,12 @@ to_pml.ms_bubblechart <- function(
       sppr_str,
       to_pml(label_settings, show_label = !is.null(x$label_cols)),
       "<c:invertIfNegative val=\"0\"/>",
-      "<c:xVal>", to_pml(serie$x), "</c:xVal>",
-      "<c:yVal>", to_pml(serie$y), "</c:yVal>",
+      "<c:xVal>",
+      to_pml(serie$x),
+      "</c:xVal>",
+      "<c:yVal>",
+      to_pml(serie$y),
+      "</c:yVal>",
       bubble_size_str,
       sprintf(
         "<c:bubble3D val=\"%.0f\"/>",

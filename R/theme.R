@@ -216,10 +216,16 @@ validate_legend_fraction <- function(value, name) {
   if (is.null(value)) {
     return(invisible(NULL))
   }
-  if (!is.numeric(value) || length(value) != 1 || is.na(value) ||
-      value < 0 || value > 1) {
+  if (
+    !is.numeric(value) ||
+      length(value) != 1 ||
+      is.na(value) ||
+      value < 0 ||
+      value > 1
+  ) {
     stop(
-      "`", name,
+      "`",
+      name,
       "` must be NULL or a single numeric value between 0 and 1.",
       call. = FALSE
     )

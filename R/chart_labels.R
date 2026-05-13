@@ -48,7 +48,9 @@ validate_label <- function(value, name) {
   }
   if (!is.character(value) || length(value) != 1 || is.na(value)) {
     stop(
-      "`", name, "` must be NULL or a single non-NA character string.",
+      "`",
+      name,
+      "` must be NULL or a single non-NA character string.",
       call. = FALSE
     )
   }

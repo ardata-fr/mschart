@@ -32,13 +32,13 @@ my_scatter <- chart_data_symbol(my_scatter,
   values = c(virginica = "circle", versicolor = "diamond", setosa = "circle") )
 }
 \seealso{
-Other Series customization functions: 
-\code{\link{chart_data_fill}()},
-\code{\link{chart_data_line_style}()},
-\code{\link{chart_data_line_width}()},
-\code{\link{chart_data_size}()},
-\code{\link{chart_data_smooth}()},
-\code{\link{chart_data_stroke}()},
-\code{\link{chart_labels_text}()}
+Other Series customization functions:
+\code{\link[=chart_data_fill]{chart_data_fill()}},
+\code{\link[=chart_data_line_style]{chart_data_line_style()}},
+\code{\link[=chart_data_line_width]{chart_data_line_width()}},
+\code{\link[=chart_data_size]{chart_data_size()}},
+\code{\link[=chart_data_smooth]{chart_data_smooth()}},
+\code{\link[=chart_data_stroke]{chart_data_stroke()}},
+\code{\link[=chart_labels_text]{chart_labels_text()}}
 }
 \concept{Series customization functions}

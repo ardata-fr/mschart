@@ -35,13 +35,13 @@ my_scatter <- chart_data_fill(my_scatter,
   values = c(virginica = "#6FA2FF", versicolor = "#FF6161", setosa = "#81FF5B") )
 }
 \seealso{
-Other Series customization functions: 
-\code{\link{chart_data_line_style}()},
-\code{\link{chart_data_line_width}()},
-\code{\link{chart_data_size}()},
-\code{\link{chart_data_smooth}()},
-\code{\link{chart_data_stroke}()},
-\code{\link{chart_data_symbol}()},
-\code{\link{chart_labels_text}()}
+Other Series customization functions:
+\code{\link[=chart_data_line_style]{chart_data_line_style()}},
+\code{\link[=chart_data_line_width]{chart_data_line_width()}},
+\code{\link[=chart_data_size]{chart_data_size()}},
+\code{\link[=chart_data_smooth]{chart_data_smooth()}},
+\code{\link[=chart_data_stroke]{chart_data_stroke()}},
+\code{\link[=chart_data_symbol]{chart_data_symbol()}},
+\code{\link[=chart_labels_text]{chart_labels_text()}}
 }
 \concept{Series customization functions}

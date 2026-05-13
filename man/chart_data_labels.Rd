@@ -2,9 +2,12 @@
 % Please edit documentation in R/chart_data_labels.R
 \name{chart_data_labels}
 \alias{chart_data_labels}
+\alias{chart_data_labels.default}
 \title{Modify data labels settings}
 \usage{
-chart_data_labels(
+chart_data_labels(x, ...)
+
+\method{chart_data_labels}{default}(
   x,
   num_fmt = "General",
   position = "ctr",
@@ -13,11 +16,14 @@ chart_data_labels(
   show_cat_name = FALSE,
   show_serie_name = FALSE,
   show_percent = FALSE,
-  separator = ", "
+  separator = ", ",
+  ...
 )
 }
 \arguments{
 \item{x}{an \code{ms_chart} object.}
+
+\item{...}{arguments passed to S3 methods.}
 
 \item{num_fmt}{\code{character(1)}: number formatting specifies number format properties which
 indicate how to format and render the numeric values. It can be "General", "0.00", "#,##0",
@@ -48,9 +54,9 @@ Default is \code{", "}.}
 An \code{ms_chart} object.
 }
 \description{
-Data labels show details about data series. This function indicates that
-data labels should be displayed. See \code{\link[=chart_labels_text]{chart_labels_text()}} for modifying
-text settings associated with labels.
+Data labels show details about data series. S3 generic;
+the \code{default} method is documented below. ChartEx charts honor a
+leaner set of options.
 }
 \examples{
 my_bc <- ms_barchart(

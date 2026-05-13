@@ -28,13 +28,13 @@ linec <- chart_data_smooth(linec,
   values = c(virginica = 0, versicolor = 0, setosa = 0) )
 }
 \seealso{
-Other Series customization functions: 
-\code{\link{chart_data_fill}()},
-\code{\link{chart_data_line_style}()},
-\code{\link{chart_data_line_width}()},
-\code{\link{chart_data_size}()},
-\code{\link{chart_data_stroke}()},
-\code{\link{chart_data_symbol}()},
-\code{\link{chart_labels_text}()}
+Other Series customization functions:
+\code{\link[=chart_data_fill]{chart_data_fill()}},
+\code{\link[=chart_data_line_style]{chart_data_line_style()}},
+\code{\link[=chart_data_line_width]{chart_data_line_width()}},
+\code{\link[=chart_data_size]{chart_data_size()}},
+\code{\link[=chart_data_stroke]{chart_data_stroke()}},
+\code{\link[=chart_data_symbol]{chart_data_symbol()}},
+\code{\link[=chart_labels_text]{chart_labels_text()}}
 }
 \concept{Series customization functions}
