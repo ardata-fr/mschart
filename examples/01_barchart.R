@@ -203,11 +203,12 @@ chart_07 <- chart_labels(chart_07,
 # example chart 08 -------
 # Wide-format input: each series is its own column. Pass the series
 # column names as a vector in `y` and set `asis = TRUE`.
-browser_wide <- reshape(browser_data,
-  idvar = "browser", timevar = "serie",
-  direction = "wide"
+browser_wide <- data.frame(
+  browser = unique(browser_data$browser),
+  serie1  = browser_data$value[browser_data$serie == "serie1"],
+  serie2  = browser_data$value[browser_data$serie == "serie2"],
+  serie3  = browser_data$value[browser_data$serie == "serie3"]
 )
-names(browser_wide) <- c("browser", "serie1", "serie2", "serie3")
 chart_08 <- ms_barchart(
   data = browser_wide,
   x = "browser",
