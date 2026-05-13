@@ -24,7 +24,11 @@ associated with the chart.}
 \item{asis}{logical parameter defaulting to FALSE. When FALSE, the data is
 reshaped internally so that each series becomes a separate column. When TRUE,
 the data is used as-is and must already have one column for categories and
-one column per series.}
+one column per series, and \code{y} accepts a vector of series column names.
+\code{asis} describes the \emph{input shape} read by the constructor. Not to be
+confused with the \code{write_data} argument of \code{\link[=sheet_add_drawing.ms_chart]{sheet_add_drawing.ms_chart()}},
+which controls whether \code{mschart} writes the chart's data into an Excel
+sheet at embed time. The two are independent.}
 }
 \value{
 An \code{ms_chart} object.
@@ -262,6 +266,22 @@ chart_07 <- chart_labels(chart_07,
   title = "Series and legend ordered via factor levels"
 )
 # print(chart_07, preview = TRUE)
+
+# example chart 08 -------
+# Wide-format input: each series is its own column. Pass the series
+# column names as a vector in `y` and set `asis = TRUE`.
+browser_wide <- reshape(browser_data,
+  idvar = "browser", timevar = "serie",
+  direction = "wide"
+)
+names(browser_wide) <- c("browser", "serie1", "serie2", "serie3")
+chart_08 <- ms_barchart(
+  data = browser_wide,
+  x = "browser",
+  y = c("serie1", "serie2", "serie3"),
+  asis = TRUE
+)
+# print(chart_08, preview = TRUE)
 }
 \seealso{
 \code{\link[=chart_settings]{chart_settings()}}, \code{\link[=chart_ax_x]{chart_ax_x()}}, \code{\link[=chart_ax_y]{chart_ax_y()}},

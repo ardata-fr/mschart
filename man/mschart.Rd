@@ -17,7 +17,9 @@ allows only a subset of the charts possible with 'Office Chart'. The package is
 often used to industrialize graphs that are then consumed and annotated by non-R
 users.
 
-The following chart types are available:
+The following chart types are available.
+
+Classical charts (Office 2007+ DrawingML pipeline):
 \itemize{
 \item bar charts: \code{\link[=ms_barchart]{ms_barchart()}}
 \item line charts: \code{\link[=ms_linechart]{ms_linechart()}}
@@ -29,8 +31,20 @@ The following chart types are available:
 \item stock charts (HLC and OHLC): \code{\link[=ms_stockchart]{ms_stockchart()}}
 }
 
-Several chart types can be combined on a single chart, with an
-optional secondary axis, using \code{\link[=ms_chart_combine]{ms_chart_combine()}}.
+chartEx charts (Office 2016+ pipeline; older viewers show a
+placeholder):
+\itemize{
+\item box-and-whisker: \code{\link[=ms_boxplotchart]{ms_boxplotchart()}}
+\item funnel: \code{\link[=ms_funnelchart]{ms_funnelchart()}}
+\item histogram: \code{\link[=ms_histogramchart]{ms_histogramchart()}}
+\item pareto: \code{\link[=ms_paretochart]{ms_paretochart()}}
+\item sunburst: \code{\link[=ms_sunburstchart]{ms_sunburstchart()}}
+\item treemap: \code{\link[=ms_treemapchart]{ms_treemapchart()}}
+\item waterfall: \code{\link[=ms_waterfallchart]{ms_waterfallchart()}}
+}
+
+Several classical chart types can be combined on a single chart,
+with an optional secondary axis (y or x), using \code{\link[=ms_chart_combine]{ms_chart_combine()}}.
 
 These functions create a 'chart' object that can be customized:
 \itemize{
@@ -60,9 +74,10 @@ You can add a chart into an Excel sheet with function \code{\link[=sheet_add_dra
 \subsection{Series styling properties by chart type}{
 
 Not all series styling properties have an effect on every
-chart type. The following table shows which properties are
-supported. A warning is emitted when a property is set on
-a chart type that does not support it.\tabular{lcccccccc}{
+chart type. A warning is emitted when a property is set on
+a chart type that does not support it.
+
+Classical charts:\tabular{lcccccccc}{
    Property \tab bar \tab line \tab area \tab scatter \tab stock \tab radar \tab bubble \tab pie \cr
    fill \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab x \cr
    colour \tab x \tab x \tab x \tab x \tab x \tab x \tab x \tab x \cr
@@ -74,6 +89,43 @@ a chart type that does not support it.\tabular{lcccccccc}{
    labels_fp \tab x \tab x \tab x \tab x \tab  \tab x \tab  \tab x \cr
 }
 
+
+chartEx charts expose a narrower set of styling knobs, since most
+visual aspects are computed by Office from the data (bins, levels,
+connectors, ...). For these, prefer the chart-type-specific
+\code{chart_settings()} method when one is available (e.g. for pareto
+and boxplot: \code{chart_settings(x, line = fp_border(...))}).\tabular{lccccccc}{
+   Property \tab boxplot \tab funnel \tab histogram \tab pareto \tab sunburst \tab treemap \tab waterfall \cr
+   fill \tab x \tab x \tab x \tab x \tab x \tab x \tab x \cr
+   colour \tab x \tab x \tab x \tab x \tab x \tab x \tab x \cr
+   labels_fp \tab x \tab x \tab x \tab x \tab x \tab x \tab x \cr
+}
+
+}
+
+\subsection{Two arguments often confused: \code{asis} and \code{write_data}}{
+
+\code{asis} is a \strong{constructor argument} (on \code{\link[=ms_barchart]{ms_barchart()}},
+\code{\link[=ms_linechart]{ms_linechart()}} and most other classical constructors). It
+describes the \emph{input shape} of the data frame:
+\itemize{
+\item \code{asis = FALSE} (default): long format, with a \code{group} column that
+splits the rows into series. \code{mschart} reshapes the data
+internally.
+\item \code{asis = TRUE}: wide format, with one column per series. \code{y}
+accepts a vector of series column names.
+}
+
+\code{write_data} is an \strong{embed-time argument} of
+\code{\link[=sheet_add_drawing.ms_chart]{sheet_add_drawing.ms_chart()}} for the Excel pipeline. It decides
+whether \code{mschart} writes the chart's data into the target sheet
+(\code{TRUE}, the default) or leaves you in charge of placing it via
+\code{\link[officer:sheet_write_data]{officer::sheet_write_data()}} (\code{FALSE}, recommended for non-trivial
+workbooks).
+
+The two arguments are independent: a chart built with \code{asis = TRUE}
+can still be embedded with either \code{write_data = TRUE} or
+\code{write_data = FALSE}.
 }
 }
 \seealso{

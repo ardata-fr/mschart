@@ -26,7 +26,11 @@ associated with the chart.}
 \item{asis}{logical parameter defaulting to FALSE. When FALSE, the data is
 reshaped internally so that each series becomes a separate column. When TRUE,
 the data is used as-is and must already have one column for categories and
-one column per series.}
+one column per series, and \code{y} accepts a vector of series column names.
+\code{asis} describes the \emph{input shape} read by the constructor. Not to be
+confused with the \code{write_data} argument of \code{\link[=sheet_add_drawing.ms_chart]{sheet_add_drawing.ms_chart()}},
+which controls whether \code{mschart} writes the chart's data into an Excel
+sheet at embed time. The two are independent.}
 }
 \value{
 An \code{ms_chart} object.

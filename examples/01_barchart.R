@@ -199,3 +199,19 @@ chart_07 <- chart_labels(chart_07,
   title = "Series and legend ordered via factor levels"
 )
 # print(chart_07, preview = TRUE)
+
+# example chart 08 -------
+# Wide-format input: each series is its own column. Pass the series
+# column names as a vector in `y` and set `asis = TRUE`.
+browser_wide <- reshape(browser_data,
+  idvar = "browser", timevar = "serie",
+  direction = "wide"
+)
+names(browser_wide) <- c("browser", "serie1", "serie2", "serie3")
+chart_08 <- ms_barchart(
+  data = browser_wide,
+  x = "browser",
+  y = c("serie1", "serie2", "serie3"),
+  asis = TRUE
+)
+# print(chart_08, preview = TRUE)

@@ -43,7 +43,10 @@ written.}
 Pass \code{FALSE} when the data is already present in the sheet (for
 example to avoid rewriting it when several charts share the same
 dataset, or when inserting a chart that references data written
-independently via \code{\link[officer:sheet_write_data]{officer::sheet_write_data()}}).}
+independently via \code{\link[officer:sheet_write_data]{officer::sheet_write_data()}}).
+Not to be confused with the constructor's \code{asis} argument (see
+\code{\link[=ms_barchart]{ms_barchart()}}), which controls how the input data frame is read
+at construction time. The two are independent.}
 
 \item{left, top}{top-left anchor of the chart, in inches.
 Defaults to \verb{(1, 1)}. Used when \code{anchor = NULL}. Same convention

@@ -21,6 +21,9 @@
 #' example to avoid rewriting it when several charts share the same
 #' dataset, or when inserting a chart that references data written
 #' independently via [officer::sheet_write_data()]).
+#' Not to be confused with the constructor's `asis` argument (see
+#' [ms_barchart()]), which controls how the input data frame is read
+#' at construction time. The two are independent.
 #' @param left,top top-left anchor of the chart, in inches.
 #'   Defaults to `(1, 1)`. Used when `anchor = NULL`. Same convention
 #'   as [officer::sheet_add_drawing()] and `rvg::sheet_add_drawing.dml()`.

@@ -56,7 +56,11 @@ assert_pie <- function(data_x, data_y) {
 #' @param asis logical parameter defaulting to FALSE. When FALSE, the data is
 #' reshaped internally so that each series becomes a separate column. When TRUE,
 #' the data is used as-is and must already have one column for categories and
-#' one column per series.
+#' one column per series, and `y` accepts a vector of series column names.
+#' `asis` describes the *input shape* read by the constructor. Not to be
+#' confused with the `write_data` argument of [sheet_add_drawing.ms_chart()],
+#' which controls whether `mschart` writes the chart's data into an Excel
+#' sheet at embed time. The two are independent.
 #' @return An `ms_chart` object.
 #' @export
 #' @family 'Office' chart objects

@@ -11,7 +11,9 @@
 #' often used to industrialize graphs that are then consumed and annotated by non-R
 #' users.
 #'
-#' The following chart types are available:
+#' The following chart types are available.
+#'
+#' Classical charts (Office 2007+ DrawingML pipeline):
 #'
 #' * bar charts: [ms_barchart()]
 #' * line charts: [ms_linechart()]
@@ -22,8 +24,19 @@
 #' * radar (spider) charts: [ms_radarchart()]
 #' * stock charts (HLC and OHLC): [ms_stockchart()]
 #'
-#' Several chart types can be combined on a single chart, with an
-#' optional secondary axis, using [ms_chart_combine()].
+#' chartEx charts (Office 2016+ pipeline; older viewers show a
+#' placeholder):
+#'
+#' * box-and-whisker: [ms_boxplotchart()]
+#' * funnel: [ms_funnelchart()]
+#' * histogram: [ms_histogramchart()]
+#' * pareto: [ms_paretochart()]
+#' * sunburst: [ms_sunburstchart()]
+#' * treemap: [ms_treemapchart()]
+#' * waterfall: [ms_waterfallchart()]
+#'
+#' Several classical chart types can be combined on a single chart,
+#' with an optional secondary axis (y or x), using [ms_chart_combine()].
 #'
 #' These functions create a 'chart' object that can be customized:
 #'
@@ -52,9 +65,10 @@
 #' ## Series styling properties by chart type
 #'
 #' Not all series styling properties have an effect on every
-#' chart type. The following table shows which properties are
-#' supported. A warning is emitted when a property is set on
+#' chart type. A warning is emitted when a property is set on
 #' a chart type that does not support it.
+#'
+#' Classical charts:
 #'
 #' | Property | bar | line | area | scatter | stock | radar | bubble | pie |
 #' |:-----------|:---:|:----:|:----:|:-------:|:-----:|:-----:|:------:|:---:|
@@ -66,6 +80,41 @@
 #' | line_style |     | x    |      | x       | x     | x     |        |     |
 #' | smooth     |     | x    |      | x       |       |       |        |     |
 #' | labels_fp  | x   | x    | x    | x       |       | x     |        | x   |
+#'
+#' chartEx charts expose a narrower set of styling knobs, since most
+#' visual aspects are computed by Office from the data (bins, levels,
+#' connectors, ...). For these, prefer the chart-type-specific
+#' `chart_settings()` method when one is available (e.g. for pareto
+#' and boxplot: `chart_settings(x, line = fp_border(...))`).
+#'
+#' | Property | boxplot | funnel | histogram | pareto | sunburst | treemap | waterfall |
+#' |:-----------|:-------:|:------:|:---------:|:------:|:--------:|:-------:|:---------:|
+#' | fill       | x       | x      | x         | x      | x        | x       | x         |
+#' | colour     | x       | x      | x         | x      | x        | x       | x         |
+#' | labels_fp  | x       | x      | x         | x      | x        | x       | x         |
+#'
+#' ## Two arguments often confused: `asis` and `write_data`
+#'
+#' `asis` is a **constructor argument** (on [ms_barchart()],
+#' [ms_linechart()] and most other classical constructors). It
+#' describes the *input shape* of the data frame:
+#'
+#' * `asis = FALSE` (default): long format, with a `group` column that
+#'   splits the rows into series. `mschart` reshapes the data
+#'   internally.
+#' * `asis = TRUE`: wide format, with one column per series. `y`
+#'   accepts a vector of series column names.
+#'
+#' `write_data` is an **embed-time argument** of
+#' [sheet_add_drawing.ms_chart()] for the Excel pipeline. It decides
+#' whether `mschart` writes the chart's data into the target sheet
+#' (`TRUE`, the default) or leaves you in charge of placing it via
+#' [officer::sheet_write_data()] (`FALSE`, recommended for non-trivial
+#' workbooks).
+#'
+#' The two arguments are independent: a chart built with `asis = TRUE`
+#' can still be embedded with either `write_data = TRUE` or
+#' `write_data = FALSE`.
 #'
 #' @seealso \url{https://ardata-fr.github.io/officeverse/}
 #' @name mschart
