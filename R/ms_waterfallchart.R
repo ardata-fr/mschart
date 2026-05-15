@@ -139,7 +139,7 @@ format.ms_waterfallchart <- function(
     ""
   }
 
-  unique_id <- x$unique_id %||% cx_unique_id()
+  unique_id <- x$unique_id %||% uuid_generate()
   fill <- cx_render_series_fill(x)
   series_xml <- paste0(
     sprintf(

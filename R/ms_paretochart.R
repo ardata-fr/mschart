@@ -129,8 +129,8 @@ format.ms_paretochart <- function(
     "</cx:numDim>"
   )
 
-  unique_id_col <- x$unique_id %||% cx_unique_id()
-  unique_id_line <- cx_unique_id()
+  unique_id_col <- x$unique_id %||% uuid_generate()
+  unique_id_line <- uuid_generate()
   agg_xml <- if (x$aggregate) "<cx:aggregation/>" else ""
   fill <- cx_render_series_fill(x)
 

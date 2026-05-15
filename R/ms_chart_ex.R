@@ -194,7 +194,7 @@ cx_format_hierarchical <- function(
     "</cx:numDim>"
   )
 
-  unique_id <- x$unique_id %||% cx_unique_id()
+  unique_id <- x$unique_id %||% uuid_generate()
   fill <- cx_render_series_fill(x)
   series_xml <- paste0(
     sprintf(
@@ -308,13 +308,4 @@ cx_num_lvl <- function(values, format_code = "General") {
     format_code,
     pts
   )
-}
-
-# Generate a chartEx-style uniqueId GUID. Office uses uppercase hex
-# wrapped in braces.
-cx_unique_id <- function() {
-  hex <- function(n) {
-    paste(sprintf("%X", sample.int(16L, n, replace = TRUE) - 1L), collapse = "")
-  }
-  sprintf("{%s-%s-%s-%s-%s}", hex(8), hex(4), hex(4), hex(4), hex(12))
 }

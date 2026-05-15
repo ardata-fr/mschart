@@ -93,6 +93,7 @@ ms_boxplotchart <- function(
   out
 }
 
+#' @importFrom officer uuid_generate
 #' @export
 #' @method format ms_boxplotchart
 format.ms_boxplotchart <- function(
@@ -123,7 +124,7 @@ format.ms_boxplotchart <- function(
     "</cx:numDim>"
   )
 
-  unique_id <- x$unique_id %||% cx_unique_id()
+  unique_id <- x$unique_id %||% uuid_generate()
   fill <- cx_render_series_fill(x)
   # Inject a default stroke override only when chart_data_fill/stroke
   # produced no <cx:spPr>: a series can only carry one <cx:spPr> block
