@@ -62,17 +62,21 @@ ms_paretochart <- function(data, x, y = NULL, aggregate = TRUE) {
 
   # Build the embedded series: when y is omitted, fill column B with 1s
   # (Office aggregates these to a count). When y is provided, keep it.
+  # data_series has a fixed positional layout (col 1 = category, col 2 = value);
+  # downstream code accesses it by position, so column names only matter as the
+  # Excel header. Use make.unique to avoid duplicate headers when the user's
+  # x column happens to share its name with the synthesized value column.
   y_label <- y %||% "count"
   if (is.null(y)) {
     data_series <- data.frame(
-      x = data[[x]],
-      count = rep(1L, nrow(data)),
+      data[[x]],
+      rep(1L, nrow(data)),
       stringsAsFactors = FALSE
     )
-    names(data_series) <- c(x, y_label)
   } else {
     data_series <- data[, c(x, y), drop = FALSE]
   }
+  names(data_series) <- make.unique(c(x, y_label))
   rownames(data_series) <- NULL
 
   out <- list(
@@ -106,21 +110,22 @@ format.ms_paretochart <- function(
 ) {
   ds <- x$data_series
   n <- nrow(ds)
-  cat_col <- x$x
-  val_col <- x$y
+  # data_series has a fixed layout: col 1 = category, col 2 = value.
+  # Access by position so that user column names (e.g. x named "count") cannot
+  # collide with the synthesized value column. x$y stays as the display label.
   row1 <- 2L
   row2 <- n + 1L
 
   cat_dim <- paste0(
     "<cx:strDim type=\"cat\">",
     sprintf("<cx:f>%s</cx:f>", cx_range(sheetname, "A", row1, row2)),
-    cx_str_lvl(ds[[cat_col]]),
+    cx_str_lvl(ds[[1L]]),
     "</cx:strDim>"
   )
   val_dim <- paste0(
     "<cx:numDim type=\"val\">",
     sprintf("<cx:f>%s</cx:f>", cx_range(sheetname, "B", row1, row2)),
-    cx_num_lvl(ds[[val_col]], format_code = "Standard"),
+    cx_num_lvl(ds[[2L]], format_code = "Standard"),
     "</cx:numDim>"
   )
 
@@ -136,7 +141,7 @@ format.ms_paretochart <- function(
     ),
     "<cx:tx><cx:txData>",
     sprintf("<cx:f>%s</cx:f>", cx_cell(sheetname, "B", 1L)),
-    sprintf("<cx:v>%s</cx:v>", htmltools::htmlEscape(val_col)),
+    sprintf("<cx:v>%s</cx:v>", htmltools::htmlEscape(x$y)),
     "</cx:txData></cx:tx>",
     fill$spPr,
     fill$dataPts,
