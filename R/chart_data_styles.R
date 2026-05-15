@@ -204,7 +204,7 @@ chart_data_fill.default <- function(x, values, update_stroke = TRUE) {
 
   if (isTRUE(update_stroke)) {
     current <- x$series_settings$colour[names(values)]
-    to_update <- names(values)[current != "transparent"]
+    to_update <- names(values)[!is.na(current) & current != "transparent"]
     if (length(to_update) > 0) {
       x$series_settings$colour[to_update] <- values[to_update]
     }
