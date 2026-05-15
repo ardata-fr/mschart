@@ -97,7 +97,7 @@ to_pml.labels_options <- function(
     sprintf("<c:showSerName val=\"%.0f\"/>", as.integer(x$show_serie_name)),
     sprintf("<c:showPercent val=\"%.0f\"/>", x$show_percent),
     sprintf("<c:showBubbleSize val=\"%.0f\"/>", FALSE),
-    sprintf("<c:separator val=\"%s\"/>", x$separator),
+    sprintf("<c:separator val=\"%s\"/>", htmlEscape(x$separator, attribute = TRUE)),
     if (show_label) {
       paste0(
         "<c:extLst>",

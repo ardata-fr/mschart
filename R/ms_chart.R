@@ -836,7 +836,7 @@ ms_chart <- function(
   }
   if (!is.null(labels)) {
     labs <- labels[!labels %in% names(data)]
-    if (!(all(labs))) {
+    if (length(labs)) {
       stop(
         "column(s) ",
         paste(shQuote(labs), collapse = ", "),
