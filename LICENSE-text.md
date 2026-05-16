@@ -1,0 +1,4 @@
+# License
+
+    YEAR: 2017-2021
+    COPYRIGHT HOLDER: ArData
