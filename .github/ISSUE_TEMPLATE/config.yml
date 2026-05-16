@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage question (not a bug)
+    url: https://stackoverflow.com/questions/tagged/r
+    about: For "how do I do X with mschart", please use Stack Overflow with the [R] tag.
+  - name: Documentation
+    url: https://ardata-fr.github.io/mschart/
+    about: The documentation covers most common use cases.

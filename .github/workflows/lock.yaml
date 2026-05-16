@@ -1,0 +1,25 @@
+name: 'Lock threads'
+
+on:
+  schedule:
+    # chaque semaine le jeudi a 4 AM
+    - cron: '0 4 * * 4'
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dessant/lock-threads@v5
+        with:
+          github-token: ${{ github.token }}
+          issue-inactive-days: '180'
+          issue-comment: >
+            This old thread has been automatically locked. If you think you have
+            found something related to this, please open a new issue and link to this
+            old issue if necessary.
+          issue-lock-reason: 'resolved'
+          pr-inactive-days: '180'
