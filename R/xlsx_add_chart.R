@@ -143,7 +143,7 @@ sheet_add_drawing.ms_chart <- function(
   if (length(existing_charts) == 0L) {
     chart_name <- "chart1.xml"
   } else {
-    nums <- as.integer(gsub("\\D", "", existing_charts))
+    nums <- as.integer(sub("^chart([0-9]+)\\.xml$", "\\1", existing_charts))
     chart_name <- sprintf("chart%d.xml", max(nums) + 1L)
   }
 

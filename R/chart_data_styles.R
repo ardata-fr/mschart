@@ -222,6 +222,9 @@ chart_data_fill.ms_chart_ex <- function(x, values, update_stroke = TRUE) {
   if (!is.character(values)) {
     stop("values must be a character vector of colors", call. = FALSE)
   }
+  if (anyNA(values) || any(!nzchar(values))) {
+    stop("values must not contain NA or empty strings", call. = FALSE)
+  }
   # Validate every color now so we fail fast.
   for (v in values) {
     cx_color_hex(v)
@@ -327,6 +330,9 @@ chart_data_stroke.ms_chart_ex <- function(x, values, width = 0.75, ...) {
   }
   if (!is.character(values)) {
     stop("values must be a character vector of colors", call. = FALSE)
+  }
+  if (anyNA(values) || any(!nzchar(values))) {
+    stop("values must not contain NA or empty strings", call. = FALSE)
   }
   for (v in values) {
     cx_color_hex(v)

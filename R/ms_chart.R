@@ -1211,7 +1211,7 @@ format.ms_chart <- function(
           rot = x$secondary[[sec]]$theme$title_y_rot
         )
 
-        x_axis_str <- sprintf(
+        sec_y_xml <- sprintf(
           "<%s>%s</%s>",
           x$secondary[[sec]]$axis_tag$y,
           axis_l_str,
@@ -1226,7 +1226,7 @@ format.ms_chart <- function(
           is_x = TRUE,
           lab = xlab
         )
-        y_axis_str <- sprintf(
+        sec_x_xml <- sprintf(
           "<%s>%s</%s>",
           x$secondary[[sec]]$axis_tag$x,
           axis_r_str,
@@ -1235,7 +1235,7 @@ format.ms_chart <- function(
 
         secondary <- FALSE
 
-        axis_str <- paste0(axis_str, x_axis_str, y_axis_str)
+        axis_str <- paste0(axis_str, sec_y_xml, sec_x_xml)
       }
 
       # all secondary charts

@@ -104,9 +104,23 @@ cx_render_series_fill <- function(x) {
   list(spPr = "", dataPts = paste0(pts, collapse = ""))
 }
 
+# Local duplicates of officer's internal hex_color() / is_transparent().
+hex_color <- function(color) {
+  rgba <- as.vector(grDevices::col2rgb(color, alpha = TRUE)) / c(1, 1, 1, 255)
+  sprintf("%02X%02X%02X", rgba[1], rgba[2], rgba[3])
+}
+
+is_transparent <- function(color) {
+  if (identical(color, "transparent")) {
+    return(TRUE)
+  }
+  alpha <- as.vector(grDevices::col2rgb(color, alpha = TRUE))[4] / 255
+  alpha <= 0
+}
+
 # Normalize a color (named, "#RRGGBB", "RRGGBB", NA, NULL, "transparent")
-# to uppercase 6-digit hex without "#". Returns NULL if not renderable.
-# Used by chart_data_fill to store a canonical per-point fill vector.
+# to uppercase 6-digit hex without "#". Returns NULL for NULL/NA/empty/
+# transparent inputs. Errors on unparseable color strings.
 cx_color_hex <- function(color) {
   if (is.null(color) || length(color) == 0L) {
     return(NULL)
@@ -120,11 +134,14 @@ cx_color_hex <- function(color) {
   if (grepl("^[0-9A-Fa-f]{6}$", color)) {
     color <- paste0("#", color)
   }
-  rgb <- tryCatch(grDevices::col2rgb(color), error = function(e) NULL)
-  if (is.null(rgb)) {
+  hex <- tryCatch(hex_color(color), error = function(e) NULL)
+  if (is.null(hex)) {
     stop("invalid color: ", shQuote(color), call. = FALSE)
   }
-  toupper(sprintf("%02X%02X%02X", rgb[1, 1], rgb[2, 1], rgb[3, 1]))
+  if (is_transparent(color)) {
+    return(NULL)
+  }
+  toupper(hex)
 }
 
 # --- Solid fill / line wrappers (delegate to officer) ---------------------
