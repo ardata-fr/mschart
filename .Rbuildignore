@@ -8,6 +8,7 @@
 ^revdep$
 ^\.github$
 ^inst/mediasrc$
+^inst/dev-examples$
 ^\.positai$
 ^\.claude$
 ^inst/data-src$

@@ -2,7 +2,7 @@ Type: Package
 Package: mschart
 Title: Chart Generation for 'Microsoft Word', 'Microsoft Excel' and
     'Microsoft PowerPoint' Documents
-Version: 0.5.0.007
+Version: 0.5.0
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("ArData", role = "cph"),
@@ -45,7 +45,6 @@ Imports:
     utils,
     writexl,
     xml2 (>= 1.1.0)
-Remotes: davidgohel/officer
 Suggests:
     doconv (>= 0.4.0),
     testthat (>= 3.0.0)
