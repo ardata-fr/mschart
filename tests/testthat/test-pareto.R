@@ -73,7 +73,7 @@ test_that("ms_paretochart end-to-end pptx", {
   expect_true(file.exists(out))
 })
 
-test_that("paretoLine series carries an <a:ln> by default (accent5)", {
+test_that("paretoLine series carries an <a:ln> by default (accent2)", {
   pa <- ms_paretochart(
     data.frame(x = c("A", "B"), y = c(2, 1)),
     x = "x", y = "y", aggregate = FALSE
@@ -89,7 +89,7 @@ test_that("paretoLine series carries an <a:ln> by default (accent5)", {
   expect_false(inherits(ln, "xml_missing"))
   expect_equal(xml2::xml_attr(ln, "w"), "12700")
   scheme <- xml2::xml_find_first(ln, ".//a:schemeClr", ns)
-  expect_equal(xml2::xml_attr(scheme, "val"), "accent5")
+  expect_equal(xml2::xml_attr(scheme, "val"), "accent2")
 })
 
 test_that("chart_settings(line = fp_border) overrides the pareto line", {

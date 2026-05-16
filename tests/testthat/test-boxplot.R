@@ -62,7 +62,7 @@ test_that("ms_boxplotchart end-to-end pptx", {
   expect_true(file.exists(out))
 })
 
-test_that("boxplot series carries an <a:ln> by default (accent5)", {
+test_that("boxplot series carries an <a:ln> by default (accent2)", {
   set.seed(1)
   bd <- data.frame(g = rep(c("A","B"), each = 10), v = rnorm(20))
   ms <- ms_boxplotchart(bd, x = "g", y = "v")
@@ -77,7 +77,7 @@ test_that("boxplot series carries an <a:ln> by default (accent5)", {
   expect_false(inherits(ln, "xml_missing"))
   expect_equal(xml2::xml_attr(ln, "w"), "12700")
   scheme <- xml2::xml_find_first(ln, ".//a:schemeClr", ns)
-  expect_equal(xml2::xml_attr(scheme, "val"), "accent5")
+  expect_equal(xml2::xml_attr(scheme, "val"), "accent2")
 })
 
 test_that("chart_settings(line = fp_border) overrides the boxplot stroke", {

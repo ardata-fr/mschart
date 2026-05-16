@@ -452,7 +452,7 @@ cx_rich_text <- function(text, fp = NULL, align = "ctr") {
 # cumulative line of pareto charts and the whisker/median/mean strokes
 # of boxplot charts. Without this override Excel resolves the
 # chartstyle phClr placeholder to an invisible color.
-#   NULL        -> use scheme accent5 (matches Excel-native defaults)
+#   NULL        -> use scheme accent2 (matches Excel-native defaults)
 #   FALSE       -> no spPr (lines left to chartstyle, fragile)
 #   fp_border() -> convert via officer's ooxml_fp_border
 cx_default_line_spPr <- function(line) {
@@ -462,7 +462,7 @@ cx_default_line_spPr <- function(line) {
   if (is.null(line)) {
     return(paste0(
       "<cx:spPr><a:ln w=\"12700\">",
-      "<a:solidFill><a:schemeClr val=\"accent5\"/></a:solidFill>",
+      "<a:solidFill><a:schemeClr val=\"accent2\"/></a:solidFill>",
       "</a:ln></cx:spPr>"
     ))
   }

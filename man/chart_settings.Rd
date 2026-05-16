@@ -99,7 +99,7 @@ Set to \code{FALSE} to hide them.}
 values above 0 produce a doughnut chart.}
 
 \item{line}{stroke for the cumulative percentage line. One of:
-\code{NULL} (default, matches Excel-native: theme \code{accent5} colour
+\code{NULL} (default, matches Excel-native: theme \code{accent2} colour
 scaled to chart palette), \code{FALSE} to suppress the line override
 (line then depends on the chartstyle sidecar and may render as
 invisible), or an \code{\link[officer:fp_border]{officer::fp_border()}}.}
