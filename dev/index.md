@@ -3,7 +3,9 @@
 [![R build
 status](https://github.com/ardata-fr/mschart/workflows/R-CMD-check/badge.svg)](https://github.com/ardata-fr/mschart/actions)
 [![version](https://www.r-pkg.org/badges/version/mschart)](https://CRAN.R-project.org/package=mschart)
-![cranlogs](https://cranlogs.r-pkg.org/badges/mschart)![Active](http://www.repostatus.org/badges/latest/active.svg)
+[![test
+coverage](https://codecov.io/gh/ardata-fr/mschart/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ardata-fr/mschart)
+![Active](https://www.repostatus.org/badges/latest/active.svg)
 
 The `mschart` package provides a framework for easily creating charts
 for ‘Microsoft PowerPoint’ presentations, ‘Microsoft Word’ documents and
