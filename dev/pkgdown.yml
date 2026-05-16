@@ -2,7 +2,7 @@ pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2026-05-16T07:59Z
+last_built: 2026-05-16T09:00Z
 urls:
   reference: https://ardata-fr.github.io/mschart/reference
   article: https://ardata-fr.github.io/mschart/articles

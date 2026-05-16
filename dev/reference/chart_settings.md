@@ -143,7 +143,7 @@ chart_settings(x, line, ...)
 - line:
 
   stroke for the cumulative percentage line. One of: `NULL` (default,
-  matches Excel-native: theme `accent5` colour scaled to chart palette),
+  matches Excel-native: theme `accent2` colour scaled to chart palette),
   `FALSE` to suppress the line override (line then depends on the
   chartstyle sidecar and may render as invisible), or an
   [`officer::fp_border()`](https://davidgohel.github.io/officer/reference/fp_border.html).
