@@ -2,6 +2,8 @@
 
 ## mschart 0.5.0
 
+CRAN release: 2026-05-16
+
 ### Highlights
 
 - Seven new chart types built on Office’s chartEx family (Office 2016+):

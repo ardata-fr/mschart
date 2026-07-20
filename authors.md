@@ -36,12 +36,12 @@ Source:
 
 Gohel D (2026). *mschart: Chart Generation for 'Microsoft Word',
 'Microsoft Excel' and 'Microsoft PowerPoint' Documents*. R package
-version 0.5.0, <https://ardata-fr.github.io/officeverse/>.
+version 0.5.1, <https://ardata-fr.github.io/officeverse/>.
 
     @Manual{,
       title = {mschart: Chart Generation for 'Microsoft Word', 'Microsoft Excel' and 'Microsoft PowerPoint' Documents},
       author = {David Gohel},
       year = {2026},
-      note = {R package version 0.5.0},
+      note = {R package version 0.5.1},
       url = {https://ardata-fr.github.io/officeverse/},
     }
